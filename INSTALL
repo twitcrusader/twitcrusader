@@ -1,7 +1,7 @@
 [Download Libs]
 apt-get install libgtk2.0 libgtk2.0-dev liboauth libcurl-ocaml-dev
 
-[Compile]
+[Compile] 
 gcc -Wall -lssl -loauth -o twcrusader twcrusader.c `pkg-config --cflags --libs gtk+-2.0`
 
 [Geany IDE - Compile Setting]
