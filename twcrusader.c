@@ -2,11 +2,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include <oauth.h>
-//apt-get install libgtk2.0 libgtk2.0-dev
-//gcc -Wall -o "%e" "%f" `pkg-config --cflags --libs gtk+-2.0`
-//per quanto riguarda la libreria oauth.h dovete compilare il sorgente /opensource/liboauth-0.9.1 eseguendo i 3 comandi ./configure | make | make install 
-//la libreria mancante libcurl su debian si installa facendo «apt-get install libcurl-ocaml-dev»
- 
+
 //Update statusbar
 void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar)
 {
