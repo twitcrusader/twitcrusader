@@ -1,0 +1,16 @@
+[Download Libs]
+apt-get install libgtk2.0 libgtk2.0-dev liboauth libcurl-ocaml-dev
+
+[Compile]
+gcc -Wall -o twcrusader twcrusader.c `pkg-config --cflags --libs gtk+-2.0`
+
+[Geany IDE - Compile Setting]
+1) Choose more build actions
+2) Set build menu commands
+3) gcc -Wall -o "%e" "%f"  `pkg-config --cflags --libs gtk+-2.0`
+
+[Other Libs To Compile: liboauth]
+For oauth.h (liboauth) compile source /opensource/liboauth-0.9.1 
+1) ./configure 
+2) make 
+3 make install 
