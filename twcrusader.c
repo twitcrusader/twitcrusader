@@ -6,32 +6,37 @@
 #include <oauth.h>
 
 //Richiesta twitter
-char* request_token(const char *c_key, const char *c_secret)
+char* request_token(const char* c_key, const char* c_secret)
 {
-	char *req_url = NULL, 
-		 *postarg = NULL, 
-		 *reply = NULL;
-	const char *request_token_uri = "https://api.twitter.com/oauth/request_token";
-	c_key         = "XXXXXXXXXXXXXXXX"; //< consumer key TwitCrusader
-	c_secret      = "XXXXXXXXXXXXXXXX"; //< consumer secret TwitCrusader
-	req_url = oauth_sign_url2(request_token_uri, NULL, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
-	reply = oauth_http_get(req_url,postarg);
-	return reply;
+        const char *req_url = NULL; 
+        const char *postarg = NULL;
+        char *reply = NULL;
+
+        const char *request_token_uri = "https://api.twitter.com/oauth/request_token";
+
+        req_url = oauth_sign_url2(request_token_uri, NULL, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
+        reply = oauth_http_get(req_url,postarg);
+        return reply;
 }
 
 //Request PIN
 int oauth_start()
 {
-	char *tw_url, *oauth_url, *token_url; 
-    const char c_key, c_secret;
-    
-	tw_url = "xdg-open http://twitter.com/oauth/authorize?";
-	token_url = request_token(&c_key,&c_secret);
-	oauth_url = malloc(sizeof(tw_url)+sizeof(token_url));
-	sprintf(oauth_url,"%s%s",tw_url,token_url);
-	system(oauth_url);
-	
-	return 0;
+        const char *c_key    = "XXXXXXXXXXXXXXXXXXXXXXXXXX";
+        const char *c_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXX";
+
+        const char *tw_url = "xdg-open http://twitter.com/oauth/authorize?";
+        const char *token_url = request_token(c_key, c_secret);
+
+		char *oauth_url = malloc(strlen(tw_url) + strlen(token_url) + 1);
+		if (oauth_url != NULL )
+		{
+		 strcpy(oauth_url, tw_url);
+		 strcat(oauth_url, token_url);
+		}
+        system(oauth_url);
+        
+        return 0;
 }
 
 //Update statusbar
