@@ -1,7 +1,38 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <oauth.h>
+
+//Richiesta twitter
+char* request_token(const char *c_key, const char *c_secret)
+{
+	char *req_url = NULL, 
+		 *postarg = NULL, 
+		 *reply = NULL;
+	const char *request_token_uri = "https://api.twitter.com/oauth/request_token";
+	c_key         = "XXXXXXXXXXXXXXXX"; //< consumer key TwitCrusader
+	c_secret      = "XXXXXXXXXXXXXXXX"; //< consumer secret TwitCrusader
+	req_url = oauth_sign_url2(request_token_uri, NULL, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
+	reply = oauth_http_get(req_url,postarg);
+	return reply;
+}
+
+//Request PIN
+int oauth_start()
+{
+	char *tw_url, *oauth_url, *token_url; 
+    const char c_key, c_secret;
+    
+	tw_url = "xdg-open http://twitter.com/oauth/authorize?";
+	token_url = request_token(&c_key,&c_secret);
+	oauth_url = malloc(sizeof(tw_url)+sizeof(token_url));
+	sprintf(oauth_url,"%s%s",tw_url,token_url);
+	system(oauth_url);
+	
+	return 0;
+}
 
 //Update statusbar
 void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar)
@@ -54,7 +85,7 @@ void windows_about()
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), ""); 
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: Nightly Layout Testing");
-	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://twcrusader.ptkdev.it/");
+	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	
 	// Setto logo
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
@@ -85,9 +116,9 @@ void windows_adduser()
 	
 	// Dichiaro finestra
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 310, 200);
-	gtk_widget_set_size_request (window, 310, 200);
-	gtk_window_set_title (GTK_WINDOW(window), "New User");
+	gtk_window_set_default_size (GTK_WINDOW(window), 310, 280);
+	gtk_widget_set_size_request (window, 310, 280);
+	gtk_window_set_title (GTK_WINDOW(window), "Nuovo Utente");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
@@ -95,45 +126,46 @@ void windows_adduser()
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), "./bin/img/add_user.png", &error);
 
 	// Dichiaro autenticazione
-	 table = gtk_table_new (7, 10, TRUE);
-	 gtk_container_add (GTK_CONTAINER (window), table);
+	 table = gtk_table_new (12, 10, TRUE);
 	 
-	 label = gtk_label_new ("Twitter NickName:");
+	 label = gtk_label_new ("UserName Twitter (Senza @):");
 	 gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	 entry_nick = gtk_entry_new ();
 	 gtk_entry_set_text (GTK_ENTRY (entry_nick), "");
 	 
 	 gtk_table_attach (GTK_TABLE (table), label, 1, 9,
-						0, 1, GTK_FILL | GTK_EXPAND,
-						 GTK_FILL | GTK_EXPAND, 0, 0);
-	 gtk_table_attach (GTK_TABLE (table), entry_nick, 1, 9,
 						1, 2, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
-						 
-	 label = gtk_label_new ("Codice oAUTH:");
+	 gtk_table_attach (GTK_TABLE (table), entry_nick, 1, 9,
+						2, 3, GTK_FILL | GTK_EXPAND,
+						 GTK_FILL | GTK_EXPAND, 0, 0);	 
+	 
+	 button = gtk_button_new_with_label ("Ottieni Autorizzazione (PIN)");
+	 g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(oauth_start), NULL);
+	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
+						4, 5, GTK_FILL | GTK_EXPAND,
+						 GTK_FILL | GTK_EXPAND, 0, 0);
+	 					 
+	 label = gtk_label_new ("Inserisci PIN");
 	 gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	 entry_api = gtk_entry_new ();
 	 gtk_entry_set_text (GTK_ENTRY (entry_api), "");
 	 
 	 gtk_table_attach (GTK_TABLE (table), label, 1, 9,
-						2, 3, GTK_FILL | GTK_EXPAND,
+						6, 7, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
 	 gtk_table_attach (GTK_TABLE (table), entry_api, 1, 9,
-						3, 4, GTK_FILL | GTK_EXPAND,
+						7, 8, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
 						 
-	
-	 button = gtk_button_new_with_label ("Ottieni codice oAUTH");
+	 button = gtk_button_new_with_label ("Crea Account");
 	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
-						5, 6, GTK_FILL | GTK_EXPAND,
+						9, 11, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
-	
-	gtk_container_add (GTK_CONTAINER (window), table);
-		 
+	gtk_container_add (GTK_CONTAINER (window), table); 
+	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	//Eventi Di Chiusura
-	g_signal_connect (G_OBJECT (window), "delete_event", FALSE, NULL);
 	gtk_widget_show_all (window);
-
 }
 
 // Setting
@@ -147,7 +179,7 @@ void windows_setting()
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 310, 300);
 	gtk_widget_set_size_request (window, 310, 300);
-	gtk_window_set_title (GTK_WINDOW(window), "Setting");
+	gtk_window_set_title (GTK_WINDOW(window), "Opzioni");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
@@ -181,7 +213,7 @@ void windows_setting()
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 					 
 	
-	 button = gtk_button_new_with_label ("SALVA");
+	 button = gtk_button_new_with_label ("Salva");
 	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
 						5, 6, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
@@ -248,7 +280,7 @@ void windows_setting()
 					7, 8, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);	
 					 			 
-	 button = gtk_button_new_with_label ("SALVA");
+	 button = gtk_button_new_with_label ("Salva");
 	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
 						9, 10, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
@@ -288,7 +320,7 @@ void windows_setting()
 					3, 4, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 					 
-	 button = gtk_button_new_with_label ("SALVA");
+	 button = gtk_button_new_with_label ("Salva");
 	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
 						5, 6, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
@@ -335,7 +367,7 @@ void windows_setting()
 					3, 4, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 					 
-	 button = gtk_button_new_with_label ("SALVA");
+	 button = gtk_button_new_with_label ("Salva");
 	 gtk_table_attach (GTK_TABLE (table), button, 1, 9,
 						5, 6, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
@@ -345,7 +377,7 @@ void windows_setting()
 	
 	gtk_container_add (GTK_CONTAINER (window), notebook);
 	//Eventi Di Chiusura
-	g_signal_connect (G_OBJECT (window), "delete_event", FALSE, NULL);
+	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (window);
 
 }
@@ -387,21 +419,21 @@ int main(int argc, char *argv[])
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/buttons_have_icons true
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 *  */
-	file_menu_items = gtk_image_menu_item_new_with_label("New User");   
+	file_menu_items = gtk_image_menu_item_new_with_label("Nuovo Utente");   
     icon_menu = import_img("./bin/img/add_user.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_adduser), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
-    file_menu_items = gtk_image_menu_item_new_with_label("Setting");   
+    file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");   
     icon_menu = import_img("./bin/img/setting.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
-    file_menu_items = gtk_image_menu_item_new_with_label("Exit");
+    file_menu_items = gtk_image_menu_item_new_with_label("Esci");
     icon_menu = import_img("./bin/img/close.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
@@ -412,7 +444,7 @@ int main(int argc, char *argv[])
     gtk_menu_item_set_submenu(GTK_MENU_ITEM (file_menu_root), file_menu_obj);
     
     // SubMenu Aiuto
-    aiuto_menu_items = gtk_image_menu_item_new_with_label("About");
+    aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
     icon_menu = import_img("./bin/img/star.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), menuImage);
@@ -420,7 +452,7 @@ int main(int argc, char *argv[])
     gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
     
     
-    aiuto_menu_root = gtk_menu_item_new_with_label("Help");
+    aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
     gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
 
 	// Creo Box Degli Elementi
