@@ -1,16 +1,36 @@
-[Download Libs]
-apt-get install libgtk2.0 libgtk2.0-dev liboauth libcurl-ocaml-dev
+/**
+ * Ubuntu/Debian Essential Packages (libs)
+ */
+apt-get update
+apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev
 
-[Compile] 
+And compile source at folder /opensource/liboauth-0.9.1 
+1) ./configure 
+2) make 
+3) make install 
+
+
+
+/**
+ * Archlinux Essential Packages (libs)
+ */
+pacman -Syu
+pacman -S base-devel liboauth curl openssl
+
+
+
+/**
+ * Compile
+ */ 
 gcc -Wall -lssl -loauth -o twcrusader twcrusader.c `pkg-config --cflags --libs gtk+-2.0`
 
-[Geany IDE - Compile Setting]
+
+
+/**
+ * Compile (With Geany IDE)
+ */
 1) Choose more build actions
 2) Set build menu commands
 3) gcc -Wall -lssl -loauth -o "%e" "%f"  `pkg-config --cflags --libs gtk+-2.0`
 
-[Other Libs To Compile: liboauth]
-For oauth.h (liboauth) compile source /opensource/liboauth-0.9.1 
-1) ./configure 
-2) make 
-3) make install 
+
