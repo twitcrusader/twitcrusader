@@ -6,6 +6,30 @@
 #include <oauth.h>
 
 //Richiesta twitter
+char* access_token(const gchar *pin)
+{
+        const char *req_url = NULL; 
+        const char *c_key    = "df4eyJjVngL2HWtaS8GcQ";
+        const char *c_secret = "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
+        char *access_token_uri = "http://api.twitter.com/oauth/access_token?";
+		char *pin_parm = "oauth_verifier=";	
+		char *url_pin= NULL;	
+		char *pin_url = malloc(strlen(pin_parm) + strlen(pin) + 1);
+		if (pin_url != NULL )
+		{
+		 strcpy(pin_url, pin_parm);
+		 strcat(pin_url, pin);
+		}
+
+        req_url = oauth_sign_url2(access_token_uri, &pin_url, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
+        printf(req_url);
+        url_pin = oauth_http_post(req_url,pin_url);
+		printf(url_pin);
+		
+        return url_pin;
+}
+
+//Richiesta twitter
 char* request_token(const char* c_key, const char* c_secret)
 {
         const char *req_url = NULL; 
@@ -22,8 +46,8 @@ char* request_token(const char* c_key, const char* c_secret)
 //Request PIN
 int oauth_start()
 {
-        const char *c_key    = "XXXXXXXXXXXXXXXXXXXXXXXXXX";
-        const char *c_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXX";
+        const char *c_key    = "df4eyJjVngL2HWtaS8GcQ";
+        const char *c_secret = "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
 
         const char *tw_url = "xdg-open http://twitter.com/oauth/authorize?";
         const char *token_url = request_token(c_key, c_secret);
@@ -155,7 +179,7 @@ void windows_adduser()
 	 gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	 entry_api = gtk_entry_new ();
 	 gtk_entry_set_text (GTK_ENTRY (entry_api), "");
-	 
+
 	 gtk_table_attach (GTK_TABLE (table), label, 1, 9,
 						6, 7, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
@@ -168,6 +192,7 @@ void windows_adduser()
 						9, 11, GTK_FILL | GTK_EXPAND,
 						 GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_container_add (GTK_CONTAINER (window), table); 
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token), (gpointer)gtk_entry_get_text (GTK_ENTRY (entry_nick)));
 	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	//Eventi Di Chiusura
 	gtk_widget_show_all (window);
