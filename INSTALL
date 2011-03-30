@@ -4,7 +4,7 @@
 apt-get update
 apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev
 
-And compile source at folder /opensource/liboauth-0.9.1 
+And compile source of «liboauth» at zip file /opensource/liboauth-0.9.4.tar.gz
 1) ./configure 
 2) make 
 3) make install 
