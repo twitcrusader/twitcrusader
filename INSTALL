@@ -22,7 +22,7 @@ pacman -S base-devel liboauth curl openssl
 /**
  * Compile
  */ 
-gcc -Wall -lssl -loauth -o twcrusader twcrusader.c `pkg-config --cflags --libs gtk+-2.0`
+gcc -Wall -lssl -loauth -o twc twc.c `pkg-config --cflags --libs gtk+-2.0`
 
 
 
