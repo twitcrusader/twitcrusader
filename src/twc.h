@@ -20,3 +20,9 @@
 *		Twitter: @ptkdev / @twitcrusader_en
 *		WebSite: http://www.twitcrusader.org
 */
+
+char* access_token(const gchar*);
+
+char* request_token(const char*, const char*);
+
+int oauth_start();

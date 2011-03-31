@@ -70,12 +70,12 @@ GdkPixbuf* import_img(char* filename)
 void windows_about()
 {
 	// Inizializzazioni
-	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("./bin/img/tw_about.png", NULL);
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("../img/tw_about.png", NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
 	GError *error = NULL;
 	
 	// Imposto favicon in alto a sinitra nella finestra
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "./bin/img/star.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "../img/star.png", &error);
 	
 	// Setto le informazioni dell'applicazione
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
@@ -120,7 +120,7 @@ void windows_adduser()
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// Dichiaro finestra: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "./bin/img/add_user.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/add_user.png", &error);
 
 	// Dichiaro autenticazione
 	 table = gtk_table_new (12, 10, TRUE);
@@ -182,7 +182,7 @@ void windows_setting()
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// Dichiaro finestra: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "./bin/img/setting.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/setting.png", &error);
 	
 	// Inizializziamo il nostro oggetto notebook.
 	notebook = gtk_notebook_new ();
@@ -401,7 +401,7 @@ int main(int argc, char *argv[])
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// Dichiaro finestra: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "./bin/img/favicon.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/favicon.png", &error);
 	
 	// Evento chiusura del processo alla chiusura
 	g_signal_connect (G_OBJECT (window), "delete_event",
@@ -418,21 +418,21 @@ int main(int argc, char *argv[])
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 *  */
 	file_menu_items = gtk_image_menu_item_new_with_label("Nuovo Utente");   
-    icon_menu = import_img("./bin/img/add_user.png");
+    icon_menu = import_img("../img/add_user.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_adduser), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");   
-    icon_menu = import_img("./bin/img/setting.png");
+    icon_menu = import_img("../img/setting.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Esci");
-    icon_menu = import_img("./bin/img/close.png");
+    icon_menu = import_img("../img/close.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
@@ -443,7 +443,7 @@ int main(int argc, char *argv[])
     
     // SubMenu Aiuto
     aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
-    icon_menu = import_img("./bin/img/star.png");
+    icon_menu = import_img("../img/star.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), menuImage);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_about), NULL);
@@ -475,43 +475,43 @@ int main(int argc, char *argv[])
 
 	// Bottoni Menu Secondario
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/home.png");
+	icon_menu = import_img("../img/home.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/update.png");
+	icon_menu = import_img("../img/update.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/mention.png");
+	icon_menu = import_img("../img/mention.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/dm.png");
+	icon_menu = import_img("../img/dm.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/favorites.png");
+	icon_menu = import_img("../img/favorites.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/link.png");
+	icon_menu = import_img("../img/link.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("./bin/img/photo.png");
+	icon_menu = import_img("../img/photo.png");
 	menuImage = gtk_image_new_from_pixbuf (icon_menu);
 	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
@@ -535,7 +535,7 @@ int main(int argc, char *argv[])
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
     for ( rows = 0; rows < 40; rows = rows + 4 ) {
        for ( cols = 0; cols < 3; cols++ ) {
-            avatarpixbuf = gdk_pixbuf_new_from_file ("./bin/img/tw_about.png", &error);
+            avatarpixbuf = gdk_pixbuf_new_from_file ("../img/tw_about.png", &error);
 		   	avatar = gtk_image_new_from_pixbuf (avatarpixbuf);
 		   	tweet = gtk_label_new (" TEXT TEXT TEXT TEXT TEXT ");
 		   	gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
