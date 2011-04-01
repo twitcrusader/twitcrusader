@@ -4,10 +4,8 @@
 apt-get update
 apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev
 
-And compile source of «liboauth» at zip file /opensource/liboauth-0.9.4.tar.gz
-1) ./configure 
-2) make 
-3) make install 
+And install liboauth from:
+http://ftp.debian.org/debian/pool/main/libo/liboauth/liboauth0_0.9.4-1_i386.deb
 
 
 
@@ -32,5 +30,7 @@ gcc -Wall -lssl -loauth -o twc twc.c oauth.c `pkg-config --cflags --libs gtk+-2.
 1) Choose more build actions
 2) Set build menu commands
 3) gcc -Wall -lssl -loauth -o "%e" "%f"  `pkg-config --cflags --libs gtk+-2.0`
+
+
 
 
