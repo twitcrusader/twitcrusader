@@ -7,6 +7,11 @@ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl
 And install liboauth from:
 http://ftp.debian.org/debian/pool/main/libo/liboauth/liboauth0_0.9.4-1_i386.deb
 
+...Or compile source of «liboauth» form zip file /opensource/liboauth-0.9.4.tar.gz
+1) ./configure 
+2) make 
+3) make install 
+
 
 
 /**
