@@ -25,7 +25,7 @@ pacman -S base-devel liboauth curl openssl
 /**
  * Compile
  */ 
-gcc -Wall -lssl -loauth -o twc twc.c oauth.c `pkg-config --cflags --libs gtk+-2.0`
+gcc -Wall -lssl -loauth -o twc twc.c oauth.c credits.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0`
 
 
 
