@@ -51,9 +51,9 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	const char *c_key    = twitter_key();
 	const char *c_secret = twitter_key_secret();
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
-	char *access_token_uri = "http://api.twitter.com/oauth/access_token?";
-	char *pin_parm = "oauth_verifier=";	
-	char *url_pin = NULL;	
+	char *access_token_uri = "http://api.twitter.com/oauth/access_token";
+	char *pin_parm = "&oauth_verifier=";	
+	char *oauth_request = NULL;
 
 	char *pin_url = malloc(strlen(pin_parm) + strlen(pin) + 1);
 	if (pin_url != NULL )
@@ -61,11 +61,11 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	 strcpy(pin_url, pin_parm);
 	 strcat(pin_url, pin);
 	}
-
+	
 	req_url = oauth_sign_url2(access_token_uri, &pin_url, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
-	url_pin = oauth_http_post(req_url,pin_url);
+	oauth_request = oauth_http_get(req_url,pin_url);
 
-	return url_pin;
+	return oauth_request;
 }
 
 //Twitter Request Token: Generate URL For PIN
