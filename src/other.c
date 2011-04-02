@@ -21,20 +21,27 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-char* access_token(const gchar*);
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <oauth.h>
 
-char* request_token(const char*, const char*);
+//TwitCrusader Header File
+#include "twc.h"
 
-int oauth_start();
+//GTK PixBuf (Import Images From .png files)
+GdkPixbuf* import_img(char* filename) 
+{
+      GdkPixbuf* tempbuffer=NULL;
+      char temp[200];
+      if (filename) 
+      {
+            sprintf(temp,"%s", filename);
+            tempbuffer= gdk_pixbuf_new_from_file(temp,NULL);
+            return tempbuffer;
+      }
+      else return NULL;
 
-void windows_adduser();
-
-void update_statusbar(GtkTextBuffer*,GtkStatusbar*);
-
-void windows_about();
-
-void switch_page (GtkButton*, GtkNotebook*);
-
-void windows_setting();
-
-GdkPixbuf* import_img(char*);
+}

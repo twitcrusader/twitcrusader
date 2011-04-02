@@ -21,20 +21,32 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-char* access_token(const gchar*);
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <oauth.h>
 
-char* request_token(const char*, const char*);
+//TwitCrusader Header File
+#include "twc.h"
 
-int oauth_start();
+//Update Twitter count(Char input)
+void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar)
+{
+  gchar *msg;
+  gint tot_char;
+  GtkTextIter iter;
 
-void windows_adduser();
+  gtk_statusbar_pop(statusbar, 0); 
 
-void update_statusbar(GtkTextBuffer*,GtkStatusbar*);
+  gtk_text_buffer_get_iter_at_mark(buffer,&iter, gtk_text_buffer_get_insert(buffer));
 
-void windows_about();
+  tot_char = 139 - gtk_text_iter_get_line_offset(&iter);
+  tot_char = tot_char - gtk_text_iter_get_line(&iter);
+  msg = g_strdup_printf("%d", tot_char+1);
 
-void switch_page (GtkButton*, GtkNotebook*);
+  gtk_statusbar_push(statusbar, 0, msg);
 
-void windows_setting();
-
-GdkPixbuf* import_img(char*);
+  g_free(msg);
+}

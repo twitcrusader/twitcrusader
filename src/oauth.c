@@ -31,12 +31,22 @@
 //TwitCrusader Header File
 #include "twc.h"
 
-//Richiesta twitter
+char* twitter_key()
+{
+	return "df4eyJjVngL2HWtaS8GcQ";
+}
+
+char* twitter_key_secret()
+{
+	return "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
+}
+
+//Twitter Access Token: Authorize TwitCrusader
 char* access_token(const gchar *pin)
 {
         const char *req_url = NULL; 
-        const char *c_key    = "df4eyJjVngL2HWtaS8GcQ";
-        const char *c_secret = "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
+        const char *c_key    = twitter_key();
+        const char *c_secret = twitter_key_secret();
         char *access_token_uri = "http://api.twitter.com/oauth/access_token?";
 		char *pin_parm = "oauth_verifier=";	
 		char *url_pin= NULL;	
@@ -55,7 +65,7 @@ char* access_token(const gchar *pin)
         return url_pin;
 }
 
-//Richiesta twitter
+//Twitter Request Token: Generate URL For PIN
 char* request_token(const char* c_key, const char* c_secret)
 {
         const char *req_url = NULL; 
@@ -69,11 +79,11 @@ char* request_token(const char* c_key, const char* c_secret)
         return reply;
 }
 
-//Request PIN
+//Twitter oAuth
 int oauth_start()
 {
-        const char *c_key    = "df4eyJjVngL2HWtaS8GcQ";
-        const char *c_secret = "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
+        const char *c_key    = twitter_key();
+        const char *c_secret = twitter_key_secret();
 
         const char *tw_url = "xdg-open http://twitter.com/oauth/authorize?";
         const char *token_url = request_token(c_key, c_secret);
@@ -87,4 +97,69 @@ int oauth_start()
         system(oauth_url);
         
         return 0;
+}
+
+// New User oAuth Request
+void windows_adduser()
+{
+	// Variables
+	GtkWidget *window, *table, *label, *entry_nick, *entry_api, *button;
+	GError *error = NULL;
+	
+	// Standard GTK Windows Declaration
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size (GTK_WINDOW(window), 310, 280);
+	gtk_widget_set_size_request (window, 310, 280);
+	gtk_window_set_title (GTK_WINDOW(window), "Nuovo Utente");
+	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	
+	// GTK Windows Declaration: favicon
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/add_user.png", &error);
+
+	// Table Content Input
+	table = gtk_table_new (12, 10, TRUE);
+
+	label = gtk_label_new ("UserName Twitter (Senza @):");
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	entry_nick = gtk_entry_new ();
+	gtk_entry_set_text (GTK_ENTRY (entry_nick), "");
+
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,
+					1, 2, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), entry_nick, 1, 9,
+					2, 3, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);	 
+
+	button = gtk_button_new_with_label ("Ottieni Autorizzazione (PIN)");
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(oauth_start), NULL);
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,
+					4, 5, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);
+					 
+	label = gtk_label_new ("Inserisci PIN");
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	entry_api = gtk_entry_new ();
+	gtk_entry_set_text (GTK_ENTRY (entry_api), "");
+
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,
+					6, 7, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), entry_api, 1, 9,
+					7, 8, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);
+					 
+	button = gtk_button_new_with_label ("Crea Account");
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,
+					9, 11, GTK_FILL | GTK_EXPAND,
+					 GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_container_add (GTK_CONTAINER (window), table); 
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token), (gpointer)gtk_entry_get_text (GTK_ENTRY (entry_nick)));
+	
+	// CALLBACK: exit event
+	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
+	
+	// Widget Show
+	gtk_widget_show_all (window);
 }
