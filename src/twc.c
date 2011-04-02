@@ -38,8 +38,7 @@ int main(int argc, char *argv[])
 		
 	// Variables
 	GError *error = NULL;
-	GdkPixbuf *icon_menu,*avatarpixbuf;
-	GtkWidget *window,*table,*scroll,*table_into,*tweet,*avatar,*scrolled_window,*menu_bar,*layout,*menuImage,*toolbar,*statusbar,*statusbar_char,*new_button,*text,*file_menu_obj,*file_menu_root,*file_menu_items,*aiuto_menu_obj,*aiuto_menu_root,*aiuto_menu_items;
+	GtkWidget *window,*table,*scroll,*icon_menu,*table_into,*tweet,*avatar,*scrolled_window,*menu_bar,*layout,*toolbar,*statusbar,*statusbar_char,*new_button,*text,*file_menu_obj,*file_menu_root,*file_menu_items,*aiuto_menu_obj,*aiuto_menu_root,*aiuto_menu_items;
 	gint tmp_toolbar_icon_size;
 	GtkTextBuffer *buffer;
 
@@ -69,23 +68,20 @@ int main(int argc, char *argv[])
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 *  */
 	file_menu_items = gtk_image_menu_item_new_with_label("Nuovo Utente");   
-    icon_menu = import_img("../img/add_user.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
+    icon_menu = gtk_image_new_from_file("../img/add_user.png");
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_adduser), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");   
-    icon_menu = import_img("../img/setting.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
+    icon_menu = gtk_image_new_from_file("../img/setting.png");
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Esci");
-    icon_menu = import_img("../img/close.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), menuImage);
+    icon_menu = gtk_image_new_from_file("../img/close.png");
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
@@ -94,9 +90,8 @@ int main(int argc, char *argv[])
     
     // SubMenu: Help
     aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
-    icon_menu = import_img("../img/star.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), menuImage);
+    icon_menu = gtk_image_new_from_file("../img/star.png");
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_about), NULL);
     gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
     
@@ -126,45 +121,38 @@ int main(int argc, char *argv[])
 
 	// Twitter Menu: Buttons
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/home.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/home.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/update.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/update.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/mention.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/mention.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/dm.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/dm.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/favorites.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/favorites.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/link.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/link.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = import_img("../img/photo.png");
-	menuImage = gtk_image_new_from_pixbuf (icon_menu);
-	gtk_button_set_image(GTK_BUTTON(new_button),menuImage);
+	icon_menu = gtk_image_new_from_file("../img/photo.png");
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	// Status Bar: Twitter 140char
@@ -186,8 +174,7 @@ int main(int argc, char *argv[])
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
     for ( rows = 0; rows < 40; rows = rows + 4 ) {
        for ( cols = 0; cols < 3; cols++ ) {
-            avatarpixbuf = gdk_pixbuf_new_from_file ("../img/tw_about.png", &error);
-		   	avatar = gtk_image_new_from_pixbuf (avatarpixbuf);
+            avatar = gtk_image_new_from_file ("../img/tw_about.png");
 		   	tweet = gtk_label_new (" TEXT TEXT TEXT TEXT TEXT ");
 		   	gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
 		   	gtk_label_set_line_wrap_mode (GTK_LABEL(tweet), GTK_WRAP_WORD_CHAR);

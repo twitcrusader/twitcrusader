@@ -21,7 +21,15 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-char* access_token(const gchar*);
+//oAuth Input
+typedef struct
+{       
+	GtkWidget *username;
+	GtkWidget *pin;
+	
+} AuthWidget; 
+
+char* access_token(GtkButton*, AuthWidget *);
 
 char* request_token(const char*, const char*);
 
@@ -36,5 +44,3 @@ void windows_about();
 void switch_page (GtkButton*, GtkNotebook*);
 
 void windows_setting();
-
-GdkPixbuf* import_img(char*);

@@ -30,18 +30,3 @@
 
 //TwitCrusader Header File
 #include "twc.h"
-
-//GTK PixBuf (Import Images From .png files)
-GdkPixbuf* import_img(char* filename) 
-{
-      GdkPixbuf* tempbuffer=NULL;
-      char temp[200];
-      if (filename) 
-      {
-            sprintf(temp,"%s", filename);
-            tempbuffer= gdk_pixbuf_new_from_file(temp,NULL);
-            return tempbuffer;
-      }
-      else return NULL;
-
-}

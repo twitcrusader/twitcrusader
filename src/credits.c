@@ -54,10 +54,10 @@ void windows_about()
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
 	g_object_unref(pixbuf), pixbuf = NULL;
 	
-	// CALLBACK: exit event
-	gtk_widget_destroy(dialog);
-	
 	// Widget Show
 	gtk_dialog_run(GTK_DIALOG (dialog));
+	
+	// CALLBACK: exit event
+	gtk_widget_destroy(dialog);
 
 }
