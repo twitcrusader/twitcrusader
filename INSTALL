@@ -34,7 +34,7 @@ gcc -Wall -lssl -loauth -o twc twc.c oauth.c credits.c other.c setting.c statusb
  */
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -lssl -loauth -o "%e" "%f"  `pkg-config --cflags --libs gtk+-2.0`
+3) gcc -Wall -lssl -loauth -o "%e" "%f" oauth.c credits.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0`
 
 
 
