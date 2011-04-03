@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <oauth.h>
+#include <gdk/gdkkeysyms.h> 
 
 //TwitCrusader Header File
 #include "twc.h"
@@ -38,10 +39,30 @@ int main(int argc, char *argv[])
 		
 	// Variables
 	GError *error = NULL;
-	GtkWidget *window,*table,*scroll,*icon_menu,*table_into,*tweet,*avatar,*scrolled_window,*menu_bar,*layout,*toolbar,*statusbar,*statusbar_char,*new_button,*text,*file_menu_obj,*file_menu_root,*file_menu_items,*aiuto_menu_obj,*aiuto_menu_root,*aiuto_menu_items;
-	gint tmp_toolbar_icon_size;
+	GtkWidget *window,
+			  *table,
+			  *scroll,
+			  *icon_menu,
+			  *table_into,
+			  //*tweet,
+			  //*avatar,
+			  *scrolled_window,
+			  *menu_bar,
+			  *layout,
+			  *toolbar,
+			  *statusbar,
+			  *statusbar_char,
+			  *new_button,
+			  *text,
+			  *file_menu_obj,
+			  *file_menu_root,
+			  *file_menu_items,
+			  *aiuto_menu_obj,
+			  *aiuto_menu_root,
+			  *aiuto_menu_items;
 	GtkTextBuffer *buffer;
-
+	
+	
 	// Standard GTK Windows Declaration
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
@@ -56,7 +77,6 @@ int main(int argc, char *argv[])
 	// CALLBACK: exit event
 	g_signal_connect (G_OBJECT (window), "delete_event",
 					  G_CALLBACK (gtk_main_quit), NULL);
-					  
 	
 	// GTK Widget: Menu
 	file_menu_obj = gtk_menu_new();
@@ -110,14 +130,14 @@ int main(int argc, char *argv[])
 	// Status Bar
     statusbar = gtk_statusbar_new ();
     gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar), TRUE);
-    gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "Status... Offline");
+    gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "TwitCrusader...");
     gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
     
 	// GTK Widget: Twitter Menu
 	toolbar = gtk_toolbar_new ();
 	gtk_box_pack_end (GTK_BOX (layout), toolbar, FALSE, FALSE, 0);
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-	tmp_toolbar_icon_size = gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
+	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
 
 	// Twitter Menu: Buttons
 	new_button = gtk_button_new();
@@ -167,23 +187,23 @@ int main(int argc, char *argv[])
 
 	// Scrolled
 	table_into = gtk_table_new (1, 3, TRUE);
-	int rows, cols;
+	//int rows, cols;
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
-    for ( rows = 0; rows < 40; rows = rows + 4 ) {
+    /*for ( rows = 0; rows < 40; rows = rows + 4 ) {
        for ( cols = 0; cols < 3; cols++ ) {
-            avatar = gtk_image_new_from_file ("../img/tw_about.png");
-		   	tweet = gtk_label_new (" TEXT TEXT TEXT TEXT TEXT ");
+            avatar = gtk_image_new_from_file ("");
+		   	tweet = gtk_label_new ("");
 		   	gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
 		   	gtk_label_set_line_wrap_mode (GTK_LABEL(tweet), GTK_WRAP_WORD_CHAR);
-            gtk_table_attach (GTK_TABLE (table_into ), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+           gtk_table_attach (GTK_TABLE (table_into ), tweet, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
             gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
             tweet = gtk_label_new ("");
             gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
        }
-	}
+	}*/
      
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL); 

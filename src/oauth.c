@@ -20,7 +20,7 @@
 *		Twitter: @ptkdev / @twitcrusader_en
 *		WebSite: http://www.twitcrusader.org
 */
-
+#define _GNU_SOURCE
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <stdlib.h>
@@ -30,7 +30,6 @@
 
 //TwitCrusader Header File
 #include "twc.h"
-
 
 //TwitCrusader - Twitter Key
 char* twitter_key()
@@ -44,60 +43,111 @@ char* twitter_key_secret()
 	return "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
 }
 
+//Parser Url
+char* get_param(char** argv, int argc, const char* param)
+{
+	int i, param_len;
+
+	param_len = strlen(param);
+	for (i = 0; i < argc; i++) {
+		if (!strncmp(argv[i], param, param_len) && strlen(argv[i]) > param_len && argv[i][param_len] == '=')
+			return strdup(&argv[i][param_len + 1]);
+	}
+
+	return 0;
+}
+
 //Twitter Access Token: Authorize TwitCrusader
 char* access_token(GtkButton *button, AuthWidget *DataInput)
 {
 	const char *req_url = NULL; 
-	const char *c_key    = twitter_key();
-	const char *c_secret = twitter_key_secret();
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
-	char *access_token_uri = "http://api.twitter.com/oauth/access_token";
-	char *pin_parm = "&oauth_verifier=";	
+	char *access_token_url = "http://api.twitter.com/oauth/access_token";
 	char *oauth_request = NULL;
-
-	char *pin_url = malloc(strlen(pin_parm) + strlen(pin) + 1);
-	if (pin_url != NULL )
-	{
-	 strcpy(pin_url, pin_parm);
-	 strcat(pin_url, pin);
-	}
+	char *postarg = NULL;
 	
-	req_url = oauth_sign_url2(access_token_uri, &pin_url, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
-	oauth_request = oauth_http_get(req_url,pin_url);
-
+	char buffer[256];
+	FILE *fp;
+	char* t_key =  NULL;
+	char* t_key_secret =  NULL;
+	char* c_key =  NULL;
+	char* c_key_secret = NULL;
+	
+	fp = fopen ("tmp_token", "r");
+	fgets(buffer, 250, fp);
+	int rc;
+	char **rv = NULL;
+	rc = oauth_split_url_parameters(buffer, &rv);
+	t_key = get_param(rv, rc, "oauth_token");
+	t_key_secret = get_param(rv, rc, "oauth_token_secret");
+	c_key = get_param(rv, rc, "c_key");
+	c_key_secret = get_param(rv, rc, "c_key_secret");
+	fclose (fp);
+   
+	asprintf(&access_token_url, "%s?oauth_verifier=%s", access_token_url, pin);
+	req_url = oauth_sign_url2(access_token_url, &postarg, OA_HMAC, NULL, c_key, c_key_secret, t_key, t_key_secret);
+	oauth_request = oauth_http_post(req_url,postarg);
+	
+	rc = oauth_split_url_parameters(oauth_request, &rv);
+	char *user_token = get_param(rv, rc, "oauth_token");
+	char *user_token_secret = get_param(rv, rc, "oauth_token_secret");
+	char *user_id = get_param(rv, rc, "user_id");
+	char *screen_name = get_param(rv, rc, "screen_name");
+	
+	fp=fopen("user", "w+");
+	fprintf(fp, screen_name);
+	fprintf(fp, "||");
+	fprintf(fp, user_id);
+	fprintf(fp, "||");
+	fprintf(fp, c_key);
+	fprintf(fp, "||");
+	fprintf(fp, c_key_secret);
+	fprintf(fp, "||");
+	fprintf(fp, user_token);
+	fprintf(fp, "||");
+	fprintf(fp, user_token_secret);
+	fclose(fp);
+	
+	remove("tmp_token");
+	
 	return oauth_request;
 }
 
 //Twitter Request Token: Generate URL For PIN
-char* request_token(const char* c_key, const char* c_secret)
+char* request_token(const char *c_key, const char *c_key_secret)
 {
-	const char *req_url = NULL; 
-	const char *postarg = NULL;
-	char *reply = NULL;
-
-	const char *request_token_uri = "https://api.twitter.com/oauth/request_token";
-
-	req_url = oauth_sign_url2(request_token_uri, NULL, OA_HMAC, NULL, c_key, c_secret, NULL, NULL);
-	reply = oauth_http_get(req_url,postarg);
-	return reply;
+	char *postarg = NULL;
+	const char *request_url = "https://api.twitter.com/oauth/request_token";
+		
+	const char *oauth_sign = oauth_sign_url2(request_url, NULL, OA_HMAC, NULL, c_key, c_key_secret, NULL, NULL);
+	char *oauth_http_access = oauth_http_get(oauth_sign,postarg);
+	
+	return oauth_http_access;
 }
 
 //Twitter oAuth
 int oauth_start()
 {
+	char *cmd;
+	const char *authorize_url = "http://twitter.com/oauth/authorize";
+	
 	const char *c_key    = twitter_key();
-	const char *c_secret = twitter_key_secret();
+	const char *c_key_secret = twitter_key_secret();
 
-	const char *tw_url = "xdg-open http://twitter.com/oauth/authorize?";
-	const char *token_url = request_token(c_key, c_secret);
-
-	char *oauth_url = malloc(strlen(tw_url) + strlen(token_url) + 1);
-	if (oauth_url != NULL )
-	{
-	 strcpy(oauth_url, tw_url);
-	 strcat(oauth_url, token_url);
-	}
-	system(oauth_url);
+	int rc;
+	char **rv = NULL;
+	char *twitter_oauth = request_token(c_key, c_key_secret);
+	rc = oauth_split_url_parameters(twitter_oauth, &rv);
+	char* t_key = get_param(rv, rc, "oauth_token");
+    
+	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", authorize_url, t_key);
+	system(cmd);
+    
+    asprintf(&twitter_oauth, "%s%s%s%s%s", twitter_oauth, "&c_key=", c_key, "&c_key_secret=", c_key_secret);
+	FILE *fp;
+	fp=fopen("tmp_token", "w+");
+	fprintf(fp, twitter_oauth);
+	fclose(fp);
 
 	return 0;
 }
@@ -115,8 +165,8 @@ void windows_adduser()
 	
 	// Standard GTK Windows Declaration
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 310, 280);
-	gtk_widget_set_size_request (window, 310, 280);
+	gtk_window_set_default_size (GTK_WINDOW(window), 310, 240);
+	gtk_widget_set_size_request (window, 310, 240);
 	gtk_window_set_title (GTK_WINDOW(window), "Nuovo Utente");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -125,25 +175,13 @@ void windows_adduser()
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/add_user.png", &error);
 
 	// Table Content Input
-	table = gtk_table_new (13, 10, TRUE);
-
-	label = gtk_label_new ("UserName Twitter (Senza @):");
-	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	DataInput->username = gtk_entry_new ();
-	gtk_entry_set_text (GTK_ENTRY (DataInput->username), "");
-
-	gtk_table_attach (GTK_TABLE (table), label, 1, 9,
-					1, 2, GTK_FILL | GTK_EXPAND,
-					 GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), DataInput->username, 1, 9,
-					2, 3, GTK_FILL | GTK_EXPAND,
-					 GTK_FILL | GTK_EXPAND, 0, 0);	 
+	table = gtk_table_new (10, 10, TRUE);
 
 	twitter_login = gtk_image_new_from_file ("../img/sign-in-with-twitter.png");
 	tw_login_imgevent = gtk_event_box_new ();
 	gtk_container_add (GTK_CONTAINER (tw_login_imgevent), twitter_login);
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 2, 8,
-					4, 6, GTK_FILL | GTK_EXPAND,
+					1, 3, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0); 
 	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(oauth_start), NULL);
 					 
@@ -153,15 +191,15 @@ void windows_adduser()
 	gtk_entry_set_text (GTK_ENTRY (DataInput->pin), "");
 
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9,
-					7, 8, GTK_FILL | GTK_EXPAND,
+					4, 5, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9,
-					8, 9, GTK_FILL | GTK_EXPAND,
+					5, 6, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 					 
 	button = gtk_button_new_with_label ("Crea Account");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,
-					10, 12, GTK_FILL | GTK_EXPAND,
+					7, 9, GTK_FILL | GTK_EXPAND,
 					 GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_container_add (GTK_CONTAINER (window), table); 
 	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token), DataInput);

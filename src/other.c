@@ -30,3 +30,17 @@
 
 //TwitCrusader Header File
 #include "twc.h"
+
+//Sum String
+char *sum_string(char *parm1, char *parm2 ){
+	
+	
+	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
+	if (parm != NULL )
+	{
+	 strcpy(parm, parm1);
+	 strcat(parm, parm2);
+	}
+		
+	return parm;
+}

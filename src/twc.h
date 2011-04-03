@@ -24,14 +24,13 @@
 //oAuth Input
 typedef struct
 {       
-	GtkWidget *username;
 	GtkWidget *pin;
 	
 } AuthWidget; 
 
 char* access_token(GtkButton*, AuthWidget *);
 
-char* request_token(const char*, const char*);
+char* request_token();
 
 int oauth_start();
 
@@ -44,3 +43,7 @@ void windows_about();
 void switch_page (GtkButton*, GtkNotebook*);
 
 void windows_setting();
+
+char* sum_string(char *,char *);
+
+void send_tweet(char *);

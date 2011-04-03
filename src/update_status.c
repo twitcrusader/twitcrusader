@@ -21,6 +21,7 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
+#define _GNU_SOURCE
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <stdlib.h>
@@ -32,32 +33,47 @@
 #include "twc.h"
 
 
-// About
-void windows_about()
-{
-	// Variables
-	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("../img/tw_about.png", NULL);
-	GtkWidget *dialog = gtk_about_dialog_new();
-	GError *error = NULL;
-	
-	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "../img/star.png", &error);
-	
-	// GTK Windows Declaration: All info
-	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
-	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), ""); 
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev");
-	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: 0.1.78");
-	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
-	
-	// GTK Windows Declaration: logo
-	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
-	g_object_unref(pixbuf), pixbuf = NULL;
-	
-	// Widget Show
-	gtk_dialog_run(GTK_DIALOG (dialog));
-	
-	// CALLBACK: exit event
-	gtk_widget_destroy(dialog);
+void send_tweet(char *tweet){
 
+	FILE *fp;
+	char *user = NULL, 
+		 *user_id = NULL,
+		 *c_token = NULL, 
+		 *c_token_secret = NULL, 
+		 *user_token = NULL, 
+		 *user_token_secret = NULL;
+	char buffer[256];
+	char *postarg = NULL;
+	
+	fp = fopen ("user", "r");
+	fgets(buffer, 250, fp);
+		char delims[] = "||";
+		char *result = NULL;
+		
+		result = strtok( buffer, delims);
+		user = result;
+		
+		result = strtok( NULL, delims );
+		user_id = result;
+		
+		result = strtok( NULL, delims );
+		c_token = result;
+		
+		result = strtok( NULL, delims );
+		c_token_secret = result;
+		
+		result = strtok( NULL, delims );
+		user_token = result;
+		
+		result = strtok( NULL, delims );
+		user_token_secret = result;
+	fclose (fp);
+	
+	
+	char *update_status = "http://api.twitter.com/1/statuses/update.xml?status=";
+	asprintf(&update_status, "%s%s", update_status, tweet);
+    char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
+	oauth_http_post(req_url, postarg);	
+	
+	
 }
