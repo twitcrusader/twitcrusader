@@ -11,4 +11,4 @@ cd liboauth-0.9.4
 make
 make install
 cd ../../src
-gcc -Wall -lssl -loauth -o twc twc.c oauth.c credits.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0`
+gcc -Wall -lssl -loauth -o twc twc.c oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0`
