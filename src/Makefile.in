@@ -48,7 +48,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_twc_OBJECTS = twc.$(OBJEXT) oauth.$(OBJEXT) credits.$(OBJEXT) \
-	other.$(OBJEXT) setting.$(OBJEXT) statusbar.$(OBJEXT)
+	other.$(OBJEXT) setting.$(OBJEXT) statusbar.$(OBJEXT) \
+	update_status.$(OBJEXT)
 twc_OBJECTS = $(am_twc_OBJECTS)
 twc_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -162,7 +163,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-twc_SOURCES = twc.c oauth.c credits.c other.c setting.c statusbar.c
+twc_SOURCES = twc.c oauth.c credits.c other.c setting.c statusbar.c update_status.c
 twc_LDADD = @gtk_LIBS@ @oauth_LIBS@
 AM_CPPFLAGS = @gtk_CFLAGS@ @oauth_CFLAGS@
 all: all-am
@@ -252,6 +253,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/setting.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/statusbar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/twc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/update_status.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
