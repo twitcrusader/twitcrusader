@@ -43,3 +43,11 @@ $ autoreconf --install
 
 $ ./configure
 $ make
+$ make install (with super user)
+
+
+/**
+ *Uninstalling
+ */
+
+$ make uninstall
