@@ -28,7 +28,7 @@ $ make install (with super user)
  
  
 /**
-* Autoconfig & AutoMake
+* Autoconfig & AutoMake - Install
 */
 
 $ autoreconf --install
@@ -39,7 +39,7 @@ $ make install (with super user)
 
 
 /**
- *Uninstalling
+ * Autoconfig & AutoMake - Uninstalling
  */
 
 $ make uninstall
