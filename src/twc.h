@@ -46,4 +46,4 @@ void windows_setting();
 
 char* sum_string(char *,char *);
 
-void send_tweet(char *);
+gboolean send_tweet(GtkWidget *, GdkEventKey *, GtkTextBuffer *);

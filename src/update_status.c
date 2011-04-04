@@ -28,50 +28,61 @@
 #include <stdio.h>
 #include <string.h>
 #include <oauth.h>
+#include <gdk/gdkkeysyms.h>
 
 //TwitCrusader Header File
 #include "twc.h"
 
-void send_tweet(char *tweet){
-
-	FILE *fp;
-	char //*user = NULL, 
-		 //*user_id = NULL,
-		 *c_token = NULL, 
-		 *c_token_secret = NULL, 
-		 *user_token = NULL, 
-		 *user_token_secret = NULL;
-	char buffer[256];
-	char *postarg = NULL;
+gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer){
 	
-	fp = fopen ("user", "r");
-	fgets(buffer, 250, fp);
-		char delims[] = "||";
-		char *result = NULL;
-		
-		result = strtok( buffer, delims);
-		//user = result;
-		
-		result = strtok( NULL, delims );
-		//user_id = result;
-		
-		result = strtok( NULL, delims );
-		c_token = result;
-		
-		result = strtok( NULL, delims );
-		c_token_secret = result;
-		
-		result = strtok( NULL, delims );
-		user_token = result;
-		
-		result = strtok( NULL, delims );
-		user_token_secret = result;
-	fclose (fp);
+	GtkTextIter start;
+	GtkTextIter end;
 	
+	gtk_text_buffer_get_start_iter (tweetbuffer, &start);
+	gtk_text_buffer_get_end_iter (tweetbuffer, &end);
+	gchar *msg = gtk_text_buffer_get_text(tweetbuffer, &start, &end, TRUE);
+		 
+	if(pKey->keyval == GDK_Return){
+		FILE *fp;
+		//*user = NULL, 
+			 //*user_id = NULL,
+		char *c_token = NULL, 
+			 *c_token_secret = NULL, 
+			 *user_token = NULL, 
+			 *user_token_secret = NULL;
+		char buffer[256];
+		char *postarg = NULL;
+		
+		fp = fopen ("user", "r");
+		fgets(buffer, 250, fp);
+			char delims[] = "||";
+			char *result = NULL;
+			
+			result = strtok( buffer, delims);
+			//user = result;
+			
+			result = strtok( NULL, delims );
+			//user_id = result;
+			
+			result = strtok( NULL, delims );
+			c_token = result;
+			
+			result = strtok( NULL, delims );
+			c_token_secret = result;
+			
+			result = strtok( NULL, delims );
+			user_token = result;
+			
+			result = strtok( NULL, delims );
+			user_token_secret = result;
+		fclose (fp);
+		
+		char *update_status = "http://api.twitter.com/1/statuses/update.xml?status=";
+		asprintf(&update_status, "%s%s", update_status, msg);
+		char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
+		oauth_http_post(req_url, postarg);	
+	}
 	
-	char *update_status = "http://api.twitter.com/1/statuses/update.xml?status=";
-	asprintf(&update_status, "%s%s", update_status, tweet);
-    char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
-	oauth_http_post(req_url, postarg);	
+	return 0;
 	
 }

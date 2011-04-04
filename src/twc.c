@@ -32,6 +32,24 @@
 //TwitCrusader Header File
 #include "twc.h"
 
+//Press Enter 
+gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
+                          
+   if (pKey->type == GDK_KEY_PRESS){
+         
+        g_print("%i\n", pKey->keyval);
+
+          switch (pKey->keyval)
+                {
+                        case GDK_Escape :
+                                gtk_main_quit ();
+                        break;
+                }
+        }
+
+        return FALSE;
+}
+
 // Main
 int main(int argc, char *argv[])
 {
@@ -214,8 +232,9 @@ int main(int argc, char *argv[])
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 	gtk_text_buffer_set_text (buffer, "", -1);	
-	gtk_container_add(GTK_CONTAINER(scroll), text);
     g_signal_connect(buffer, "changed", G_CALLBACK(update_statusbar), statusbar_char);
+	g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet), buffer);
+	gtk_container_add(GTK_CONTAINER(scroll), text);
     
 	// Widget Show
 	gtk_widget_show_all (window);	

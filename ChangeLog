@@ -1,3 +1,8 @@
+=================== 0.1.80 ===================
+* Twitter oAuth & GTK
+- Improved: Send Tweet With GTK g_signal (beta)
+
+
 =================== 0.1.78 ===================
 * Twitter oAuth & GTK
 - Testing: Send Tweet With GTK g_signal
