@@ -60,23 +60,25 @@ char* get_param(char** argv, int argc, const char* param)
 //Twitter Access Token: Authorize TwitCrusader
 char* access_token(GtkButton *button, AuthWidget *DataInput)
 {
-	const char *req_url = NULL; 
-	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
-	char *access_token_url = "http://api.twitter.com/oauth/access_token";
-	char *oauth_request = NULL;
-	char *postarg = NULL;
-	
-	char buffer[256];
-	FILE *fp;
-	char* t_key =  NULL;
-	char* t_key_secret =  NULL;
-	char* c_key =  NULL;
-	char* c_key_secret = NULL;
-	
-	fp = fopen ("tmp_token", "r");
-	fgets(buffer, 250, fp);
+	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin)),
+			   *req_url = NULL; 
+			   
+	char *access_token_url = "http://api.twitter.com/oauth/access_token",
+	     *oauth_request = NULL,
+		 *data_file = NULL,
+		 *postarg = NULL,
+		 *t_key =  NULL,
+		 *t_key_secret =  NULL,
+		 *c_key =  NULL,
+		 *c_key_secret = NULL;
+		 
 	int rc;
 	char **rv = NULL;
+	char buffer[256];
+	
+	FILE *fp;
+	fp = fopen ("tmp_token", "r");
+	fgets(buffer, 250, fp);
 	rc = oauth_split_url_parameters(buffer, &rv);
 	t_key = get_param(rv, rc, "oauth_token");
 	t_key_secret = get_param(rv, rc, "oauth_token_secret");
@@ -95,17 +97,8 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	char *screen_name = get_param(rv, rc, "screen_name");
 	
 	fp=fopen("user", "w+");
-	fprintf(fp, screen_name);
-	fprintf(fp, "||");
-	fprintf(fp, user_id);
-	fprintf(fp, "||");
-	fprintf(fp, c_key);
-	fprintf(fp, "||");
-	fprintf(fp, c_key_secret);
-	fprintf(fp, "||");
-	fprintf(fp, user_token);
-	fprintf(fp, "||");
-	fprintf(fp, user_token_secret);
+		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screen_name, user_id, c_key, c_key_secret, user_token, user_token_secret);
+		fprintf(fp, data_file);
 	fclose(fp);
 	
 	remove("tmp_token");
@@ -128,14 +121,14 @@ char* request_token(const char *c_key, const char *c_key_secret)
 //Twitter oAuth
 int oauth_start()
 {
+	int rc;
 	char *cmd;
+	char **rv = NULL;
 	const char *authorize_url = "http://twitter.com/oauth/authorize";
 	
 	const char *c_key    = twitter_key();
 	const char *c_key_secret = twitter_key_secret();
 
-	int rc;
-	char **rv = NULL;
 	char *twitter_oauth = request_token(c_key, c_key_secret);
 	rc = oauth_split_url_parameters(twitter_oauth, &rv);
 	char* t_key = get_param(rv, rc, "oauth_token");
@@ -146,7 +139,7 @@ int oauth_start()
     asprintf(&twitter_oauth, "%s%s%s%s%s", twitter_oauth, "&c_key=", c_key, "&c_key_secret=", c_key_secret);
 	FILE *fp;
 	fp=fopen("tmp_token", "w+");
-	fprintf(fp, twitter_oauth);
+		fprintf(fp, twitter_oauth);
 	fclose(fp);
 
 	return 0;
