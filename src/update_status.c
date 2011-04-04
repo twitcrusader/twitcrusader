@@ -32,12 +32,11 @@
 //TwitCrusader Header File
 #include "twc.h"
 
-
 void send_tweet(char *tweet){
 
 	FILE *fp;
-	char *user = NULL, 
-		 *user_id = NULL,
+	char //*user = NULL, 
+		 //*user_id = NULL,
 		 *c_token = NULL, 
 		 *c_token_secret = NULL, 
 		 *user_token = NULL, 
@@ -51,10 +50,10 @@ void send_tweet(char *tweet){
 		char *result = NULL;
 		
 		result = strtok( buffer, delims);
-		user = result;
+		//user = result;
 		
 		result = strtok( NULL, delims );
-		user_id = result;
+		//user_id = result;
 		
 		result = strtok( NULL, delims );
 		c_token = result;
@@ -74,6 +73,5 @@ void send_tweet(char *tweet){
 	asprintf(&update_status, "%s%s", update_status, tweet);
     char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
 	oauth_http_post(req_url, postarg);	
-	
 	
 }
