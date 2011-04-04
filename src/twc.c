@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/favicon.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "/usr/share/icons/twitcrusader/favicon.png", &error);
 	
 	// CALLBACK: exit event
 	g_signal_connect (G_OBJECT (window), "delete_event",
@@ -88,19 +88,19 @@ int main(int argc, char *argv[])
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 *  */
 	file_menu_items = gtk_image_menu_item_new_with_label("Nuovo Utente");   
-    icon_menu = gtk_image_new_from_file("../img/add_user.png");
+    icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/add_user.png");
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_adduser), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");   
-    icon_menu = gtk_image_new_from_file("../img/setting.png");
+    icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/setting.png");
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
     
     file_menu_items = gtk_image_menu_item_new_with_label("Esci");
-    icon_menu = gtk_image_new_from_file("../img/close.png");
+    icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/close.png");
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
     gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     
     // SubMenu: Help
     aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
-    icon_menu = gtk_image_new_from_file("../img/star.png");
+    icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/star.png");
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_about), NULL);
     gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
@@ -141,37 +141,37 @@ int main(int argc, char *argv[])
 
 	// Twitter Menu: Buttons
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/home.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/home.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/update.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/update.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/mention.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/mention.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/dm.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/dm.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/favorites.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/favorites.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/link.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/link.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file("../img/photo.png");
+	icon_menu = gtk_image_new_from_file("/usr/share/icons/twitcrusader/photo.png");
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 	

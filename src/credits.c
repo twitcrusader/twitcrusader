@@ -36,19 +36,18 @@
 void windows_about()
 {
 	// Variables
-	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("../img/tw_about.png", NULL);
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("/usr/share/icons/twitcrusader/tw_about.png", NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
 	GError *error = NULL;
 	
 	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "../img/star.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "/usr/share/icons/twitcrusader/star.png", &error);
 	
 	// GTK Windows Declaration: All info
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), ""); 
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev");
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: 0.1.79");
-	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	
 	// GTK Windows Declaration: logo
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
