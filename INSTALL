@@ -22,9 +22,7 @@ $ pacman -S base-devel liboauth curl openssl
  * Compile (from Shell)
  */ 
 
-<<<<<<< HEAD
-$ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c statusbar.c update_status.c `pkg-config --cflags --libs gtk+-2.0` `pkg-config --cflags --libs oauth`
-=======
+$ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0` `pkg-config --cflags --libs oauth`
 
 
 /**
