@@ -172,12 +172,12 @@ void windows_adduser()
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../img/add_user.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), "/usr/share/icons/twitcrusader/add_user.png", &error);
 
 	// Table Content Input
 	table = gtk_table_new (10, 10, TRUE);
 
-	twitter_login = gtk_image_new_from_file ("../img/sign-in-with-twitter.png");
+	twitter_login = gtk_image_new_from_file ("/usr/share/icons/twitcrusader/sign-in-with-twitter.png");
 	tw_login_imgevent = gtk_event_box_new ();
 	gtk_container_add (GTK_CONTAINER (tw_login_imgevent), twitter_login);
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 2, 8,

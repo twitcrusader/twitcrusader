@@ -1,4 +1,4 @@
-AC_INIT([TwitCrusader], [1.0])
+AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com, orazio.1985@hotmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CC
 AC_CANONICAL_HOST
