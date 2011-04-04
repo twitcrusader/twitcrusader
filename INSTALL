@@ -50,3 +50,5 @@ $ make install (with super user)
  */
 
 $ make uninstall
+
+//Riga di prova per il merge manuale
