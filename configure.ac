@@ -26,5 +26,6 @@ AC_SUBST(oauth_LIBS)
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
+img/Makefile
 ])
 AC_OUTPUT
