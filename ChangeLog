@@ -1,33 +1,33 @@
 =================== 0.1.78 ===================
-		  *  Twitter oAuth & GTK  *
+* Twitter oAuth & GTK
 - Testing: Send Tweet With GTK g_signal
 - Optimized: String Functions 
 
 
 =================== 0.1.70 ===================
-			 *  Twitter oAuth  *
+* Twitter oAuth
 - Testing: Send Tweet (work)
 - Testing: oAuth General Functions
 
 
 =================== 0.1.65 ===================
-			   *  MakeFiles  *
+* MakeFiles
 - Improved: Compile From MakeFiles
 - Improved: Set Images
 - Improved: New Compile Flags
  
  
 =================== 0.1.60 ===================
-			 *  Twitter Login  *
+* Twitter Login
 - Improved: Request Token
 - Improved: Access Token
 
 
 =================== 0.1.50 ===================
-			*  GTK Layout Test  *
+* GTK Layout Test
 - Improved: Layout
 
 
 =================== 0.1.0 ===================
-		   *  Initalize Release  *
+* Initalize Release
 
