@@ -6,6 +6,7 @@ $ apt-get update
 $ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev
 
 
+
 /**
  * Archlinux Essential Packages (libs)
  */
@@ -13,9 +14,36 @@ $ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libs
 $ pacman -Syu
 $ pacman -S base-devel liboauth curl openssl
 
+
+
 /**
  * Download and install liboauth liboauth-0.9.4
  */
+ 
+Download here ---> http://liboauth.sourceforge.net/
+$ ./configure
+$ make
+$ make install (with super user)
+ 
+ 
+ 
+/**
+* Autoconfig & AutoMake
+*/
+
+$ autoreconf --install
+$ ./configure
+$ make
+$ make install (with super user)
+
+
+
+/**
+ *Uninstalling
+ */
+
+$ make uninstall
+
 
 
 /**
@@ -25,6 +53,7 @@ $ pacman -S base-devel liboauth curl openssl
 $ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0` `pkg-config --cflags --libs oauth`
 
 
+
 /**
  * Compile (With Geany IDE)
  */
@@ -32,23 +61,3 @@ $ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c sta
 1) Choose more build actions
 2) Set build menu commands
 3) gcc -Wall -o "%e" "%f" oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0` `pkg-config --cflags --libs oauth`
-
-
-/**
- * Autoconfig & AutoMake
- */
-
-$ autoreconf --install
-
-$ ./configure
-$ make
-$ make install (with super user)
-
-
-/**
- *Uninstalling
- */
-
-$ make uninstall
-
-//Riga di prova per il merge manuale - NEW CHANGE XXXXXXXX
