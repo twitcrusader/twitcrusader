@@ -1,3 +1,9 @@
+=================== 0.1.81 ===================
+* Twitter oAuth Security
+- Disabled oAuth and Hidden Token
+- Reset All Token (App And User)
+
+
 =================== 0.1.80 ===================
 * Twitter oAuth & GTK
 - Improved: Send Tweet With GTK g_signal (beta)
