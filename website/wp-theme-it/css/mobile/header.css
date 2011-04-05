@@ -1,0 +1,13 @@
+#title{
+	font-family: "Droid Sans","DroidSans_Import","Verdana","Sans Serif","OpenSymbol"; 
+	font-size: 30px;
+	color: #000000;
+	text-align: left;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	background-color: #009CF5;
+	height: 50px;
+	text-align: center;
+	padding-top: 5px;
+}

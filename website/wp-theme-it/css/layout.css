@@ -1,0 +1,43 @@
+html,body{
+	min-width: 980px;
+	text-align: left;
+	margin: 0 auto;
+	background-image: url("./../img/desktop/bg.png"); 
+	background-repeat: repeat-x; 
+	background-color: #B1DEFB; 
+}
+
+img {
+	border: 0;
+}
+
+table{
+	border: 0;
+}
+
+
+ul{
+	list-style-type: none;
+	list-style-image: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+li {
+	padding-left: -20px;
+}
+
+embed {
+	width: 600px;
+	height: 450px;
+}
+
+object {
+	width: 600px;
+	height: 450px;
+}
+
+@font-face {
+  font-family: DroidSans_Import;
+  src: local('DroidSans_Import'), url("./css/font/DroidSansMono.ttf") format("truetype");
+}

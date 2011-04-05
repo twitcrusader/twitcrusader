@@ -1,0 +1,52 @@
+a:link, a:visited, a:hover, a:active, a:focus{
+  color: #000000;
+}
+
+a:link:hover, a:visited:hover{ 
+  text-decoration:underline;
+}
+a:active{ 
+  text-decoration:none;
+}
+a:focus{ 
+  text-decoration:underline;
+}
+a:visited{ 
+  text-decoration:none;
+}
+a:link{ 
+  text-decoration:none;
+}
+
+a.footer:link, a.footer:visited, a.footer:hover, a.footer:active, a.footer:focus{
+	font-family: "Verdana","Sans Serif","OpenSymbol"; 
+	font-size: 13px;
+	font-weight: bold;
+}
+
+a.footer:link:hover, a.footer:visited:hover{ 
+  text-decoration:underline;
+}
+a.footer:active{ 
+  text-decoration:none;
+}
+a.footer:focus{ 
+  text-decoration:underline;
+}
+a.footer:visited{ 
+  text-decoration:none;
+}
+a.footer:link{ 
+  text-decoration:none;
+}
+
+ul.blogroll li a {
+	font-family: Arial,"Verdana"; 
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	margin-left: 5px;
+}
+
+
+
