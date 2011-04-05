@@ -1,4 +1,4 @@
-imgdir = /usr/share/icons/@PACKAGE@
+imgdir = $(datadir)/icons/@PACKAGE@
 img_DATA= \
 	add_user.png \
 	close.png \
