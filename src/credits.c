@@ -36,12 +36,12 @@
 void windows_about()
 {
 	// Variables
-	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file("/usr/share/icons/twitcrusader/tw_about.png", NULL);
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(PACKAGE_PIXMAP_DIR"/tw_about.png", NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
 	GError *error = NULL;
 	
 	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), "/usr/share/icons/twitcrusader/star.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), PACKAGE_PIXMAP_DIR"/star.png", &error);
 	
 	// GTK Windows Declaration: All info
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");

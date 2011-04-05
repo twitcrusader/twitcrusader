@@ -58,7 +58,7 @@ void windows_setting()
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	
 	// GTK Windows Declaration: favicon
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "/usr/share/icons/twitcrusader/setting.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), PACKAGE_PIXMAP_DIR"/setting.png", &error);
 	
 	//Add Switch GTKNotebook
 	notebook = gtk_notebook_new ();
