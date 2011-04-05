@@ -34,13 +34,13 @@
 //TwitCrusader - Twitter Key
 char* twitter_key()
 {
-	return "df4eyJjVngL2HWtaS8GcQ";
+	return "XXXXXXXXXXXXXXXXXXXXXXXXXXX";
 }
 
 //TwitCrusader - Twitter SecretKey
 char* twitter_key_secret()
 {
-	return "svqV9Colm55tJwvh1RCvvIu2ZTBhs7eN9Y084y1qhbU";
+	return "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 }
 
 //Parser Url
