@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
 		
 	// Variables
 	
-	const char *homeFile = getenv("HOME");
+	const char *homeDir = getenv("HOME");
+	char	*homeFile=homeDir;
 	
 	GError *error = NULL;
 	GtkWidget *window,
