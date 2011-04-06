@@ -48,7 +48,7 @@ void windows_setting()
 	// Variables
 	GtkWidget *window, *notebook, *setting_menu, *table, *label, *entry_nick,*button;
 	GError *error = NULL;
-	
+
 	// Standard GTK Windows Declaration
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 310, 300);
