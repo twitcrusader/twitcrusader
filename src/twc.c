@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
 	gtk_init (&argc, &argv);
 		
 	// Variables
+	
+	const char *homeFile = getenv("HOME");
+	
 	GError *error = NULL;
 	GtkWidget *window,
 			  *table,
@@ -82,7 +85,11 @@ int main(int argc, char *argv[])
 	
 	puts(PACKAGE_PIXMAP_DIR);
 	
+	homeFile=strcat(homeFile, "/.twc");
+	
 	// Standard GTK Windows Declaration
+
+
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
 	gtk_widget_set_size_request (window, 315, 400);
@@ -238,7 +245,10 @@ int main(int argc, char *argv[])
 	gtk_container_add(GTK_CONTAINER(scroll), text);
     
 	// Widget Show
-	gtk_widget_show_all (window);	
+	gtk_widget_show_all (window);
+	
+	if(fopen(homeFile,"r")==NULL) windows_adduser();
+
 	gtk_main ();
 
  
