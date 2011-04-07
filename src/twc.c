@@ -57,8 +57,7 @@ int main(int argc, char *argv[])
 		
 	// Variables
 	
-	const char *homeDir = getenv("HOME");
-	char	*homeFile=homeDir;
+	const char *homeFile = getenv("HOME");
 	
 	GError *error = NULL;
 	GtkWidget *window,
@@ -86,7 +85,7 @@ int main(int argc, char *argv[])
 	
 	puts(PACKAGE_PIXMAP_DIR);
 	
-	homeFile=strcat(homeFile, "/.twc");
+	homeFile=strcat(homeFile, "/.twc/config");
 	
 	// Standard GTK Windows Declaration
 
