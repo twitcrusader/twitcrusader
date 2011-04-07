@@ -53,7 +53,10 @@ gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweet
 		char buffer[256];
 		char *postarg = NULL;
 		
-		fp = fopen ("user", "r");
+		char *homeFile = NULL;
+		asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
+	
+		fp = fopen (homeFile, "r");
 		fgets(buffer, 250, fp);
 			char delims[] = "||";
 			char *result = NULL;

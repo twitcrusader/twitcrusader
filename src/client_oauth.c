@@ -77,12 +77,8 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	char buffer[256];
 	
 	FILE *fp;
-	
-	const char *homeDir = getenv("HOME");
-	char	*homeFile=homeDir;
-	
-	homeFile=strcat(homeFile, "/.twc/config");
-	
+	char *homeFile = NULL;
+	asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
 	
 	fp = fopen ("/tmp/token", "r");
 	fgets(buffer, 250, fp);
