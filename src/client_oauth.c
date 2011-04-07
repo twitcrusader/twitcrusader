@@ -34,13 +34,13 @@
 //TwitCrusader - Twitter Key
 char* twitter_key()
 {
-	return "XXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	return "3Y0iGu8KBpyNFaiWsIZPw";
 }
 
 //TwitCrusader - Twitter SecretKey
 char* twitter_key_secret()
 {
-	return "XXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	return "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk";
 }
 
 //Parser Url
@@ -77,7 +77,14 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	char buffer[256];
 	
 	FILE *fp;
-	fp = fopen ("tmp_token", "r");
+	
+	const char *homeDir = getenv("HOME");
+	char	*homeFile=homeDir;
+	
+	homeFile=strcat(homeFile, "/.twc/config");
+	
+	
+	fp = fopen ("/tmp/token", "r");
 	fgets(buffer, 250, fp);
 	rc = oauth_split_url_parameters(buffer, &rv);
 	t_key = get_param(rv, rc, "oauth_token");
@@ -96,12 +103,12 @@ char* access_token(GtkButton *button, AuthWidget *DataInput)
 	char *user_id = get_param(rv, rc, "user_id");
 	char *screen_name = get_param(rv, rc, "screen_name");
 	
-	fp=fopen("user", "w+");
+	fp=fopen(homeFile, "w+");
 		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screen_name, user_id, c_key, c_key_secret, user_token, user_token_secret);
 		fprintf(fp, data_file);
 	fclose(fp);
 	
-	remove("tmp_token");
+	remove("/tmp/token");
 	
 	return oauth_request;
 }
@@ -138,7 +145,7 @@ int oauth_start()
     
     asprintf(&twitter_oauth, "%s%s%s%s%s", twitter_oauth, "&c_key=", c_key, "&c_key_secret=", c_key_secret);
 	FILE *fp;
-	fp=fopen("tmp_token", "w+");
+	fp=fopen("/tmp/token", "w+");
 		fprintf(fp, twitter_oauth);
 	fclose(fp);
 

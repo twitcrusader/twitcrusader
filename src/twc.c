@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	
 	puts(PACKAGE_PIXMAP_DIR);
 	
-	homeFile=strcat(homeFile, "/.twc");
+	homeFile=strcat(homeFile, "/.twc/config");
 	
 	// Standard GTK Windows Declaration
 
