@@ -50,7 +50,7 @@ $ make uninstall
  * Compile (from Shell)
  */ 
 
-$ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0 --cflags --libs oauth`
+$ gcc -Wall -DPACKAGE_PIXMAP_DIR=\""../img"\" -o twc twc.c client_oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0 --cflags --libs oauth`
 
 
 
@@ -60,4 +60,4 @@ $ gcc -Wall -o twc twc.c oauth.c credits.c update_status.c other.c setting.c sta
 
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -o "%e" "%f" oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0 --cflags --libs oauth`
+3) gcc -Wall -DPACKAGE_PIXMAP_DIR=\""../img"\" -o "%e" "%f" client_oauth.c credits.c update_status.c other.c setting.c statusbar.c `pkg-config --cflags --libs gtk+-2.0 --cflags --libs oauth`

@@ -131,7 +131,7 @@ int oauth_start()
 	int rc;
 	char *cmd;
 	char **rv = NULL;
-	const char *authorize_url = "http://twitter.com/oauth/authorize";
+	const char *authorize_url = "http://api.twitter.com/oauth/authorize";
 	
 	const char *c_key    = twitter_key();
 	const char *c_key_secret = twitter_key_secret();
