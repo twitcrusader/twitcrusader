@@ -1,6 +1,6 @@
 /* 
 *	TwitCrusader - Twitter Client For Linux Desktop
-*		Copyright (C) 2011  PTKDev
+*		Copyright (C) 2011  PTKDev, RoxShannon
 *
 *		This program is free software: you can redistribute it and/or modify
 *		it under the terms of the GNU General Public License as published by
@@ -21,6 +21,15 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
+#ifndef _TWITCRUSADER_H
+#define _TWITCRUSADER_H
+
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <gtk/gtk.h>
+
 //oAuth Input
 typedef struct
 {       
@@ -28,22 +37,8 @@ typedef struct
 	
 } AuthWidget; 
 
-char* access_token(GtkButton*, AuthWidget *);
+char *sum_string(char *parm1, char *parm2 );
+char* get_param(char** argv, int argc, const char* param);
 
-char* request_token();
 
-int oauth_start();
-
-void windows_adduser();
-
-void update_statusbar(GtkTextBuffer*,GtkStatusbar*);
-
-void windows_about();
-
-void switch_page (GtkButton*, GtkNotebook*);
-
-void windows_setting();
-
-char* sum_string(char *,char *);
-
-gboolean send_tweet(GtkWidget *, GdkEventKey *, GtkTextBuffer *);
+#endif
