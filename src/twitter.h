@@ -39,5 +39,6 @@
 
 int oauth_start();
 char* request_token(const char *c_key, const char *c_key_secret);
+char* access_token(GtkButton *button, AuthWidget *DataInput);
 
 #endif /* TWITTER_H_ */

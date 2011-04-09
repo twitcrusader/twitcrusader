@@ -20,7 +20,7 @@
 *		Twitter: @ptkdev / @twitcrusader_en
 *		WebSite: http://www.twitcrusader.org
 */
-
+#define _GNU_SOURCE
 #include "gtkwindows.h"
 
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
@@ -38,56 +38,6 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
 	}
 
 	return FALSE;
-}
-
-char* access_token(GtkButton *button, AuthWidget *DataInput){
-	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin)),
-			*req_url = NULL;
-
-	char *access_token_url = "http://api.twitter.com/oauth/access_token",
-			*oauth_request = NULL,
-			*data_file = NULL,
-			*postarg = NULL,
-			*t_key =  NULL,
-			*t_key_secret =  NULL,
-			*c_key =  NULL,
-			*c_key_secret = NULL;
-
-	int rc;
-	char **rv = NULL;
-	char buffer[256];
-
-	FILE *fp;
-	char *homeFile = NULL;
-	asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
-
-	fp = fopen ("/tmp/token", "r");
-	fgets(buffer, 250, fp);
-	rc = oauth_split_url_parameters(buffer, &rv);
-	t_key = get_param(rv, rc, "oauth_token");
-	t_key_secret = get_param(rv, rc, "oauth_token_secret");
-	c_key = get_param(rv, rc, "c_key");
-	c_key_secret = get_param(rv, rc, "c_key_secret");
-	fclose (fp);
-
-	asprintf(&access_token_url, "%s?oauth_verifier=%s", access_token_url, pin);
-	req_url = oauth_sign_url2(access_token_url, &postarg, OA_HMAC, NULL, c_key, c_key_secret, t_key, t_key_secret);
-	oauth_request = oauth_http_post(req_url,postarg);
-
-	rc = oauth_split_url_parameters(oauth_request, &rv);
-	char *user_token = get_param(rv, rc, "oauth_token");
-	char *user_token_secret = get_param(rv, rc, "oauth_token_secret");
-	char *user_id = get_param(rv, rc, "user_id");
-	char *screen_name = get_param(rv, rc, "screen_name");
-
-	fp=fopen(homeFile, "w+");
-	asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screen_name, user_id, c_key, c_key_secret, user_token, user_token_secret);
-	fprintf(fp, data_file);
-	fclose(fp);
-
-	remove("/tmp/token");
-
-	return oauth_request;
 }
 
 gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer){
@@ -141,6 +91,10 @@ gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweet
 		asprintf(&update_status, "%s%s", update_status, msg);
 		char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
 		oauth_http_post(req_url, postarg);
+		
+		gtk_text_buffer_delete(tweetbuffer, &start, &end);
+
+		return 1; // fix cursor (return to previous line)
 	}
 
 	return 0;

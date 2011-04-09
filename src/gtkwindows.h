@@ -48,11 +48,11 @@
 
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer);
-void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
+
 void switch_page (GtkButton *button, GtkNotebook *notebook);
 void windows_setting();
 void windows_about();
-char* access_token(GtkButton *button, AuthWidget *DataInput);
+void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
 void windows_adduser();
 int windows_main(int argc, char **argv);
 
