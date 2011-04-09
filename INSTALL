@@ -50,7 +50,7 @@ $ make uninstall
  * Compile (from Shell)
  */ 
 
-$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitter.h twitter.c gtkwindows.c twitcrusader.c `pkg-config --cflags --libs gtk+-2.0 oauth`
+$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitcrusader.c twitter.h twitter.c gtkwindows.c function.c function.h `pkg-config --cflags --libs gtk+-2.0 oauth`
 
 
 /**
@@ -59,4 +59,4 @@ $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitter.
 
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" twitcrusader.h gtkwindows.h twitter.h twitter.c gtkwindows.c twitcrusader.c `pkg-config --cflags --libs gtk+-2.0 oauth`
+3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" twitcrusader.h gtkwindows.h twitter.h twitter.c gtkwindows.c twitcrusader.c function.c function.h  `pkg-config --cflags --libs gtk+-2.0 oauth`
