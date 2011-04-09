@@ -3,7 +3,7 @@
  */
 
 $ apt-get update
-$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev
+$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2
 
 
 
@@ -12,7 +12,7 @@ $ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libs
  */
 
 $ pacman -Syu
-$ pacman -S base-devel liboauth curl openssl
+$ pacman -S base-devel liboauth curl openssl libxml2
 
 
 
@@ -50,7 +50,7 @@ $ make uninstall
  * Compile (from Shell)
  */ 
 
-$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitcrusader.c twitter.h twitter.c gtkwindows.c function.c function.h `pkg-config --cflags --libs gtk+-2.0 oauth`
+$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitcrusader.c twitter.h twitter.c gtkwindows.c function.c function.h `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`
 
 
 /**
@@ -59,4 +59,4 @@ $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc twitcrusader.h gtkwindows.h twitcrus
 
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" twitcrusader.h gtkwindows.h twitter.h twitter.c gtkwindows.c twitcrusader.c function.c function.h  `pkg-config --cflags --libs gtk+-2.0 oauth`
+3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" twitcrusader.h gtkwindows.h twitcrusader.c twitter.h twitter.c gtkwindows.c function.c function.h `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`
