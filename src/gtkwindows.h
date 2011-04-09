@@ -42,12 +42,13 @@ typedef struct
 #define ICON_SETTINGS ICONS_DIR"/setting.png"
 #define ICON_ABOUT ICONS_DIR"/tw_about.png"
 #define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add_user.png"
+#define ICON_ADDUSER ICONS_DIR"/add-user.png"
 #define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
 #define ICON_FAVICON ICONS_DIR"/favicon.png"
 #define ICON_CLOSE ICONS_DIR"/close.png"
 #define ICON_HOME ICONS_DIR"/home.png"
 #define ICON_UPDATE ICONS_DIR"/update.png"
+#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
 #define ICON_MENTION ICONS_DIR"/mention.png"
 #define ICON_DM ICONS_DIR"/dm.png"
 #define ICON_FAVORITES ICONS_DIR"/favorites.png"
@@ -59,8 +60,9 @@ gboolean send_tweet_gtk(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *t
 void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
 void switch_page (GtkButton *button, GtkNotebook *notebook);
 void windows_setting();
+void windows_upgrade();
 void windows_about();
-char* access_token_gtk(GtkButton *button, AuthWidget *DataInput);
+void access_token_gtk(GtkButton *button, AuthWidget *DataInput);
 void windows_adduser();
 int windows_main(int argc, char **argv);
 

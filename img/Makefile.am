@@ -1,6 +1,6 @@
 imgdir = $(datadir)/icons/@PACKAGE@
 img_DATA= \
-	add_user.png \
+	add-user.png \
 	close.png \
 	dm.png \
 	favicon.png \
@@ -14,5 +14,6 @@ img_DATA= \
 	star.png \
 	tw_about.png \
 	tw_logo_original.png \
+	upgrade.png \
 	update.png
 

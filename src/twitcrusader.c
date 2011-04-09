@@ -21,14 +21,20 @@
  *		WebSite: http://www.twitcrusader.org
  */
 
-//TwitCrusader Header File
 #include "twitcrusader.h"
 #include "gtkwindows.h"
 #include "function.h"
 
+/*
+ * Main function and debug function
+ * 
+ */
 int main(int argc, char **argv){
 	
-	input_param (argc, argv);
+	/* debug */
+	debug (argc, argv);
+	
+	/* Main GTK Window */
 	windows_main(argc, argv);
 
 	return 0;

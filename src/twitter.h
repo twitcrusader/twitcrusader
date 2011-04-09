@@ -41,8 +41,8 @@
 #define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
 
 int oauth_start();
-char* access_token(const char *pin);
-char* request_token(const char *c_key, const char *c_key_secret);
+void access_token(const char *pin);
+char* request_token(const char *consumerKey, const char *consumerKeySecret);
 void send_tweet();
 
 #endif /* TWITTER_H_ */

@@ -24,130 +24,198 @@
 #define _GNU_SOURCE
 #include "twitter.h"
 
+/*
+ * Main function for oAuth access
+ * 
+ * This function call other function for authorize Twitter Account
+ * and save User Token & User Secret Token
+ * 
+ */
 int oauth_start(){
+	FILE *fp;
 	int rc;
-	char *cmd;
+	char *cmd = NULL, 
+		 *tempKeyURL = NULL,
+		 *tempKey = NULL,
+		 *tmp_token = NULL;
 	char **rv = NULL;
+	const char *consumerKey    	  = TWITTER_KEY;
+	const char *consumerKeySecret = TWITTER_KEY_SECRET;
 
-	const char *c_key    = TWITTER_KEY;
-	const char *c_key_secret = TWITTER_KEY_SECRET;
+	/* 
+	 * @Input: TwitCrusader Consumer-Key 
+	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
+	 *  	 
+	 */
+	tempKeyURL = request_token(consumerKey, consumerKeySecret);
+	
+	/* split url and get Temp-Key */
+	rc = oauth_split_url_parameters(tempKeyURL, &rv);
+	tempKey = get_param(rv, rc, "oauth_token");
 
-	char *twitter_oauth = request_token(c_key, c_key_secret);
-	rc = oauth_split_url_parameters(twitter_oauth, &rv);
-	char* t_key = get_param(rv, rc, "oauth_token");
-
-	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", AUTHORIZE_URL, t_key);
+	/* Generate a Twitter-URL for get user-PIN */	
+	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", AUTHORIZE_URL, tempKey);
+	/* Open URL and user get PIN */
 	system(cmd);
 
-	asprintf(&twitter_oauth, "%s%s%s%s%s", twitter_oauth, "&c_key=", c_key, "&c_key_secret=", c_key_secret);
-	FILE *fp;
+	/* 
+	 * Save all Twitter-Key at /tmp folder
+	 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
+	 */
+	asprintf(&tmp_token, "%s%s%s%s%s", tempKeyURL, "&c_key=", consumerKey, "&c_key_secret=", consumerKeySecret);
 	fp=fopen("/tmp/token", "w+");
-	fprintf(fp, twitter_oauth);
+		fprintf(fp, tmp_token);
 	fclose(fp);
 
 	return 0;
 }
 
-char* access_token(const char *pin){
-	const char *req_url = NULL;
+/* 
+ * This function generate a 2 Twitter-Temp-Key
+ * Use this Temp-keys for generate a PIN
+ * Use PIN and Twitter-Temp-Keys for validate a correct PIN 
+ * 
+ * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
+ *  	 
+ */
+char* request_token(const char *consumerKey, const char *consumerKeySecret){
+	char *postarg = NULL,
+		 *tempKeyParameters = NULL;
+	const char *twitterRequestURL = NULL;
 
-	char 	*oauth_request = NULL,
+	/* Generate a request url, this url have Temp-Key */
+	twitterRequestURL = oauth_sign_url2(REQUEST_URL, NULL, OA_HMAC, NULL, consumerKey, consumerKeySecret, NULL, NULL);
+	tempKeyParameters = oauth_http_get(twitterRequestURL,postarg);
+
+	return tempKeyParameters;
+}
+
+/*
+ * Validate a PIN with Temp-Key and save all user-info
+ * 
+ * @Return User-Key, User-Secret-Key, Username, User-ID and other
+ * All info is saved at ~/.twc/config/user file
+ * 
+ */
+void access_token(const char *pin){
+	
+	FILE *fp;
+	int rc;
+	const char *verifyPIN = NULL;
+
+	char 	*twitterUserKey = NULL,
 			*data_file = NULL,
 			*postarg = NULL,
-			*t_key =  NULL,
-			*t_key_secret =  NULL,
-			*c_key =  NULL,
-			*c_key_secret = NULL;
+			*tempKey =  NULL,
+			*tempKeySecret =  NULL,
+			*consumerKey =  NULL,
+			*consumerKeySecret = NULL,
+			*configFile = NULL,
+			*accessURL = ACCESS_TOKEN_URL,
+			*userKey = NULL,
+			*userKeySecret = NULL,
+			*userID = NULL,
+			*screenName = NULL;
 
-	int rc;
 	char **rv = NULL;
 	char buffer[256];
-
-	FILE *fp;
-	char *homeFile = NULL;
-	asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
-
+	
+	/*
+	 *  Generate TwitCrusader Local-URL for save all info 
+	 * ~/.twc/config/user
+	 * 
+	 */
+	asprintf(&configFile, "%s%s", getenv("HOME"), "/user");
+	
+	/* Get all saved key: Temp-Keys and TwitCrusader consumerKeys */
 	fp = fopen ("/tmp/token", "r");
-	fgets(buffer, 250, fp);
-	rc = oauth_split_url_parameters(buffer, &rv);
-	t_key = get_param(rv, rc, "oauth_token");
-	t_key_secret = get_param(rv, rc, "oauth_token_secret");
-	c_key = get_param(rv, rc, "c_key");
-	c_key_secret = get_param(rv, rc, "c_key_secret");
+		fgets(buffer, 250, fp);
+		rc = oauth_split_url_parameters(buffer, &rv);
+		tempKey = get_param(rv, rc, "oauth_token");
+		tempKeySecret = get_param(rv, rc, "oauth_token_secret");
+		consumerKey = get_param(rv, rc, "c_key");
+		consumerKeySecret = get_param(rv, rc, "c_key_secret");
 	fclose (fp);
 	
-	char *access_url = ACCESS_TOKEN_URL;
-	asprintf(&access_url, "%s?oauth_verifier=%s", access_url, pin);
-	req_url = oauth_sign_url2(access_url, &postarg, OA_HMAC, NULL, c_key, c_key_secret, t_key, t_key_secret);
-	oauth_request = oauth_http_post(req_url,postarg);
+	/* Generate a URL, this verify a PIN 
+	 * For validate PIN is necessary: TwitCrusader consumer key (and secret) with a 2 Temp-Keys
+	 * All keys are saved in /tmp/token file
+	 */
+	asprintf(&accessURL, "%s?oauth_verifier=%s", accessURL, pin);
+	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, consumerKey, consumerKeySecret, tempKey, tempKeySecret);
+	twitterUserKey = oauth_http_post(verifyPIN,postarg);
 
-	rc = oauth_split_url_parameters(oauth_request, &rv);
-	char *user_token = get_param(rv, rc, "oauth_token");
-	char *user_token_secret = get_param(rv, rc, "oauth_token_secret");
-	char *user_id = get_param(rv, rc, "user_id");
-	char *screen_name = get_param(rv, rc, "screen_name");
+	
+	/* Split all parameters and get User-ID, Username, and User-Keys */
+	rc = oauth_split_url_parameters(twitterUserKey, &rv);
+	userKey = get_param(rv, rc, "oauth_token");
+	userKeySecret = get_param(rv, rc, "oauth_token_secret");
+	userID = get_param(rv, rc, "user_id");
+	screenName = get_param(rv, rc, "screen_name");
 
-	fp=fopen(homeFile, "w+");
-	asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screen_name, user_id, c_key, c_key_secret, user_token, user_token_secret);
-	fprintf(fp, data_file);
+	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
+	fp=fopen(configFile, "w+");
+		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screenName, userID, consumerKey, consumerKeySecret, userKey, userKeySecret);
+		fprintf(fp, data_file);
 	fclose(fp);
-
+	
+	/* Remove token file with all Temp-Keys saved */
 	remove("/tmp/token");
 
-	return oauth_request;
 }
 
-char* request_token(const char *c_key, const char *c_key_secret){
-	char *postarg = NULL;
-
-	const char *oauth_sign = oauth_sign_url2(REQUEST_URL, NULL, OA_HMAC, NULL, c_key, c_key_secret, NULL, NULL);
-	char *oauth_http_access = oauth_http_get(oauth_sign,postarg);
-
-	return oauth_http_access;
-}
-
+/*
+ * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
+ * 
+ */
 void send_tweet(char *msg){
 
-		FILE *fp;
-		//*user = NULL,
-		//*user_id = NULL,
-		char *c_token = NULL,
-				*c_token_secret = NULL,
-				*user_token = NULL,
-				*user_token_secret = NULL;
-		char buffer[256];
-		char *postarg = NULL;
+	FILE *fp;
+	char *consumerToken = NULL,
+		 *consumerTokenSecret = NULL,
+		 *userToken = NULL,
+		 *userTokenSecret = NULL,
+		 *result = NULL,
+		 *configFile = NULL,
+		 *twitterStatusURL = STATUS_URL,
+		 *sendTweet = NULL;
+	char buffer[256];
+	char *postarg = NULL;
+	char delims[] = "||";
 
-		char *homeFile = NULL;
-		asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
+	/* Generate a Local-URL for get all user-info */
+	asprintf(&configFile, "%s%s", getenv("HOME"), "/user");
 
-		fp = fopen (homeFile, "r");
+	/* Get all user-info and user token */
+	fp = fopen (configFile, "r");
 		fgets(buffer, 250, fp);
-		char delims[] = "||";
-		char *result = NULL;
-
-		result = strtok( buffer, delims);
-		//user = result;
-
-		result = strtok( NULL, delims );
-		//user_id = result;
-
-		result = strtok( NULL, delims );
-		c_token = result;
-
-		result = strtok( NULL, delims );
-		c_token_secret = result;
-
-		result = strtok( NULL, delims );
-		user_token = result;
-
-		result = strtok( NULL, delims );
-		user_token_secret = result;
-		fclose (fp);
 		
-		char *status_url = STATUS_URL;
-		asprintf(&status_url, "%s%s",  status_url, msg);
-		char *req_url = oauth_sign_url2(status_url, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
-		oauth_http_post(req_url, postarg);
+		/* Username */
+		result = strtok( buffer, delims);
+		
+		/* User-ID */
+		result = strtok( NULL, delims );
+		
+		/* Get TwitCrusader Token */
+		result = strtok( NULL, delims );
+		consumerToken = result;
+
+		/* Get TwitCrusader Secret Token */
+		result = strtok( NULL, delims );
+		consumerTokenSecret = result;
+		
+		/* Get User Token */
+		result = strtok( NULL, delims );
+		userToken = result;
+		
+		/* Get TwitCrusader Secret Token */
+		result = strtok( NULL, delims );
+		userTokenSecret = result;
+	fclose (fp);
+	
+	/* Send Tweet with oAuth functions */
+	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
+	sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, consumerToken, consumerTokenSecret, userToken, userTokenSecret);
+	oauth_http_post(sendTweet, postarg);
 
 }

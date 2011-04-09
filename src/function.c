@@ -23,12 +23,18 @@
 
 #include "function.h"
 
+/*  
+ * This function add string1 + string2 = string3
+ * Exemple: "AL" + "EX" = "ALEX"
+ * 
+ */
 char *sum_string(char *parm1, char *parm2 ){
 
-
+	/* molloc function return a number of bytes of parm1 + parm2 */
 	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
 	if (parm != NULL )
 	{
+		/* Add parm1 + parm2 for return sum of 2 variables */
 		strcpy(parm, parm1);
 		strcat(parm, parm2);
 	}
@@ -36,35 +42,56 @@ char *sum_string(char *parm1, char *parm2 ){
 	return parm;
 }
 
+
+/*  
+ * This function split url-parameters with delimiter char
+ * WARINING: use it with oauth_split_url_parameters() for variables rv
+ * 
+ * Exemple: 
+ * param = oauth_token
+ * rc = 1
+ * rv = oauth=XXXXXXXXXX&token=ZZZZZZZZZ
+ * Return = XXXXXXXXXX
+ * 
+ */
 char* get_param(char** argv, int argc, const char* param)
 {
-	int i, param_len;
-
+	int i, 
+		param_len;
+	
+	/* count lenght of input parameters */
 	param_len = strlen(param);
+	
 	for (i = 0; i < argc; i++) {
+		/* Split parameter after = */
 		if (!strncmp(argv[i], param, param_len) && strlen(argv[i]) > param_len && argv[i][param_len] == '=')
+		
+			/* Return a parameters after delimiter = */
 			return strdup(&argv[i][param_len + 1]);
 	}
 
 	return 0;
 }
 
-void input_param (int argc, char **argv)
+/*  
+ * Debug Function
+ * 
+ */
+void debug (int argc, char **argv)
 {
-  int count;
+	int count;
 
-  printf ("This program was called with \"%s\".\n",argv[0]);
+	/* return debug of 1 parameter */
+	printf ("This program was called with \"%s\".\n",argv[0]);
 
-  if (argc > 1)
-    {
-      for (count = 1; count < argc; count++)
-	{
-	  printf("argv[%d] = %s\n", count, argv[count]);
+	/* return debug of all parameters */
+	if (argc > 1){
+		for (count = 1; count < argc; count++)
+		{
+		  printf("argv[%d] = %s\n", count, argv[count]);
+		}
+	}else{
+		printf("The command had no other arguments.\n");
 	}
-    }
-  else
-    {
-      printf("The command had no other arguments.\n");
-    }
 
 }
