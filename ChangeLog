@@ -1,3 +1,11 @@
+=================== 0.1.82 ===================
+*Re-Engine code
+- New icons
+- All .c files have comments
+- Fix oauth function
+- Fix fopen file
+- And more...
+
 =================== 0.1.81 ===================
 * Twitter oAuth Security
 - Disabled oAuth and Hidden Token
