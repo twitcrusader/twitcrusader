@@ -87,7 +87,7 @@ gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweet
 		user_token_secret = result;
 		fclose (fp);
 
-		char *update_status = "http://api.twitter.com/1/statuses/update.xml?status=";
+		char *update_status = STATUS_URL;
 		asprintf(&update_status, "%s%s", update_status, msg);
 		char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
 		oauth_http_post(req_url, postarg);

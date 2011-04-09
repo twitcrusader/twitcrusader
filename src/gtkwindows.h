@@ -46,6 +46,8 @@
 #define ICON_LINK ICONS_DIR"/link.png"
 #define ICON_PHOTO ICONS_DIR"/photo.png"
 
+#define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status=";
+
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer);
 
