@@ -29,7 +29,15 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "twitcrusader.h"
+#include "function.h"
 #include "twitter.h"
+
+typedef struct
+{
+	GtkWidget *pin;
+
+} AuthWidget;
+
 
 #define ICON_SETTINGS ICONS_DIR"/setting.png"
 #define ICON_ABOUT ICONS_DIR"/tw_about.png"
@@ -46,15 +54,13 @@
 #define ICON_LINK ICONS_DIR"/link.png"
 #define ICON_PHOTO ICONS_DIR"/photo.png"
 
-#define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status=";
-
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
-gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer);
-
+gboolean send_tweet_gtk(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer);
+void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
 void switch_page (GtkButton *button, GtkNotebook *notebook);
 void windows_setting();
 void windows_about();
-void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
+char* access_token_gtk(GtkButton *button, AuthWidget *DataInput);
 void windows_adduser();
 int windows_main(int argc, char **argv);
 

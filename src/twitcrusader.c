@@ -24,37 +24,11 @@
 //TwitCrusader Header File
 #include "twitcrusader.h"
 #include "gtkwindows.h"
-
-//#define _GNU_SOURCE ;
-
-char *sum_string(char *parm1, char *parm2 ){
-
-
-	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
-	if (parm != NULL )
-	{
-		strcpy(parm, parm1);
-		strcat(parm, parm2);
-	}
-
-	return parm;
-}
-
-char* get_param(char** argv, int argc, const char* param)
-{
-	int i, param_len;
-
-	param_len = strlen(param);
-	for (i = 0; i < argc; i++) {
-		if (!strncmp(argv[i], param, param_len) && strlen(argv[i]) > param_len && argv[i][param_len] == '=')
-			return strdup(&argv[i][param_len + 1]);
-	}
-
-	return 0;
-}
+#include "function.h"
 
 int main(int argc, char **argv){
 
+	input_param(argc, argv);
 	windows_main(argc, argv);
 
 	return 0;

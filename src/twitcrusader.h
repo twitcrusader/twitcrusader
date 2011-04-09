@@ -28,17 +28,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <gtk/gtk.h>
 
-//oAuth Input
-typedef struct
-{       
-	GtkWidget *pin;
-	
-} AuthWidget; 
-
-char *sum_string(char *parm1, char *parm2 );
-char* get_param(char** argv, int argc, const char* param);
+#include "function.h"
 
 
 #endif

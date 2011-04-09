@@ -20,7 +20,7 @@
 *		Twitter: @ptkdev / @twitcrusader_en
 *		WebSite: http://www.twitcrusader.org
 */
-#define _GNU_SOURCE
+
 #include "gtkwindows.h"
 
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
@@ -40,61 +40,23 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
 	return FALSE;
 }
 
-gboolean send_tweet(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer){
+char* access_token_gtk(GtkButton *button, AuthWidget *DataInput){
+	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
+
+	return access_token(pin);
+}
+
+gboolean send_tweet_gtk(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer){
 
 	GtkTextIter start;
 	GtkTextIter end;
 
 	gtk_text_buffer_get_start_iter (tweetbuffer, &start);
 	gtk_text_buffer_get_end_iter (tweetbuffer, &end);
-	gchar *msg = gtk_text_buffer_get_text(tweetbuffer, &start, &end, TRUE);
+	char *msg = gtk_text_buffer_get_text(tweetbuffer, &start, &end, TRUE);
 
 	if(pKey->keyval == GDK_Return){
-		FILE *fp;
-		//*user = NULL,
-		//*user_id = NULL,
-		char *c_token = NULL,
-				*c_token_secret = NULL,
-				*user_token = NULL,
-				*user_token_secret = NULL;
-		char buffer[256];
-		char *postarg = NULL;
-
-		char *homeFile = NULL;
-		asprintf(&homeFile, "%s%s", getenv("HOME"), "/user");
-
-		fp = fopen (homeFile, "r");
-		fgets(buffer, 250, fp);
-		char delims[] = "||";
-		char *result = NULL;
-
-		result = strtok( buffer, delims);
-		//user = result;
-
-		result = strtok( NULL, delims );
-		//user_id = result;
-
-		result = strtok( NULL, delims );
-		c_token = result;
-
-		result = strtok( NULL, delims );
-		c_token_secret = result;
-
-		result = strtok( NULL, delims );
-		user_token = result;
-
-		result = strtok( NULL, delims );
-		user_token_secret = result;
-		fclose (fp);
-
-		char *update_status = STATUS_URL;
-		asprintf(&update_status, "%s%s", update_status, msg);
-		char *req_url = oauth_sign_url2(update_status, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
-		oauth_http_post(req_url, postarg);
-		
-		gtk_text_buffer_delete(tweetbuffer, &start, &end);
-
-		return 1; // fix cursor (return to previous line)
+		send_tweet(msg);
 	}
 
 	return 0;
@@ -142,7 +104,6 @@ void windows_setting(){
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 
-	// GTK Windows Declaration: favicon
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_SETTINGS, &error);
 
 	//Add Switch GTKNotebook

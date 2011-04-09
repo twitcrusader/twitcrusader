@@ -31,14 +31,20 @@
 #include <oauth.h>
 
 #include "twitcrusader.h"
+#include "function.h"
+
+#define _GNU_SOURCE ;
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 #define AUTHORIZE_URL "http://api.twitter.com/oauth/authorize"
 #define REQUEST_URL "https://api.twitter.com/oauth/request_token"
+#define ACCESS_TOKEN_URL "http://api.twitter.com/oauth/access_token"
+#define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
 
 int oauth_start();
+char* access_token(const char *pin);
 char* request_token(const char *c_key, const char *c_key_secret);
-char* access_token(GtkButton *button, AuthWidget *DataInput);
+void send_tweet();
 
 #endif /* TWITTER_H_ */
