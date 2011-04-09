@@ -424,8 +424,8 @@ void windows_adduser()
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	DataInput->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(DataInput->window), 310, 240);
-	gtk_widget_set_size_request (DataInput->window, 310, 240);
+	gtk_window_set_default_size (GTK_WINDOW(DataInput->window), 200, 210);
+	gtk_widget_set_size_request (DataInput->window, 200, 210);
 	gtk_window_set_title (GTK_WINDOW(DataInput->window), "Nuovo Utente");
 	gtk_container_set_border_width (GTK_CONTAINER (DataInput->window), 0);
 	gtk_window_set_position(GTK_WINDOW(DataInput->window), GTK_WIN_POS_CENTER);
@@ -435,7 +435,7 @@ void windows_adduser()
 	twitterLogin = gtk_image_new_from_file (ICON_SIGNIN);
 	tw_login_imgevent = gtk_event_box_new ();
 	gtk_container_add (GTK_CONTAINER (tw_login_imgevent), twitterLogin);
-	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 2, 8,1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	/* Call oAuth function */
 	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(oauth_start), NULL);
 	
@@ -444,8 +444,8 @@ void windows_adduser()
 	DataInput->pin = gtk_entry_new ();
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	gtk_entry_set_text (GTK_ENTRY (DataInput->pin), "");
-	gtk_table_attach (GTK_TABLE (table), label, 1, 9,4, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9,5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 3, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	
 	/* Press Button and call function for verify PIN */
 	button = gtk_button_new_with_label ("Crea Account");
