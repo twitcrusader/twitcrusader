@@ -50,7 +50,7 @@ $ make uninstall
  * Compile (from Shell)
  */ 
 
-$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h twitcrusader.c twitter.c gtkwindows.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`
+$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc inc/twitcrusader.h inc/gtkwindows.h inc/function.h inc/twitter.h twitcrusader.c twitter.c gtkwindows.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`
 
 
 /**
@@ -59,4 +59,4 @@ $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwi
 
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h twitcrusader.c twitter.c gtkwindows.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`
+3) gcc -Wall -DICONS_DIR=\""../img"\" -o "%e" "%f" inc/twitcrusader.h inc/gtkwindows.h inc/function.h inc/twitter.h twitcrusader.c twitter.c gtkwindows.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth` `xml2-config --cflags` `xml2-config --libs`

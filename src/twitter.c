@@ -22,7 +22,7 @@
  */
  
 #define _GNU_SOURCE
-#include "include/twitter.h"
+#include "inc/twitter.h"
 
 /*
  * Main function for oAuth access

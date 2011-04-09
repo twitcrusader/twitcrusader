@@ -21,7 +21,7 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-#include "include/gtkwindows.h"
+#include "inc/gtkwindows.h"
 
 /*
  * Return Pressed Key of Keyboard

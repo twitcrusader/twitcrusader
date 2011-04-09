@@ -21,7 +21,7 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-#include "include/function.h"
+#include "inc/function.h"
 
 /*  
  * This function add string1 + string2 = string3
