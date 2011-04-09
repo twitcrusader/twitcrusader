@@ -21,9 +21,9 @@
  *		WebSite: http://www.twitcrusader.org
  */
 
-#include "twitcrusader.h"
-#include "gtkwindows.h"
-#include "function.h"
+#include "include/twitcrusader.h"
+#include "include/gtkwindows.h"
+#include "include/function.h"
 
 /*
  * Main function and debug function
