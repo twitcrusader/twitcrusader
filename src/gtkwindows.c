@@ -57,6 +57,9 @@ gboolean send_tweet_gtk(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *t
 
 	if(pKey->keyval == GDK_Return){
 		send_tweet(msg);
+		
+		gtk_text_buffer_delete(tweetbuffer, &start, &end);
+		return 1; // fix cursor (return to previous line)
 	}
 
 	return 0;
@@ -587,7 +590,7 @@ int windows_main(int argc, char **argv){
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 	gtk_text_buffer_set_text (buffer, "", -1);
 	g_signal_connect(buffer, "changed", G_CALLBACK(update_statusbar), statusbar_char);
-	g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet), buffer);
+	g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet_gtk), buffer);
 	gtk_container_add(GTK_CONTAINER(scroll), text);
 
 	// Widget Show
