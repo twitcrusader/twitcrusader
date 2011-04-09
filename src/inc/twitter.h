@@ -42,7 +42,7 @@
 #define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
 
 int oauth_start();
-void access_token(const char *pin);
+int access_token(const char *pin);
 char* request_token(const char *consumerKey, const char *consumerKeySecret);
 void send_tweet();
 

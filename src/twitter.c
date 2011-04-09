@@ -97,11 +97,12 @@ char* request_token(const char *consumerKey, const char *consumerKeySecret){
  * All info is saved at ~/.twc/config/user file
  * 
  */
-void access_token(const char *pin){
+int access_token(const char *pin){
 	
 	FILE *fp;
 	int rc;
 	const char *verifyPIN = NULL;
+	int correctVerify = 1;
 
 	char 	*twitterUserKey = NULL,
 			*data_file = NULL,
@@ -127,41 +128,53 @@ void access_token(const char *pin){
 	 */
 	asprintf(&configFile, "%s%s", getenv("HOME"), "/user");
 	
-	/* Get all saved key: Temp-Keys and TwitCrusader consumerKeys */
-	fp = fopen ("/tmp/token", "r");
-		fgets(buffer, 250, fp);
-		rc = oauth_split_url_parameters(buffer, &rv);
-		tempKey = get_param(rv, rc, "oauth_token");
-		tempKeySecret = get_param(rv, rc, "oauth_token_secret");
-		consumerKey = get_param(rv, rc, "c_key");
-		consumerKeySecret = get_param(rv, rc, "c_key_secret");
-	fclose (fp);
+	/* Check Correct Input */
+	if(fopen ("/tmp/token", "r") != NULL){
+		/* Get all saved key: Temp-Keys and TwitCrusader consumerKeys */
+		fp = fopen ("/tmp/token", "r");
+			fgets(buffer, 250, fp);
+			rc = oauth_split_url_parameters(buffer, &rv);
+			tempKey = get_param(rv, rc, "oauth_token");
+			tempKeySecret = get_param(rv, rc, "oauth_token_secret");
+			consumerKey = get_param(rv, rc, "c_key");
+			consumerKeySecret = get_param(rv, rc, "c_key_secret");
+		fclose (fp);
+		
+		/* Generate a URL, this verify a PIN 
+		 * For validate PIN is necessary: TwitCrusader consumer key (and secret) with a 2 Temp-Keys
+		 * All keys are saved in /tmp/token file
+		 */
+		asprintf(&accessURL, "%s?oauth_verifier=%s", accessURL, pin);
+		verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, consumerKey, consumerKeySecret, tempKey, tempKeySecret);
+		twitterUserKey = oauth_http_post(verifyPIN,postarg);
+		
+		/* Split all parameters and get User-ID, Username, and User-Keys */
+		rc = oauth_split_url_parameters(twitterUserKey, &rv);
+		userKey = get_param(rv, rc, "oauth_token");
+		userKeySecret = get_param(rv, rc, "oauth_token_secret");
+		userID = get_param(rv, rc, "user_id");
+		screenName = get_param(rv, rc, "screen_name");
 	
-	/* Generate a URL, this verify a PIN 
-	 * For validate PIN is necessary: TwitCrusader consumer key (and secret) with a 2 Temp-Keys
-	 * All keys are saved in /tmp/token file
-	 */
-	asprintf(&accessURL, "%s?oauth_verifier=%s", accessURL, pin);
-	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, consumerKey, consumerKeySecret, tempKey, tempKeySecret);
-	twitterUserKey = oauth_http_post(verifyPIN,postarg);
-
+		/* Check Correct Input */
+		if(userKey != NULL && screenName != NULL){
+			/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
+			fp=fopen(configFile, "w+");
+				asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screenName, userID, consumerKey, consumerKeySecret, userKey, userKeySecret);
+				fprintf(fp, data_file);
+			fclose(fp);
+		
+			/* Remove token file with all Temp-Keys saved */
+			remove("/tmp/token");
+		}else{
+			correctVerify = 0;
+			remove("/tmp/token");
+		}
+	}else{
+		correctVerify = 0;
+		remove("/tmp/token");
+	}
 	
-	/* Split all parameters and get User-ID, Username, and User-Keys */
-	rc = oauth_split_url_parameters(twitterUserKey, &rv);
-	userKey = get_param(rv, rc, "oauth_token");
-	userKeySecret = get_param(rv, rc, "oauth_token_secret");
-	userID = get_param(rv, rc, "user_id");
-	screenName = get_param(rv, rc, "screen_name");
-
-	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
-	fp=fopen(configFile, "w+");
-		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", screenName, userID, consumerKey, consumerKeySecret, userKey, userKeySecret);
-		fprintf(fp, data_file);
-	fclose(fp);
-	
-	/* Remove token file with all Temp-Keys saved */
-	remove("/tmp/token");
-
+	return correctVerify;
 }
 
 /*
