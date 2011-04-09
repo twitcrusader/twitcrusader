@@ -27,8 +27,8 @@
 #include "function.h"
 
 int main(int argc, char **argv){
-
-	input_param(argc, argv);
+	
+	input_param (argc, argv);
 	windows_main(argc, argv);
 
 	return 0;

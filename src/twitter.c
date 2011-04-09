@@ -20,7 +20,8 @@
  *		Twitter: @ptkdev / @twitcrusader_en
  *		WebSite: http://www.twitcrusader.org
  */
-
+ 
+#define _GNU_SOURCE
 #include "twitter.h"
 
 int oauth_start(){
@@ -74,9 +75,10 @@ char* access_token(const char *pin){
 	c_key = get_param(rv, rc, "c_key");
 	c_key_secret = get_param(rv, rc, "c_key_secret");
 	fclose (fp);
-
-	asprintf(ACCESS_TOKEN_URL, "%s?oauth_verifier=%s", ACCESS_TOKEN_URL, pin);
-	req_url = oauth_sign_url2(ACCESS_TOKEN_URL, &postarg, OA_HMAC, NULL, c_key, c_key_secret, t_key, t_key_secret);
+	
+	char *access_url = ACCESS_TOKEN_URL;
+	asprintf(&access_url, "%s?oauth_verifier=%s", access_url, pin);
+	req_url = oauth_sign_url2(access_url, &postarg, OA_HMAC, NULL, c_key, c_key_secret, t_key, t_key_secret);
 	oauth_request = oauth_http_post(req_url,postarg);
 
 	rc = oauth_split_url_parameters(oauth_request, &rv);
@@ -142,9 +144,10 @@ void send_tweet(char *msg){
 		result = strtok( NULL, delims );
 		user_token_secret = result;
 		fclose (fp);
-
-		asprintf(STATUS_URL, "%s%s", STATUS_URL, msg);
-		char *req_url = oauth_sign_url2(STATUS_URL, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
+		
+		char *status_url = STATUS_URL;
+		asprintf(&status_url, "%s%s",  status_url, msg);
+		char *req_url = oauth_sign_url2(status_url, &postarg, OA_HMAC, NULL, c_token, c_token_secret, user_token, user_token_secret);
 		oauth_http_post(req_url, postarg);
 
 }

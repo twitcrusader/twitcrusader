@@ -390,7 +390,7 @@ void windows_adduser()
 			7, 9, GTK_FILL | GTK_EXPAND,
 			GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_container_add (GTK_CONTAINER (window), table);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token), DataInput);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token_gtk), DataInput);
 
 	// CALLBACK: exit event
 	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
