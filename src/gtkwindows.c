@@ -21,7 +21,7 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-#include "inc/gtkwindows.h"
+#include "include/gtkwindows.h"
 
 /*
  * Delete widget for button-event

@@ -1,4 +1,4 @@
-/* 
+/*
  *	TwitCrusader - Twitter Client For Linux Desktop
  *		Copyright (C) 2011  PTKDev, RoxShannon
  *
@@ -21,21 +21,29 @@
  *		WebSite: http://www.twitcrusader.org
  */
 
-#include "include/twitcrusader.h"
-#include "include/gtkwindows.h"
-#include "include/function.h"
+#ifndef TWITTER_H_
+#define TWITTER_H_
 
-/*
- * Main function and debug function
- * 
- */
-int main(int argc, char **argv){
-	
-	/* debug */
-	debug (argc, argv);
-	
-	/* Main GTK Window */
-	windows_main(argc, argv);
 
-	return 0;
-}
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <oauth.h>
+#include <libxml/xmlreader.h>
+
+#include "twitcrusader.h"
+#include "function.h"
+
+#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
+#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
+#define AUTHORIZE_URL "http://api.twitter.com/oauth/authorize"
+#define REQUEST_URL "https://api.twitter.com/oauth/request_token"
+#define ACCESS_TOKEN_URL "http://api.twitter.com/oauth/access_token"
+#define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
+
+int oauth_start();
+int access_token(const char *pin);
+char* request_token(const char *consumerKey, const char *consumerKeySecret);
+void send_tweet();
+
+#endif /* TWITTER_H_ */
