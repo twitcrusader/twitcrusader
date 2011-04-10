@@ -21,6 +21,7 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
+#define _GNU_SOURCE
 #include "include/gtkwindows.h"
 
 /*
@@ -494,6 +495,7 @@ int windows_main(int argc, char **argv){
 	GtkTextBuffer *buffer;
 
 	configFile=strcat(configFile, "/.twc/config");
+	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
