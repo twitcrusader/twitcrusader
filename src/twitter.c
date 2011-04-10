@@ -128,10 +128,11 @@ int access_token(const char *pin){
 	 */
 	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
 	
+	/* Check Correct Saves Temp-Keys */
+	fp = fopen ("/tmp/token.twc", "r");
 	/* Check Correct Input */
-	if(fopen ("/tmp/token.twc", "r") != NULL){
-		/* Get all saved key: Temp-Keys and TwitCrusader consumerKeys */
-		fp = fopen ("/tmp/token.twc", "r");
+	if(fp != NULL){
+		/* Get all saved key from /tmp/token.twc: Temp-Keys and TwitCrusader consumerKeys */
 			fgets(buffer, 250, fp);
 			rc = oauth_split_url_parameters(buffer, &rv);
 			tempKey = get_param(rv, rc, "oauth_token");
