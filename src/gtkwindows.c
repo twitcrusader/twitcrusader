@@ -387,7 +387,8 @@ void windows_about(){
 }
 
 /*
- * Setting GTK Window
+ * Upgrade Window
+ * Check Updates from vebsite http://www.twitcrusader.org and get file version.php
  * 
  */
 void windows_upgrade(){
