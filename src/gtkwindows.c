@@ -374,7 +374,7 @@ void windows_about(){
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon");
-	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: 0.1.82");
+	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
@@ -397,8 +397,8 @@ void windows_upgrade(){
 
 	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 310, 300);
-	gtk_widget_set_size_request (window, 310, 300);
+	gtk_window_set_default_size (GTK_WINDOW(window), 250, 200);
+	gtk_widget_set_size_request (window, 250, 200);
 	gtk_window_set_title (GTK_WINDOW(window), "Updates");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);

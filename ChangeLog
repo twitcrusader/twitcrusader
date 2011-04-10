@@ -1,10 +1,16 @@
+=================== 0.1.83 ===================
+*Re-Engine code 2
+- All .h files moved to include folder
+- Check oAuth Input
+- And more minor fix...
+
 =================== 0.1.82 ===================
-*Re-Engine code
+*Re-Engine code 1
 - New icons
 - All .c files have comments
 - Fix oauth function
 - Fix fopen file
-- And more...
+- And more minor fix...
 
 =================== 0.1.81 ===================
 * Twitter oAuth Security

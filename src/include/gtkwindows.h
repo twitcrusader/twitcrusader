@@ -39,7 +39,8 @@ typedef struct
 
 } AuthWidget;
 
-
+#define TWC_VERSION "0.1.83"
+#define TWC_VERSION_STATUS "-Alpha"
 #define ICON_SETTINGS ICONS_DIR"/setting.png"
 #define ICON_ABOUT ICONS_DIR"/tw_about.png"
 #define ICON_STAR ICONS_DIR"/star.png"
