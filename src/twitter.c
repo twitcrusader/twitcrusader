@@ -126,7 +126,7 @@ int access_token(const char *pin){
 	 * ~/.twc/config/user
 	 * 
 	 */
-	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
+	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 	
 	/* Check Correct Saves Temp-Keys */
 	fp = fopen ("/tmp/token.twc", "r");
@@ -198,7 +198,7 @@ void send_tweet(char *msg){
 	char delims[] = "||";
 
 	/* Generate a Local-URL for get all user-info */
-	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
+	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
 	/* Get all user-info and user token */
 	fp = fopen (configFile, "r");
