@@ -1,4 +1,5 @@
 bin_PROGRAMS = twc
+<<<<<<< HEAD
 twc_SOURCES = inc/function.h inc/twitcrusader.h inc/gtkwindows.h function.c twitcrusader.c gtkwindows.c 
 twc_LDADD = @gtk_LIBS@ @oauth_LIBS@ @libxml2_LIBS@
 AM_CPPFLAGS = \

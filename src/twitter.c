@@ -22,7 +22,7 @@
  */
  
 #define _GNU_SOURCE
-#include "inc/twitter.h"
+#include "include/twitter.h"
 
 /*
  * Main function for oAuth access
@@ -63,7 +63,7 @@ int oauth_start(){
 	 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
 	 */
 	asprintf(&tmp_token, "%s%s%s%s%s", tempKeyURL, "&c_key=", consumerKey, "&c_key_secret=", consumerKeySecret);
-	fp=fopen("/tmp/token", "w+");
+	fp=fopen("/tmp/token.twc", "w+");
 		fprintf(fp, tmp_token);
 	fclose(fp);
 
@@ -126,12 +126,13 @@ int access_token(const char *pin){
 	 * ~/.twc/config/user
 	 * 
 	 */
-	asprintf(&configFile, "%s%s", getenv("HOME"), "/user");
+	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
 	
+	/* Check Correct Saves Temp-Keys */
+	fp = fopen ("/tmp/token.twc", "r");
 	/* Check Correct Input */
-	if(fopen ("/tmp/token", "r") != NULL){
-		/* Get all saved key: Temp-Keys and TwitCrusader consumerKeys */
-		fp = fopen ("/tmp/token", "r");
+	if(fp != NULL){
+		/* Get all saved key from /tmp/token.twc: Temp-Keys and TwitCrusader consumerKeys */
 			fgets(buffer, 250, fp);
 			rc = oauth_split_url_parameters(buffer, &rv);
 			tempKey = get_param(rv, rc, "oauth_token");
@@ -164,14 +165,14 @@ int access_token(const char *pin){
 			fclose(fp);
 		
 			/* Remove token file with all Temp-Keys saved */
-			remove("/tmp/token");
+			remove("/tmp/token.twc");
 		}else{
 			correctVerify = 0;
-			remove("/tmp/token");
+			remove("/tmp/token.twc");
 		}
 	}else{
 		correctVerify = 0;
-		remove("/tmp/token");
+		remove("/tmp/token.twc");
 	}
 	
 	return correctVerify;
@@ -197,7 +198,7 @@ void send_tweet(char *msg){
 	char delims[] = "||";
 
 	/* Generate a Local-URL for get all user-info */
-	asprintf(&configFile, "%s%s", getenv("HOME"), "/user");
+	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
 
 	/* Get all user-info and user token */
 	fp = fopen (configFile, "r");
