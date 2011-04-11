@@ -77,21 +77,40 @@ char* get_param(char** argv, int argc, const char* param)
  * Debug Function
  * 
  */
-void debug (int argc, char **argv)
-{
+int shell_param (int argc, char **argv){
 	int count;
 
-	/* return debug of 1 parameter */
 	printf ("This program was called with \"%s\".\n",argv[0]);
 
-	/* return debug of all parameters */
 	if (argc > 1){
-		for (count = 1; count < argc; count++)
-		{
-		  printf("argv[%d] = %s\n", count, argv[count]);
-		}
-	}else{
-		printf("The command had no other arguments.\n");
-	}
+		for (count = 1; count < argc; count++){
 
+			if(strcmp(argv[count],"--help")==0){
+				printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
+				printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
+				printf("--help		print this page\n");
+				printf("--debug		debug\n\n");
+				printf("GTK flags:\n\n");
+				printf("--gtk-module\n");
+				printf("--g-fatal-warnings\n");
+				printf("--gtk-debug\n");
+				printf("--gtk-no-debug\n");
+				printf("--gdk-debug\n");
+				printf("--gdk-no-debug\n");
+				printf("--display\n");
+				printf("--sync\n");
+				printf("--name\n");
+				printf("--class\n");
+
+				return 1;
+			}
+
+
+			if(strcmp(argv[count], "--debug")==0){
+				debug=1;
+			}
+
+		}
+	}
+	return 0;
 }

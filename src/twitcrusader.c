@@ -32,7 +32,7 @@
 int main(int argc, char **argv){
 	
 	/* debug */
-	debug (argc, argv);
+	shell_param (argc, argv);
 	
 	/* Main GTK Window */
 	windows_main(argc, argv);

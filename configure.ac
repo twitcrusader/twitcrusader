@@ -20,11 +20,11 @@ PKG_CHECK_MODULES(oauth, [oauth >= 0.9.1], , [
 You must have oauth >= 0.9.4
 ])])
 
-PKG_CHECK_MODULES(libxml2, [libxml2 >= 2.6.32], , [
+PKG_CHECK_MODULES(libxml2, [libxml-2.0 >= 2.6.32], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have libxml2 >= 2.6.32
+You must have libxml-2.0 >= 2.6.32
 ])])
 
 AC_SUBST(oauth_CFLAGS)

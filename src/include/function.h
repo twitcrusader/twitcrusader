@@ -28,7 +28,10 @@
 #include <stdio.h>
 #include <string.h>
 
+int debug;
+
 char *sum_string(char *parm1, char *parm2 );
 char* get_param(char** argv, int argc, const char* param);
+int shell_param (int argc, char **argv);
 
 #endif /* FUNCTION_H_ */

@@ -21,7 +21,6 @@
 *		WebSite: http://www.twitcrusader.org
 */
 
-#define _GNU_SOURCE
 #include "include/gtkwindows.h"
 
 /*
@@ -96,7 +95,8 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
  */
 void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
 	
-	int correctVerify = 0;
+	int correctVerify;
+
 	/* Get text from GTK_Entry*/
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
 	
@@ -467,6 +467,7 @@ void windows_adduser()
 	tw_login_imgevent = gtk_event_box_new ();
 	gtk_container_add (GTK_CONTAINER (tw_login_imgevent), twitterLogin);
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
 	/* Call oAuth function */
 	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(oauth_start), NULL);
 	

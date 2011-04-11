@@ -35,6 +35,8 @@
 #include "twitcrusader.h"
 #include "function.h"
 
+#define _GNU_SOURCE
+
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 #define AUTHORIZE_URL "http://api.twitter.com/oauth/authorize"
@@ -45,6 +47,6 @@
 int oauth_start();
 int access_token(const char *pin);
 char* request_token(const char *consumerKey, const char *consumerKeySecret);
-void send_tweet();
+void send_tweet(char*);
 
 #endif /* TWITTER_H_ */

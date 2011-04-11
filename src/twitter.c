@@ -21,7 +21,6 @@
  *		WebSite: http://www.twitcrusader.org
  */
  
-#define _GNU_SOURCE
 #include "include/twitter.h"
 
 /*
