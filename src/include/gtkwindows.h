@@ -68,5 +68,6 @@ void windows_about();
 void access_token_gtk(GtkButton *button, AuthWidget *DataInput);
 void windows_adduser();
 int windows_main(int argc, char **argv);
+int debug(int argc, char **argv);
 
 #endif /* GTKWINDOWS_H_ */

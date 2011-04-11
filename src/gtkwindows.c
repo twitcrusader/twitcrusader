@@ -499,7 +499,7 @@ int windows_main(int argc, char **argv){
 	
 	gtk_init (&argc, &argv);
 
-	char *configFile = getenv("HOME");
+	char *configFile = NULL;
 	GError *error = NULL;
 	GtkWidget *window,
 	*table,
@@ -524,8 +524,7 @@ int windows_main(int argc, char **argv){
 	*aiuto_menu_items;
 	GtkTextBuffer *buffer;
 
-	configFile=strcat(configFile, "/.twc/config");
-	asprintf(&configFile, "%s%s", getenv("HOME"), "/user.twc");
+	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
