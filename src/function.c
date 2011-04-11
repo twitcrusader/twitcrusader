@@ -90,26 +90,14 @@ int shell_param (int argc, char **argv){
 				printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
 				printf("--help		print this page\n");
 				printf("--debug		debug\n\n");
-				printf("GTK flags:\n\n");
-				printf("--gtk-module\n");
-				printf("--g-fatal-warnings\n");
-				printf("--gtk-debug\n");
-				printf("--gtk-no-debug\n");
-				printf("--gdk-debug\n");
-				printf("--gdk-no-debug\n");
-				printf("--display\n");
-				printf("--sync\n");
-				printf("--name\n");
-				printf("--class\n");
 
 				return 1;
-			}
-
-
-			if(strcmp(argv[count], "--debug")==0){
+			}else if(strcmp(argv[count], "--debug")==0){
 				debug=1;
+			}else{
+				printf("\ntry \"%s\" --help for help\n",argv[0]);
+			return 1;
 			}
-
 		}
 	}
 	return 0;
