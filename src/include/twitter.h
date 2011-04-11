@@ -37,14 +37,29 @@
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
+
 #define AUTHORIZE_URL "http://api.twitter.com/oauth/authorize"
 #define REQUEST_URL "https://api.twitter.com/oauth/request_token"
 #define ACCESS_TOKEN_URL "http://api.twitter.com/oauth/access_token"
 #define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
 
-int oauth_start();
+struct users{
+  char *id;
+  char *screenName;
+  char *Token;
+  char *secretToken;
+  char *consumerKey;
+  char *consumerSecretKey;
+} user;
+
+
+char *tmp_token;
+
+int writeUserFile();
+int readUserFile();
+void temp_token();
 int access_token(const char *pin);
 char* request_token(const char *consumerKey, const char *consumerKeySecret);
-void send_tweet(char*);
+int send_tweet(char*);
 
 #endif /* TWITTER_H_ */

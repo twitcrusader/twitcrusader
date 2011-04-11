@@ -24,7 +24,7 @@
 #include "include/twitcrusader.h"
 #include "include/gtkwindows.h"
 #include "include/function.h"
-
+#include "include/twitter.h"
 /*
  * Main function and debug function
  * 
@@ -33,8 +33,7 @@ int main(int argc, char **argv){
 	
 	/* debug */
 	if(shell_param (argc, argv)==1) return 0;
-	
-	/* Main GTK Window */
+
 	windows_main(argc, argv);
 
 	return 0;
