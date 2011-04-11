@@ -57,7 +57,8 @@ char *tmp_token;
 
 int writeUserFile();
 int readUserFile();
-void temp_token();
+int temp_token();
+int temp_token_browser();
 int access_token(const char *pin);
 char* request_token(const char *consumerKey, const char *consumerKeySecret);
 int send_tweet(char*);
