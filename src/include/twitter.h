@@ -24,7 +24,7 @@
 #ifndef TWITTER_H_
 #define TWITTER_H_
 
-
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -34,8 +34,6 @@
 
 #include "twitcrusader.h"
 #include "function.h"
-
-#define _GNU_SOURCE
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"

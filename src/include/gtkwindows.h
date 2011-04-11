@@ -24,6 +24,8 @@
 #ifndef GTKWINDOWS_H_
 #define GTKWINDOWS_H_
 
+#define _GNU_SOURCE
+#include <stdio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
