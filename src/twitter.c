@@ -373,3 +373,27 @@ int homeTimeline(){
 
 	return 0;
 }
+
+int deleteAccount(){
+
+	char *cmd,
+	*configDir,
+	*configFile;
+
+	asprintf(&configDir, "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&configFile, "%s%s", configDir, "user.twc");
+	asprintf(&cmd, "%s %s", "rm ", configFile);
+
+	if(system(cmd)==0){
+		user.Token=NULL;
+		user.consumerKey=NULL;
+		user.consumerSecretKey=NULL;
+		user.id=NULL;
+		user.screenName=NULL;
+		user.secretToken=NULL;
+
+		return 0;
+	}
+
+	return 1;
+}

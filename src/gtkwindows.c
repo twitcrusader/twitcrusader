@@ -220,16 +220,20 @@ void windows_setting(){
 	table = gtk_table_new (7, 10, TRUE);
 	combo = gtk_combo_new ();
 	settingMenu = gtk_label_new ("Account");
-	button = gtk_button_new_with_label ("Salva");
-	label = gtk_label_new ("Account Da Usare:");
+	button = gtk_button_new_with_label ("Elimina");
+
+	label = gtk_label_new ("Twitter's Account:");
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	itemsAccount = g_list_append (itemsAccount, "@user1");
-	itemsAccount = g_list_append (itemsAccount, "@user2");
+	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non  stampa il nome!
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
+
 	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), button, 1, 9,5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount), NULL);
+
 	/* Set switch-TAB signal */
 	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
@@ -528,7 +532,6 @@ int windows_main(int argc, char **argv){
 	*aiuto_menu_items;
 	GtkTextBuffer *buffer;
 
-	int a=0;
 	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
