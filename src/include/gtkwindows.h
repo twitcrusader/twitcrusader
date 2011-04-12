@@ -59,6 +59,7 @@ typedef struct
 #define ICON_LINK ICONS_DIR"/link.png"
 #define ICON_PHOTO ICONS_DIR"/photo.png"
 
+void destroy(GtkButton *button, gpointer widget);
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean send_tweet_gtk(GtkWidget *textarea, GdkEventKey *pKey, GtkTextBuffer *tweetbuffer);
 void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
@@ -68,6 +69,7 @@ void windows_upgrade();
 void windows_about();
 void access_token_gtk(GtkButton *button, AuthWidget *DataInput);
 void windows_adduser();
+void deleteAccount_gtk(GtkButton *button, gpointer widget);
 int windows_main(int argc, char **argv);
 
 #endif /* GTKWINDOWS_H_ */

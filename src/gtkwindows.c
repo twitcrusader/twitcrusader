@@ -232,7 +232,7 @@ void windows_setting(){
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount), NULL);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount_gtk), G_OBJECT (window));
 
 	/* Set switch-TAB signal */
 	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
@@ -717,4 +717,15 @@ int windows_main(int argc, char **argv){
 
 
 	return 0;
+}
+
+void deleteAccount_gtk(GtkButton *button, gpointer window){
+	if(user.consumerKey!=NULL &&
+			user.consumerSecretKey!=NULL &&
+			user.Token!=NULL &&
+			user.secretToken!=NULL){
+		deleteAccount();
+		destroy(button,window);
+		windows_setting();
+	}
 }
