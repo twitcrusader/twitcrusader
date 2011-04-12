@@ -365,3 +365,19 @@ int send_tweet(char *msg){
 
 	return 1;
 }
+
+int homeTimeline(){
+	int count=20;
+	char *timelineURL=HOME_TIMELINE_URL,
+			*timeline1, *timeline2;
+	char *postarg=NULL;
+
+	asprintf(&timelineURL, "%s?count=%i",timelineURL, count);
+
+	timeline1 = oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline2= oauth_http_get(timelineURL, postarg);
+	printf("timeline1= %s",timeline1); //momentaneo..
+	printf("timeline2= %s",timeline1); //momentaneo..
+
+	return 0;
+}

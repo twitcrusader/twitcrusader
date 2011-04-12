@@ -501,6 +501,8 @@ int windows_main(int argc, char **argv){
 
 	gtk_init (&argc, &argv);
 
+	int rows, cols;
+
 	char *configFile = NULL;
 	GError *error = NULL;
 	GtkWidget *window,
@@ -508,7 +510,7 @@ int windows_main(int argc, char **argv){
 	*scroll,
 	*icon_menu,
 	*table_into,
-	//*tweet,
+	*tweet,
 	//*avatar,
 	*scrolled_window,
 	*menu_bar,
@@ -526,6 +528,7 @@ int windows_main(int argc, char **argv){
 	*aiuto_menu_items;
 	GtkTextBuffer *buffer;
 
+	int a=0;
 	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
@@ -659,6 +662,20 @@ int windows_main(int argc, char **argv){
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
 	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
+
+	for ( rows = 0; rows < 40; rows = rows + 4 ) {
+		for ( cols = 0; cols < 3; cols++ ) {
+			//avatar = gtk_image_new_from_file ("");
+			tweet = gtk_label_new ("tweet label1");
+			gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
+			gtk_label_set_line_wrap_mode (GTK_LABEL(tweet), GTK_WRAP_WORD_CHAR);
+			gtk_table_attach (GTK_TABLE (table_into ), tweet, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+			tweet = gtk_label_new ("tweet label2");
+			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+		}
+	}
+
 	/*for ( rows = 0; rows < 40; rows = rows + 4 ) {
        for ( cols = 0; cols < 3; cols++ ) {
             avatar = gtk_image_new_from_file ("");
@@ -677,6 +694,7 @@ int windows_main(int argc, char **argv){
 	gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	text = gtk_text_view_new();
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));

@@ -42,6 +42,7 @@
 #define REQUEST_URL "https://api.twitter.com/oauth/request_token"
 #define ACCESS_TOKEN_URL "http://api.twitter.com/oauth/access_token"
 #define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
+#define HOME_TIMELINE_URL "http://api.twitter.com/version/statuses/home_timeline.xml"
 
 struct users{
   char *id;
@@ -62,5 +63,6 @@ int temp_token_browser();
 int access_token(const char *pin);
 char* request_token(const char *consumerKey, const char *consumerKeySecret);
 int send_tweet(char*);
+int homeTimeline();
 
 #endif /* TWITTER_H_ */
