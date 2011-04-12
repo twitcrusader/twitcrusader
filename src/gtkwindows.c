@@ -1,25 +1,25 @@
 /*
-*	TwitCrusader - Twitter Client For Linux Desktop
-*		Copyright (C) 2011  PTKDev, RoxShannon
-*
-*		This program is free software: you can redistribute it and/or modify
-*		it under the terms of the GNU General Public License as published by
-*		the Free Software Foundation, either version 3 of the License, or
-*		(at your option) any later version.
-*
-*		This program is distributed in the hope that it will be useful,
-*		but WITHOUT ANY WARRANTY; without even the implied warranty of
-*		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*		GNU General Public License for more details.
-*
-*		You should have received a copy of the GNU General Public License
-*		along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*
-*
-*		Author: Patryk Rzucidlo (PTKDev)
-*		Twitter: @ptkdev / @twitcrusader_en
-*		WebSite: http://www.twitcrusader.org
-*/
+ *	TwitCrusader - Twitter Client For Linux Desktop
+ *		Copyright (C) 2011  PTKDev, RoxShannon
+ *
+ *		This program is free software: you can redistribute it and/or modify
+ *		it under the terms of the GNU General Public License as published by
+ *		the Free Software Foundation, either version 3 of the License, or
+ *		(at your option) any later version.
+ *
+ *		This program is distributed in the hope that it will be useful,
+ *		but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *		GNU General Public License for more details.
+ *
+ *		You should have received a copy of the GNU General Public License
+ *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ *		Author: Patryk Rzucidlo (PTKDev)
+ *		Twitter: @ptkdev / @twitcrusader_en
+ *		WebSite: http://www.twitcrusader.org
+ */
 
 #include "include/gtkwindows.h"
 
@@ -28,19 +28,19 @@
  */
 void destroy(GtkButton *button, gpointer widget)
 {
-    /* Destroy the widget */
-    gtk_widget_destroy (GTK_WIDGET (widget));
+	/* Destroy the widget */
+	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 
 /*
  * Error-Window, if user insert incorrect input type 
  */
 void window_error(char* error_msg){
-	
+
 	GtkWidget *window,
-			  *label,
-			  *table = gtk_table_new (5, 10, TRUE),
-			  *button = gtk_button_new_with_label ("Close");
+	*label,
+	*table = gtk_table_new (5, 10, TRUE),
+	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
 
 	/* Set all window options (color, size, position, etc) */
@@ -51,13 +51,13 @@ void window_error(char* error_msg){
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_CLOSE , &error);
-	
+
 	/* Error Message */
 	label = gtk_label_new (error_msg);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 10, 4, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
-	
+
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
 
@@ -79,8 +79,8 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
 
 		switch (pKey->keyval)
 		{
-			case GDK_Escape :
-				gtk_main_quit ();
+		case GDK_Escape :
+			gtk_main_quit ();
 			break;
 		}
 	}
@@ -94,20 +94,21 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
  * 
  */
 void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
-	
+
 	int correctVerify;
 
 	/* Get text from GTK_Entry*/
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
-	
+
 	//Validate PIN
 	correctVerify = access_token(pin);
-	
-	if(correctVerify == 0)
-		window_error("Error: bad Input!");
-	else
-		destroy(button, DataInput->window);
-		
+
+	printf("\ncorrectVerify= %i",correctVerify);
+	if(correctVerify == 1) window_error("Error: bad Input!");
+
+
+	if(correctVerify==0)destroy(button, DataInput->window);
+
 }
 
 /*
@@ -117,25 +118,25 @@ void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
 gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
 
 	GtkTextIter start,
-				end;
+	end;
 	char *msg = NULL;
-	
+
 	/* Get start position of cursor and final position */
 	gtk_text_buffer_get_start_iter (tweetBuffer, &start);
 	gtk_text_buffer_get_end_iter (tweetBuffer, &end);
-	
+
 	/* Casting buffer to char */
 	msg = gtk_text_buffer_get_text(tweetBuffer, &start, &end, TRUE);
-	
+
 	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
 	if(pKey->keyval == GDK_Return){
-		
+
 		//SendTweet
 		send_tweet(msg);
-		
+
 		//Clean TextArea
 		gtk_text_buffer_delete(tweetBuffer, &start, &end);
-		
+
 		return 1; // fix cursor (return to previous line)
 	}
 
@@ -152,7 +153,7 @@ void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
 	gchar *msg;
 	gint tot_char;
 	GtkTextIter iter;
-	
+
 	/* Get message from statusbar and position */
 	gtk_statusbar_pop(statusbar, 0);
 	gtk_text_buffer_get_iter_at_mark(buffer,&iter, gtk_text_buffer_get_insert(buffer));
@@ -161,11 +162,11 @@ void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
 	tot_char = 139 - gtk_text_iter_get_line_offset(&iter);
 	tot_char = tot_char - gtk_text_iter_get_line(&iter);
 	msg = g_strdup_printf("%d", tot_char+1);
-	
+
 	/* Push numer of char to statusbar */
 	gtk_statusbar_push(statusbar, 0, msg);
 	g_free(msg);
-	
+
 }
 
 /*
@@ -186,23 +187,23 @@ void switch_page (GtkButton *button, GtkNotebook *notebook){
  * 
  */
 void windows_setting(){
-	
+
 	GtkWidget *window, 
-			  *notebook = gtk_notebook_new (), 
-			  *settingMenu = NULL, 
-			  *table = gtk_table_new (7, 10, TRUE), 
-			  *label = NULL, 
-			  *combo = NULL,
-			  *button = NULL;
+	*notebook = gtk_notebook_new (),
+	*settingMenu = NULL,
+	*table = gtk_table_new (7, 10, TRUE),
+	*label = NULL,
+	*combo = NULL,
+	*button = NULL;
 	GList *itemsAccount = NULL,
-		  *itemsIMG = NULL,
-		  *itemsVID = NULL,
-		  *itemsTXT = NULL,
-		  *itemsLINK = NULL,
-		  *itemsSKIN = NULL,
-		  *items_lang = NULL,
-		  *items_notify = NULL,
-		  *itemsNotify = NULL;
+			*itemsIMG = NULL,
+			*itemsVID = NULL,
+			*itemsTXT = NULL,
+			*itemsLINK = NULL,
+			*itemsSKIN = NULL,
+			*items_lang = NULL,
+			*items_notify = NULL,
+			*itemsNotify = NULL;
 	GError *error = NULL;
 
 	/* Set all window options (color, size, position, etc) */
@@ -246,7 +247,7 @@ void windows_setting(){
 	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9,0, 1, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	
+
 	/* Set all functions of Services - Video TAB */
 	label = gtk_label_new ("Host Video:");
 	combo = gtk_combo_new ();
@@ -278,7 +279,7 @@ void windows_setting(){
 	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9,6, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,7, 8, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	
+
 	/* Save Button and attach gtk-widget at table */
 	button = gtk_button_new_with_label ("Salva");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,9, 10, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
@@ -286,7 +287,7 @@ void windows_setting(){
 	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
-	
+
 	/* Set all functions of Services - SKIN TAB */
 	settingMenu = gtk_label_new ("Aspetto");
 	table = gtk_table_new (7, 10, TRUE);
@@ -332,7 +333,7 @@ void windows_setting(){
 	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9,0, 1, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	
+
 	/* Set all functions of Services - NOTIFY TAB */
 	label = gtk_label_new ("Tipo Di Notifiche:");
 	combo = gtk_combo_new ();
@@ -350,7 +351,7 @@ void windows_setting(){
 	/* Set switch-TAB signal */
 	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
-	
+
 	/* Attach tab-notebook at window container */
 	gtk_container_add (GTK_CONTAINER (window), notebook);
 
@@ -365,11 +366,11 @@ void windows_setting(){
  * 
  */
 void windows_about(){
-	
+
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(ICON_ABOUT, NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
 	GError *error = NULL;
-	
+
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
@@ -392,21 +393,21 @@ void windows_about(){
  * 
  */
 void windows_upgrade(){
-	
+
 	FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
-			  *lastVersionMSG = gtk_label_new ("Last Version: "),
-			  *lastVersionCheck,
-			  *currentVersionMSG = gtk_label_new ("Current Version: "),
-			  *currentVersionCheck = gtk_label_new (TWC_VERSION),
-			  *table = gtk_table_new (8, 10, TRUE),
-			  *button = gtk_button_new_with_label ("Close");
+	*lastVersionMSG = gtk_label_new ("Last Version: "),
+	*lastVersionCheck,
+	*currentVersionMSG = gtk_label_new ("Current Version: "),
+	*currentVersionCheck = gtk_label_new (TWC_VERSION),
+	*table = gtk_table_new (8, 10, TRUE),
+	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
-	
+
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */		  
 	system ("wget -O /tmp/version.twc "TWC_UPDATES_URL"?current="TWC_VERSION);
-	
+
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen ("/tmp/version.twc", "r");
 	fgets(bufferLatesVersion, 10, checkLatesVersion);
@@ -421,7 +422,7 @@ void windows_upgrade(){
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_UPGRADE, &error);
-	
+
 	/* Attach All Widget */
 	lastVersionCheck = gtk_label_new (bufferLatesVersion);
 	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 1, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
@@ -430,7 +431,7 @@ void windows_upgrade(){
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
-	
+
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
 
@@ -443,10 +444,10 @@ void windows_upgrade(){
 void windows_adduser()
 {
 	GtkWidget *table = gtk_table_new (10, 10, TRUE), 
-			  *label, 
-			  *button,
-			  *twitterLogin,
-			  *tw_login_imgevent;
+			*label,
+			*button,
+			*twitterLogin,
+			*tw_login_imgevent;
 	GError *error = NULL;
 	AuthWidget *DataInput;
 
@@ -470,7 +471,7 @@ void windows_adduser()
 
 	/* Call oAuth function */
 	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(temp_token_browser), NULL);
-	
+
 	/* Attach Box for PIN */
 	label = gtk_label_new ("Inserisci PIN");
 	DataInput->pin = gtk_entry_new ();
@@ -478,7 +479,7 @@ void windows_adduser()
 	gtk_entry_set_text (GTK_ENTRY (DataInput->pin), "");
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 3, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	
+
 	/* Press Button and call function for verify PIN */
 	button = gtk_button_new_with_label ("Crea Account");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
@@ -497,7 +498,7 @@ void windows_adduser()
  * 
  */
 int windows_main(int argc, char **argv){
-	
+
 	gtk_init (&argc, &argv);
 
 	char *configFile = NULL;
@@ -575,7 +576,7 @@ int windows_main(int argc, char **argv){
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_upgrade), NULL);
 	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
-	
+
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
 	icon_menu = gtk_image_new_from_file(ICON_STAR);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
@@ -686,7 +687,7 @@ int windows_main(int argc, char **argv){
 
 	// Widget Show
 	gtk_widget_show_all (window);
-	
+
 	//Exist Config File?
 	if(readUserFile()==1) windows_adduser();
 

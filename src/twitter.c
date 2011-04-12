@@ -34,40 +34,50 @@
 int writeUserFile(){
 
 	FILE *fp;
+	char *cmd;
 	char *data_file;
+	char *configDir;
 	char *configFile;
 
-	puts("writeUserFile");
+	puts("writeUserFile()");
 
-	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
+	asprintf(&configDir, "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&configFile, "%s%s", configDir, "user.twc");
+	asprintf(&cmd, "%s %s", "mkdir -p", configDir);
+	puts("\nuser.screenName= ");
+	puts(user.screenName);
+	puts("\nuser.id= ");
+	puts(user.id);
+	puts("\nuser.consumerKey= ");
+	puts(user.consumerKey);
+	puts("\nuser.consumerSecretKey= ");
+	puts(user.consumerSecretKey);
+	puts("\nuser.Token= ");
+	puts(user.Token);
+	puts("\nuser.secretToken= ");
+	puts(user.secretToken);
 
-	if(user.screenName==NULL) puts("user.screenName==NULL");
-	else puts(user.screenName);
-	if(user.id==NULL) puts("user.id==NULL");
-	else puts(user.id);
-	if(user.consumerKey==NULL) puts("user.consumerKey==NULL");
-	else puts(user.consumerKey);
-	if(user.consumerSecretKey==NULL) puts("user.consumerSecretKey==NULL");
-	else puts(user.consumerSecretKey);
-	if(user.Token==NULL) puts("user.Token==NULL");
-	else puts(user.Token);
-	if(user.secretToken==NULL) puts("user.secretToken==NULL");
-	else puts(user.secretToken);
 
-	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
-		/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
+	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
+	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
+	system(cmd);
+	fp=fopen(configFile, "w+");
 
-		puts(configFile);
-		fp=fopen(configFile, "w+");
-		if(fp!=NULL){
-			asprintf(&data_file, "%s||%s||%s||%s||%s||%s", user.screenName, user.id, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-			fprintf(fp, "%s", data_file);
-			fclose(fp);
+	if(fp!=NULL){
+		puts("asprintf");
+		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", user.screenName, user.id, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+		printf("data_file= %s",data_file);
+		fputs(data_file, fp);
+		fclose(fp);
 
-			return 0;
-		}
-		return 1;
+		puts("fp Scritto corretamente");
+
+		return 0;
+	}else{
+
+		printf("non risco ad aprire il file: %s",configFile);
 	}
+	//}
 
 	return 1;
 }
@@ -114,18 +124,19 @@ int readUserFile(){
 		/* Get TwitCrusader Secret Token */
 		user.secretToken = strtok( NULL, delims );
 
-		if(user.screenName==NULL) puts("user.screenName==NULL");
-		else puts(user.screenName);
-		if(user.id==NULL) puts("user.id==NULL");
-		else puts(user.id);
-		if(user.consumerKey==NULL) puts("user.consumerKey==NULL");
-		else puts(user.consumerKey);
-		if(user.consumerSecretKey==NULL) puts("user.consumerSecretKey==NULL");
-		else puts(user.consumerSecretKey);
-		if(user.Token==NULL) puts("user.Token==NULL");
-		else puts(user.Token);
-		if(user.secretToken==NULL) puts("user.secretToken==NULL");
-		else puts(user.secretToken);
+		puts("\nuser.screenName= ");
+		puts(user.screenName);
+		puts("\nuser.id= ");
+		puts(user.id);
+		puts("\nuser.consumerKey= ");
+		puts(user.consumerKey);
+		puts("\nuser.consumerSecretKey= ");
+		puts(user.consumerSecretKey);
+		puts("\nuser.Token= ");
+		puts(user.Token);
+		puts("\nuser.secretToken= ");
+		puts(user.secretToken);
+
 
 		fclose (fp);
 		if(user.id!=NULL &&
@@ -209,9 +220,7 @@ int temp_token_browser(){
  */
 int temp_token(){
 	int rc;
-	char *cmd,
-	*tempKeyURL,
-	*tempKey;
+	char *tempKeyURL, *tempKey;
 	char **rv=NULL;
 
 	puts("temp_token()");
@@ -250,7 +259,7 @@ int temp_token(){
 int access_token(const char *pin){
 
 	int rc;
-	const char *verifyPIN;
+	char *verifyPIN;
 
 	char *twitterUserKey,
 	*postarg,
@@ -260,33 +269,34 @@ int access_token(const char *pin){
 
 	char **rv=NULL;
 
-	puts("access_token()");
-	printf("tmp_token: %s\n",tmp_token);
+	puts("\naccess_token()");
+	printf("\ntmp_token: %s\n",tmp_token);
 
 	// if(tmp_token==NULL) temp_token(); futura implementazione...
 
-	printf("rc = oauth_split_url_parameters(tmp_token, &rv);");
+	printf("\nrc = oauth_split_url_parameters(tmp_token, &rv);");
 	rc = oauth_split_url_parameters(tmp_token, &rv);
 
-	puts("tempKey = get_param(rv, rc, \"oauth_token\");");
+	puts("\ntempKey = get_param(rv, rc, \"oauth_token\");");
 	tempKey = get_param(rv, rc, "oauth_token");
-	printf("tempKey: %s\n", tempKey);
+	printf("\ntempKey: %s\n", tempKey);
 
 	tempKeySecret = get_param(rv, rc, "oauth_token_secret");
-	printf("tempKeySecret: %s\n", tempKeySecret);
+	printf("\ntempKeySecret: %s\n", tempKeySecret);
 
 	user.consumerKey = get_param(rv, rc, "c_key");
-	printf("user.consumerKey: %s\n", user.consumerKey);
+	printf("\nuser.consumerKey: %s\n", user.consumerKey);
 
 	user.consumerSecretKey = get_param(rv, rc, "c_key_secret");
-	printf("user.consumerSecretKey: %s\n", user.consumerSecretKey);
+	printf("\nuser.consumerSecretKey: %s\n", user.consumerSecretKey);
 
 	/* Generate a URL, this verify a PIN
 	 * For validate PIN is necessary: TwitCrusader consumer key (and secret) with a 2 Temp-Keys
 	 * All keys are saved in /tmp/token file
 	 */
 	asprintf(&accessURL, "%s?oauth_verifier=%s", accessURL, pin);
-	puts("accessURL");
+	printf("pin= %s",pin);
+	printf("accessURL= %s",accessURL);
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
 	twitterUserKey = oauth_http_post(verifyPIN,postarg);
 
@@ -297,24 +307,20 @@ int access_token(const char *pin){
 	user.id = get_param(rv, rc, "user_id");
 	user.screenName = get_param(rv, rc, "screen_name");
 
-	if(user.screenName==NULL) puts("user.screenName==NULL");
-	else puts(user.screenName);
-	if(user.id==NULL) puts("user.id==NULL");
-	else puts(user.id);
-	if(user.consumerKey==NULL) puts("user.consumerKey==NULL");
-	else puts(user.consumerKey);
-	if(user.consumerSecretKey==NULL) puts("user.consumerSecretKey==NULL");
-	else puts(user.consumerSecretKey);
-	if(user.Token==NULL) puts("user.Token==NULL");
-	else puts(user.Token);
-	if(user.secretToken==NULL) puts("user.secretToken==NULL");
-	else puts(user.secretToken);
+	puts("\nuser.screenName= ");
+	puts(user.screenName);
+	puts("\nuser.id= ");
+	puts(user.id);
+	puts("\nuser.consumerKey= ");
+	puts(user.consumerKey);
+	puts("\nuser.consumerSecretKey= ");
+	puts(user.consumerSecretKey);
+	puts("\nuser.Token= ");
+	puts(user.Token);
+	puts("\nuser.secretToken= ");
+	puts(user.secretToken);
 
-	/* Check Correct Input */
-
-	if(writeUserFile()==0) return 0;
-
-	return 1;
+	return writeUserFile();
 }
 
 /*
@@ -333,18 +339,18 @@ int send_tweet(char *msg){
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
 
-	if(user.screenName==NULL) puts("user.screenName==NULL");
-	else puts(user.screenName);
-	if(user.id==NULL) puts("user.id==NULL");
-	else puts(user.id);
-	if(user.consumerKey==NULL) puts("user.consumerKey==NULL");
-	else puts(user.consumerKey);
-	if(user.consumerSecretKey==NULL) puts("user.consumerSecretKey==NULL");
-	else puts(user.consumerSecretKey);
-	if(user.Token==NULL) puts("user.Token==NULL");
-	else puts(user.Token);
-	if(user.secretToken==NULL) puts("user.secretToken==NULL");
-	else puts(user.secretToken);
+	puts("\nuser.screenName= ");
+	puts(user.screenName);
+	puts("\nuser.id= ");
+	puts(user.id);
+	puts("\nuser.consumerKey= ");
+	puts(user.consumerKey);
+	puts("\nuser.consumerSecretKey= ");
+	puts(user.consumerSecretKey);
+	puts("\nuser.Token= ");
+	puts(user.Token);
+	puts("\nuser.secretToken= ");
+	puts(user.secretToken);
 
 	if(user.consumerKey!=NULL &&
 			user.consumerSecretKey!=NULL &&
