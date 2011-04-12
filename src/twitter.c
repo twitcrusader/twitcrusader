@@ -39,24 +39,19 @@ int writeUserFile(){
 	char *configDir;
 	char *configFile;
 
-	puts("writeUserFile()");
-
 	asprintf(&configDir, "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&configFile, "%s%s", configDir, "user.twc");
 	asprintf(&cmd, "%s %s", "mkdir -p", configDir);
-	puts("\nuser.screenName= ");
-	puts(user.screenName);
-	puts("\nuser.id= ");
-	puts(user.id);
-	puts("\nuser.consumerKey= ");
-	puts(user.consumerKey);
-	puts("\nuser.consumerSecretKey= ");
-	puts(user.consumerSecretKey);
-	puts("\nuser.Token= ");
-	puts(user.Token);
-	puts("\nuser.secretToken= ");
-	puts(user.secretToken);
 
+	if(debug==1){
+		printf("\nwriteUserFile()");
+		printf("\nuser.screenName= %s",user.screenName);
+		printf("\nuser.id= %s", user.id);
+		printf("\nuser.consumerKey= %s", user.consumerKey);
+		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
+		printf("\nuser.Token= %s", user.Token);
+		printf("\nuser.secretToken= %s", user.secretToken);
+	}
 
 	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
 	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
@@ -64,18 +59,19 @@ int writeUserFile(){
 	fp=fopen(configFile, "w+");
 
 	if(fp!=NULL){
-		puts("asprintf");
 		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", user.screenName, user.id, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-		printf("data_file= %s",data_file);
+
+		if(debug==1) printf("data_file= %s",data_file);
+
 		fputs(data_file, fp);
 		fclose(fp);
 
-		puts("fp Scritto corretamente");
+		if(debug==1) printf("\nfp Scritto corretamente!");
 
 		return 0;
 	}else{
 
-		printf("non risco ad aprire il file: %s",configFile);
+		if(debug==1) printf("\nnon risco ad aprire il file: %s !",configFile);
 	}
 	//}
 
@@ -91,12 +87,12 @@ int readUserFile(){
 
 	const char delims[] = "||";
 
-	puts("readUserFile");
+	if(debug==1) printf("\nreadUserFile()");
 
 	/* Generate a Local-URL for get all user-info */
 	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
-	puts(configFile);
+	if(debug==1) printf("\nconfigFile= %s",configFile);
 	/* Get all user-info and user token */
 	fp = fopen (configFile, "r");
 
@@ -124,21 +120,18 @@ int readUserFile(){
 		/* Get TwitCrusader Secret Token */
 		user.secretToken = strtok( NULL, delims );
 
-		puts("\nuser.screenName= ");
-		puts(user.screenName);
-		puts("\nuser.id= ");
-		puts(user.id);
-		puts("\nuser.consumerKey= ");
-		puts(user.consumerKey);
-		puts("\nuser.consumerSecretKey= ");
-		puts(user.consumerSecretKey);
-		puts("\nuser.Token= ");
-		puts(user.Token);
-		puts("\nuser.secretToken= ");
-		puts(user.secretToken);
-
+		if(debug==1){
+			printf("\nwriteUserFile()");
+			printf("\nuser.screenName= %s",user.screenName);
+			printf("\nuser.id= %s", user.id);
+			printf("\nuser.consumerKey= %s", user.consumerKey);
+			printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
+			printf("\nuser.Token= %s", user.Token);
+			printf("\nuser.secretToken= %s", user.secretToken);
+		}
 
 		fclose (fp);
+
 		if(user.id!=NULL &&
 				user.screenName!=NULL &&
 				user.consumerKey!=NULL &&
@@ -157,13 +150,14 @@ char* request_token(const char *consumerKey, const char *consumerKeySecret){
 	char *tempKeyParameters;
 	char *twitterRequestURL=REQUEST_URL;
 
-	puts("request_token");
+	if(debug==1) printf("\nrequest_token");
 
 	/* Generate a request url, this url have Temp-Key */
 	twitterRequestURL = oauth_sign_url2(twitterRequestURL, NULL, OA_HMAC, NULL, consumerKey, consumerKeySecret, NULL, NULL);
-	puts(twitterRequestURL);
+	if(debug==1) printf("\ntwitterRequestURL= %s",twitterRequestURL);
+
 	tempKeyParameters = oauth_http_get(twitterRequestURL, postarg);
-	puts(tempKeyParameters);
+	if(debug==1) printf("\ntempKeyParameters= %s",tempKeyParameters);
 
 	return tempKeyParameters;
 }
@@ -181,31 +175,31 @@ int temp_token_browser(){
 	*tempKey;
 	char **rv=NULL;
 
-	puts("temp_token_browser()");
+	if(debug==1) printf("\ntemp_token_browser()");
 	/*
 	 * @Input: TwitCrusader Consumer-Key
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
 	tempKeyURL = request_token(TWITTER_KEY, TWITTER_KEY_SECRET);
-	puts("tempKeyURL");
-	puts(tempKeyURL);
+	if(debug==1)printf("\ntempKeyURL= %s", tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
 	tempKey = get_param(rv, rc, "oauth_token");
-	puts("tempKey");
-	puts(tempKey);
 
+	if(debug==1) printf("\ntempKey= %s", tempKey);
 	/*
 	 * Save all Twitter-Key at /tmp folder
 	 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
 	 */
 	asprintf(&tmp_token, "%s%s%s%s%s", tempKeyURL, "&c_key=", TWITTER_KEY, "&c_key_secret=", TWITTER_KEY_SECRET);
-	puts (tmp_token);
+
+	if(debug==1) printf("tmp_token= %s",tmp_token);
 
 	/* Generate a Twitter-URL for get user-PIN */
 	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", AUTHORIZE_URL, tempKey);
+
 	/* Open URL and user get PIN */
 	system(cmd);
 
@@ -223,38 +217,38 @@ int temp_token(){
 	char *tempKeyURL, *tempKey;
 	char **rv=NULL;
 
-	puts("temp_token()");
+	if(debug==1) printf("\ntemp_token()");
 	/*
 	 * @Input: TwitCrusader Consumer-Key
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
 	tempKeyURL = request_token(TWITTER_KEY, TWITTER_KEY_SECRET);
-	puts("tempKeyURL");
-	puts(tempKeyURL);
+
+	if(debug==1) printf("\ntempKeyURL= %s", tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
 	tempKey = get_param(rv, rc, "oauth_token");
-	puts("tempKey");
-	puts(tempKey);
+
+	if(debug==1) printf("\ntempKey= %s", tempKey);
 
 	/*
 	 * Save all Twitter-Key at /tmp folder
 	 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
 	 */
 	asprintf(&tmp_token, "%s%s%s%s%s", tempKeyURL, "&c_key=", TWITTER_KEY, "&c_key_secret=", TWITTER_KEY_SECRET);
-	puts (tmp_token);
+	printf ("\ntmp_token= %s",tmp_token);
 
 	return 0;
 }
 
 /*
  * Validate a PIN with Temp-Key and save all user-info
- * 
+ *
  * @Return User-Key, User-Secret-Key, Username, User-ID and other
  * All info is saved at ~/.twc/config/user file
- * 
+ *
  */
 int access_token(const char *pin){
 
@@ -295,8 +289,12 @@ int access_token(const char *pin){
 	 * All keys are saved in /tmp/token file
 	 */
 	asprintf(&accessURL, "%s?oauth_verifier=%s", accessURL, pin);
-	printf("pin= %s",pin);
-	printf("accessURL= %s",accessURL);
+
+	if(debug==1){
+		printf("pin= %s",pin);
+		printf("accessURL= %s",accessURL);
+	}
+
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
 	twitterUserKey = oauth_http_post(verifyPIN,postarg);
 
@@ -307,25 +305,22 @@ int access_token(const char *pin){
 	user.id = get_param(rv, rc, "user_id");
 	user.screenName = get_param(rv, rc, "screen_name");
 
-	puts("\nuser.screenName= ");
-	puts(user.screenName);
-	puts("\nuser.id= ");
-	puts(user.id);
-	puts("\nuser.consumerKey= ");
-	puts(user.consumerKey);
-	puts("\nuser.consumerSecretKey= ");
-	puts(user.consumerSecretKey);
-	puts("\nuser.Token= ");
-	puts(user.Token);
-	puts("\nuser.secretToken= ");
-	puts(user.secretToken);
+	if(debug==1){
+		printf("\nwriteUserFile()");
+		printf("\nuser.screenName= %s",user.screenName);
+		printf("\nuser.id= %s", user.id);
+		printf("\nuser.consumerKey= %s", user.consumerKey);
+		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
+		printf("\nuser.Token= %s", user.Token);
+		printf("\nuser.secretToken= %s", user.secretToken);
+	}
 
 	return writeUserFile();
 }
 
 /*
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
- * 
+ *
  */
 int send_tweet(char *msg){
 
@@ -334,23 +329,20 @@ int send_tweet(char *msg){
 
 	char *postarg = NULL;
 
-	puts("send_tweet");
+	if(debug==1) printf("send_tweet()");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
 
-	puts("\nuser.screenName= ");
-	puts(user.screenName);
-	puts("\nuser.id= ");
-	puts(user.id);
-	puts("\nuser.consumerKey= ");
-	puts(user.consumerKey);
-	puts("\nuser.consumerSecretKey= ");
-	puts(user.consumerSecretKey);
-	puts("\nuser.Token= ");
-	puts(user.Token);
-	puts("\nuser.secretToken= ");
-	puts(user.secretToken);
+	if(debug==1){
+		printf("\nwriteUserFile()");
+		printf("\nuser.screenName= %s",user.screenName);
+		printf("\nuser.id= %s", user.id);
+		printf("\nuser.consumerKey= %s", user.consumerKey);
+		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
+		printf("\nuser.Token= %s", user.Token);
+		printf("\nuser.secretToken= %s", user.secretToken);
+	}
 
 	if(user.consumerKey!=NULL &&
 			user.consumerSecretKey!=NULL &&
