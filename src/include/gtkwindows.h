@@ -25,6 +25,7 @@
 #define GTKWINDOWS_H_
 
 #define _GNU_SOURCE
+
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
@@ -58,6 +59,11 @@ typedef struct
 #define ICON_FAVORITES ICONS_DIR"/favorites.png"
 #define ICON_LINK ICONS_DIR"/link.png"
 #define ICON_PHOTO ICONS_DIR"/photo.png"
+
+typedef struct configuration {
+	char* default_user;
+}config;
+
 
 void destroy(GtkButton *button, gpointer widget);
 gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);

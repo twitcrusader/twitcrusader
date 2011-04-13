@@ -25,6 +25,7 @@
 #define TWITTER_H_
 
 #define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -38,11 +39,15 @@
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 
-#define AUTHORIZE_URL "http://api.twitter.com/oauth/authorize"
-#define REQUEST_URL "https://api.twitter.com/oauth/request_token"
-#define ACCESS_TOKEN_URL "http://api.twitter.com/oauth/access_token"
-#define STATUS_URL "http://api.twitter.com/1/statuses/update.xml?status="
-#define HOME_TIMELINE_URL "http://api.twitter.com/version/statuses/home_timeline.xml"
+
+#define HTTP_API_URL "http://api.twitter.com"
+#define HTTPS_API_URL "https://api.twitter.com"
+
+#define AUTHORIZE_URL HTTP_API_URL"/oauth/authorize"
+#define REQUEST_URL HTTPS_API_URL"/oauth/request_token"
+#define ACCESS_TOKEN_URL HTTP_API_URL"/oauth/access_token"
+#define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
+#define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
 
 struct users{
   char *id;
@@ -53,6 +58,11 @@ struct users{
   char *consumerSecretKey;
 } user;
 
+struct programPath{
+  char *configDir;
+  char *configFile;
+  char *configFileName;
+} progPath;
 
 char *tmp_token;
 

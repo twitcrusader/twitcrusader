@@ -224,7 +224,7 @@ void windows_setting(){
 
 	label = gtk_label_new ("Twitter's Account:");
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non  stampa il nome!
+	itemsAccount = g_list_append (itemsAccount, printf("%s",user.screenName)); //Non  stampa il nome!
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
 
 	/* Attach all gtk-widget at table */
@@ -507,15 +507,15 @@ int windows_main(int argc, char **argv){
 
 	int rows, cols;
 
-	char *configFile = NULL;
 	GError *error = NULL;
 	GtkWidget *window,
 	*table,
 	*scroll,
 	*icon_menu,
 	*table_into,
+	*nick,
 	*tweet,
-	//*avatar,
+	*avatar,
 	*scrolled_window,
 	*menu_bar,
 	*layout,
@@ -531,8 +531,6 @@ int windows_main(int argc, char **argv){
 	*aiuto_menu_root,
 	*aiuto_menu_items;
 	GtkTextBuffer *buffer;
-
-	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -668,29 +666,17 @@ int windows_main(int argc, char **argv){
 
 	for ( rows = 0; rows < 40; rows = rows + 4 ) {
 		for ( cols = 0; cols < 3; cols++ ) {
-			//avatar = gtk_image_new_from_file ("");
-			tweet = gtk_label_new ("tweet label1");
-			gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-			gtk_label_set_line_wrap_mode (GTK_LABEL(tweet), GTK_WRAP_WORD_CHAR);
-			gtk_table_attach (GTK_TABLE (table_into ), tweet, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
-			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
-			tweet = gtk_label_new ("tweet label2");
+
+			avatar = gtk_image_new_from_file (ICON_HOME);
+			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+
+			nick = gtk_label_new ("@NICK");
+			gtk_table_attach (GTK_TABLE (table_into), nick, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+
+			tweet = gtk_label_new ("TEXT TEXT TEXT TEXT TEXT\n TEXT TEXT TEXT TEXT TEXT\n");
 			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
 		}
 	}
-
-	/*for ( rows = 0; rows < 40; rows = rows + 4 ) {
-       for ( cols = 0; cols < 3; cols++ ) {
-            avatar = gtk_image_new_from_file ("");
-		   	tweet = gtk_label_new ("");
-		   	gtk_label_set_justify (GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-		   	gtk_label_set_line_wrap_mode (GTK_LABEL(tweet), GTK_WRAP_WORD_CHAR);
-           gtk_table_attach (GTK_TABLE (table_into ), tweet, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
-            gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
-            tweet = gtk_label_new ("");
-            gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
-       }
-	}*/
 
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL);

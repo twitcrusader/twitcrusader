@@ -36,12 +36,8 @@ int writeUserFile(){
 	FILE *fp;
 	char *cmd;
 	char *data_file;
-	char *configDir;
-	char *configFile;
 
-	asprintf(&configDir, "%s%s", g_get_home_dir(), "/.twc/config/");
-	asprintf(&configFile, "%s%s", configDir, "user.twc");
-	asprintf(&cmd, "%s %s", "mkdir -p", configDir);
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
 
 	if(debug==1){
 		printf("\nwriteUserFile()");
@@ -56,10 +52,17 @@ int writeUserFile(){
 	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
 	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
 	system(cmd);
-	fp=fopen(configFile, "w+");
+	fp=fopen(progPath.configFile, "w+");
 
 	if(fp!=NULL){
-		asprintf(&data_file, "%s||%s||%s||%s||%s||%s", user.screenName, user.id, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+
+		asprintf(&data_file, "%s||", user.screenName);
+		asprintf(&data_file, "%s%s||", data_file, user.id);
+		asprintf(&data_file, "%s%s||", data_file, user.consumerKey);
+		asprintf(&data_file, "%s%s||", data_file, user.consumerSecretKey);
+		asprintf(&data_file, "%s%s||", data_file, user.Token);
+		asprintf(&data_file, "%s%s||", data_file, user.secretToken);
+
 
 		if(debug==1) printf("data_file= %s",data_file);
 
@@ -71,7 +74,7 @@ int writeUserFile(){
 		return 0;
 	}else{
 
-		if(debug==1) printf("\nnon risco ad aprire il file: %s !",configFile);
+		if(debug==1) printf("\nnon risco ad aprire il file: %s !", progPath.configFile);
 	}
 	//}
 
@@ -81,7 +84,6 @@ int writeUserFile(){
 int readUserFile(){
 
 	FILE *fp;
-	char *configFile;
 
 	char buffer[256];
 
@@ -89,36 +91,30 @@ int readUserFile(){
 
 	if(debug==1) printf("\nreadUserFile()");
 
-	/* Generate a Local-URL for get all user-info */
-	asprintf(&configFile, "%s%s", g_get_home_dir(), "/.twc/config/user.twc");
-
-	if(debug==1) printf("\nconfigFile= %s",configFile);
+	if(debug==1) printf("\nconfigFile= %s", progPath.configFile);
 	/* Get all user-info and user token */
-	fp = fopen (configFile, "r");
+	fp = fopen (progPath.configFile, "r");
 
 	if(fp!=NULL){
 		fgets(buffer, 250, fp);
 
-
-		// asprintf(&data_file, "%s||%s||%s||%s||%s||%s", user.screenName, user.id, user.consumerKey, user.consumerSecretKey, user.key, user.secretKey);
-
 		/* Username */
-		user.screenName = strtok( buffer, delims);
+		user.screenName = strtok(buffer, delims);
 
 		/* User-ID */
-		user.id = strtok( NULL, delims );
+		user.id = strtok(NULL, delims);
 
 		/* Get TwitCrusader Token */
-		user.consumerKey = strtok( NULL, delims );
+		user.consumerKey = strtok(NULL, delims);
 
 		/* Get TwitCrusader Secret Token */
-		user.consumerSecretKey = strtok( NULL, delims );
+		user.consumerSecretKey = strtok(NULL, delims);
 
 		/* Get User Token */
-		user.Token = strtok( NULL, delims );
+		user.Token = strtok(NULL, delims);
 
 		/* Get TwitCrusader Secret Token */
-		user.secretToken = strtok( NULL, delims );
+		user.secretToken = strtok(NULL, delims);
 
 		if(debug==1){
 			printf("\nwriteUserFile()");

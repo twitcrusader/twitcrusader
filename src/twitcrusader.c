@@ -30,9 +30,18 @@
  * 
  */
 int main(int argc, char **argv){
-	
+
 	/* debug */
 	if(shell_param (argc, argv)==1) return 0;
+
+
+	// codice momentaneamente posto qui!
+
+	progPath.configFileName="user.twc";
+	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
+
+	//
 
 	windows_main(argc, argv);
 

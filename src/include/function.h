@@ -24,6 +24,8 @@
 #ifndef FUNCTION_H_
 #define FUNCTION_H_
 
+#define _GNU_SOURCE
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

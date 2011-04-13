@@ -24,11 +24,14 @@
 #ifndef _TWITCRUSADER_H
 #define _TWITCRUSADER_H
 
+#define _GNU_SOURCE
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "function.h"
+
+
 
 #endif
