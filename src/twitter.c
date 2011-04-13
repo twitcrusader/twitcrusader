@@ -393,3 +393,12 @@ int deleteAccount(){
 
 	return 1;
 }
+
+void disconnect(){
+	user.Token=NULL;
+	user.consumerKey=NULL;
+	user.consumerSecretKey=NULL;
+	user.id=NULL;
+	user.screenName=NULL;
+	user.secretToken=NULL;
+}

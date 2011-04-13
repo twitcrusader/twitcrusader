@@ -75,5 +75,6 @@ char* request_token(const char *consumerKey, const char *consumerKeySecret);
 int send_tweet(char*);
 int homeTimeline();
 int deleteAccount();
+void disconnect();
 
 #endif /* TWITTER_H_ */
