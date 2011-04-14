@@ -36,8 +36,8 @@ int main(int argc, char **argv){
 
 
 	// codice momentaneamente posto qui!
-	user.id =  (char*) malloc(sizeof(char) * 160);
-	user.screenName =  (char*) malloc(sizeof(char) * 160);
+	user.id =  (char*) malloc(sizeof(char) * 10);
+	user.screenName =  (char*) malloc(sizeof(char) * 20);
 	user.Token =  (char*) malloc(sizeof(char) * 160);
 	user.secretToken =  (char*) malloc(sizeof(char) * 160);
 	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
