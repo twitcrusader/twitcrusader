@@ -72,7 +72,7 @@ int tokenTemp();
 int tokenTempBrowser();
 int tokenAccess(const char *pin);
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
-int oauthSendTweet(char*);
+int homeSendTweet(char*);
 int homeTimeline();
 int deleteAccount();
 void disconnect();

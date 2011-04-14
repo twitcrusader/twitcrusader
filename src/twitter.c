@@ -317,14 +317,14 @@ int tokenAccess(const char *pin){
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
  *
  */
-int oauthSendTweet(char *msg){
+int homeSendTweet(char *msg){
 
 	char	*twitterStatusURL = STATUS_URL,
 			*sendTweet;
 
 	char *postarg = NULL;
 
-	if(debug==1) printf("\nint oauthSendTweet(char *msg)");
+	if(debug==1) printf("\nint homeSendTweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
