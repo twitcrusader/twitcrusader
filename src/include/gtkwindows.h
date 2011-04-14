@@ -47,7 +47,7 @@ struct StatusBars
 
 } StatusBar;
 
-#define TWC_VERSION "0.1.83"
+#define TWC_VERSION "0.1.85"
 #define TWC_VERSION_STATUS "-Alpha"
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version.php"
 #define ICON_SETTINGS ICONS_DIR"/setting.png"
