@@ -132,7 +132,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	if(pKey->keyval == GDK_Return){
 
 		//SendTweet
-		homeSendTweet(msg);
+		oauthSendTweet(msg);
 
 		//Clean TextArea
 		gtk_text_buffer_delete(tweetBuffer, &start, &end);

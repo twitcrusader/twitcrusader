@@ -99,22 +99,22 @@ int readUserFile(){
 		fgets(buffer, 250, fp);
 
 		/* Username */
-		user.screenName = strtok(buffer, delims);
+		 strcpy(user.screenName, strtok(buffer, delims));
 
 		/* User-ID */
-		user.id = strtok(NULL, delims);
+		 strcpy(user.id, strtok(NULL, delims));
 
 		/* Get TwitCrusader Token */
-		user.consumerKey = strtok(NULL, delims);
+		 strcpy(user.consumerKey, strtok(NULL, delims));
 
 		/* Get TwitCrusader Secret Token */
-		user.consumerSecretKey = strtok(NULL, delims);
+		 strcpy(user.consumerSecretKey, strtok(NULL, delims));
 
 		/* Get User Token */
-		user.Token = strtok(NULL, delims);
+		 strcpy(user.Token, strtok(NULL, delims));
 
 		/* Get TwitCrusader Secret Token */
-		user.secretToken = strtok(NULL, delims);
+		 strcpy(user.secretToken, strtok(NULL, delims));
 
 		if(debug==1){
 			printf("\nuser.screenName= %s",user.screenName);
@@ -273,10 +273,10 @@ int tokenAccess(const char *pin){
 	tempKeySecret = getParameters(rv, rc, "oauth_token_secret");
 	printf("\ntempKeySecret: %s\n", tempKeySecret);
 
-	user.consumerKey = getParameters(rv, rc, "c_key");
+	strcpy(user.consumerKey, getParameters(rv, rc, "c_key"));
 	printf("\nuser.consumerKey: %s\n", user.consumerKey);
 
-	user.consumerSecretKey = getParameters(rv, rc, "c_key_secret");
+	strcpy(user.consumerSecretKey, getParameters(rv, rc, "c_key_secret"));
 	printf("\nuser.consumerSecretKey: %s\n", user.consumerSecretKey);
 
 	/* Generate a URL, this verify a PIN
@@ -295,10 +295,10 @@ int tokenAccess(const char *pin){
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
-	user.Token = getParameters(rv, rc, "oauth_token");
-	user.secretToken = getParameters(rv, rc, "oauth_token_secret");
-	user.id = getParameters(rv, rc, "user_id");
-	user.screenName = getParameters(rv, rc, "screen_name");
+	strcpy(user.Token, getParameters(rv, rc, "oauth_token"));
+	strcpy(user.secretToken, getParameters(rv, rc, "oauth_token_secret"));
+	strcpy(user.id, getParameters(rv, rc, "user_id"));
+	strcpy(user.screenName, getParameters(rv, rc, "screen_name"));
 
 	if(debug==1){
 		printf("\nint tokenAccess(const char *pin)");
@@ -317,14 +317,14 @@ int tokenAccess(const char *pin){
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
  *
  */
-int homeSendTweet(char *msg){
+int oauthSendTweet(char *msg){
 
 	char	*twitterStatusURL = STATUS_URL,
 			*sendTweet;
 
 	char *postarg = NULL;
 
-	if(debug==1) printf("\nint homeSendTweet(char *msg)");
+	if(debug==1) printf("\nint oauthSendTweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
@@ -391,10 +391,10 @@ int deleteAccount(){
 
 void disconnect(){
 
-	user.Token=NULL;
-	user.consumerKey=NULL;
-	user.consumerSecretKey=NULL;
-	user.id=NULL;
-	user.screenName=NULL;
-	user.secretToken=NULL;
+	strcpy(user.Token, " ");
+	strcpy(user.consumerKey, " ");
+	strcpy(user.consumerSecretKey, " ");
+	strcpy(user.id, " ");
+	strcpy(user.screenName, " ");
+	strcpy(user.secretToken, " ");
 }

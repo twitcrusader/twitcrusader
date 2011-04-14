@@ -50,12 +50,12 @@
 #define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
 
 struct users{
-  char *id;
-  char *screenName;
-  char *Token;
-  char *secretToken;
-  char *consumerKey;
-  char *consumerSecretKey;
+  char id[10];
+  char screenName[20];
+  char Token[160];
+  char secretToken[160];
+  char consumerKey[160];
+  char consumerSecretKey[160];
 } user;
 
 struct programPath{
@@ -72,7 +72,7 @@ int tokenTemp();
 int tokenTempBrowser();
 int tokenAccess(const char *pin);
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
-int homeSendTweet(char*);
+int oauthSendTweet(char*);
 int homeTimeline();
 int deleteAccount();
 void disconnect();
