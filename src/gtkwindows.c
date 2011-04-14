@@ -244,8 +244,8 @@ void windows_setting(){
 	}
 
 	/* Set switch-TAB signal */
-		g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
-		gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
 
 	/* Attach tab-notebook at window container */
@@ -377,12 +377,12 @@ int windows_adduser()
 	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Press Button and call function for verify PIN */
-		button = gtk_button_new_with_label ("Crea Account");
-		gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-		gtk_container_add (GTK_CONTAINER (DataInput->window), table);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token_gtk), DataInput);
+	button = gtk_button_new_with_label ("Crea Account");
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_container_add (GTK_CONTAINER (DataInput->window), table);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token_gtk), DataInput);
 
-/* Exit event and Widget Show */
+	/* Exit event and Widget Show */
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (DataInput->window);
 	return 0;
@@ -399,7 +399,7 @@ int windows_main(int argc, char **argv){
 	gtk_init (&argc, &argv);
 
 	int rows, cols;
-
+	char* statusLabel;
 	GError *error = NULL;
 	GtkWidget *window,
 	*table,
@@ -504,11 +504,15 @@ int windows_main(int argc, char **argv){
 	/* Status Bar */
 	statusbar = gtk_statusbar_new ();
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar), TRUE);
+
 	if(user.screenName==NULL && user.id==NULL){
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "TwitCrusader...");
+		statusLabel="Disconnect..";
 	}else{
-		gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "Connected..");
+		statusLabel="Connect";
 	}
+
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, statusLabel);
+
 	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
 
 	/* GTK Widget: Twitter Menu */
@@ -583,7 +587,8 @@ int windows_main(int argc, char **argv){
 			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
 		}
 	}
-	if(user.id!=NULL){
+
+	//if(user.id!=NULL){
 		// TextArea + Scrollbar
 		scroll = gtk_scrolled_window_new(NULL,NULL);
 		gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
@@ -597,7 +602,7 @@ int windows_main(int argc, char **argv){
 		g_signal_connect(buffer, "changed", G_CALLBACK(update_statusbar), statusbar_char);
 		g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet_gtk), buffer);
 		gtk_container_add(GTK_CONTAINER(scroll), text);
-	}
+	//}
 
 	// Widget Show
 	gtk_widget_show_all (window);
