@@ -132,16 +132,20 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
 	if(pKey->keyval == GDK_Return){
 
+		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
+		
 		//SendTweet
 		send = homeSendTweet(msg);
 		
-		if(send == 1) 
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato");
-		else
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato");
+		if(send == 0 || send == 1){ 
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
+		} else {
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato!");
+			gtk_text_buffer_delete(tweetBuffer, &start, &end);
+		}
 
 		//Clean TextArea
-		gtk_text_buffer_delete(tweetBuffer, &start, &end);
+		
 
 		return 1; // fix cursor (return to previous line)
 	}
@@ -508,16 +512,17 @@ int windowMain(int argc, char **argv){
 
 	/* Status Bar */
 	statusbar = gtk_statusbar_new ();
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar), TRUE);
 	StatusBar.message = GTK_STATUSBAR(statusbar);
+	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
+	
 
-	if(user.screenName==NULL && user.id==NULL){
+	if(user.screenName[0]==0 && user.id[0]==0 && user.Token[0]==0 && user.consumerKey[0] == 0){
 		statusLabel="Disconnect..";
 	}else{
 		statusLabel="Connect";
 	}
 
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, statusLabel);
+	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
 
 	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
 
@@ -610,6 +615,10 @@ int windowMain(int argc, char **argv){
 		gtk_container_add(GTK_CONTAINER(scroll), text);
 	//}
 
+	/* CALLBACK: exit event */
+	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+            
 	// Widget Show
 	gtk_widget_show_all (window);
 
@@ -618,9 +627,6 @@ int windowMain(int argc, char **argv){
 
 	//Show GTK Main
 	gtk_main ();
-	
-	/* CALLBACK: exit event */
-	g_signal_connect (G_OBJECT (window), "delete_event", G_CALLBACK (gtk_main_quit), NULL);
 
 	return 0;
 }

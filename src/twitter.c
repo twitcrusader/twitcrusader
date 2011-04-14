@@ -320,7 +320,8 @@ int tokenAccess(const char *pin){
 int homeSendTweet(char *msg){
 
 	char	*twitterStatusURL = STATUS_URL,
-			*sendTweet;
+			*sendTweet,
+			*error;
 
 	char *postarg = NULL;
 
@@ -340,18 +341,21 @@ int homeSendTweet(char *msg){
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
-	if(user.consumerKey!=NULL &&
-			user.consumerSecretKey!=NULL &&
-			user.Token!=NULL &&
-			user.secretToken!=NULL){
+	if(user.consumerKey[0]!=0 &&
+			user.consumerSecretKey[0]!=0 &&
+			user.Token[0]!=0 &&
+			user.secretToken[0]!=0){
 
 		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-		oauth_http_post(sendTweet, postarg);
-
-		return 0;
+		error = oauth_http_post(sendTweet, postarg);
+		
+		if(!error)
+			return 1;
+		
+		return 3;
 	}
 
-	return 1;
+	return 0;
 }
 
 int homeTimeline(){
