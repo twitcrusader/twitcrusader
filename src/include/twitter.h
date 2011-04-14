@@ -50,12 +50,12 @@
 #define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
 
 struct users{
-  char id[10];
-  char screenName[20];
-  char Token[160];
-  char secretToken[160];
-  char consumerKey[160];
-  char consumerSecretKey[160];
+  char* id;
+  char* screenName;
+  char* Token;
+  char* secretToken;
+  char* consumerKey;
+  char* consumerSecretKey;
 } user;
 
 struct programPath{

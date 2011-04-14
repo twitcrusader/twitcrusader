@@ -36,6 +36,12 @@ int main(int argc, char **argv){
 
 
 	// codice momentaneamente posto qui!
+	user.id =  (char*) malloc(sizeof(char) * 160);
+	user.screenName =  (char*) malloc(sizeof(char) * 160);
+	user.Token =  (char*) malloc(sizeof(char) * 160);
+	user.secretToken =  (char*) malloc(sizeof(char) * 160);
+	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
+	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
 
 	progPath.configFileName="user.twc";
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
