@@ -74,10 +74,11 @@ void windows_setting();
 void windows_upgrade();
 void windows_about();
 void access_token_gtk(GtkButton *button, AuthWidget *DataInput);
-void windows_adduser();
+int windows_adduser();
 void deleteAccount_gtk(GtkButton *button, gpointer widget);
-void connect_gtk();
-void disconnect_gtk();
+void connect_gtk(GtkButton *button, gpointer window);
+void disconnect_gtk(GtkButton *button, gpointer window);
+void adduser_gtk(GtkButton *button, gpointer window);
 int windows_main(int argc, char **argv);
 
 #endif /* GTKWINDOWS_H_ */
