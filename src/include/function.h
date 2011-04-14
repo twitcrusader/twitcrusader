@@ -31,7 +31,7 @@
 #include <string.h>
 
 int debug;
-
+void mollocSizeOF();
 char *sumStrings(char *parm1, char *parm2 );
 char* getParameters(char** argv, int argc, const char* param);
 int shellParameters (int argc, char **argv);

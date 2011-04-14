@@ -33,22 +33,11 @@ int main(int argc, char **argv){
 
 	/* debug */
 	if(shellParameters (argc, argv)==1) return 0;
+	
+	/* Fix Struct Size */
+	mollocSizeOF();
 
-
-	// codice momentaneamente posto qui!
-	user.id =  (char*) malloc(sizeof(char) * 50);
-	user.screenName =  (char*) malloc(sizeof(char) * 140);
-	user.Token =  (char*) malloc(sizeof(char) * 160);
-	user.secretToken =  (char*) malloc(sizeof(char) * 160);
-	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
-	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
-
-	progPath.configFileName="user.twc";
-	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
-	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
-
-	//
-
+	/* Main*/
 	windowMain(argc, argv);
 
 	return 0;

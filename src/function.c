@@ -22,6 +22,7 @@
 */
 
 #include "include/function.h"
+#include "include/twitter.h"
 
 /*  
  * This function add string1 + string2 = string3
@@ -40,6 +41,21 @@ char *sumStrings(char *parm1, char *parm2 ){
 	}
 
 	return parm;
+}
+
+void mollocSizeOF(){
+	
+	user.id =  (char*) malloc(sizeof(char) * 15);
+	user.screenName =  (char*) malloc(sizeof(char) * 140);
+	user.Token =  (char*) malloc(sizeof(char) * 160);
+	user.secretToken =  (char*) malloc(sizeof(char) * 160);
+	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
+	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
+	
+	progPath.configFileName =  (char*) malloc(sizeof(char) * 15);
+	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
+	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
+	
 }
 
 

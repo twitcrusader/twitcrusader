@@ -416,6 +416,11 @@ int windowMain(int argc, char **argv){
 	*aiuto_menu_root,
 	*aiuto_menu_items;
 	GtkTextBuffer *buffer;
+	
+	/* User-Directory Path */
+	progPath.configFileName="user.twc";
+	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
