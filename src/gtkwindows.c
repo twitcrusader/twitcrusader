@@ -617,7 +617,7 @@ int windowMain(int argc, char **argv){
 
 	/* CALLBACK: exit event */
 	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
-	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL); 
             
 	// Widget Show
 	gtk_widget_show_all (window);
@@ -653,6 +653,13 @@ void gtkConnect(GtkButton *button, gpointer window){
 void gtkDisconnect(GtkButton *button, gpointer window){
 	disconnect();
 	destroy(button, window);
+	/*Fix Disconnect Message*/
+	user.id[0] = 0;
+	user.screenName[0] = 0;
+	user.Token[0] = 0;
+	user.secretToken[0] = 0;
+	user.consumerKey[0] = 0;
+	user.consumerSecretKey[0] = 0;
 	windowMain(0, NULL);
 }
 
