@@ -196,17 +196,6 @@ void windows_setting(){
 	*combo = NULL,
 	*button = NULL;
 	GList *itemsAccount = NULL;
-<<<<<<< HEAD
-=======
-	/*GList	*itemsIMG = NULL,
-	 *itemsVID = NULL,
-	 *itemsTXT = NULL,
-	 *itemsLINK = NULL,
-	 *itemsSKIN = NULL,
-	 *items_lang = NULL,
-	 *items_notify = NULL,
-	 *itemsNotify = NULL;*/
->>>>>>> 0288ffad3c623b2b8b74ed338a35659c00abef68
 	GError *error = NULL;
 
 	readUserFile();
