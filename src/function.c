@@ -43,7 +43,7 @@ char *sumStrings(char *parm1, char *parm2 ){
 	return parm;
 }
 
-/* Change Size Of char* declared at struct */
+/* Change Default-Size Of char* (of struct) */
 void mollocSizeOF(){
 	
 	user.id =  (char*) malloc(sizeof(char) * 15);

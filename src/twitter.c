@@ -327,7 +327,7 @@ int homeSendTweet(char *msg){
 	if(debug==1) printf("\nint homeSendTweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
-	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
+	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, oauth_url_escape(msg)); 
 
 	if(debug==1) printf("\nwitterStatusURL= %s",twitterStatusURL);
 
