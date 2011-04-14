@@ -32,8 +32,8 @@
 
 int debug;
 
-char *sum_string(char *parm1, char *parm2 );
-char* get_param(char** argv, int argc, const char* param);
-int shell_param (int argc, char **argv);
+char *sumStrings(char *parm1, char *parm2 );
+char* getParameters(char** argv, int argc, const char* param);
+int shellParameters (int argc, char **argv);
 
 #endif /* FUNCTION_H_ */

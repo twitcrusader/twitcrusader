@@ -35,7 +35,7 @@ void destroy(GtkButton *button, gpointer widget)
 /*
  * Error-Window, if user insert incorrect input type 
  */
-void window_error(char* error_msg){
+void windowError(char* error_msg){
 
 	GtkWidget *window,
 	*label,
@@ -71,7 +71,7 @@ void window_error(char* error_msg){
  * Return Pressed Key of Keyboard
  * Exemple if(pKey->keyval == GDK_Return) if you press ENTER key 
  */
-gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
+gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
 
 	if (pKey->type == GDK_KEY_PRESS){
 
@@ -93,7 +93,7 @@ gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata)
  * And call Validate PIN function
  * 
  */
-void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
+void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
 
 	int correctVerify;
 
@@ -101,10 +101,10 @@ void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
 
 	//Validate PIN
-	correctVerify = access_token(pin);
+	correctVerify = tokenAccess(pin);
 
 	printf("\ncorrectVerify= %i",correctVerify);
-	if(correctVerify == 1) window_error("Error: bad Input!");
+	if(correctVerify == 1) windowError("Error: bad Input!");
 
 
 	if(correctVerify==0)destroy(button, DataInput->window);
@@ -115,7 +115,7 @@ void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
  * Get Buffer from TextArea and send tweet if user press ENTER on keyboard
  * 
  */
-gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
+gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
 
 	GtkTextIter start,
 	end;
@@ -132,7 +132,7 @@ gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *t
 	if(pKey->keyval == GDK_Return){
 
 		//SendTweet
-		send_tweet(msg);
+		oauthSendTweet(msg);
 
 		//Clean TextArea
 		gtk_text_buffer_delete(tweetBuffer, &start, &end);
@@ -149,7 +149,7 @@ gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *t
  * Tweet have 140 to 0 char
  * 
  */
-void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
+void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
 	gchar *msg;
 	gint tot_char;
 	GtkTextIter iter;
@@ -173,7 +173,7 @@ void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
  * Change TAB (for setting window) 
  * 
  */
-void switch_page (GtkButton *button, GtkNotebook *notebook){
+void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
 	if (gtk_notebook_get_current_page (notebook) == 0)
 	{
 		gtk_notebook_set_current_page (notebook, 1);
@@ -186,7 +186,7 @@ void switch_page (GtkButton *button, GtkNotebook *notebook){
  * Setting GTK Window
  * 
  */
-void windows_setting(){
+void windowOption(){
 
 	GtkWidget *window, 
 	*notebook = gtk_notebook_new (),
@@ -228,15 +228,15 @@ void windows_setting(){
 	if(readUserFile()==0){
 		button = gtk_button_new_with_label ("Elimina");
 		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount_gtk), G_OBJECT (window));
+		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtkDeleteAccount), G_OBJECT (window));
 	}else{
 		button = gtk_button_new_with_label ("Nuovo");
 		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (adduser_gtk), G_OBJECT (window));
+		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtkAddUser), G_OBJECT (window));
 	}
 
 	/* Set switch-TAB signal */
-	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (gtkSwitchPage), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
 
@@ -253,7 +253,7 @@ void windows_setting(){
  * About window
  * 
  */
-void windows_about(){
+void windowCredits(){
 
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(ICON_ABOUT, NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
@@ -280,7 +280,7 @@ void windows_about(){
  * Check Updates from vebsite http://www.twitcrusader.org and get file version.php
  * 
  */
-void windows_upgrade(){
+void windowUpgrade(){
 
 	FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
@@ -329,7 +329,7 @@ void windows_upgrade(){
 
 }
 
-int windows_adduser()
+int windowAddUser()
 {
 	GtkWidget *table = gtk_table_new (10, 10, TRUE), 
 			*label,
@@ -358,7 +358,7 @@ int windows_adduser()
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Call oAuth function */
-	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(temp_token_browser), NULL);
+	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(tokenTempBrowser), NULL);
 
 	/* Attach Box for PIN */
 	label = gtk_label_new ("Inserisci PIN");
@@ -372,7 +372,7 @@ int windows_adduser()
 	button = gtk_button_new_with_label ("Crea Account");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_container_add (GTK_CONTAINER (DataInput->window), table);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token_gtk), DataInput);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), DataInput);
 
 	/* Exit event and Widget Show */
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
@@ -386,7 +386,7 @@ int windows_adduser()
  * Twitter TimeLine Cntent
  * 
  */
-int windows_main(int argc, char **argv){
+int windowMain(int argc, char **argv){
 
 	gtk_init (&argc, &argv);
 
@@ -426,9 +426,6 @@ int windows_main(int argc, char **argv){
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
 
-	/* CALLBACK: exit event */
-	g_signal_connect (G_OBJECT (window), "delete_event", G_CALLBACK (gtk_main_quit), NULL);
-
 	/* GTK Widget: Menu */
 	file_menu_obj = gtk_menu_new();
 	aiuto_menu_obj = gtk_menu_new();
@@ -441,13 +438,13 @@ int windows_main(int argc, char **argv){
 	file_menu_items = gtk_image_menu_item_new_with_label("Connetti");
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (connect_gtk), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkConnect), G_OBJECT (window));
 	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Disconnetti");
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (disconnect_gtk), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
 	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("");
@@ -456,7 +453,7 @@ int windows_main(int argc, char **argv){
 	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
 	icon_menu = gtk_image_new_from_file(ICON_SETTINGS);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windowOption), NULL);
 	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
@@ -472,13 +469,13 @@ int windows_main(int argc, char **argv){
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Updates");
 	icon_menu = gtk_image_new_from_file(ICON_UPGRADE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_upgrade), NULL);
+	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowUpgrade), NULL);
 	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
 
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
 	icon_menu = gtk_image_new_from_file(ICON_STAR);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_about), NULL);
+	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowCredits), NULL);
 	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
 
 
@@ -591,8 +588,8 @@ int windows_main(int argc, char **argv){
 		gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
 		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 		gtk_text_buffer_set_text (buffer, "", -1);
-		g_signal_connect(buffer, "changed", G_CALLBACK(update_statusbar), statusbar_char);
-		g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet_gtk), buffer);
+		g_signal_connect(buffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
+		g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), buffer);
 		gtk_container_add(GTK_CONTAINER(scroll), text);
 	//}
 
@@ -600,41 +597,44 @@ int windows_main(int argc, char **argv){
 	gtk_widget_show_all (window);
 
 	//Exist Config File?
-	//if(readUserFile()==1) windows_adduser();
+	//if(readUserFile()==1) windowAddUser();
 
 	//Show GTK Main
 	gtk_main ();
+	
+	/* CALLBACK: exit event */
+	g_signal_connect (G_OBJECT (window), "delete_event", G_CALLBACK (gtk_main_quit), NULL);
 
 	return 0;
 }
 
-void deleteAccount_gtk(GtkButton *button, gpointer window){
+void gtkDeleteAccount(GtkButton *button, gpointer window){
 	if(user.consumerKey!=NULL &&
 			user.consumerSecretKey!=NULL &&
 			user.Token!=NULL &&
 			user.secretToken!=NULL){
 		deleteAccount();
 		destroy(button,window);
-		windows_setting();
+		windowOption();
 	}
 }
 
-void connect_gtk(GtkButton *button, gpointer window){
+void gtkConnect(GtkButton *button, gpointer window){
 
 	if(readUserFile()==0){
 		destroy(button, window);
-		windows_main(0, NULL);
+		windowMain(0, NULL);
 	}
 }
 
-void disconnect_gtk(GtkButton *button, gpointer window){
+void gtkDisconnect(GtkButton *button, gpointer window){
 	disconnect();
 	destroy(button, window);
-	windows_main(0, NULL);
+	windowMain(0, NULL);
 }
 
-void adduser_gtk(GtkButton *button, gpointer window){
-	if(windows_adduser()==0){
+void gtkAddUser(GtkButton *button, gpointer window){
+	if(windowAddUser()==0){
 		destroy(button, window);
 	}
 

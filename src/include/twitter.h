@@ -44,8 +44,8 @@
 #define HTTPS_API_URL "https://api.twitter.com"
 
 #define AUTHORIZE_URL HTTP_API_URL"/oauth/authorize"
-#define REQUEST_URL HTTPS_API_URL"/oauth/request_token"
-#define ACCESS_TOKEN_URL HTTP_API_URL"/oauth/access_token"
+#define REQUEST_URL HTTPS_API_URL"/oauth/tokenRequest"
+#define tokenAccess_URL HTTP_API_URL"/oauth/tokenAccess"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
 #define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
 
@@ -68,11 +68,11 @@ char *tmp_token;
 
 int writeUserFile();
 int readUserFile();
-int temp_token();
-int temp_token_browser();
-int access_token(const char *pin);
-char* request_token(const char *consumerKey, const char *consumerKeySecret);
-int send_tweet(char*);
+int tokenTemp();
+int tokenTempBrowser();
+int tokenAccess(const char *pin);
+char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
+int oauthSendTweet(char*);
 int homeTimeline();
 int deleteAccount();
 void disconnect();

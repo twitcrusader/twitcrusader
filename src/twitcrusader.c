@@ -32,7 +32,7 @@
 int main(int argc, char **argv){
 
 	/* debug */
-	if(shell_param (argc, argv)==1) return 0;
+	if(shellParameters (argc, argv)==1) return 0;
 
 
 	// codice momentaneamente posto qui!
@@ -43,7 +43,7 @@ int main(int argc, char **argv){
 
 	//
 
-	windows_main(argc, argv);
+	windowMain(argc, argv);
 
 	return 0;
 }

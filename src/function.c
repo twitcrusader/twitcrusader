@@ -28,7 +28,7 @@
  * Exemple: "AL" + "EX" = "ALEX"
  * 
  */
-char *sum_string(char *parm1, char *parm2 ){
+char *sumStrings(char *parm1, char *parm2 ){
 
 	/* molloc function return a number of bytes of parm1 + parm2 */
 	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
@@ -54,7 +54,7 @@ char *sum_string(char *parm1, char *parm2 ){
  * Return = XXXXXXXXXX
  * 
  */
-char* get_param(char** argv, int argc, const char* param)
+char* getParameters(char** argv, int argc, const char* param)
 {
 	int i, 
 		param_len;
@@ -77,7 +77,7 @@ char* get_param(char** argv, int argc, const char* param)
  * Debug Function
  * 
  */
-int shell_param (int argc, char **argv){
+int shellParameters (int argc, char **argv){
 	int count;
 
 	printf ("This program was called with \"%s\".\n",argv[0]);

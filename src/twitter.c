@@ -140,12 +140,12 @@ int readUserFile(){
 }
 
 
-char* request_token(const char *consumerKey, const char *consumerKeySecret){
+char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
 	char *postarg = NULL;;
 	char *tempKeyParameters;
 	char *twitterRequestURL=REQUEST_URL;
 
-	if(debug==1) printf("\nrequest_token");
+	if(debug==1) printf("\ntokenRequest");
 
 	/* Generate a request url, this url have Temp-Key */
 	twitterRequestURL = oauth_sign_url2(twitterRequestURL, NULL, OA_HMAC, NULL, consumerKey, consumerKeySecret, NULL, NULL);
@@ -163,25 +163,25 @@ char* request_token(const char *consumerKey, const char *consumerKeySecret){
  * Authorize Twitter Account
  *
  */
-int temp_token_browser(){
+int tokenTempBrowser(){
 	int rc;
 	char *cmd,
 	*tempKeyURL,
 	*tempKey;
 	char **rv=NULL;
 
-	if(debug==1) printf("\ntemp_token_browser()");
+	if(debug==1) printf("\ntokenTempBrowser()");
 	/*
 	 * @Input: TwitCrusader Consumer-Key
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL = request_token(TWITTER_KEY, TWITTER_KEY_SECRET);
+	tempKeyURL = tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET);
 	if(debug==1)printf("\ntempKeyURL= %s", tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
-	tempKey = get_param(rv, rc, "oauth_token");
+	tempKey = getParameters(rv, rc, "oauth_token");
 
 	if(debug==1) printf("\ntempKey= %s", tempKey);
 	/*
@@ -207,24 +207,24 @@ int temp_token_browser(){
  * Authorize Twitter Account
  *
  */
-int temp_token(){
+int tokenTemp(){
 	int rc;
 	char *tempKeyURL, *tempKey;
 	char **rv=NULL;
 
-	if(debug==1) printf("\ntemp_token()");
+	if(debug==1) printf("\ntokenTemp()");
 	/*
 	 * @Input: TwitCrusader Consumer-Key
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL = request_token(TWITTER_KEY, TWITTER_KEY_SECRET);
+	tempKeyURL = tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET);
 
 	if(debug==1) printf("\ntempKeyURL= %s", tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
-	tempKey = get_param(rv, rc, "oauth_token");
+	tempKey = getParameters(rv, rc, "oauth_token");
 
 	if(debug==1) printf("\ntempKey= %s", tempKey);
 
@@ -245,7 +245,7 @@ int temp_token(){
  * All info is saved at ~/.twc/config/user file
  *
  */
-int access_token(const char *pin){
+int tokenAccess(const char *pin){
 
 	int rc;
 	char *verifyPIN;
@@ -254,29 +254,29 @@ int access_token(const char *pin){
 	*postarg,
 	*tempKey,
 	*tempKeySecret,
-	*accessURL = ACCESS_TOKEN_URL;
+	*accessURL = tokenAccess_URL;
 
 	char **rv=NULL;
 
-	puts("\naccess_token()");
+	puts("\ntokenAccess()");
 	printf("\ntmp_token: %s\n",tmp_token);
 
-	// if(tmp_token==NULL) temp_token(); futura implementazione...
+	// if(tmp_token==NULL) tokenTemp(); futura implementazione...
 
 	printf("\nrc = oauth_split_url_parameters(tmp_token, &rv);");
 	rc = oauth_split_url_parameters(tmp_token, &rv);
 
-	puts("\ntempKey = get_param(rv, rc, \"oauth_token\");");
-	tempKey = get_param(rv, rc, "oauth_token");
+	puts("\ntempKey = getParameters(rv, rc, \"oauth_token\");");
+	tempKey = getParameters(rv, rc, "oauth_token");
 	printf("\ntempKey: %s\n", tempKey);
 
-	tempKeySecret = get_param(rv, rc, "oauth_token_secret");
+	tempKeySecret = getParameters(rv, rc, "oauth_token_secret");
 	printf("\ntempKeySecret: %s\n", tempKeySecret);
 
-	user.consumerKey = get_param(rv, rc, "c_key");
+	user.consumerKey = getParameters(rv, rc, "c_key");
 	printf("\nuser.consumerKey: %s\n", user.consumerKey);
 
-	user.consumerSecretKey = get_param(rv, rc, "c_key_secret");
+	user.consumerSecretKey = getParameters(rv, rc, "c_key_secret");
 	printf("\nuser.consumerSecretKey: %s\n", user.consumerSecretKey);
 
 	/* Generate a URL, this verify a PIN
@@ -295,13 +295,13 @@ int access_token(const char *pin){
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
-	user.Token = get_param(rv, rc, "oauth_token");
-	user.secretToken = get_param(rv, rc, "oauth_token_secret");
-	user.id = get_param(rv, rc, "user_id");
-	user.screenName = get_param(rv, rc, "screen_name");
+	user.Token = getParameters(rv, rc, "oauth_token");
+	user.secretToken = getParameters(rv, rc, "oauth_token_secret");
+	user.id = getParameters(rv, rc, "user_id");
+	user.screenName = getParameters(rv, rc, "screen_name");
 
 	if(debug==1){
-		printf("\nint access_token(const char *pin)");
+		printf("\nint tokenAccess(const char *pin)");
 		printf("\nuser.screenName= %s",user.screenName);
 		printf("\nuser.id= %s", user.id);
 		printf("\nuser.consumerKey= %s", user.consumerKey);
@@ -317,14 +317,14 @@ int access_token(const char *pin){
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
  *
  */
-int send_tweet(char *msg){
+int oauthSendTweet(char *msg){
 
 	char	*twitterStatusURL = STATUS_URL,
 			*sendTweet;
 
 	char *postarg = NULL;
 
-	if(debug==1) printf("\nint send_tweet(char *msg)");
+	if(debug==1) printf("\nint oauthSendTweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);

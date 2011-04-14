@@ -66,19 +66,19 @@ typedef struct configuration {
 
 
 void destroy(GtkButton *button, gpointer widget);
-gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
-gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
-void update_statusbar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
-void switch_page (GtkButton *button, GtkNotebook *notebook);
-void windows_setting();
-void windows_upgrade();
-void windows_about();
-void access_token_gtk(GtkButton *button, AuthWidget *DataInput);
-int windows_adduser();
-void deleteAccount_gtk(GtkButton *button, gpointer widget);
-void connect_gtk(GtkButton *button, gpointer window);
-void disconnect_gtk(GtkButton *button, gpointer window);
-void adduser_gtk(GtkButton *button, gpointer window);
-int windows_main(int argc, char **argv);
+gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
+gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
+void updateStatusBar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
+void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook);
+void windowOption();
+void windowUpgrade();
+void windowCredits();
+void gtkAccessToken(GtkButton *button, AuthWidget *DataInput);
+int windowAddUser();
+void gtkDeleteAccount(GtkButton *button, gpointer widget);
+void gtkConnect(GtkButton *button, gpointer window);
+void gtkDisconnect(GtkButton *button, gpointer window);
+void gtkAddUser(GtkButton *button, gpointer window);
+int windowMain(int argc, char **argv);
 
 #endif /* GTKWINDOWS_H_ */
