@@ -61,7 +61,7 @@ int writeUserFile(){
 		asprintf(&data_file, "%s%s||", data_file, user.consumerKey);
 		asprintf(&data_file, "%s%s||", data_file, user.consumerSecretKey);
 		asprintf(&data_file, "%s%s||", data_file, user.Token);
-		asprintf(&data_file, "%s%s||", data_file, user.secretToken);
+		asprintf(&data_file, "%s%s", data_file, user.secretToken);
 
 
 		if(debug==1) printf("data_file= %s",data_file);
@@ -117,7 +117,6 @@ int readUserFile(){
 		user.secretToken = strtok(NULL, delims);
 
 		if(debug==1){
-			printf("\nwriteUserFile()");
 			printf("\nuser.screenName= %s",user.screenName);
 			printf("\nuser.id= %s", user.id);
 			printf("\nuser.consumerKey= %s", user.consumerKey);
@@ -302,7 +301,7 @@ int access_token(const char *pin){
 	user.screenName = get_param(rv, rc, "screen_name");
 
 	if(debug==1){
-		printf("\nwriteUserFile()");
+		printf("\nint access_token(const char *pin)");
 		printf("\nuser.screenName= %s",user.screenName);
 		printf("\nuser.id= %s", user.id);
 		printf("\nuser.consumerKey= %s", user.consumerKey);
@@ -325,13 +324,14 @@ int send_tweet(char *msg){
 
 	char *postarg = NULL;
 
-	if(debug==1) printf("send_tweet()");
+	if(debug==1) printf("\nint send_tweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, msg);
 
+	if(debug==1) printf("\nwitterStatusURL= %s",twitterStatusURL);
+
 	if(debug==1){
-		printf("\nwriteUserFile()");
 		printf("\nuser.screenName= %s",user.screenName);
 		printf("\nuser.id= %s", user.id);
 		printf("\nuser.consumerKey= %s", user.consumerKey);
@@ -345,7 +345,7 @@ int send_tweet(char *msg){
 			user.Token!=NULL &&
 			user.secretToken!=NULL){
 
-		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, "POST", user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 		oauth_http_post(sendTweet, postarg);
 
 		return 0;
@@ -381,12 +381,7 @@ int deleteAccount(){
 	asprintf(&cmd, "%s %s", "rm ", configFile);
 
 	if(system(cmd)==0){
-		user.Token=NULL;
-		user.consumerKey=NULL;
-		user.consumerSecretKey=NULL;
-		user.id=NULL;
-		user.screenName=NULL;
-		user.secretToken=NULL;
+		disconnect();
 
 		return 0;
 	}
@@ -395,6 +390,7 @@ int deleteAccount(){
 }
 
 void disconnect(){
+
 	user.Token=NULL;
 	user.consumerKey=NULL;
 	user.consumerSecretKey=NULL;
