@@ -195,15 +195,7 @@ void windows_setting(){
 	*label = NULL,
 	*combo = NULL,
 	*button = NULL;
-	GList *itemsAccount = NULL,
-			*itemsIMG = NULL,
-			*itemsVID = NULL,
-			*itemsTXT = NULL,
-			*itemsLINK = NULL,
-			*itemsSKIN = NULL,
-			*items_lang = NULL,
-			*items_notify = NULL,
-			*itemsNotify = NULL;
+	GList *itemsAccount = NULL;
 	GError *error = NULL;
 
 	/* Set all window options (color, size, position, etc) */
