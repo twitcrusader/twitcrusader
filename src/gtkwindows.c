@@ -120,6 +120,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	GtkTextIter start,
 	end;
 	char *msg = NULL;
+	int send = 1;
 
 	/* Get start position of cursor and final position */
 	gtk_text_buffer_get_start_iter (tweetBuffer, &start);
@@ -132,7 +133,12 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	if(pKey->keyval == GDK_Return){
 
 		//SendTweet
-		homeSendTweet(msg);
+		send = homeSendTweet(msg);
+		
+		if(send == 1) 
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato");
+		else
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato");
 
 		//Clean TextArea
 		gtk_text_buffer_delete(tweetBuffer, &start, &end);
@@ -162,6 +168,10 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
 	tot_char = 139 - gtk_text_iter_get_line_offset(&iter);
 	tot_char = tot_char - gtk_text_iter_get_line(&iter);
 	msg = g_strdup_printf("%d", tot_char+1);
+	if(tot_char <= 0){
+		msg = g_strdup_printf("%d", 0);
+        gtk_text_buffer_backspace(buffer, &iter, TRUE, TRUE);
+	}
 
 	/* Push numer of char to statusbar */
 	gtk_statusbar_push(statusbar, 0, msg);
@@ -415,7 +425,8 @@ int windowMain(int argc, char **argv){
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
 	*aiuto_menu_items;
-	GtkTextBuffer *buffer;
+	
+	GtkTextBuffer *tweetBuffer;
 	
 	/* User-Directory Path */
 	progPath.configFileName="user.twc";
@@ -498,6 +509,7 @@ int windowMain(int argc, char **argv){
 	/* Status Bar */
 	statusbar = gtk_statusbar_new ();
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar), TRUE);
+	StatusBar.message = GTK_STATUSBAR(statusbar);
 
 	if(user.screenName==NULL && user.id==NULL){
 		statusLabel="Disconnect..";
@@ -591,10 +603,10 @@ int windowMain(int argc, char **argv){
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 		gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
-		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
-		gtk_text_buffer_set_text (buffer, "", -1);
-		g_signal_connect(buffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
-		g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), buffer);
+		tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+		gtk_text_buffer_set_text (tweetBuffer, "", -1);
+		g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
+		g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
 		gtk_container_add(GTK_CONTAINER(scroll), text);
 	//}
 

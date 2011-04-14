@@ -41,6 +41,12 @@ typedef struct
 
 } AuthWidget;
 
+struct StatusBars
+{
+	GtkStatusbar *message;
+
+} StatusBar;
+
 #define TWC_VERSION "0.1.83"
 #define TWC_VERSION_STATUS "-Alpha"
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version.php"
