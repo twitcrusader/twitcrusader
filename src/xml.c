@@ -1,4 +1,4 @@
-/* 
+/*
 *	TwitCrusader - Twitter Client For Linux Desktop
 *		Copyright (C) 2011  PTKDev, RoxShannon
 *
@@ -14,24 +14,40 @@
 *
 *		You should have received a copy of the GNU General Public License
 *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*		
-*			
+*
+*
 *		Author: Patryk Rzucidlo (PTKDev)
 *		Twitter: @ptkdev / @twitcrusader_en
 *		WebSite: http://www.twitcrusader.org
 */
 
-#ifndef _TWITCRUSADER_H
-#define _TWITCRUSADER_H
+#include "include/timeline.h"
 
-#define _GNU_SOURCE
+int parse_file(char *docname, char *root){
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+	xmlDocPtr doc;
+	xmlNodePtr cur;
 
-#include "function.h"
+	doc = xmlParseFile(docname);
 
+	if (doc == NULL ) {
+		fprintf(stderr,"Document not parsed successfully. \n");
+		return 1;
+	}
 
+	cur = xmlDocGetRootElement(doc);
 
-#endif
+	if (cur == NULL) {
+		fprintf(stderr,"empty document\n");
+		xmlFreeDoc(doc);
+		return 1;
+	}
+
+	if (xmlStrcmp(cur->name, (const xmlChar *) root)) {
+		fprintf(stderr,"document of the wrong type, root node != story");
+		xmlFreeDoc(doc);
+		return 1;
+	}
+
+	return 0;
+}

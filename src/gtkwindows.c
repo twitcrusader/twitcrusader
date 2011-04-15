@@ -133,10 +133,10 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	if(pKey->keyval == GDK_Return){
 
 		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
-		
+
 		//SendTweet
 		send = homeSendTweet(msg);
-		
+
 		if(send == 0 || send == 1){ 
 			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
 		} else {
@@ -145,7 +145,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 		}
 
 		//Clean TextArea
-		
+
 
 		return 1; // fix cursor (return to previous line)
 	}
@@ -174,7 +174,7 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
 	msg = g_strdup_printf("%d", tot_char+1);
 	if(tot_char <= 0){
 		msg = g_strdup_printf("%d", 0);
-        gtk_text_buffer_backspace(buffer, &iter, TRUE, TRUE);
+		gtk_text_buffer_backspace(buffer, &iter, TRUE, TRUE);
 	}
 
 	/* Push numer of char to statusbar */
@@ -430,9 +430,9 @@ int windowMain(int argc, char **argv){
 	*aiuto_menu_root,
 	*aiuto_menu_items,
 	*align;
-	
+
 	GtkTextBuffer *tweetBuffer;
-	
+
 	/* User-Directory Path */
 	progPath.configFileName="user.twc";
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
@@ -514,7 +514,7 @@ int windowMain(int argc, char **argv){
 	statusbar = gtk_statusbar_new ();
 	StatusBar.message = GTK_STATUSBAR(statusbar);
 	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
-	
+
 
 	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
 		statusLabel="Disconnect..";
@@ -603,35 +603,34 @@ int windowMain(int argc, char **argv){
 			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
 			gtk_container_add(GTK_CONTAINER(align), tweet);
 			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
-			
+
 		}
 	}
 
-	//if(user.id!=NULL){
-		// TextArea + Scrollbar
-		scroll = gtk_scrolled_window_new(NULL,NULL);
-		gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
-		text = gtk_text_view_new();
-		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
-		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
-		gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
-		tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
-		gtk_text_buffer_set_text (tweetBuffer, "", -1);
-		g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
-		g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
-		gtk_container_add(GTK_CONTAINER(scroll), text);
-	//}
+	// TextArea + Scrollbar
+	scroll = gtk_scrolled_window_new(NULL,NULL);
+	gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+	text = gtk_text_view_new();
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
+	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
+	tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+	gtk_text_buffer_set_text (tweetBuffer, "", -1);
+	g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
+	g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
+	gtk_container_add(GTK_CONTAINER(scroll), text);
+
 
 	/* CALLBACK: exit event */
 	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
 	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL); 
-            
+
 	// Widget Show
 	gtk_widget_show_all (window);
 
 	//Exist Config File?
-	if(readUserFile()==1) windowAddUser();
+	if(fopen (progPath.configFile, "r")==NULL) windowAddUser();
 
 	//Show GTK Main
 	gtk_main ();

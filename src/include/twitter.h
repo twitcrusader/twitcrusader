@@ -31,7 +31,7 @@
 #include <string.h>
 #include <oauth.h>
 #include <glib.h>
-#include <libxml/xmlreader.h>
+
 
 #include "twitcrusader.h"
 #include "function.h"
