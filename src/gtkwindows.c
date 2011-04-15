@@ -459,28 +459,28 @@ int windowMain(int argc, char **argv){
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkConnect), G_OBJECT (window));
-	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Disconnetti");
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
-	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("");
-	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
 	icon_menu = gtk_image_new_from_file(ICON_SETTINGS);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windowOption), NULL);
-	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
 	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
-	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_root = gtk_menu_item_new_with_label("File");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (file_menu_root), file_menu_obj);
@@ -490,14 +490,13 @@ int windowMain(int argc, char **argv){
 	icon_menu = gtk_image_new_from_file(ICON_UPGRADE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowUpgrade), NULL);
-	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
+	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
 
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
 	icon_menu = gtk_image_new_from_file(ICON_STAR);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowCredits), NULL);
-	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
-
+	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
 
 	aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
