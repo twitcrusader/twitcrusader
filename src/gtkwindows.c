@@ -516,7 +516,7 @@ int windowMain(int argc, char **argv){
 	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
 	
 
-	if(strcasecmp(user.screenName, " ") == 0 && strcasecmp(user.id, " ") == 0 ){
+	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
 		statusLabel="Disconnect..";
 	}else{
 		statusLabel="Connect";

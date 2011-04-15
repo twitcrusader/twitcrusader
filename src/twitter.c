@@ -341,10 +341,10 @@ int homeSendTweet(char *msg){
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
-	if(user.consumerKey!=NULL &&
-			user.consumerSecretKey!=NULL &&
-			user.Token!=NULL &&
-			user.secretToken!=NULL){
+	if(strcmp(user.consumerKey, " ") != 0 && 
+			strcmp(user.consumerSecretKey, " ") != 0 && 
+			strcmp(user.Token, " ") != 0 && 
+			strcmp(user.secretToken, " ") != 0){
 
 		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 		error = oauth_http_post(sendTweet, postarg);
