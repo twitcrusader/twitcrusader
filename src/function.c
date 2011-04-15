@@ -54,12 +54,12 @@ void mollocSizeOF(){
 	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
 	
 	/*Fix Disconnect Message*/
-	user.id[0] = 0;
-	user.screenName[0] = 0;
-	user.Token[0] = 0;
-	user.secretToken[0] = 0;
-	user.consumerKey[0] = 0;
-	user.consumerSecretKey[0] = 0;
+	strcpy(user.Token, " ");
+	strcpy(user.consumerKey, " ");
+	strcpy(user.consumerSecretKey, " ");
+	strcpy(user.id, " ");
+	strcpy(user.screenName, " ");
+	strcpy(user.secretToken, " ");
 	
 	progPath.configFileName =  (char*) malloc(sizeof(char) * 15);
 	progPath.configDir =  (char*) malloc(sizeof(char) * 80);

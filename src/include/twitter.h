@@ -44,8 +44,8 @@
 #define HTTPS_API_URL "https://api.twitter.com"
 
 #define AUTHORIZE_URL HTTP_API_URL"/oauth/authorize"
-#define REQUEST_URL HTTPS_API_URL"/oauth/tokenRequest"
-#define tokenAccess_URL HTTP_API_URL"/oauth/tokenAccess"
+#define REQUEST_URL HTTP_API_URL"/oauth/request_token"
+#define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
 #define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
 

@@ -142,10 +142,10 @@ int readUserFile(){
 
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
 	char *postarg = NULL;;
-	char *tempKeyParameters;
+	char *tempKeyParameters = NULL;
 	char *twitterRequestURL=REQUEST_URL;
 
-	if(debug==1) printf("\ntokenRequest");
+	if(debug==1) printf("\ntokenRequest()");
 
 	/* Generate a request url, this url have Temp-Key */
 	twitterRequestURL = oauth_sign_url2(twitterRequestURL, NULL, OA_HMAC, NULL, consumerKey, consumerKeySecret, NULL, NULL);
@@ -254,7 +254,7 @@ int tokenAccess(const char *pin){
 	*postarg,
 	*tempKey,
 	*tempKeySecret,
-	*accessURL = tokenAccess_URL;
+	*accessURL = TOKENACCESS_URL;
 
 	char **rv=NULL;
 
@@ -341,10 +341,10 @@ int homeSendTweet(char *msg){
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
-	if(user.consumerKey[0]!=0 &&
-			user.consumerSecretKey[0]!=0 &&
-			user.Token[0]!=0 &&
-			user.secretToken[0]!=0){
+	if(user.consumerKey!=NULL &&
+			user.consumerSecretKey!=NULL &&
+			user.Token!=NULL &&
+			user.secretToken!=NULL){
 
 		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 		error = oauth_http_post(sendTweet, postarg);

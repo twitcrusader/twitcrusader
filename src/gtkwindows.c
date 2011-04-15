@@ -516,7 +516,7 @@ int windowMain(int argc, char **argv){
 	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
 	
 
-	if(user.screenName[0]==0 && user.id[0]==0 && user.Token[0]==0 && user.consumerKey[0] == 0){
+	if(strcasecmp(user.screenName, " ") == 0 && strcasecmp(user.id, " ") == 0 ){
 		statusLabel="Disconnect..";
 	}else{
 		statusLabel="Connect";
@@ -623,7 +623,7 @@ int windowMain(int argc, char **argv){
 	gtk_widget_show_all (window);
 
 	//Exist Config File?
-	//if(readUserFile()==1) windowAddUser();
+	if(readUserFile()==1) windowAddUser();
 
 	//Show GTK Main
 	gtk_main ();
@@ -654,12 +654,12 @@ void gtkDisconnect(GtkButton *button, gpointer window){
 	disconnect();
 	destroy(button, window);
 	/*Fix Disconnect Message*/
-	user.id[0] = 0;
-	user.screenName[0] = 0;
-	user.Token[0] = 0;
-	user.secretToken[0] = 0;
-	user.consumerKey[0] = 0;
-	user.consumerSecretKey[0] = 0;
+	strcpy(user.Token, " ");
+	strcpy(user.consumerKey, " ");
+	strcpy(user.consumerSecretKey, " ");
+	strcpy(user.id, " ");
+	strcpy(user.screenName, " ");
+	strcpy(user.secretToken, " ");
 	windowMain(0, NULL);
 }
 
