@@ -428,7 +428,8 @@ int windowMain(int argc, char **argv){
 	*file_menu_items,
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
-	*aiuto_menu_items;
+	*aiuto_menu_items,
+	*align;
 	
 	GtkTextBuffer *tweetBuffer;
 	
@@ -588,13 +589,19 @@ int windowMain(int argc, char **argv){
 		for ( cols = 0; cols < 3; cols++ ) {
 
 			avatar = gtk_image_new_from_file (ICON_HOME);
-			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 
 			nick = gtk_label_new ("@NICK");
-			gtk_table_attach (GTK_TABLE (table_into), nick, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
+			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+			gtk_container_add(GTK_CONTAINER(align), nick);
+			gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
 
-			tweet = gtk_label_new ("TEXT TEXT TEXT TEXT TEXT\n TEXT TEXT TEXT TEXT TEXT\n");
-			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+			tweet = gtk_label_new ("TEXT TEXT TEXT TEXT TEXT \nTEXT TEXT TEXT TEXT TEXT\n");
+			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
+			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+			gtk_container_add(GTK_CONTAINER(align), tweet);
+			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 		}
 	}
 
@@ -602,7 +609,7 @@ int windowMain(int argc, char **argv){
 		// TextArea + Scrollbar
 		scroll = gtk_scrolled_window_new(NULL,NULL);
 		gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 		text = gtk_text_view_new();
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
