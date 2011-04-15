@@ -107,7 +107,7 @@ void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
 	if(correctVerify == 1) windowError("Error: bad Input!");
 
 
-	if(correctVerify==0)destroy(button, DataInput->window);
+	if(correctVerify == 0)destroy(button, DataInput->window);
 
 }
 
@@ -632,10 +632,10 @@ int windowMain(int argc, char **argv){
 }
 
 void gtkDeleteAccount(GtkButton *button, gpointer window){
-	if(user.consumerKey!=NULL &&
-			user.consumerSecretKey!=NULL &&
-			user.Token!=NULL &&
-			user.secretToken!=NULL){
+	if(strcmp(user.consumerKey, " ") != 0 && 
+			strcmp(user.consumerSecretKey, " ") != 0 && 
+			strcmp(user.Token, " ") != 0 && 
+			strcmp(user.secretToken, " ") != 0){
 		deleteAccount();
 		destroy(button,window);
 		windowOption();

@@ -261,12 +261,12 @@ int tokenAccess(const char *pin){
 	puts("\ntokenAccess()");
 	printf("\ntmp_token: %s\n",tmp_token);
 
-	// if(tmp_token==NULL) tokenTemp(); futura implementazione...
+	if(tmp_token==NULL) return 1;
 
 	printf("\nrc = oauth_split_url_parameters(tmp_token, &rv);");
 	rc = oauth_split_url_parameters(tmp_token, &rv);
 
-	puts("\ntempKey = getParameters(rv, rc, \"oauth_token\");");
+	puts("\ngetParameters(rv, rc, \"oauth_token\");");
 	tempKey = getParameters(rv, rc, "oauth_token");
 	printf("\ntempKey: %s\n", tempKey);
 
@@ -292,6 +292,8 @@ int tokenAccess(const char *pin){
 
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
 	twitterUserKey = oauth_http_post(verifyPIN,postarg);
+	 if (!twitterUserKey)
+		 return 1;
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
@@ -311,6 +313,7 @@ int tokenAccess(const char *pin){
 	}
 
 	return writeUserFile();
+	
 }
 
 /*
@@ -341,7 +344,9 @@ int homeSendTweet(char *msg){
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
-	if(strcmp(user.consumerKey, " ") != 0 && 
+	if(strcmp(user.id, " ") != 0 &&
+			strcmp(user.screenName, " ") != 0 &&
+			strcmp(user.consumerKey, " ") != 0 && 
 			strcmp(user.consumerSecretKey, " ") != 0 && 
 			strcmp(user.Token, " ") != 0 && 
 			strcmp(user.secretToken, " ") != 0){
