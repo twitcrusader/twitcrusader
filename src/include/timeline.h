@@ -84,5 +84,8 @@ struct timeline{
 	*contributors;
 };
 
+void getStatus (xmlDocPtr doc, xmlNodePtr cur, struct timeline *timeline);
+void readDoc(char *docname, struct timeline *timeline);
+int readtimeline(char *docname, struct timeline *timeline);
 
 #endif /* TIMELINE_H_ */

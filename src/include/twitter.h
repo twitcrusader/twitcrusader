@@ -35,6 +35,7 @@
 
 #include "twitcrusader.h"
 #include "function.h"
+#include "timeline.h"
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
@@ -47,7 +48,8 @@
 #define REQUEST_URL HTTP_API_URL"/oauth/request_token"
 #define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
-#define HOME_TIMELINE_URL HTTP_API_URL"/version/statuses/home_timeline.xml"
+#define HOME_TIMELINE_URL HTTP_API_URL"/1/statuses/home_timeline.xml"
+#define PUBLIC_TIMELINE_URL HTTP_API_URL"/1/statuses/public_timeline.xml"
 
 struct users{
   char* id;
@@ -73,6 +75,7 @@ int tokenTempBrowser();
 int tokenAccess(const char *pin);
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
 int homeSendTweet(char*);
+int publicTimeline();
 int homeTimeline();
 int deleteAccount();
 void disconnect();

@@ -364,17 +364,35 @@ int homeSendTweet(char *msg){
 }
 
 int homeTimeline(){
-	int count=20;
-	char *timelineURL=HOME_TIMELINE_URL,
-			*timeline1, *timeline2;
+	char *timelineURL=HOME_TIMELINE_URL;
+	char *timeline1, *timeline2;
 	char *postarg=NULL;
 
-	asprintf(&timelineURL, "%s?count=%i",timelineURL, count);
+	struct timeline *homeTimeLine=NULL;
 
 	timeline1 = oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline2= oauth_http_get(timelineURL, postarg);
-	printf("timeline1= %s",timeline1); //momentaneo..
-	printf("timeline2= %s",timeline1); //momentaneo..
+	timeline2= oauth_http_get(timeline1, postarg);
+	printf("\ntimeline1= %s",timeline1); //momentaneo..
+	printf("\ntimeline2= %s",timeline1); //momentaneo..
+
+	readDoc(timeline2, homeTimeLine);
+
+	return 0;
+}
+
+
+int publicTimeline(){
+
+	char *timelineURL=PUBLIC_TIMELINE_URL,
+			*timeline;
+	char *postarg=NULL;
+
+	struct timeline *publicTimeLine=NULL;
+
+	timeline= oauth_http_get(timelineURL, postarg);
+	printf("\ntimeline= %s", timeline); //momentaneo..
+
+	readDoc(timeline, publicTimeLine);
 
 	return 0;
 }

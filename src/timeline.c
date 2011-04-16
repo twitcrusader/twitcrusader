@@ -23,7 +23,7 @@
 
 #include "include/timeline.h"
 
-void getStatus (xmlDocPtr doc, xmlNodePtr cur, struct user_timeline *timeline) {
+void getStatus (xmlDocPtr doc, xmlNodePtr cur, struct timeline *timeline) {
 
 	xmlChar *key;
 	xmlNodePtr cur2;
@@ -343,7 +343,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, struct user_timeline *timeline) {
 	return;
 }
 
-void readDoc(char *docname, struct user_timeline *timeline) {
+void readDoc(char *docname, struct timeline *timeline) {
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -384,7 +384,7 @@ void readDoc(char *docname, struct user_timeline *timeline) {
 	return;
 }
 
-int readtimeline(char *docname, struct user_timeline *timeline) {
+int readtimeline(char *docname, struct timeline *timeline) {
 
 	readDoc (docname, timeline);
 
