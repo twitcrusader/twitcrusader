@@ -85,6 +85,10 @@ void gtkDeleteAccount(GtkButton *button, gpointer widget);
 void gtkConnect(GtkButton *button, gpointer window);
 void gtkDisconnect(GtkButton *button, gpointer window);
 void gtkAddUser(GtkButton *button, gpointer window);
+void gtkTimeLine(GtkWidget *layout, GtkWidget *statusbarChar);
+void gtkTwitterBar(GtkWidget *layout);
+GtkWidget* gtkMenuBar(GtkWidget *layout, GtkWidget *window);
+
 int windowMain(int argc, char **argv);
 
 #endif /* GTKWINDOWS_H_ */
