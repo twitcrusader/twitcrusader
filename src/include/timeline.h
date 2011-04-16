@@ -28,7 +28,7 @@
 #ifndef TIMELINE_H_
 #define TIMELINE_H_
 
-struct timeline_user{
+struct user_timeline{
 	char *id,
 	*name,
 	*screen_name,
@@ -36,7 +36,7 @@ struct timeline_user{
 	*description,
 	*profile_image_url,
 	*url,
-	*protected,
+	*protectedtw,
 	*profile_background_color,
 	*profile_text_color,
 	*profile_link_color,
@@ -65,8 +65,8 @@ struct timeline_user{
 	statuses_count, listed_coun;
 };
 
-struct public_timeline{
-	struct timeline_user pub_user;
+struct timeline{
+	struct user_timeline pub_user;
 	char *created_at,
 	*id,
 	*text,
