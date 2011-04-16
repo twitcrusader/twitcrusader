@@ -370,12 +370,19 @@ int homeTimeline(){
 
 	struct timeline *homeTimeLine=NULL;
 
+	FILE *fp = fopen ("/tmp/home_timeline.xml", "w");
+
 	timeline1 = oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	timeline2= oauth_http_get(timeline1, postarg);
 	printf("\ntimeline1= %s",timeline1); //momentaneo..
-	printf("\ntimeline2= %s",timeline1); //momentaneo..
+	printf("\ntimeline2= %s",timeline2); //momentaneo..
 
-	readDoc(timeline2, homeTimeLine);
+	fputs(timeline2, fp);
+	fclose(fp);
+
+	readDoc("/tmp/home_timeline.xml", homeTimeLine);
+
+	//system("rm -f /tmp/home_timeline.xml");
 
 	return 0;
 }
@@ -387,12 +394,19 @@ int publicTimeline(){
 			*timeline;
 	char *postarg=NULL;
 
+	FILE *fp = fopen ("/tmp/public_timeline.xml", "w");
+
 	struct timeline *publicTimeLine=NULL;
 
 	timeline= oauth_http_get(timelineURL, postarg);
 	printf("\ntimeline= %s", timeline); //momentaneo..
 
-	readDoc(timeline, publicTimeLine);
+	fputs(timeline, fp);
+	fclose(fp);
+
+	readDoc("/tmp/public_timeline.xml", publicTimeLine);
+
+	system("rm -f /tmp/public_timeline.xml");
 
 	return 0;
 }
