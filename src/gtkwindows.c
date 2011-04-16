@@ -394,59 +394,20 @@ int windowAddUser()
 	return 0;
 }
 
-
 /*
- * Windows Main
- * Twitter TimeLine Cntent
- * 
+ * Menu Bar File/Help
  */
-int windowMain(int argc, char **argv){
+GtkWidget* gtkMenuBar(GtkWidget *layout, GtkWidget *window){
 
-	gtk_init (&argc, &argv);
-
-	int rows, cols;
-	char* statusLabel;
-	GError *error = NULL;
-	GtkWidget *window,
-	*table,
-	*scroll,
-	*icon_menu,
-	*table_into,
-	*nick,
-	*tweet,
-	*avatar,
-	*scrolled_window,
-	*menu_bar,
-	*layout,
-	*toolbar,
-	*statusbar,
-	*statusbar_char,
-	*new_button,
-	*text,
+	GtkWidget *menuBar,
 	*file_menu_obj,
 	*file_menu_root,
 	*file_menu_items,
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
 	*aiuto_menu_items,
-	*align;
-
-	GtkTextBuffer *tweetBuffer;
-
-	/* User-Directory Path */
-	progPath.configFileName="user.twc";
-	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
-	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
-
-	/* Set all window options (color, size, position, logo, icon, etc) */
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
-	gtk_widget_set_size_request (window, 315, 400);
-	gtk_window_set_title (GTK_WINDOW(window), "TwitCrusader");
-	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
-
+	*icon_menu;
+	
 	/* GTK Widget: Menu */
 	file_menu_obj = gtk_menu_new();
 	aiuto_menu_obj = gtk_menu_new();
@@ -501,79 +462,81 @@ int windowMain(int argc, char **argv){
 
 	aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
+	
+	menuBar = gtk_menu_bar_new();
+	gtk_menu_bar_append(GTK_MENU_BAR (menuBar), file_menu_root);
+	gtk_menu_bar_append(GTK_MENU_BAR (menuBar), aiuto_menu_root);
+	
+	gtk_box_pack_start(GTK_BOX(layout), menuBar, FALSE, FALSE, 0);
+	
+return menuBar;
+}
 
-	/* Set Layout Position */
-	layout = gtk_vbox_new(0, 1);
-	gtk_container_add(GTK_CONTAINER(window), layout);
-	menu_bar = gtk_menu_bar_new();
-	gtk_box_pack_start(GTK_BOX(layout), menu_bar, FALSE, FALSE, 0);
-	gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), file_menu_root);
-	gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), aiuto_menu_root);
+void gtkTwitterBar(GtkWidget *layout){
 
-	/* Status Bar */
-	statusbar = gtk_statusbar_new ();
-	StatusBar.message = GTK_STATUSBAR(statusbar);
-	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
-
-
-	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
-		statusLabel="Disconnect..";
-	}else{
-		statusLabel="Connect";
-	}
-
-	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
-
-	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
-
+	GtkWidget *TwitterToolbar,
+			  *TwitterActionButton,
+			  *TwitterActionIcon;
+			  
 	/* GTK Widget: Twitter Menu */
-	toolbar = gtk_toolbar_new ();
-	gtk_box_pack_end (GTK_BOX (layout), toolbar, FALSE, FALSE, 0);
-	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
+	TwitterToolbar = gtk_toolbar_new ();
+	gtk_toolbar_set_style (GTK_TOOLBAR (TwitterToolbar), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_get_icon_size (GTK_TOOLBAR (TwitterToolbar));
 
 	/* Twitter Menu: Buttons */
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_HOME);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_UPDATE);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_MENTION);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_MENTION);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_DM);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_DM);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_FAVORITES);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_FAVORITES);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_LINK);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_LINK);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
 
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_PHOTO);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	TwitterActionButton = gtk_button_new();
+	TwitterActionIcon = gtk_image_new_from_file(ICON_PHOTO);
+	gtk_button_set_image(GTK_BUTTON(TwitterActionButton),TwitterActionIcon);
+	gtk_container_add (GTK_CONTAINER (TwitterToolbar), TwitterActionButton);
+	
+	gtk_box_pack_end (GTK_BOX (layout), TwitterToolbar, FALSE, FALSE, 0);
+}
 
-	/* Status Bar: Twitter 140char */
-	statusbar_char = gtk_statusbar_new ();
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar_char), FALSE);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar_char), 0, "140");
-	gtk_box_pack_end (GTK_BOX (layout), statusbar_char, FALSE, FALSE, 0);
-
+void gtkTimeLine(GtkWidget *layout, GtkWidget *statusbarChar){
+	
+	GtkWidget *table,
+	*scroll,
+	*table_into,
+	*nick,
+	*tweet,
+	*avatar,
+	*scrolled_window,
+	*text,
+	*align;
+	
+	int rows, cols;
+	GtkTextBuffer *tweetBuffer;
+		
 	/* Table Content Tweet/Mentions */
 	table = gtk_table_new (9, 3, TRUE);
 	gtk_container_add(GTK_CONTAINER(layout), table);
@@ -617,10 +580,74 @@ int windowMain(int argc, char **argv){
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
 	tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 	gtk_text_buffer_set_text (tweetBuffer, "", -1);
-	g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
+	g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbarChar);
 	g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
-	gtk_container_add(GTK_CONTAINER(scroll), text);
+	gtk_container_add(GTK_CONTAINER(scroll), text);	
+}
 
+
+/*
+ * Windows Main
+ * Twitter TimeLine Cntent
+ * 
+ */
+int windowMain(int argc, char **argv){
+
+	gtk_init (&argc, &argv);
+
+	char* statusLabel;
+	GError *error = NULL;
+	
+	GtkWidget *window,
+	*layout = gtk_vbox_new(0, 1),
+	*statusbar = gtk_statusbar_new (),
+	*statusbarChar = gtk_statusbar_new ();
+
+	/* User-Directory Path */
+	progPath.configFileName="user.twc";
+	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
+
+	/* Set all window options (color, size, position, logo, icon, etc) */
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
+	gtk_widget_set_size_request (window, 315, 400);
+	gtk_window_set_title (GTK_WINDOW(window), "TwitCrusader");
+	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
+	
+	/*Set layout */
+	gtk_container_add(GTK_CONTAINER(window), layout);
+	
+	/* Menu File/Help */
+	gtkMenuBar(layout,window);
+
+	/* Status Bar */
+	StatusBar.message = GTK_STATUSBAR(statusbar);
+	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
+
+
+	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
+		statusLabel="Disconnect..";
+	}else{
+		statusLabel="Connect";
+	}
+
+	/* Attach Message Status Bar At Bottom */
+	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
+	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
+	
+	/* Attach TwitterBar At Bottom */	
+	gtkTwitterBar(layout);
+
+	/* Create&Attach 140Char Status Bar */
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbarChar), FALSE);
+	gtk_statusbar_push (GTK_STATUSBAR(statusbarChar), 0, "140");
+	gtk_box_pack_end (GTK_BOX (layout), statusbarChar, FALSE, FALSE, 0);
+	
+	/* Attach Timeline at top */	
+	gtkTimeLine(layout, statusbarChar);
 
 	/* CALLBACK: exit event */
 	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
