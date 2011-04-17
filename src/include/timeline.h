@@ -62,11 +62,12 @@ struct user_timeline{
 	*followers_count,
 	*friends_count,
 	*favourites_count,
-	statuses_count, listed_coun;
+	*statuses_count,
+	*listed_count;
 };
 
-struct timeline{
-	struct user_timeline pub_user;
+struct timeLine{
+	struct user_timeline user;
 	char *created_at,
 	*id,
 	*text,
@@ -84,8 +85,10 @@ struct timeline{
 	*contributors;
 };
 
-void getStatus (xmlDocPtr doc, xmlNodePtr cur, struct timeline *timeline);
-void readDoc(char *docname, struct timeline *timeline);
-int readtimeline(char *docname, struct timeline *timeline);
+struct timeLine timeline[40];
+
+void getStatus (xmlDocPtr doc, xmlNodePtr cur);
+void readDoc(char *docname);
+int readtimeline(char *docname);
 
 #endif /* TIMELINE_H_ */

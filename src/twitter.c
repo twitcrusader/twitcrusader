@@ -99,22 +99,22 @@ int readUserFile(){
 		fgets(buffer, 250, fp);
 
 		/* Username */
-		 strcpy(user.screenName, strtok(buffer, delims));
+		strcpy(user.screenName, strtok(buffer, delims));
 
 		/* User-ID */
-		 strcpy(user.id, strtok(NULL, delims));
+		strcpy(user.id, strtok(NULL, delims));
 
 		/* Get TwitCrusader Token */
-		 strcpy(user.consumerKey, strtok(NULL, delims));
+		strcpy(user.consumerKey, strtok(NULL, delims));
 
 		/* Get TwitCrusader Secret Token */
-		 strcpy(user.consumerSecretKey, strtok(NULL, delims));
+		strcpy(user.consumerSecretKey, strtok(NULL, delims));
 
 		/* Get User Token */
-		 strcpy(user.Token, strtok(NULL, delims));
+		strcpy(user.Token, strtok(NULL, delims));
 
 		/* Get TwitCrusader Secret Token */
-		 strcpy(user.secretToken, strtok(NULL, delims));
+		strcpy(user.secretToken, strtok(NULL, delims));
 
 		if(debug==1){
 			printf("\nuser.screenName= %s",user.screenName);
@@ -292,8 +292,8 @@ int tokenAccess(const char *pin){
 
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
 	twitterUserKey = oauth_http_post(verifyPIN,postarg);
-	 if (!twitterUserKey)
-		 return 1;
+	if (!twitterUserKey)
+		return 1;
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
@@ -313,7 +313,7 @@ int tokenAccess(const char *pin){
 	}
 
 	return writeUserFile();
-	
+
 }
 
 /*
@@ -353,10 +353,10 @@ int homeSendTweet(char *msg){
 
 		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 		error = oauth_http_post(sendTweet, postarg);
-		
+
 		if(!error)
 			return 1;
-		
+
 		return 3;
 	}
 
@@ -368,8 +368,6 @@ int homeTimeline(){
 	char *timeline1, *timeline2;
 	char *postarg=NULL;
 
-	struct timeline *homeTimeLine=NULL;
-
 	FILE *fp = fopen ("/tmp/home_timeline.xml", "w");
 
 	timeline1 = oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
@@ -380,7 +378,7 @@ int homeTimeline(){
 	fputs(timeline2, fp);
 	fclose(fp);
 
-	readDoc("/tmp/home_timeline.xml", homeTimeLine);
+	readDoc("/tmp/home_timeline.xml");
 
 	//system("rm -f /tmp/home_timeline.xml");
 
@@ -390,25 +388,38 @@ int homeTimeline(){
 
 int publicTimeline(){
 
+	FILE *fp;
+
 	char *timelineURL=PUBLIC_TIMELINE_URL,
-			*timeline;
+			*timeline, *cmd=NULL;
 	char *postarg=NULL;
 
-	FILE *fp = fopen ("/tmp/public_timeline.xml", "w");
+	char *tmpFile="/tmp/public_timeline.xml";
 
-	struct timeline *publicTimeLine=NULL;
+	if(debug==1) printf("\nint publicTimeline()");
 
 	timeline= oauth_http_get(timelineURL, postarg);
-	printf("\ntimeline= %s", timeline); //momentaneo..
+	if(debug==1) printf("\ntimeline= %s", timeline);
 
-	fputs(timeline, fp);
-	fclose(fp);
+	fp=fopen(tmpFile, "w");
 
-	readDoc("/tmp/public_timeline.xml", publicTimeLine);
+	if(fp!=NULL){
 
-	system("rm -f /tmp/public_timeline.xml");
+		if(debug==1) printf("\nfputs(timeline, fp)");
 
-	return 0;
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}else printf("fp=NULL");
+
+	return 1;
 }
 
 int deleteAccount(){
