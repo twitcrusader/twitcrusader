@@ -405,11 +405,11 @@ int publicTimeline(){
 
 	if(fp!=NULL){
 
-		if(debug==1) printf("\nfputs(timeline, fp)");
+		printf("\nfputs(timeline, fp)");
 
 		fprintf(fp, "%s",timeline);
 		fclose(fp);
-
+		system("echo \"ci sono!\"");
 		readDoc(tmpFile);
 
 		asprintf(&cmd,"rm -f %s", tmpFile);
@@ -417,7 +417,7 @@ int publicTimeline(){
 
 		system(cmd);
 		return 0;
-	}else printf("fp=NULL");
+	}
 
 	return 1;
 }
