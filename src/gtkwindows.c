@@ -519,7 +519,7 @@ int windowMain(int argc, char **argv){
 	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
 		statusLabel="Disconnect..";
 	}else{
-		statusLabel="Connect";
+		statusLabel="Connect..";
 	}
 
 	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
@@ -640,7 +640,7 @@ int windowMain(int argc, char **argv){
 	if(fopen (progPath.configFile, "r")==NULL) windowAddUser();
 
 	//Show GTK Main
-	gtk_main ();
+	gtk_main();
 
 	return 0;
 }
