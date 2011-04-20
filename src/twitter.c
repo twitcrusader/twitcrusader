@@ -291,8 +291,8 @@ int tokenAccess(const char *pin){
 	}
 
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
-	twitterUserKey = oauth_http_post(verifyPIN,postarg);
-	if (!twitterUserKey)
+	twitterUserKey = oauth_http_post2(verifyPIN,postarg,NULL);
+	if (strcmp(twitterUserKey,""))
 		return 1;
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */

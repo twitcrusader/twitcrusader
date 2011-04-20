@@ -1,4 +1,12 @@
-=========== Known Issues ===========
+=========== Known Issues ===========		
+- Public TimeLine
+1) File --> Connect
+2) More of read tags (with xmlLib) returns value: (null)
+
+
+
+
+=========== Fixed Issues, Improved at 0.1.86 ===========	
 - oAuth
 1) Click on Sign-in-Twitter (Generate PIN)
 2) Enter Fake-PIN
@@ -10,8 +18,13 @@ Possibile Fix (But Not Work) on function tokenAccess()
 	if (!twitterUserKey)
 		return 1; //Not Work...
 		
-		
-		
-- Public TimeLine
-1) File --> Connect
-2) More of read tags (with xmlLib) returns value: (null)
+Correct on function tokenAccess()
+	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
+	twitterUserKey = oauth_http_post2(verifyPIN,postarg,NULL);
+	if (strcmp(twitterUserKey,""))
+		return 1;
+
+
+
+
+
