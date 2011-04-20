@@ -1,0 +1,17 @@
+=========== Known Issues ===========
+- oAuth
+1) Click on Sign-in-Twitter (Generate PIN)
+2) Enter Fake-PIN
+3) Segment Fault
+
+Possibile Fix (But Not Work) on function tokenAccess()
+	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
+	twitterUserKey = oauth_http_post(verifyPIN,postarg);
+	if (!twitterUserKey)
+		return 1; //Not Work...
+		
+		
+		
+- Public TimeLine
+1) File --> Connect
+2) More of read tags (with xmlLib) returns value: (null)
