@@ -104,20 +104,22 @@ char* getParameters(char** argv, int argc, const char* param)
  */
 int shellParameters (int argc, char **argv){
 	int count;
-
-	printf ("This program was called with \"%s\".\n",argv[0]);
+	
+	system("clear");
+		
+	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
+	printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
 
 	if (argc > 1){
 		for (count = 1; count < argc; count++){
 
 			if(strcmp(argv[count],"--help")==0){
-				printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
-				printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
 				printf("--help		print this page\n");
 				printf("--debug		debug\n\n");
 
 				return 1;
 			}else if(strcmp(argv[count], "--debug")==0){
+				printf ("This program was called with \"%s\".\n",argv[0]);
 				debug=1;
 			}else{
 				printf("\ntry \"%s\" --help for help\n",argv[0]);
