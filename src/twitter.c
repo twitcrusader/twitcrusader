@@ -364,25 +364,40 @@ int homeSendTweet(char *msg){
 }
 
 int homeTimeline(){
-	char *timelineURL=HOME_TIMELINE_URL;
-	char *timeline1, *timeline2;
+
+	FILE *fp;
+
+	char *timelineURL=HOME_TIMELINE_URL,
+			*timeline, *cmd=NULL;
 	char *postarg=NULL;
 
-	FILE *fp = fopen ("/tmp/home_timeline.xml", "w");
+	char *tmpFile="/tmp/home_timeline.xml";
 
-	timeline1 = oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline2= oauth_http_get(timeline1, postarg);
-	printf("\ntimeline1= %s",timeline1); //momentaneo..
-	printf("\ntimeline2= %s",timeline2); //momentaneo..
+	if(debug==1) printf("\nint homeTimeline()");
 
-	fputs(timeline2, fp);
-	fclose(fp);
+	timeline= oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
 
-	readDoc("/tmp/home_timeline.xml");
+	fp=fopen(tmpFile, "w");
 
-	//system("rm -f /tmp/home_timeline.xml");
+	if(fp!=NULL){
 
-	return 0;
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		//system(cmd);
+		return 0;
+	}
+
+	return 1;
 }
 
 

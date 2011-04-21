@@ -586,8 +586,7 @@ int windowMain(int argc, char **argv){
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		//homeTimeline();
-		publicTimeline(); //testing
+		homeTimeline();
 	}else {
 		publicTimeline();
 	}
