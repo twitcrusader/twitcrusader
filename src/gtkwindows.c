@@ -406,6 +406,7 @@ int windowMain(int argc, char **argv){
 
 	int rows, cols;
 	char* statusLabel;
+	char *cmd, *avatarFile;
 	GError *error = NULL;
 	GtkWidget *window,
 	*table,
@@ -435,6 +436,13 @@ int windowMain(int argc, char **argv){
 
 	/* User-Directory Path */
 	progPath.configFileName="user.twc";
+	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+
+	if(debug==1) printf("\n%s",cmd);
+	system(cmd);
+
+
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
 
@@ -592,22 +600,31 @@ int windowMain(int argc, char **argv){
 	}
 
 
+
+
 	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
-			avatar = gtk_image_new_from_file (ICON_HOME);
-			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
+		asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
 
-			nick = gtk_label_new ((char *)timeline[cols].user.screen_name);
-			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
-			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-			gtk_container_add(GTK_CONTAINER(align), nick);
-			gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
+		if (debug==1) puts(cmd);
+		system(cmd);
 
-			tweet = gtk_label_new ((char *)timeline[cols].text);
-			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-			gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
-			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-			gtk_container_add(GTK_CONTAINER(align), tweet);
-			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
+		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
+
+		avatar = gtk_image_new_from_file (avatarFile);
+		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
+
+		nick = gtk_label_new (timeline[cols].user.screen_name);
+		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
+		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+		gtk_container_add(GTK_CONTAINER(align), nick);
+		gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
+
+		tweet = gtk_label_new (timeline[cols].text);
+		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
+		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
+		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+		gtk_container_add(GTK_CONTAINER(align), tweet);
+		gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 	}
 
 	// TextArea + Scrollbar

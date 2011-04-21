@@ -61,6 +61,7 @@ struct users{
 } user;
 
 struct programPath{
+	char *avatarDir;
   char *configDir;
   char *configFile;
   char *configFileName;
