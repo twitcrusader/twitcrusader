@@ -586,7 +586,8 @@ int windowMain(int argc, char **argv){
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		homeTimeline();
+		//homeTimeline();
+		publicTimeline(); //testing
 	}else {
 		publicTimeline();
 	}
@@ -598,13 +599,13 @@ int windowMain(int argc, char **argv){
 			avatar = gtk_image_new_from_file (ICON_HOME);
 			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 
-			nick = gtk_label_new ("@NICK");
+			nick = gtk_label_new (timeline[rows].user.screen_name);
 			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
 			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
 			gtk_container_add(GTK_CONTAINER(align), nick);
 			gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
 
-			tweet = gtk_label_new ("TEXT TEXT TEXT TEXT TEXT \nTEXT TEXT TEXT TEXT TEXT \nTEXT TEXT TEXT TEXT TEXT ");
+			tweet = gtk_label_new (timeline[rows].text);
 			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
 			gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
 			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
