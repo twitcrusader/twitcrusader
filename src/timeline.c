@@ -44,7 +44,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 
 	char *keys;
 
-	//xmlNodePtr cur2;
+	xmlNodePtr cur2;
 		cur = cur->xmlChildrenNode;
 		while (cur != NULL) {
 			
@@ -92,7 +92,158 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 			// *retweeted,
 			keys=getTimeLineElement(doc, cur, "retweeted");
 			 timeline[i].retweeted=keys;
-			
+		
+			//struct user_timeline pub_user;
+			if ((!xmlStrcmp(cur->name, (const xmlChar *)"user"))) {
+
+				cur2 = cur->xmlChildrenNode;
+
+				while (cur2!=NULL){
+
+					// char *id,
+					keys=getTimeLineElement(doc, cur2, "id");
+					 timeline[i].user.id=keys;
+
+					// *name,
+					keys=getTimeLineElement(doc, cur2, "name");
+					 timeline[i].user.name=keys;
+
+					// *screen_name,
+					keys=getTimeLineElement(doc, cur2, "screen_name");
+					 timeline[i].user.screen_name=keys;
+					 if(debug==1) printf("\n%s: %s ---> %d", "screen_name", keys, i);
+
+					// *location,
+					keys=getTimeLineElement(doc, cur2, "location");
+					 timeline[i].user.location=keys;
+
+					//		*description,
+					keys=getTimeLineElement(doc, cur2, "description");
+					 timeline[i].user.description=keys;
+
+					// *profile_image_url,
+					keys=getTimeLineElement(doc, cur2, "profile_image_url");
+					 timeline[i].user.profile_image_url=keys;
+
+					// *url,
+					keys=getTimeLineElement(doc, cur2, "url");
+					 timeline[i].user.url=keys;
+
+					// *protectedtw,
+					keys=getTimeLineElement(doc, cur2, "protected");
+					 timeline[i].user.protectedtw=keys;
+
+					// *profile_background_color,
+					keys=getTimeLineElement(doc, cur2, "profile_background_color");
+					 timeline[i].user.profile_background_color=keys;
+
+					// *profile_text_color,
+					keys=getTimeLineElement(doc, cur2, "profile_text_color");
+					 timeline[i].user.profile_text_color=keys;
+
+					// *profile_link_color,
+					keys=getTimeLineElement(doc, cur2, "profile_link_color");
+					 timeline[i].user.profile_link_color=keys;
+
+					// *profile_sidebar_fill_color,
+					keys=getTimeLineElement(doc, cur2, "profile_sidebar_fill_color");
+					 timeline[i].user.profile_sidebar_fill_color=keys;
+
+					// *profile_sidebar_border_color,
+					keys=getTimeLineElement(doc, cur2, "profile_sidebar_border_color");
+					 timeline[i].user.profile_sidebar_border_color=keys;
+
+					// *created_at,
+					keys=getTimeLineElement(doc, cur2, "created_at");
+					 timeline[i].user.created_at=keys;
+
+					// *utc_offset,
+					keys=getTimeLineElement(doc, cur2, "utc_offset");
+					 timeline[i].user.utc_offset=keys;
+
+					// *time_zone,
+					keys=getTimeLineElement(doc, cur2, "time_zone");
+					 timeline[i].user.time_zone=keys;
+
+					// *profile_background_image_url,
+					keys=getTimeLineElement(doc, cur2, "profile_background_image_url");
+					 timeline[i].user.profile_background_image_url=keys;
+
+					// *profile_background_tile,
+					keys=getTimeLineElement(doc, cur2, "profile_background_tile");
+					 timeline[i].user.profile_background_tile=keys;
+
+					// *profile_use_background_image,
+					keys=getTimeLineElement(doc, cur2, "profile_use_background_image");
+					 timeline[i].user.profile_use_background_image=keys;
+
+					// *notifications,
+					keys=getTimeLineElement(doc, cur2, "notifications");
+					 timeline[i].user.notifications=keys;
+
+					// *geo_enabled,
+					keys=getTimeLineElement(doc, cur2, "geo_enabled");
+					 timeline[i].user.geo_enabled=keys;
+
+					// *verified,
+					keys=getTimeLineElement(doc, cur2, "verified");
+					 timeline[i].user.verified=keys;
+
+					// *following,
+					keys=getTimeLineElement(doc, cur2, "following");
+					 timeline[i].user.following=keys;
+
+					// *lang,
+					keys=getTimeLineElement(doc, cur2, "lang");
+					 timeline[i].user.lang=keys;
+
+					// *contributors_enabled,
+					keys=getTimeLineElement(doc, cur2, "contributors_enabled");
+					 timeline[i].user.contributors_enabled=keys;
+
+					// *follow_request_sent,
+					keys=getTimeLineElement(doc, cur2, "follow_request_sent");
+					 timeline[i].user.follow_request_sent=keys;
+
+					// *show_all_inline_media,
+					keys=getTimeLineElement(doc, cur2, "show_all_inline_media");
+					 timeline[i].user.show_all_inline_media=keys;
+
+					// *default_profile,
+					keys=getTimeLineElement(doc, cur2, "default_profile");
+					 timeline[i].user.default_profile=keys;
+
+					// *default_profile_image,
+					keys=getTimeLineElement(doc, cur2, "default_profile_image");
+					 timeline[i].user.default_profile_image=keys;
+
+					// *is_translator,
+					keys=getTimeLineElement(doc, cur2, "is_translator");
+					 timeline[i].user.is_translator=keys;
+
+					// *followers_count,
+					keys=getTimeLineElement(doc, cur2, "followers_count");
+					 timeline[i].user.followers_count=keys;
+
+					// *friends_count,
+					keys=getTimeLineElement(doc, cur2, "friends_count");
+					 timeline[i].user.friends_count=keys;
+
+					// *favourites_count,
+					keys=getTimeLineElement(doc, cur2, "favourites_count");
+					 timeline[i].user.favourites_count=keys;
+
+					// statuses_count, ;
+					keys=getTimeLineElement(doc, cur2, "statuses_count");
+					 timeline[i].user.statuses_count=keys;
+
+					// listed_count
+					keys=getTimeLineElement(doc, cur2, "listed_count");
+					 timeline[i].user.listed_count=keys;
+
+					cur2 = cur2->next;
+				}
+			}
 
 			// *geo,
 			keys=getTimeLineElement(doc, cur, "geo");
