@@ -20,8 +20,8 @@ Possibile Fix (But Not Work) on function tokenAccess()
 		
 Correct on function tokenAccess()
 	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
-	twitterUserKey = oauth_http_post2(verifyPIN,postarg,NULL);
-	if (strcmp(twitterUserKey,""))
+	twitterUserKey = oauth_http_post(verifyPIN,postarg);
+	if (strcmp(twitterUserKey," ") == 0)
 		return 1;
 
 
