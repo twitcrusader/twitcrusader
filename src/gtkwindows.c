@@ -593,26 +593,22 @@ int windowMain(int argc, char **argv){
 	}
 
 
-	for ( rows = 0; rows < 40; rows = rows + 4 ) {
-		for ( cols = 0; cols < 3; cols++ ) {
-
+	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
 			avatar = gtk_image_new_from_file (ICON_HOME);
 			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 
-			nick = gtk_label_new (timeline[rows].user.screen_name);
+			nick = gtk_label_new ((char *)timeline[cols].user.screen_name);
 			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
 			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
 			gtk_container_add(GTK_CONTAINER(align), nick);
 			gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
 
-			tweet = gtk_label_new (timeline[rows].text);
+			tweet = gtk_label_new ((char *)timeline[cols].text);
 			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
 			gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
 			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
 			gtk_container_add(GTK_CONTAINER(align), tweet);
 			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
-
-		}
 	}
 
 	// TextArea + Scrollbar
