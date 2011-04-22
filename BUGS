@@ -1,7 +1,5 @@
 =========== Known Issues ===========		
-- Public TimeLine
-1) File --> Connect
-2) More of read tags (with xmlLib) returns value: (null)
+More «lags» with login/start twc
 
 
 
@@ -24,6 +22,14 @@ Correct on function tokenAccess()
 	if (strcmp(twitterUserKey," ") == 0)
 		return 1;
 
+
+
+- Public TimeLine
+1) File --> Connect
+2) More of read tags (with xmlLib) returns value: (null)
+
+Correct on timeline.c file
+	Loop with scanning for()
 
 
 
