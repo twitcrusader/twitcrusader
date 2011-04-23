@@ -181,7 +181,7 @@ int tokenTempBrowser(){
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
-	tempKey = getParameters(rv, rc, "oauth_token");
+	tempKey = getParameters(rv, rc, "oauth_token"); 
 
 	if(debug==1) printf("\ntempKey= %s", tempKey);
 	/*
