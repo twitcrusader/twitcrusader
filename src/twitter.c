@@ -35,10 +35,10 @@
 int writeUserFile(){
 
 	FILE *fp;
-	char *cmd;
+
 	char *data_file;
 
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	mkdir(progPath.avatarDir, 0775);
 
 	if(debug==1){
 		printf("\nwriteUserFile()");
@@ -52,7 +52,7 @@ int writeUserFile(){
 
 	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
 	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
-	system(cmd);
+
 	fp=fopen(progPath.configFile, "w+");
 
 	if(fp!=NULL){

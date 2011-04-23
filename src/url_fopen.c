@@ -395,7 +395,6 @@ int get_file_from_url(const char *url, const char *fileName)
 	URL_FILE *handle;
 	FILE *outf;
 
-	int nread;
 	char buffer[256];
 
 	/* copy from url line by line with fgets */

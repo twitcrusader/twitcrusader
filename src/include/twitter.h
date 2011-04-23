@@ -32,6 +32,8 @@
 #include <oauth.h>
 #include <glib.h>
 
+#include<sys/stat.h>
+#include<sys/types.h>
 
 #include "twitcrusader.h"
 #include "function.h"

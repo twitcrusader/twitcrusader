@@ -440,11 +440,8 @@ int windowMain(int argc, char **argv){
 	/* User-Directory Path */
 	progPath.configFileName="user.twc";
 	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
 
-	if(debug==1) printf("\n%s",cmd);
-	system(cmd);
-
+	mkdir(progPath.avatarDir, 0775);
 
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
