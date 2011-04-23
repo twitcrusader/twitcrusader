@@ -22,6 +22,7 @@
  */
 
 #include "include/gtkwindows.h"
+#include "include/getinmemory.h"
 
 /*
  * Delete widget for button-event
@@ -406,7 +407,9 @@ int windowMain(int argc, char **argv){
 
 	int rows, cols;
 	char* statusLabel;
-	char *cmd, *avatarFile;
+	char *cmd, *avatarFile, *buffer;
+	FILE *fp;
+
 	GError *error = NULL;
 	GtkWidget *window,
 	*table,
@@ -603,12 +606,14 @@ int windowMain(int argc, char **argv){
 
 
 	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
-		asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
+		//asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
 
-		if (debug==1) puts(cmd);
-		system(cmd);
+		//if (debug==1) puts(cmd);
+		//system(cmd);
 
 		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
+
+		get_file_from_url(timeline[cols].user.profile_image_url, avatarFile);
 
 		avatar = gtk_image_new_from_file (avatarFile);
 		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);

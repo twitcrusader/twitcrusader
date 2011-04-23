@@ -22,6 +22,7 @@
  */
 
 #include "include/twitter.h"
+#include "include/url_fopen.h"
 
 /*
  * This function generate a 2 Twitter-Temp-Key
@@ -403,20 +404,23 @@ int homeTimeline(){
 
 int publicTimeline(){
 
-	FILE *fp;
+	//FILE *fp;
 
 	char *timelineURL=PUBLIC_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
+			//*timeline,
+			*cmd=NULL;
+	//char *postarg=NULL;
 
 	char *tmpFile="/tmp/public_timeline.xml";
 
 	if(debug==1) printf("\nint publicTimeline()");
 
-	timeline= oauth_http_get(timelineURL, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
+	//timeline= oauth_http_get(timelineURL, postarg);
+	//if(debug==1) printf("\ntimeline= %s", timeline);
 
-	fp=fopen(tmpFile, "w");
+	get_file_from_url(timelineURL, tmpFile);
+
+	/*fp=fopen(tmpFile, "w");
 
 	if(fp!=NULL){
 
@@ -424,15 +428,15 @@ int publicTimeline(){
 
 		fprintf(fp, "%s",timeline);
 		fclose(fp);
-		system("echo \"ci sono!\"");
+	*/	system("echo \"ci sono!\"");
 		readDoc(tmpFile);
 
 		asprintf(&cmd,"rm -f %s", tmpFile);
 		if(debug==1) printf("\ncmd= %s",cmd);
 
 		system(cmd);
-		return 0;
-	}
+		/*return 0;
+	}*/
 
 	return 1;
 }

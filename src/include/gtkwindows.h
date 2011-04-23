@@ -33,6 +33,7 @@
 
 #include "function.h"
 #include "twitter.h"
+#include "url_fopen.h"
 
 typedef struct
 {
