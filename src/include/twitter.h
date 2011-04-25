@@ -48,7 +48,7 @@
 #define REQUEST_URL HTTP_API_URL"/oauth/request_token"
 #define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
-#define HOME_TIMELINE_URL HTTPS_API_URL"/1/statuses/home_timeline.xml"
+#define HOME_TIMELINE_URL HTTP_API_URL"/1/statuses/home_timeline.xml"
 #define PUBLIC_TIMELINE_URL HTTP_API_URL"/1/statuses/public_timeline.xml"
 
 struct users{

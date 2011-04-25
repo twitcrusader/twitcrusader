@@ -22,6 +22,7 @@
  */
 
 #include "include/twitter.h"
+#include "include/curlfopen.h"
 
 /*
  * This function generate a 2 Twitter-Temp-Key
@@ -365,37 +366,33 @@ int homeSendTweet(char *msg){
 
 int homeTimeline(){
 
-	FILE *fp;
-
 	char *timelineURL=HOME_TIMELINE_URL,
-			*timeline, *cmd=NULL;
+		 *timeline = NULL,
+		 *signature = NULL,
+	     *cmd=NULL;
 	char *postarg=NULL;
 
-	char *tmpFile="/tmp/home_timeline.xml";
+	char *tmpFile="/tmp/user_timeline.xml\n";
+	fopen("/tmp/user_timeline.xml","w+");
 
-	if(debug==1) printf("\nint homeTimeline()");
+	if(debug==1) printf("\nint publicTimeline()");
 
-	timeline= oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	/*Better alternative at timeline= oauth_http_get(timelineURL, postarg); */
+	asprintf(&signature,"%s?oauth_signature=%s%s%s",timelineURL, user.consumerSecretKey, "%26", user.secretToken);
+	CURL *handle = curl_easy_init();
+	char *encodedURL = curl_easy_escape(handle,signature, strlen(signature));
+	asprintf(&signature,"%s%s","GET&",encodedURL);
+	if(debug==1) printf("\nEncoded: %s\n",signature);
+	timeline= oauth_sign_url2(signature, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	if(debug==1) printf("\nPermissions1: %s\n",timeline);
 	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
+	if(debug==1) printf("\nurl_tl= %s | tmpfile %s | Permissions: %s\n",timelineURL,tmpFile,timeline );
+	curl_http_get(timeline, tmpFile);
 
-	fp=fopen(tmpFile, "w");
+	readDoc(tmpFile);
 
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		//system(cmd);
-		return 0;
-	}
+	asprintf(&cmd,"rm -f %s", tmpFile);
+	if(debug==1) printf("\ncmd= %s",cmd);
 
 	return 1;
 }
@@ -403,36 +400,22 @@ int homeTimeline(){
 
 int publicTimeline(){
 
-	FILE *fp;
-
 	char *timelineURL=PUBLIC_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
+			*cmd=NULL;
 
-	char *tmpFile="/tmp/public_timeline.xml";
+	char *tmpFile="/tmp/public_timeline.xml\n";
+	fopen("/tmp/public_timeline.xml","w+");
 
 	if(debug==1) printf("\nint publicTimeline()");
 
-	timeline= oauth_http_get(timelineURL, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
+	/*Better alternative at timeline= oauth_http_get(timelineURL, postarg); */
+	curl_http_get(timelineURL, tmpFile);
+	if(debug==1) printf("\nurl_tl= %s | tmpfile %s\n",timelineURL,tmpFile);
 
-	fp=fopen(tmpFile, "w");
+	readDoc(tmpFile);
 
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
+	asprintf(&cmd,"rm -f %s", tmpFile);
+	if(debug==1) printf("\ncmd= %s",cmd);
 
 	return 1;
 }
