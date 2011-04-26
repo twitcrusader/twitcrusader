@@ -52,8 +52,16 @@
 #define REQUEST_URL HTTP_API_URL"/oauth/request_token"
 #define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
+
 #define HOME_TIMELINE_URL HTTP_API_URL"/1/statuses/home_timeline.xml"
 #define PUBLIC_TIMELINE_URL HTTP_API_URL"/1/statuses/public_timeline.xml"
+#define MENTIONS_TIMELINE_URL HTTP_API_URL"/1/statuses/mentions.xml"
+#define FRIENDS_TIMELINE_URL HTTP_API_URL"/1/statuses/friends_timeline.xml"
+#define USER_TIMELINE_URL HTTP_API_URL"/1/statuses/user_timeline.xml"
+#define RT_BY_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_by_me.xml"
+#define RT_TO_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_to_me.xml"
+#define RT_OF_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_of_me.xml"
+
 
 struct users{
   char* id;
@@ -79,9 +87,15 @@ int tokenTemp();
 int tokenTempBrowser();
 int tokenAccess(const char *pin);
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
-int homeSendTweet(char*);
-int publicTimeline();
-int homeTimeline();
+int SendTweet(char*);
+int TimelinePublic();
+int TimelineHome();
+int TimelineFriends();
+int TimelineUser();
+int TimelineMentions();
+int TimelineRTByMe();
+int TimelineRTToMe();
+int TimelineRTOfMe();
 int deleteAccount();
 void disconnect();
 

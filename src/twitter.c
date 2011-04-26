@@ -320,7 +320,7 @@ int tokenAccess(const char *pin){
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
  *
  */
-int homeSendTweet(char *msg){
+int SendTweet(char *msg){
 
 	char	*twitterStatusURL = STATUS_URL,
 			*sendTweet,
@@ -328,7 +328,7 @@ int homeSendTweet(char *msg){
 
 	char *postarg = NULL;
 
-	if(debug==1) printf("\nint homeSendTweet(char *msg)");
+	if(debug==1) printf("\nint SendTweet(char *msg)");
 
 	/* Send Tweet with oAuth functions */
 	asprintf(&twitterStatusURL, "%s%s", twitterStatusURL, oauth_url_escape(msg)); 
@@ -363,7 +363,7 @@ int homeSendTweet(char *msg){
 	return 0;
 }
 
-int homeTimeline(){
+int TimelineHome(){
 
 	FILE *fp;
 
@@ -373,7 +373,7 @@ int homeTimeline(){
 
 	char *tmpFile="/tmp/home_timeline.xml";
 
-	if(debug==1) printf("\nint homeTimeline()");
+	if(debug==1) printf("\nint TimelineHome()");
 
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	timeline= oauth_http_get(timeline, postarg);
@@ -401,7 +401,7 @@ int homeTimeline(){
 }
 
 
-int publicTimeline(){
+int TimelinePublic(){
 
 	FILE *fp;
 
@@ -411,9 +411,231 @@ int publicTimeline(){
 
 	char *tmpFile="/tmp/public_timeline.xml";
 
-	if(debug==1) printf("\nint publicTimeline()");
+	if(debug==1) printf("\nint TimelinePublic()");
 
 	timeline= oauth_http_get(timelineURL, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineMentions(){
+
+	FILE *fp;
+
+	char *timelineURL=MENTIONS_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/mentions_timeline.xml";
+
+	if(debug==1) printf("\nint TimelineMentions()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineFriends(){
+
+	FILE *fp;
+
+	char *timelineURL=FRIENDS_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/friends_timeline.xml";
+
+	if(debug==1) printf("\nint TimelineFriends()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineUser(){
+
+	FILE *fp;
+
+	char *timelineURL=USER_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/user_timeline.xml";
+
+	if(debug==1) printf("\nint TimelineUser()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineRTByMe(){
+
+	FILE *fp;
+
+	char *timelineURL=RT_BY_ME_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/retweeted_by_me.xml";
+
+	if(debug==1) printf("\nint TimelineRTByMe()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineRTToMe(){
+
+	FILE *fp;
+
+	char *timelineURL=RT_TO_ME_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/retweeted_to_me.xml";
+
+	if(debug==1) printf("\nint TimelineRTToMe()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
+	if(debug==1) printf("\ntimeline= %s", timeline);
+
+	fp=fopen(tmpFile, "w");
+
+	if(fp!=NULL){
+
+		printf("\nfputs(timeline, fp)");
+
+		fprintf(fp, "%s",timeline);
+		fclose(fp);
+		system("echo \"ci sono!\"");
+		readDoc(tmpFile);
+
+		asprintf(&cmd,"rm -f %s", tmpFile);
+		if(debug==1) printf("\ncmd= %s",cmd);
+
+		system(cmd);
+		return 0;
+	}
+
+	return 1;
+}
+
+int TimelineRTOfMe(){
+
+	FILE *fp;
+
+	char *timelineURL=RT_OF_ME_TIMELINE_URL,
+			*timeline, *cmd=NULL;
+	char *postarg=NULL;
+
+	char *tmpFile="/tmp/retweeted_of_me.xml";
+
+	if(debug==1) printf("\nint TimelineRTOfMe()");
+
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_http_get(timeline, postarg);
 	if(debug==1) printf("\ntimeline= %s", timeline);
 
 	fp=fopen(tmpFile, "w");
@@ -455,6 +677,7 @@ int deleteAccount(){
 
 	return 1;
 }
+
 
 void disconnect(){
 

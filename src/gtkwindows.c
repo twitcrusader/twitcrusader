@@ -135,7 +135,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
 
 		//SendTweet
-		send = homeSendTweet(msg);
+		send = SendTweet(msg);
 
 		if(send == 0 || send == 1){ 
 			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
@@ -592,9 +592,9 @@ int windowMain(int argc, char **argv){
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		homeTimeline();
+		TimelineHome();
 	}else {
-		publicTimeline();
+		TimelinePublic();
 	}
 
 
