@@ -602,20 +602,15 @@ int windowMain(int argc, char **argv){
 
 
 
-<<<<<<< HEAD
+
 	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
 		//asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
-=======
-	for ( rows = 0, cols=0; cols < 3; rows = rows + 4, cols++ ) {
-		asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
->>>>>>> upstream/master
-
 		//if (debug==1) puts(cmd);
 		//system(cmd);
 
 		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
 
-		get_file_from_url(timeline[cols].user.profile_image_url, avatarFile);
+		curl_http_get(timeline[cols].user.profile_image_url, avatarFile);
 
 		avatar = gtk_image_new_from_file (avatarFile);
 		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
