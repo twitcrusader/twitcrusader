@@ -404,9 +404,7 @@ int windowMain(int argc, char **argv){
 
 	gtk_init (&argc, &argv);
 
-	int rows, cols;
 	char* statusLabel;
-	char *avatarFile;
 
 	GError *error = NULL;
 	GtkWidget *window,
@@ -414,9 +412,6 @@ int windowMain(int argc, char **argv){
 	*scroll,
 	*icon_menu,
 	*table_into,
-	*nick,
-	*tweet,
-	*avatar,
 	*scrolled_window,
 	*menu_bar,
 	*layout,
@@ -430,8 +425,7 @@ int windowMain(int argc, char **argv){
 	*file_menu_items,
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
-	*aiuto_menu_items,
-	*align;
+	*aiuto_menu_items;
 
 	GtkTextBuffer *tweetBuffer;
 
@@ -591,42 +585,15 @@ int windowMain(int argc, char **argv){
 	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
+
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		TimelineHome();
 	}else {
 		TimelinePublic();
 	}
 
-
-
-
-
-	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
-		//asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
-		//if (debug==1) puts(cmd);
-		//system(cmd);
-
-		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
-
-		get_http(timeline[cols].user.profile_image_url,avatarFile);
-
-
-		avatar = gtk_image_new_from_file (avatarFile);
-		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
-
-		nick = gtk_label_new (timeline[cols].user.screen_name);
-		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), nick);
-		gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
-
-		tweet = gtk_label_new (timeline[cols].text);
-		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), tweet);
-		gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
-	}
+	// Read Timeline
+	gtkRefreshTimeline(table_into, window);
 
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL);
@@ -695,6 +662,53 @@ void gtkDisconnect(GtkButton *button, gpointer window){
 void gtkAddUser(GtkButton *button, gpointer window){
 	if(windowAddUser()==0){
 		destroy(button, window);
+	}
+}
+
+void gtkRefreshTimeline(GtkWidget *table_into, gpointer window){
+
+	int rows, cols;
+	char *avatarFile;
+
+	GtkWidget *nick,
+	*tweet,
+	*avatar,
+	*align;
+
+	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
+
+		homeTimeline();
+	}else {
+
+		publicTimeline();
+	}
+
+
+	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
+		//asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
+		//if (debug==1) puts(cmd);
+		//system(cmd);
+
+		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
+
+		get_http(timeline[cols].user.profile_image_url,avatarFile);
+
+
+		avatar = gtk_image_new_from_file (avatarFile);
+		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
+
+		nick = gtk_label_new (timeline[cols].user.screen_name);
+		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
+		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+		gtk_container_add(GTK_CONTAINER(align), nick);
+		gtk_table_attach (GTK_TABLE (table_into), align, 1, 3,rows, rows + 1, GTK_FILL,GTK_FILL, 0, 0);
+
+		tweet = gtk_label_new (timeline[cols].text);
+		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
+		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
+		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+		gtk_container_add(GTK_CONTAINER(align), tweet);
+		gtk_table_attach (GTK_TABLE (table_into ), align, 1, 3,rows + 1, rows + 4, GTK_FILL,GTK_FILL, 0, 0);
 	}
 
 }

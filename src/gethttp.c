@@ -40,7 +40,7 @@ int get_http(char *url, char *file){
 		curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 
 		// Open the file to write the copied file to
-		destFile = fopen(file,"wb");
+		destFile = fopen(file,"w+b");
 
 		// Tell libcurl where to write the file
 		curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writeFunction);
