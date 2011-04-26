@@ -31,8 +31,12 @@
 #include <glib.h>
 #include <gdk/gdkkeysyms.h>
 
+#include<sys/stat.h>
+#include<sys/types.h>
+
 #include "function.h"
 #include "twitter.h"
+#include "gethttp.h"
 
 typedef struct
 {

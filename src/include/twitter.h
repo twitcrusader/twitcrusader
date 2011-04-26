@@ -31,11 +31,15 @@
 #include <string.h>
 #include <oauth.h>
 #include <glib.h>
+#include <curl/curl.h>
 
+#include<sys/stat.h>
+#include<sys/types.h>
 
 #include "twitcrusader.h"
 #include "function.h"
 #include "timeline.h"
+#include "gethttp.h"
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
@@ -48,7 +52,7 @@
 #define REQUEST_URL HTTP_API_URL"/oauth/request_token"
 #define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
 #define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
-#define HOME_TIMELINE_URL HTTPS_API_URL"/1/statuses/home_timeline.xml"
+#define HOME_TIMELINE_URL HTTP_API_URL"/1/statuses/home_timeline.xml"
 #define PUBLIC_TIMELINE_URL HTTP_API_URL"/1/statuses/public_timeline.xml"
 
 struct users{
