@@ -375,7 +375,7 @@ int homeTimeline(){
 
 	if(debug==1) printf("\nint homeTimeline()");
 
-	timeline= oauth_sign_url2(timelineURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	timeline= oauth_http_get(timeline, postarg);
 	if(debug==1) printf("\ntimeline= %s", timeline);
 
