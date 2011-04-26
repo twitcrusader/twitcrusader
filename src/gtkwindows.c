@@ -602,7 +602,7 @@ int windowMain(int argc, char **argv){
 
 
 
-	for ( rows = 0, cols=0; cols < 3; rows = rows + 4, cols++ ) {
+	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
 		asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
 
 		if (debug==1) puts(cmd);
