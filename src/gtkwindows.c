@@ -406,8 +406,7 @@ int windowMain(int argc, char **argv){
 
 	int rows, cols;
 	char* statusLabel;
-	char *cmd, *avatarFile, *buffer;
-	FILE *fp;
+	char *avatarFile;
 
 	GError *error = NULL;
 	GtkWidget *window,

@@ -50,7 +50,7 @@ $ make uninstall
  * Compile (from Shell)
  */ 
 
-$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h twitcrusader.c twitter.c gtkwindows.c timeline.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
+$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h include/gethttp.h twitcrusader.c twitter.c gtkwindows.c timeline.c function.c gethttp.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
 
 
 /**
@@ -59,4 +59,4 @@ $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwi
 
 1) Choose more build actions
 2) Set build menu commands
-3) gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h twitcrusader.c twitter.c gtkwindows.c timeline.c function.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
+3) gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h include/gethttp.h  twitcrusader.c twitter.c gtkwindows.c timeline.c function.c gethttp.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`

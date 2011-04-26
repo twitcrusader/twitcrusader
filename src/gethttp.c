@@ -30,7 +30,6 @@ size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){
 
 int get_http(char *url, char *file){
 	CURL *curl;
-	CURLcode res;
 	FILE *destFile;
 
 	curl = curl_easy_init();
@@ -46,7 +45,7 @@ int get_http(char *url, char *file){
 		// Tell libcurl where to write the file
 		curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writeFunction);
 		curl_easy_setopt(curl,CURLOPT_WRITEDATA,destFile);
-		res = curl_easy_perform(curl);
+		curl_easy_perform(curl);
 
 		/* always cleanup */
 		fclose(destFile);
