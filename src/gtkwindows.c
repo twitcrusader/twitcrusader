@@ -602,8 +602,13 @@ int windowMain(int argc, char **argv){
 
 
 
+<<<<<<< HEAD
 	for ( rows = 0, cols=0; cols < 20; rows = rows + 4, cols++ ) {
 		//asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
+=======
+	for ( rows = 0, cols=0; cols < 3; rows = rows + 4, cols++ ) {
+		asprintf(&cmd, "%s %s%s %s", "wget -cqO ", progPath.avatarDir, timeline[cols].user.screen_name, timeline[cols].user.profile_image_url);
+>>>>>>> upstream/master
 
 		//if (debug==1) puts(cmd);
 		//system(cmd);
