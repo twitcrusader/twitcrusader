@@ -22,7 +22,6 @@
  */
 
 #include "include/gtkwindows.h"
-#include "include/getinmemory.h"
 
 /*
  * Delete widget for button-event
@@ -610,7 +609,8 @@ int windowMain(int argc, char **argv){
 
 		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
 
-		curl_http_get(timeline[cols].user.profile_image_url, avatarFile);
+		get_http(timeline[cols].user.profile_image_url,avatarFile);
+
 
 		avatar = gtk_image_new_from_file (avatarFile);
 		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL,GTK_FILL, 0, 0);

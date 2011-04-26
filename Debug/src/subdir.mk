@@ -4,27 +4,24 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/curlfopen.c \
 ../src/function.c \
-../src/getinmemory.c \
+../src/gethttp.c \
 ../src/gtkwindows.c \
 ../src/timeline.c \
 ../src/twitcrusader.c \
 ../src/twitter.c 
 
 OBJS += \
-./src/curlfopen.o \
 ./src/function.o \
-./src/getinmemory.o \
+./src/gethttp.o \
 ./src/gtkwindows.o \
 ./src/timeline.o \
 ./src/twitcrusader.o \
 ./src/twitter.o 
 
 C_DEPS += \
-./src/curlfopen.d \
 ./src/function.d \
-./src/getinmemory.d \
+./src/gethttp.d \
 ./src/gtkwindows.d \
 ./src/timeline.d \
 ./src/twitcrusader.d \

@@ -22,7 +22,6 @@
  */
 
 #include "include/twitter.h"
-#include "include/curlfopen.h"
 
 /*
  * This function generate a 2 Twitter-Temp-Key
@@ -379,15 +378,19 @@ int homeTimeline(){
 
 	/*Better alternative at timeline= oauth_http_get(timelineURL, postarg); */
 	asprintf(&signature,"%s?oauth_signature=%s%s%s",timelineURL, user.consumerSecretKey, "%26", user.secretToken);
+
 	CURL *handle = curl_easy_init();
 	char *encodedURL = curl_easy_escape(handle,signature, strlen(signature));
 	asprintf(&signature,"%s%s","GET&",encodedURL);
 	if(debug==1) printf("\nEncoded: %s\n",signature);
+
 	timeline= oauth_sign_url2(signature, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	if(debug==1) printf("\nPermissions1: %s\n",timeline);
+
 	timeline= oauth_http_get(timeline, postarg);
 	if(debug==1) printf("\nurl_tl= %s | tmpfile %s | Permissions: %s\n",timelineURL,tmpFile,timeline );
-	curl_http_get(timeline, tmpFile);
+
+	get_http(timeline, tmpFile);
 
 	readDoc(tmpFile);
 
@@ -409,7 +412,7 @@ int publicTimeline(){
 	if(debug==1) printf("\nint publicTimeline()");
 
 	/*Better alternative at timeline= oauth_http_get(timelineURL, postarg); */
-	curl_http_get(timelineURL, tmpFile);
+	get_http(timelineURL, tmpFile);
 	if(debug==1) printf("\nurl_tl= %s | tmpfile %s\n",timelineURL,tmpFile);
 
 	readDoc(tmpFile);

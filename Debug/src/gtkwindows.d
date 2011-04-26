@@ -452,8 +452,7 @@ src/gtkwindows.d src/gtkwindows.o: ../src/gtkwindows.c \
  /usr/include/libxml2/libxml/xmlIO.h /usr/include/libxml2/libxml/SAX.h \
  /usr/include/libxml2/libxml/xlink.h /usr/include/libxml2/libxml/SAX2.h \
  /usr/include/libxml2/libxml/relaxng.h \
- /usr/include/libxml2/libxml/xmlschemas.h ../src/include/curlfopen.h \
- ../src/include/getinmemory.h
+ /usr/include/libxml2/libxml/xmlschemas.h ../src/include/gethttp.h
 
 ../src/include/gtkwindows.h:
 
@@ -1481,6 +1480,4 @@ src/gtkwindows.d src/gtkwindows.o: ../src/gtkwindows.c \
 
 /usr/include/libxml2/libxml/xmlschemas.h:
 
-../src/include/curlfopen.h:
-
-../src/include/getinmemory.h:
+../src/include/gethttp.h:

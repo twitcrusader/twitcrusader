@@ -31,6 +31,7 @@
 #include <string.h>
 #include <oauth.h>
 #include <glib.h>
+#include <curl/curl.h>
 
 #include<sys/stat.h>
 #include<sys/types.h>
@@ -38,6 +39,7 @@
 #include "twitcrusader.h"
 #include "function.h"
 #include "timeline.h"
+#include "gethttp.h"
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"

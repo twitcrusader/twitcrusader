@@ -66,7 +66,7 @@ src/twitter.d src/twitter.o: ../src/twitter.c ../src/include/twitter.h \
  /usr/include/libxml2/libxml/xmlIO.h /usr/include/libxml2/libxml/SAX.h \
  /usr/include/libxml2/libxml/xlink.h /usr/include/libxml2/libxml/SAX2.h \
  /usr/include/libxml2/libxml/relaxng.h \
- /usr/include/libxml2/libxml/xmlschemas.h ../src/include/curlfopen.h
+ /usr/include/libxml2/libxml/xmlschemas.h ../src/include/gethttp.h
 
 ../src/include/twitter.h:
 
@@ -250,4 +250,4 @@ src/twitter.d src/twitter.o: ../src/twitter.c ../src/include/twitter.h \
 
 /usr/include/libxml2/libxml/xmlschemas.h:
 
-../src/include/curlfopen.h:
+../src/include/gethttp.h:
