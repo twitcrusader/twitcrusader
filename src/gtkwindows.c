@@ -677,10 +677,10 @@ void gtkRefreshTimeline(GtkWidget *table_into, gpointer window){
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 
-		homeTimeline();
+		TimelineHome();
 	}else {
 
-		publicTimeline();
+		TimelinePublic();
 	}
 
 
