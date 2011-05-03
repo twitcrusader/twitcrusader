@@ -1,5 +1,7 @@
 =========== Known Issues ===========		
-More «lags» with login/start twc
+- More «lags» with login/start twc
+
+- curl/libcurl segment fault with gtk3
 
 
 
