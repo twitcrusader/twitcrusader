@@ -23,11 +23,14 @@
 
 #ifndef GETHTTP_H_
 #define GETHTTP_H_
+#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <curl/curl.h>
+#include "function.h"
 
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
-int get_http(char *url, char *file);
+int getCURL(char *url, char *file);
+int getWGET(char *url, char *file);
 
 #endif /* GETHTTP_H_ */

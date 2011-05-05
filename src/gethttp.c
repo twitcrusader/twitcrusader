@@ -23,12 +23,13 @@
 
 #include "include/gethttp.h"
 
+
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){
 	fwrite(ptr, size, nmemb, (FILE *)stream);
 	return nmemb*size;
 };
 
-int get_http(char *url, char *file){
+int getCURL(char *url, char *file){
 	CURL *curl;
 	FILE *destFile;
 
@@ -54,3 +55,17 @@ int get_http(char *url, char *file){
 
 	return 0;
 }
+
+//Alternative at cURL
+int getWGET(char *url, char *file){
+	
+	char* wget = NULL;
+
+		// Tell wget where to write the file
+		asprintf(&wget, "%s %s %s", "wget -O", file, url);
+		if(debug==1) printf("Wget -> %s\n", wget);
+		system (wget);
+
+	return 0;
+}
+

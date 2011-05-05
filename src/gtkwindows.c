@@ -404,7 +404,8 @@ int windowMain(int argc, char **argv){
 
 	gtk_init (&argc, &argv);
 
-	char* statusLabel;
+	char *statusLabel,
+		 *cmd;
 
 	GError *error = NULL;
 	GtkWidget *window,
@@ -433,7 +434,9 @@ int windowMain(int argc, char **argv){
 	progPath.configFileName="user.twc";
 	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
 
-	mkdir(progPath.avatarDir, 0775);
+	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+	system(cmd);
 
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
@@ -691,7 +694,8 @@ void gtkRefreshTimeline(GtkWidget *table_into, gpointer window){
 
 		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
 
-		get_http(timeline[cols].user.profile_image_url,avatarFile);
+		getCURL(timeline[cols].user.profile_image_url,avatarFile);
+		//getWGET(timeline[cols].user.profile_image_url,avatarFile);
 
 
 		avatar = gtk_image_new_from_file (avatarFile);

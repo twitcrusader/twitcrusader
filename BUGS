@@ -1,37 +1,19 @@
 =========== Known Issues ===========		
 - More «lags» with login/start twc
 
+- Not Work mention/dm timeline
+
+- Timeline: bad layout
+
+- Not Work: refresh timeline
+
+
+
+=========== Fixed Issues, Improved at 0.1.87 ===========	
 - curl/libcurl segment fault with gtk3
-
-
-
-
-=========== Fixed Issues, Improved at 0.1.86 ===========	
-- oAuth
-1) Click on Sign-in-Twitter (Generate PIN)
-2) Enter Fake-PIN
-3) Segment Fault
-
-Possibile Fix (But Not Work) on function tokenAccess()
-	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
-	twitterUserKey = oauth_http_post(verifyPIN,postarg);
-	if (!twitterUserKey)
-		return 1; //Not Work...
-		
-Correct on function tokenAccess()
-	verifyPIN = oauth_sign_url2(accessURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, tempKey, tempKeySecret);
-	twitterUserKey = oauth_http_post(verifyPIN,postarg);
-	if (strcmp(twitterUserKey," ") == 0)
-		return 1;
-
-
-
-- Public TimeLine
-1) File --> Connect
-2) More of read tags (with xmlLib) returns value: (null)
-
-Correct on timeline.c file
-	Loop with scanning for()
+	ISSUE: getCURL() error: segment fault
+	WHY: Not work mkdir() with user, but work with su/sudo
+	FIX: use system("mkdir -p")
 
 
 
