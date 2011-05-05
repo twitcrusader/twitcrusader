@@ -1,36 +1,26 @@
-/** 
- * Ubuntu/Debian Essential Packages (libs)
- */
-
+============= Ubuntu/Debian Essential Packages (libs) ============= 
 $ apt-get update
 $ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2
 
+Download oAuth-Libs ---> http://liboauth.sourceforge.net/ and compile:
+$ ./configure
+$ make
+$ make install (with super user)
 
 
-/**
- * Archlinux Essential Packages (libs)
- */
 
+============= Archlinux Essential Packages (libs) ============= 
 $ pacman -Syu
 $ pacman -S base-devel liboauth curl openssl libxml2
 
 
 
-/**
- * Download and install liboauth liboauth-0.9.4
- */
- 
-Download here ---> http://liboauth.sourceforge.net/
-$ ./configure
-$ make
-$ make install (with super user)
- 
- 
- 
-/**
-* Autoconfig & AutoMake - Install
-*/
+============= Compile (from Shell) ============= 
+$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h include/gethttp.h twitcrusader.c twitter.c gtkwindows.c timeline.c function.c gethttp.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
 
+
+
+============= Autoconfig & AutoMake - Install ============= 
 $ autoreconf --install
 $ ./configure
 $ make
@@ -38,25 +28,8 @@ $ make install (with super user)
 
 
 
-/**
- * Autoconfig & AutoMake - Uninstalling
- */
-
+============= Autoconfig & AutoMake - Uninstalling ============= 
 $ make uninstall
 
 
 
-/**
- * Compile (from Shell)
- */ 
-
-$ gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h include/gethttp.h twitcrusader.c twitter.c gtkwindows.c timeline.c function.c gethttp.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
-
-
-/**
- * Compile (With Geany IDE)
- */
-
-1) Choose more build actions
-2) Set build menu commands
-3) gcc -Wall -DICONS_DIR=\""../img"\" -o twc include/twitcrusader.h include/gtkwindows.h include/function.h include/twitter.h include/timeline.h include/gethttp.h  twitcrusader.c twitter.c gtkwindows.c timeline.c function.c gethttp.c `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`

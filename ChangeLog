@@ -1,3 +1,9 @@
+=================== 0.1.86 ===================
+*Bugs - Fix
+- Segment Fault Errors
+- Improved Public and User TimeLine
+- Improved cURL (better of wget but not work with GTK3)
+
 =================== 0.1.85 ===================
 *Re-Engine code 3 & Debugging
 - Fix: Check TextArea Input (<=140char / NoConnection / TweetSend (Y/N) / And More Check)
