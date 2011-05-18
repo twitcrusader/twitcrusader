@@ -19,6 +19,7 @@
  *		Author: Patryk Rzucidlo (PTKDev)
  *		Twitter: @ptkdev / @twitcrusader_en
  *		WebSite: http://www.twitcrusader.org
+ * 		IRC: chat.freenode.net at #teamtwc
  */
 
 #ifndef TWITTER_H_

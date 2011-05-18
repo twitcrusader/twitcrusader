@@ -19,6 +19,7 @@
  *		Author: Patryk Rzucidlo (PTKDev)
  *		Twitter: @ptkdev / @twitcrusader_en
  *		WebSite: http://www.twitcrusader.org
+ * 		IRC: chat.freenode.net at #teamtwc
  */
 
 #include "include/gtkwindows.h"
@@ -159,7 +160,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
  * Tweet have 140 to 0 char
  * 
  */
-void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar  *statusbar){
+void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
 	gchar *msg;
 	gint tot_char;
 	GtkTextIter iter;
@@ -458,7 +459,7 @@ int windowMain(int argc, char **argv){
 	 * Fix Icons Linux
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/buttons_have_icons true
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
-	 *  */
+	 * */
 	file_menu_items = gtk_image_menu_item_new_with_label("Connetti");
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);

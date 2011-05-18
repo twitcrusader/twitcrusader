@@ -1,4 +1,4 @@
-/* 
+/*
  *	TwitCrusader - Twitter Client For Linux Desktop
  *		Copyright (C) 2011  PTKDev, RoxShannon
  *
@@ -19,6 +19,7 @@
  *		Author: Patryk Rzucidlo (PTKDev)
  *		Twitter: @ptkdev / @twitcrusader_en
  *		WebSite: http://www.twitcrusader.org
+ * 		IRC: chat.freenode.net at #teamtwc
  */
 
 #include "include/twitcrusader.h"
