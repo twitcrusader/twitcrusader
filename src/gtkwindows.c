@@ -303,7 +303,7 @@ void windowUpgrade(){
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
 	*lastVersionCheck,
 	*currentVersionMSG = gtk_label_new ("Current Version: "),
-	*currentVersionCheck = gtk_label_new (TWC_VERSION),
+	*currentVersionCheck = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS),
 	*table = gtk_table_new (8, 10, TRUE),
 	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
@@ -313,14 +313,14 @@ void windowUpgrade(){
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen ("/tmp/version.twc", "r");
-	fgets(bufferLatesVersion, 10, checkLatesVersion);
+	fgets(bufferLatesVersion, 15, checkLatesVersion);
 	/* Remove tmp file */
 	remove("/tmp/version.twc");
 
 	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 240, 180);
-	gtk_widget_set_size_request (window, 240, 180);
+	gtk_window_set_default_size (GTK_WINDOW(window), 300, 200);
+	gtk_widget_set_size_request (window, 300, 200);
 	gtk_window_set_title (GTK_WINDOW(window), "Check Updates");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -328,9 +328,9 @@ void windowUpgrade(){
 
 	/* Attach All Widget */
 	lastVersionCheck = gtk_label_new (bufferLatesVersion);
-	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 1, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 0, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), currentVersionCheck, 6, 9, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 1, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
