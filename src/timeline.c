@@ -400,7 +400,7 @@ void readDoc(char *docname) {
 	return;
 }
 
-int readtimeline(char *docname) {
+int readTimeLine(char *docname) {
 
 	readDoc (docname);
 

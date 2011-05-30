@@ -95,6 +95,6 @@ void gtkConnect(GtkButton *button, gpointer window);
 void gtkDisconnect(GtkButton *button, gpointer window);
 void gtkAddUser(GtkButton *button, gpointer window);
 int windowMain(int argc, char **argv);
-void gtkRefreshTimeline(GtkWidget *table_into, gpointer window);
+void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window);
 
 #endif /* GTKWINDOWS_H_ */

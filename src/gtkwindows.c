@@ -591,13 +591,13 @@ int windowMain(int argc, char **argv){
 
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		TimelineHome();
+		switchTimeLine(1);
 	}else {
-		TimelinePublic();
+		switchTimeLine(2);
 	}
 
 	// Read Timeline
-	gtkRefreshTimeline(table_into, window);
+	gtkRefreshswitchTimeLine(table_into, window);
 
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL);
@@ -669,7 +669,7 @@ void gtkAddUser(GtkButton *button, gpointer window){
 	}
 }
 
-void gtkRefreshTimeline(GtkWidget *table_into, gpointer window){
+void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
 	int rows = 0, cols;
 	char *avatarFile;
@@ -681,10 +681,10 @@ void gtkRefreshTimeline(GtkWidget *table_into, gpointer window){
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 
-		TimelineHome();
+		switchTimeLine(1);
 	}else {
 
-		TimelinePublic();
+		switchTimeLine(2);
 	}
 
 

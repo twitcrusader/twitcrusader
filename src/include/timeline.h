@@ -91,6 +91,6 @@ struct timeLine timeline[40];
 
 void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i);
 void readDoc(char *docname);
-int readtimeline(char *docname);
+int readTimeLine(char *docname);
 
 #endif /* TIMELINE_H_ */

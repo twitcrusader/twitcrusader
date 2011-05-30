@@ -89,14 +89,7 @@ int tokenTempBrowser();
 int tokenAccess(const char *pin);
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
 int SendTweet(char*);
-int TimelinePublic();
-int TimelineHome();
-int TimelineFriends();
-int TimelineUser();
-int TimelineMentions();
-int TimelineRTByMe();
-int TimelineRTToMe();
-int TimelineRTOfMe();
+int switchTimeLine(int xmlSwitch);
 int deleteAccount();
 void disconnect();
 

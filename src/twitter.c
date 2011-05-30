@@ -364,17 +364,57 @@ int SendTweet(char *msg){
 	return 0;
 }
 
-int TimelineHome(){
+
+int switchTimeLine(int xmlSwitch){
 
 	FILE *fp;
 
-	char *timelineURL=HOME_TIMELINE_URL,
+	char *timelineURL=NULL,
 			*timeline, *cmd=NULL;
-	char *postarg=NULL;
+	char *postarg=NULL,
+		 *tmpFile = NULL;
 
-	char *tmpFile="/tmp/home_timeline.xml";
+	if(xmlSwitch == 1){
+		tmpFile="/tmp/home_timeline.xml";
+		timelineURL=HOME_TIMELINE_URL;
+	}
+		
+	if(xmlSwitch == 2){
+		tmpFile="/tmp/public_timeline.xml";
+		timelineURL=PUBLIC_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 3){
+		tmpFile="/tmp/mentions.xml";
+		timelineURL=MENTIONS_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 4){
+		tmpFile="/tmp/friends_timeline.xml";
+		timelineURL=FRIENDS_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 5){
+		tmpFile="/tmp/user_timeline.xml";
+		timelineURL=USER_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 6){
+		tmpFile="/tmp/retweeted_by_me.xml";
+		timelineURL=RT_BY_ME_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 7){
+		tmpFile="/tmp/retweeted_to_me.xml";
+		timelineURL=RT_TO_ME_TIMELINE_URL;
+	}
+	
+	if(xmlSwitch == 8){
+		tmpFile="/tmp/retweeted_of_me.xml";
+		timelineURL=RT_OF_ME_TIMELINE_URL;
+	}
 
-	if(debug==1) printf("\nint TimelineHome()");
+	if(debug==1) printf("\nint switchTimeLine()");
 
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	timeline= oauth_http_get(timeline, postarg);
@@ -388,266 +428,7 @@ int TimelineHome(){
 
 		fprintf(fp, "%s",timeline);
 		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		//system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-
-int TimelinePublic(){
-
-	FILE *fp;
-
-	char *timelineURL=PUBLIC_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/public_timeline.xml";
-
-	if(debug==1) printf("\nint TimelinePublic()");
-
-	timeline= oauth_http_get(timelineURL, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineMentions(){
-
-	FILE *fp;
-
-	char *timelineURL=MENTIONS_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/mentions_timeline.xml";
-
-	if(debug==1) printf("\nint TimelineMentions()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineFriends(){
-
-	FILE *fp;
-
-	char *timelineURL=FRIENDS_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/friends_timeline.xml";
-
-	if(debug==1) printf("\nint TimelineFriends()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineUser(){
-
-	FILE *fp;
-
-	char *timelineURL=USER_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/user_timeline.xml";
-
-	if(debug==1) printf("\nint TimelineUser()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineRTByMe(){
-
-	FILE *fp;
-
-	char *timelineURL=RT_BY_ME_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/retweeted_by_me.xml";
-
-	if(debug==1) printf("\nint TimelineRTByMe()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineRTToMe(){
-
-	FILE *fp;
-
-	char *timelineURL=RT_TO_ME_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/retweeted_to_me.xml";
-
-	if(debug==1) printf("\nint TimelineRTToMe()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
-		readDoc(tmpFile);
-
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
-
-		system(cmd);
-		return 0;
-	}
-
-	return 1;
-}
-
-int TimelineRTOfMe(){
-
-	FILE *fp;
-
-	char *timelineURL=RT_OF_ME_TIMELINE_URL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL;
-
-	char *tmpFile="/tmp/retweeted_of_me.xml";
-
-	if(debug==1) printf("\nint TimelineRTOfMe()");
-
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
-	timeline= oauth_http_get(timeline, postarg);
-	if(debug==1) printf("\ntimeline= %s", timeline);
-
-	fp=fopen(tmpFile, "w");
-
-	if(fp!=NULL){
-
-		printf("\nfputs(timeline, fp)");
-
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"ci sono!\"");
+		system("echo \"Downloading Twitter Files...\"");
 		readDoc(tmpFile);
 
 		asprintf(&cmd,"rm -f %s", tmpFile);
