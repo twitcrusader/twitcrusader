@@ -589,13 +589,6 @@ int windowMain(int argc, char **argv){
 	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
-
-	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		switchTimeLine(1);
-	}else {
-		switchTimeLine(2);
-	}
-
 	// Read Timeline
 	gtkRefreshswitchTimeLine(table_into, window);
 
@@ -680,10 +673,8 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 	*align;
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-
 		switchTimeLine(1);
 	}else {
-
 		switchTimeLine(2);
 	}
 

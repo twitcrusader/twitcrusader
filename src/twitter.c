@@ -374,6 +374,8 @@ int switchTimeLine(int xmlSwitch){
 	char *postarg=NULL,
 		 *tmpFile = NULL;
 
+	if(debug==1) printf("\nint switchTimeLine()");
+	if(debug==1) printf("\nxmlSwitch = %d\n",xmlSwitch);
 	if(xmlSwitch == 1){
 		tmpFile="/tmp/home_timeline.xml";
 		timelineURL=HOME_TIMELINE_URL;
@@ -413,8 +415,6 @@ int switchTimeLine(int xmlSwitch){
 		tmpFile="/tmp/retweeted_of_me.xml";
 		timelineURL=RT_OF_ME_TIMELINE_URL;
 	}
-
-	if(debug==1) printf("\nint switchTimeLine()");
 
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
 	timeline= oauth_http_get(timeline, postarg);
