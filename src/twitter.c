@@ -435,9 +435,10 @@ int switchTimeLine(int xmlSwitch){
 		if(debug==1) printf("\ncmd= %s",cmd);
 
 		system(cmd);
+		free(timeline);
 		return 0;
 	}
-
+	free(timeline);
 	return 1;
 }
 

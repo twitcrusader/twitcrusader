@@ -33,6 +33,13 @@ void destroy(GtkButton *button, gpointer widget)
 	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 
+/* Deallocate structs and call gtk_main_quit */
+void exit_window(GtkWidget *parent,gpointer data)
+{
+	freeSizeOF();
+	gtk_main_quit();
+}
+
 /*
  * Error-Window, if user insert incorrect input type 
  */
@@ -277,7 +284,7 @@ void windowCredits(){
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon");
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon, freddy_156");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
@@ -484,7 +491,7 @@ int windowMain(int argc, char **argv){
 	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
 	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (exit_window), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_root = gtk_menu_item_new_with_label("File");
