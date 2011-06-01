@@ -77,9 +77,6 @@ void freeSizeOF(void)
 	free(user.secretToken);
 	free(user.consumerKey);
 	free(user.consumerSecretKey);
-	free(progPath.configFileName);
-	free(progPath.configDir);
-	free(progPath.configFile);
 }
 
 /*  

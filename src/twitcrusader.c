@@ -40,6 +40,8 @@ int main(int argc, char **argv){
 
 	/* Main*/
 	windowMain(argc, argv);
-
+	
+	freeSizeOF();
+	
 	return 0;
 }
