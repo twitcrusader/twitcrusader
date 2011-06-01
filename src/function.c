@@ -68,6 +68,19 @@ void mollocSizeOF(){
 	
 }
 
+/* Free Allocated Structs */
+void freeSizeOF(void)
+{
+	free(user.id);
+	free(user.screenName);
+	free(user.Token);
+	free(user.secretToken);
+	free(user.consumerKey);
+	free(user.consumerSecretKey);
+	free(progPath.configFileName);
+	free(progPath.configDir);
+	free(progPath.configFile);
+}
 
 /*  
  * This function split url-parameters with delimiter char
