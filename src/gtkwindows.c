@@ -33,13 +33,6 @@ void destroy(GtkButton *button, gpointer widget)
 	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 
-/* Deallocate structs and call gtk_main_quit */
-void exit_window(GtkWidget *parent,gpointer data)
-{
-	freeSizeOF();
-	gtk_main_quit();
-}
-
 /*
  * Error-Window, if user insert incorrect input type 
  */
@@ -491,7 +484,7 @@ int windowMain(int argc, char **argv){
 	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
 	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (exit_window), NULL);
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_root = gtk_menu_item_new_with_label("File");
