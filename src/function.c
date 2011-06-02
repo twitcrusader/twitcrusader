@@ -90,23 +90,17 @@ void freeSizeOF(void)
  * Return = XXXXXXXXXX
  * 
  */
-char* getParameters(char** argv, int argc, const char* param)
+char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
 {
-	int i, 
-		param_len;
-	
-	/* count lenght of input parameters */
-	param_len = strlen(param);
-	
-	for (i = 0; i < argc; i++) {
-		/* Split parameter after = */
-		if (!strncmp(argv[i], param, param_len) && strlen(argv[i]) > param_len && argv[i][param_len] == '=')
-		
-			/* Return a parameters after delimiter = */
-			return strdup(&argv[i][param_len + 1]);
+	int i;
+	for(i = 0;i < argc;i++)
+	{
+		if(strncmp(argv[i],param,strlen(param)) == 0)
+		{
+			return argv[i] + strcspn(argv[i],"=") + 1;
+		}
 	}
-
-	return 0;
+	return NULL;
 }
 
 /*  
