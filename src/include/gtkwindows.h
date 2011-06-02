@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
+#include <pthread.h>
 #include <gdk/gdkkeysyms.h>
 
 #include <string.h>
