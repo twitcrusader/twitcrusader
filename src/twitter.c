@@ -142,7 +142,7 @@ int readUserFile(){
 
 
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
-	char *postarg = NULL;;
+	char *postarg = NULL;
 	char *tempKeyParameters = NULL;
 	char *twitterRequestURL=REQUEST_URL;
 
