@@ -1,11 +1,19 @@
 ============= Ubuntu/Debian Essential Packages (libs) ============= 
 $ apt-get update
-$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2
+$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev
+$ apt-get install liboauth0 <--- work on debian
 
-Download oAuth-Libs ---> http://liboauth.sourceforge.net/ and compile:
-$ ./configure
-$ make
-$ make install (with super user)
+Download oAuth-Libs:
+32bit: http://packages.debian.org/sid/i386/liboauth0/download
+64bit: http://packages.debian.org/sid/amd64/liboauth0/download
+
+Fix GTK path:
+$ export CPATH=$CPATH:/usr/include/gtk-2.0
+$ export CPATH=$CPATH:/usr/include/glib-2.0/
+$ export CPATH=$CPATH:/usr/lib/glib-2.0/include/
+$ export CPATH=$CPATH:/usr/include/pango-1.0/
+$ export CPATH=$CPATH:/usr/lib/gtk-2.0/include/
+$ export CPATH=$CPATH:/usr/include/atk-1.0/
 
 
 
