@@ -36,7 +36,7 @@ void destroy(GtkButton *button, gpointer widget)
 /*
  * Error-Window, if user insert incorrect input type 
  */
-void windowError(char* error_msg){
+void window_error(char* error_msg){
 
 	GtkWidget *window,
 	*label,
@@ -72,7 +72,7 @@ void windowError(char* error_msg){
  * Return Pressed Key of Keyboard
  * Exemple if(pKey->keyval == GDK_Return) if you press ENTER key 
  */
-gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
+gboolean on_key_press (GtkWidget * window, GdkEventKey* pKey, gpointer userdata){
 
 	if (pKey->type == GDK_KEY_PRESS){
 
@@ -94,7 +94,7 @@ gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata
  * And call Validate PIN function
  * 
  */
-void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
+void access_token_gtk(GtkButton *button, AuthWidget *DataInput){
 
 	int correctVerify;
 
@@ -102,13 +102,13 @@ void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
 	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
 
 	//Validate PIN
-	correctVerify = tokenAccess(pin);
+	correctVerify = access_token(pin);
 
 	printf("\ncorrectVerify= %i",correctVerify);
-	if(correctVerify == 1) windowError("Error: bad Input!");
+	if(correctVerify == 1) window_error("Error: bad Input!");
 
 
-	if(correctVerify == 0)destroy(button, DataInput->window);
+	if(correctVerify==0)destroy(button, DataInput->window);
 
 }
 
@@ -116,12 +116,11 @@ void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
  * Get Buffer from TextArea and send tweet if user press ENTER on keyboard
  * 
  */
-gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
+gboolean send_tweet_gtk(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
 
 	GtkTextIter start,
 	end;
 	char *msg = NULL;
-	int send = 1;
 
 	/* Get start position of cursor and final position */
 	gtk_text_buffer_get_start_iter (tweetBuffer, &start);
@@ -133,20 +132,11 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
 	if(pKey->keyval == GDK_Return){
 
-		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
-
 		//SendTweet
-		send = SendTweet(msg);
-
-		if(send == 0 || send == 1){ 
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
-		} else {
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato!");
-			gtk_text_buffer_delete(tweetBuffer, &start, &end);
-		}
+		send_tweet(msg);
 
 		//Clean TextArea
-
+		gtk_text_buffer_delete(tweetBuffer, &start, &end);
 
 		return 1; // fix cursor (return to previous line)
 	}
@@ -160,7 +150,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
  * Tweet have 140 to 0 char
  * 
  */
-void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
+void update_statusbar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
 	gchar *msg;
 	gint tot_char;
 	GtkTextIter iter;
@@ -173,10 +163,6 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
 	tot_char = 139 - gtk_text_iter_get_line_offset(&iter);
 	tot_char = tot_char - gtk_text_iter_get_line(&iter);
 	msg = g_strdup_printf("%d", tot_char+1);
-	if(tot_char <= 0){
-		msg = g_strdup_printf("%d", 0);
-		gtk_text_buffer_backspace(buffer, &iter, TRUE, TRUE);
-	}
 
 	/* Push numer of char to statusbar */
 	gtk_statusbar_push(statusbar, 0, msg);
@@ -188,7 +174,7 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
  * Change TAB (for setting window) 
  * 
  */
-void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
+void switch_page (GtkButton *button, GtkNotebook *notebook){
 	if (gtk_notebook_get_current_page (notebook) == 0)
 	{
 		gtk_notebook_set_current_page (notebook, 1);
@@ -201,7 +187,7 @@ void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
  * Setting GTK Window
  * 
  */
-void windowOption(){
+void windows_setting(){
 
 	GtkWidget *window, 
 	*notebook = gtk_notebook_new (),
@@ -210,10 +196,16 @@ void windowOption(){
 	*label = NULL,
 	*combo = NULL,
 	*button = NULL;
-	GList *itemsAccount = NULL;
+	GList *itemsAccount = NULL,
+			*itemsIMG = NULL,
+			*itemsVID = NULL,
+			*itemsTXT = NULL,
+			*itemsLINK = NULL,
+			*itemsSKIN = NULL,
+			*items_lang = NULL,
+			*items_notify = NULL,
+			*itemsNotify = NULL;
 	GError *error = NULL;
-
-	readUserFile();
 
 	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -229,31 +221,141 @@ void windowOption(){
 	table = gtk_table_new (7, 10, TRUE);
 	combo = gtk_combo_new ();
 	settingMenu = gtk_label_new ("Account");
-
+	button = gtk_button_new_with_label ("Elimina");
 
 	label = gtk_label_new ("Twitter's Account:");
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non  stampa il nome!
+	itemsAccount = g_list_append (itemsAccount, printf("%s",user.screenName)); //Non  stampa il nome!
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
 
 	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
-	if(readUserFile()==0){
-		button = gtk_button_new_with_label ("Elimina");
-		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtkDeleteAccount), G_OBJECT (window));
-	}else{
-		button = gtk_button_new_with_label ("Nuovo");
-		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtkAddUser), G_OBJECT (window));
-	}
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount_gtk), G_OBJECT (window));
 
 	/* Set switch-TAB signal */
-	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (gtkSwitchPage), notebook);
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
+
+	/* Set all functions of Services - Images TAB */
+	table = gtk_table_new (11, 10, TRUE);
+	combo = gtk_combo_new ();
+	settingMenu = gtk_label_new ("Servizi");
+	label = gtk_label_new ("Host Immagini:");
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsIMG = g_list_append (itemsIMG, "twitpic");
+	itemsIMG = g_list_append (itemsIMG, "yfrog");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsIMG);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,0, 1, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+	/* Set all functions of Services - Video TAB */
+	label = gtk_label_new ("Host Video:");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsVID = g_list_append (itemsVID, "twitvid");
+	itemsVID = g_list_append (itemsVID, "yfrog");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsVID);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,2, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+	/* Set all functions of Services - Text Shortener TAB */
+	label = gtk_label_new ("Text Shortener:");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsTXT = g_list_append (itemsTXT, "twitlonger");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsTXT);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,4, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+	/* Set all functions of Services - URL Shortener TAB */
+	label = gtk_label_new ("URL Shortener:");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsLINK = g_list_append (itemsLINK, "bit.ly");
+	itemsLINK = g_list_append (itemsLINK, "ow.ly");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsLINK);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,6, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,7, 8, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+	/* Save Button and attach gtk-widget at table */
+	button = gtk_button_new_with_label ("Salva");
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,9, 10, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	/* Set switch-TAB signal */
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
+
+
+	/* Set all functions of Services - SKIN TAB */
+	settingMenu = gtk_label_new ("Aspetto");
+	table = gtk_table_new (7, 10, TRUE);
+	combo = gtk_combo_new ();
+	label = gtk_label_new ("Tema Da Usare:");
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsSKIN = g_list_append (itemsSKIN, "default");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsSKIN);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,0, 1, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+
+	/* Set all functions of Services - LANG TAB */
+	label = gtk_label_new ("Lingua Da Usare:");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	items_lang = g_list_append (items_lang, "italian");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), items_lang);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,2, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	/* Save Button and attach gtk-widget at table */
+	button = gtk_button_new_with_label ("Salva");
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	/* Set switch-TAB signal */
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
+
+
+	/* Set all functions of Services - NOTIFY TAB */
+	settingMenu = gtk_label_new ("Notifiche");
+	table = gtk_table_new (7, 10, TRUE);
+	label = gtk_label_new ("Aggiorna Ogni...");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	items_notify = g_list_append (items_notify, "5min");
+	items_notify = g_list_append (items_notify, "10min");
+	items_notify = g_list_append (items_notify, "15min");
+	items_notify = g_list_append (items_notify, "30min");
+	items_notify = g_list_append (items_notify, "60min");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), items_notify);
+	/* Attach all gtk-widget at table */
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,0, 1, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+
+	/* Set all functions of Services - NOTIFY TAB */
+	label = gtk_label_new ("Tipo Di Notifiche:");
+	combo = gtk_combo_new ();
+	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
+	itemsNotify = g_list_append (itemsNotify, "Tutto");
+	itemsNotify = g_list_append (itemsNotify, "Timeline");
+	itemsNotify = g_list_append (itemsNotify, "Mentions");
+	itemsNotify = g_list_append (itemsNotify, "Mentions + DM");
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsNotify);
+	gtk_table_attach (GTK_TABLE (table), label, 1, 9,2, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9,3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	/* Save Button and attach gtk-widget at table */
+	button = gtk_button_new_with_label ("Salva");
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9,5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	/* Set switch-TAB signal */
+	g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (switch_page), notebook);
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
 	/* Attach tab-notebook at window container */
 	gtk_container_add (GTK_CONTAINER (window), notebook);
@@ -268,7 +370,7 @@ void windowOption(){
  * About window
  * 
  */
-void windowCredits(){
+void windows_about(){
 
 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(ICON_ABOUT, NULL);
 	GtkWidget *dialog = gtk_about_dialog_new();
@@ -277,7 +379,7 @@ void windowCredits(){
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon, freddy_156");
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
@@ -295,7 +397,7 @@ void windowCredits(){
  * Check Updates from vebsite http://www.twitcrusader.org and get file version.php
  * 
  */
-void windowUpgrade(){
+void windows_upgrade(){
 
 	FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
@@ -303,7 +405,7 @@ void windowUpgrade(){
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
 	*lastVersionCheck,
 	*currentVersionMSG = gtk_label_new ("Current Version: "),
-	*currentVersionCheck = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS),
+	*currentVersionCheck = gtk_label_new (TWC_VERSION),
 	*table = gtk_table_new (8, 10, TRUE),
 	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
@@ -313,14 +415,14 @@ void windowUpgrade(){
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen ("/tmp/version.twc", "r");
-	fgets(bufferLatesVersion, 15, checkLatesVersion);
+	fgets(bufferLatesVersion, 10, checkLatesVersion);
 	/* Remove tmp file */
 	remove("/tmp/version.twc");
 
 	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 300, 200);
-	gtk_widget_set_size_request (window, 300, 200);
+	gtk_window_set_default_size (GTK_WINDOW(window), 240, 180);
+	gtk_widget_set_size_request (window, 240, 180);
 	gtk_window_set_title (GTK_WINDOW(window), "Check Updates");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -328,9 +430,9 @@ void windowUpgrade(){
 
 	/* Attach All Widget */
 	lastVersionCheck = gtk_label_new (bufferLatesVersion);
-	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 0, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 1, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), currentVersionCheck, 6, 9, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 1, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
@@ -344,7 +446,7 @@ void windowUpgrade(){
 
 }
 
-int windowAddUser()
+void windows_adduser()
 {
 	GtkWidget *table = gtk_table_new (10, 10, TRUE), 
 			*label,
@@ -373,7 +475,7 @@ int windowAddUser()
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Call oAuth function */
-	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(tokenTempBrowser), NULL);
+	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(temp_token_browser), NULL);
 
 	/* Attach Box for PIN */
 	label = gtk_label_new ("Inserisci PIN");
@@ -387,12 +489,11 @@ int windowAddUser()
 	button = gtk_button_new_with_label ("Crea Account");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_container_add (GTK_CONTAINER (DataInput->window), table);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), DataInput);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(access_token_gtk), DataInput);
 
 	/* Exit event and Widget Show */
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (DataInput->window);
-	return 0;
 }
 
 
@@ -401,14 +502,11 @@ int windowAddUser()
  * Twitter TimeLine Cntent
  * 
  */
-int windowMain(int argc, char **argv){
-	g_thread_init (NULL);
-	gdk_threads_init ();
-	gdk_threads_enter ();
+int windows_main(int argc, char **argv){
+
 	gtk_init (&argc, &argv);
 
-	char *statusLabel,
-		 *cmd;
+	int rows, cols;
 
 	GError *error = NULL;
 	GtkWidget *window,
@@ -416,6 +514,9 @@ int windowMain(int argc, char **argv){
 	*scroll,
 	*icon_menu,
 	*table_into,
+	*nick,
+	*tweet,
+	*avatar,
 	*scrolled_window,
 	*menu_bar,
 	*layout,
@@ -430,19 +531,7 @@ int windowMain(int argc, char **argv){
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
 	*aiuto_menu_items;
-
-	GtkTextBuffer *tweetBuffer;
-
-	/* User-Directory Path */
-	progPath.configFileName="user.twc";
-	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
-
-	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
-	system(cmd);
-
-	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
-	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
+	GtkTextBuffer *buffer;
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -453,6 +542,9 @@ int windowMain(int argc, char **argv){
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
 
+	/* CALLBACK: exit event */
+	g_signal_connect (G_OBJECT (window), "delete_event", G_CALLBACK (gtk_main_quit), NULL);
+
 	/* GTK Widget: Menu */
 	file_menu_obj = gtk_menu_new();
 	aiuto_menu_obj = gtk_menu_new();
@@ -462,32 +554,23 @@ int windowMain(int argc, char **argv){
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/buttons_have_icons true
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 * */
-	file_menu_items = gtk_image_menu_item_new_with_label("Connetti");
+	file_menu_items = gtk_image_menu_item_new_with_label("Nuovo Utente");
 	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkConnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("Disconnetti");
-	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("");
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_adduser), NULL);
+	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
 	icon_menu = gtk_image_new_from_file(ICON_SETTINGS);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windowOption), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windows_setting), NULL);
+	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
 	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	gtk_menu_append(GTK_MENU (file_menu_obj), file_menu_items);
 
 	file_menu_root = gtk_menu_item_new_with_label("File");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (file_menu_root), file_menu_obj);
@@ -496,14 +579,15 @@ int windowMain(int argc, char **argv){
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Updates");
 	icon_menu = gtk_image_new_from_file(ICON_UPGRADE);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowUpgrade), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
+	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_upgrade), NULL);
+	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
 
 	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
 	icon_menu = gtk_image_new_from_file(ICON_STAR);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowCredits), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
+	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windows_about), NULL);
+	gtk_menu_append(GTK_MENU (aiuto_menu_obj), aiuto_menu_items);
+
 
 	aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
@@ -518,18 +602,8 @@ int windowMain(int argc, char **argv){
 
 	/* Status Bar */
 	statusbar = gtk_statusbar_new ();
-	StatusBar.message = GTK_STATUSBAR(statusbar);
-	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
-
-
-	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
-		statusLabel="Disconnect..";
-	}else{
-		statusLabel="Connect..";
-	}
-
-	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
-
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar), TRUE);
+	gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "TwitCrusader...");
 	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
 
 	/* GTK Widget: Twitter Menu */
@@ -587,123 +661,58 @@ int windowMain(int argc, char **argv){
 	/* Scrolled */
 	table_into = gtk_table_new (1, 3, TRUE);
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
 
-	// Read Timeline
-	gdk_threads_enter ();
-		gtkRefreshswitchTimeLine(table_into, window);
-	gdk_threads_leave ();
-	
+	for ( rows = 0; rows < 40; rows = rows + 4 ) {
+		for ( cols = 0; cols < 3; cols++ ) {
+
+			avatar = gtk_image_new_from_file (ICON_HOME);
+			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+
+			nick = gtk_label_new ("@NICK");
+			gtk_table_attach (GTK_TABLE (table_into), nick, 1, 3,rows, rows + 1, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+
+			tweet = gtk_label_new ("TEXT TEXT TEXT TEXT TEXT\n TEXT TEXT TEXT TEXT TEXT\n");
+			gtk_table_attach (GTK_TABLE (table_into ), tweet, 1, 3,rows + 1, rows + 4, GTK_FILL | GTK_EXPAND,GTK_FILL, 0, 0);
+		}
+	}
+
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL);
 	gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	text = gtk_text_view_new();
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
-	tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
-	gtk_text_buffer_set_text (tweetBuffer, "", -1);
-	g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
-	g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+	gtk_text_buffer_set_text (buffer, "", -1);
+	g_signal_connect(buffer, "changed", G_CALLBACK(update_statusbar), statusbar_char);
+	g_signal_connect(text, "key-press-event", G_CALLBACK(send_tweet_gtk), buffer);
 	gtk_container_add(GTK_CONTAINER(scroll), text);
-
-
-	/* CALLBACK: exit event */
-	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
-	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL); 
 
 	// Widget Show
 	gtk_widget_show_all (window);
 
 	//Exist Config File?
-	if(fopen (progPath.configFile, "r")==NULL) windowAddUser();
+	if(readUserFile()==1) windows_adduser();
 
 	//Show GTK Main
 	gtk_main ();
-	gdk_threads_leave ();
+
 
 	return 0;
 }
 
-void gtkDeleteAccount(GtkButton *button, gpointer window){
-	if(strcmp(user.consumerKey, " ") != 0 && 
-			strcmp(user.consumerSecretKey, " ") != 0 && 
-			strcmp(user.Token, " ") != 0 && 
-			strcmp(user.secretToken, " ") != 0){
+void deleteAccount_gtk(GtkButton *button, gpointer window){
+	if(user.consumerKey!=NULL &&
+			user.consumerSecretKey!=NULL &&
+			user.Token!=NULL &&
+			user.secretToken!=NULL){
 		deleteAccount();
 		destroy(button,window);
-		windowOption();
+		windows_setting();
 	}
-}
-
-void gtkConnect(GtkButton *button, gpointer window){
-
-	if(readUserFile()==0){
-
-		destroy(button, window);
-		windowMain(0, NULL);
-	}
-}
-
-void gtkDisconnect(GtkButton *button, gpointer window){
-	disconnect();
-	destroy(button, window);
-	/*Fix Disconnect Message*/
-	strcpy(user.Token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
-	windowMain(0, NULL);
-}
-
-void gtkAddUser(GtkButton *button, gpointer window){
-	if(windowAddUser()==0){
-		destroy(button, window);
-	}
-}
-
-void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
-
-	int rows = 0, cols;
-	char *avatarFile;
-
-	GtkWidget *nick,
-	*tweet,
-	*avatar,
-	*align;
-
-	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		switchTimeLine(1);
-	}else {
-		switchTimeLine(2);
-	}
-
-
-	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
-		getCURL(timeline[cols].user.profile_image_url,avatarFile);
-		//getWGET(timeline[cols].user.profile_image_url,avatarFile);
-		avatar = gtk_image_new_from_file (avatarFile);
-		nick = gtk_label_new (timeline[cols].user.screen_name);
-		tweet = gtk_label_new (timeline[cols].text);
-		
-		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), nick);
-		gtk_table_attach (GTK_TABLE (table_into), align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-
-		
-		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), tweet);
-		gtk_table_attach (GTK_TABLE (table_into ), align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-	}
-
 }
