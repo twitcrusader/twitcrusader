@@ -404,7 +404,6 @@ int windowAddUser()
 int windowMain(int argc, char **argv){
 	g_thread_init (NULL);
 	gdk_threads_init ();
-	gdk_threads_enter ();
 	gtk_init (&argc, &argv);
 
 	char *statusLabel,
@@ -622,6 +621,7 @@ int windowMain(int argc, char **argv){
 	if(fopen (progPath.configFile, "r")==NULL) windowAddUser();
 
 	//Show GTK Main
+	gdk_threads_enter();
 	gtk_main ();
 	gdk_threads_leave ();
 
