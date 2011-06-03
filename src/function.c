@@ -156,7 +156,7 @@ void createDir(){
 
 	// Timeline File
 	asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
 	system(cmd);
 
 

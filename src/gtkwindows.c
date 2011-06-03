@@ -678,8 +678,8 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
 
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		//asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
-		//getCURL(timeline[cols].user.profile_image_url,avatarFile);
+		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
+		getCURL(timeline[cols].user.profile_image_url,avatarFile);
 		//getWGET(timeline[cols].user.profile_image_url,avatarFile);
 		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 		nick = gtk_label_new (timeline[cols].user.screen_name);
