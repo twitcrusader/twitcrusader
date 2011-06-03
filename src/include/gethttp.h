@@ -23,6 +23,7 @@
  */
 #ifndef GETHTTP_H_
 #define GETHTTP_H_
+
 #define _GNU_SOURCE
 
 #include <stdio.h>

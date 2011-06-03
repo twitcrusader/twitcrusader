@@ -78,6 +78,7 @@ struct programPath{
   char *configDir;
   char *configFile;
   char *configFileName;
+  char *timelineDir;
 } progPath;
 
 char *tmp_token;

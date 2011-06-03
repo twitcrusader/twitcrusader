@@ -134,3 +134,30 @@ int shellParameters (int argc, char **argv){
 	}
 	return 0;
 }
+
+void createDir(){
+
+	char *cmd;
+
+	/* User-Directory Path */
+
+	//Avatar Dir
+	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+
+	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+	system(cmd);
+
+
+	//Configuration File
+	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	system(cmd);
+
+	// Timeline File
+	asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
+	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	system(cmd);
+
+
+}

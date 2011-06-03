@@ -27,7 +27,7 @@
 /*
  * Delete widget for button-event
  */
-void destroy(GtkButton *button, gpointer widget)
+void destroy2(GtkButton *button, gpointer widget)
 {
 	/* Destroy the widget */
 	gtk_widget_destroy (GTK_WIDGET (widget));
@@ -57,7 +57,7 @@ void windowError(char* error_msg){
 	label = gtk_label_new (error_msg);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 10, 4, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy2), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -333,7 +333,7 @@ void windowUpgrade(){
 	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy2), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -432,15 +432,9 @@ int windowMain(int argc, char **argv){
 
 	GtkTextBuffer *tweetBuffer;
 
-	/* User-Directory Path */
+	createDir();
+
 	progPath.configFileName="user.twc";
-	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
-
-	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
-	system(cmd);
-
-	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
@@ -707,3 +701,5 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 	}
 
 }
+
+
