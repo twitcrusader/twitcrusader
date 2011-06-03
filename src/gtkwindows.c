@@ -27,7 +27,7 @@
 /*
  * Delete widget for button-event
  */
-void destroy2(GtkButton *button, gpointer widget)
+void destroyGtk(GtkButton *button, gpointer widget)
 {
 	/* Destroy the widget */
 	gtk_widget_destroy (GTK_WIDGET (widget));
@@ -57,7 +57,7 @@ void windowError(char* error_msg){
 	label = gtk_label_new (error_msg);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 10, 4, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy2), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroyGtk), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -108,7 +108,7 @@ void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
 	if(correctVerify == 1) windowError("Error: bad Input!");
 
 
-	if(correctVerify == 0)destroy(button, DataInput->window);
+	if(correctVerify == 0)destroyGtk(button, DataInput->window);
 
 }
 
@@ -333,7 +333,7 @@ void windowUpgrade(){
 	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroy2), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroyGtk), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -406,8 +406,7 @@ int windowMain(int argc, char **argv){
 	gdk_threads_init ();
 	gtk_init (&argc, &argv);
 
-	char *statusLabel,
-		 *cmd;
+	char *statusLabel;
 
 	GError *error = NULL;
 	GtkWidget *window,
@@ -628,7 +627,7 @@ void gtkDeleteAccount(GtkButton *button, gpointer window){
 			strcmp(user.Token, " ") != 0 && 
 			strcmp(user.secretToken, " ") != 0){
 		deleteAccount();
-		destroy(button,window);
+		destroyGtk(button,window);
 		windowOption();
 	}
 }
@@ -637,14 +636,14 @@ void gtkConnect(GtkButton *button, gpointer window){
 
 	if(readUserFile()==0){
 
-		destroy(button, window);
+		destroyGtk(button, window);
 		windowMain(0, NULL);
 	}
 }
 
 void gtkDisconnect(GtkButton *button, gpointer window){
 	disconnect();
-	destroy(button, window);
+	destroyGtk(button, window);
 	/*Fix Disconnect Message*/
 	strcpy(user.Token, " ");
 	strcpy(user.consumerKey, " ");
@@ -657,7 +656,7 @@ void gtkDisconnect(GtkButton *button, gpointer window){
 
 void gtkAddUser(GtkButton *button, gpointer window){
 	if(windowAddUser()==0){
-		destroy(button, window);
+		destroyGtk(button, window);
 	}
 }
 
@@ -679,10 +678,10 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
 
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
-		getCURL(timeline[cols].user.profile_image_url,avatarFile);
+		//asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
+		//getCURL(timeline[cols].user.profile_image_url,avatarFile);
 		//getWGET(timeline[cols].user.profile_image_url,avatarFile);
-		avatar = gtk_image_new_from_file (avatarFile);
+		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 		nick = gtk_label_new (timeline[cols].user.screen_name);
 		tweet = gtk_label_new (timeline[cols].text);
 		
