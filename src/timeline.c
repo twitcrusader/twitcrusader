@@ -150,19 +150,16 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
-		/*
-		 // *profile_image_url,
+		// *profile_image_url,
 			keys=getTimeLineElement(doc, cur2, "profile_image_url");
 			timeline[i].user.profile_image_url=keys;
 			cur2 = cur2->next;
 			cur2 = cur2->next;
-		 */
 
 		// *profile_image,
 		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
-		getCURL(getTimeLineElement(doc, cur2, "profile_image_url"),timeline[i].user.profile_image);
-		cur2 = cur2->next;
-		cur2 = cur2->next;
+		getCURL(timeline[i].user.profile_image_url, timeline[i].user.profile_image);
+
 
 		// *url,
 		keys=getTimeLineElement(doc, cur2, "url");
