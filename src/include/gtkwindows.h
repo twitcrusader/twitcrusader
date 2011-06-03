@@ -82,6 +82,7 @@ typedef struct configuration {
 
 
 void destroyGtk(GtkButton *button, gpointer widget);
+void updateGtk(GtkButton *button, gpointer widget);
 gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
 void updateStatusBar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);

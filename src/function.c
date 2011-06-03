@@ -46,14 +46,14 @@ char *sumStrings(char *parm1, char *parm2 ){
 
 /* Change Default-Size Of char* (of struct) */
 void mollocSizeOF(){
-	
+
 	user.id =  (char*) malloc(sizeof(char) * 15);
 	user.screenName =  (char*) malloc(sizeof(char) * 140);
 	user.Token =  (char*) malloc(sizeof(char) * 160);
 	user.secretToken =  (char*) malloc(sizeof(char) * 160);
 	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
 	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
-	
+
 	/*Fix Disconnect Message*/
 	strcpy(user.Token, " ");
 	strcpy(user.consumerKey, " ");
@@ -61,11 +61,11 @@ void mollocSizeOF(){
 	strcpy(user.id, " ");
 	strcpy(user.screenName, " ");
 	strcpy(user.secretToken, " ");
-	
+
 	progPath.configFileName =  (char*) malloc(sizeof(char) * 15);
 	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
 	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
-	
+
 }
 
 /* Free Allocated Structs */
@@ -109,9 +109,9 @@ char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
  */
 int shellParameters (int argc, char **argv){
 	int count;
-	
+
 	system("clear");
-		
+
 	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
 	printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
 
@@ -128,7 +128,7 @@ int shellParameters (int argc, char **argv){
 				debug=1;
 			}else{
 				printf("\ntry \"%s\" --help for help\n",argv[0]);
-			return 1;
+				return 1;
 			}
 		}
 	}
@@ -143,6 +143,9 @@ void createDir(){
 
 	//Avatar Dir
 	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+
+	asprintf(&cmd, "%s %s", "rm -rf ", progPath.avatarDir);
+	system(cmd);
 
 	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
