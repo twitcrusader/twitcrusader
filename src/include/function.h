@@ -37,5 +37,6 @@ void freeSizeOF(void);
 char *sumStrings(char *parm1, char *parm2 );
 char* getParameters(char** argv, int argc, const char* param);
 int shellParameters (int argc, char **argv);
+void createDir();
 
 #endif /* FUNCTION_H_ */

@@ -18,33 +18,13 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <pthread.h>
+#include "gtk-thread.h"
 
-#define YES_IT_IS    (1)
-#define NO_IT_IS_NOT (0)
-
-typedef struct 
-{
-  GtkWidget *label;
-  int what;
-} yes_or_no_args;
-
-G_LOCK_DEFINE_STATIC (yes_or_no);
-static volatile int yes_or_no = YES_IT_IS;
-
-void destroy (GtkWidget *widget, gpointer data)
-{
+void destroy (GtkWidget *widget, gpointer data){
   gtk_main_quit ();
 }
 
-void *argument_thread (void *args)
-{
+void *argument_thread (void *args){
   yes_or_no_args *data = (yes_or_no_args *)args;
   gboolean say_something;
 
@@ -87,25 +67,25 @@ void *argument_thread (void *args)
   return NULL;
 }
 
-int main (int argc, char *argv[])
+/*int main (int argc, char *argv[])
 {
   GtkWidget *window;
   GtkWidget *label;
   yes_or_no_args yes_args, no_args;
   pthread_t no_tid, yes_tid;
 
-  /* init threads */
+   init threads
   g_thread_init (NULL);
   gdk_threads_init ();
   gdk_threads_enter ();
 
-  /* init gtk */
+   init gtk
   gtk_init(&argc, &argv);
 
-  /* init random number generator */
+   init random number generator
   srand ((unsigned int) time (NULL));
 
-  /* create a window */
+   create a window
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
   gtk_signal_connect (GTK_OBJECT (window), "destroy",
@@ -113,15 +93,15 @@ int main (int argc, char *argv[])
 
   gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
-  /* create a label */
+   create a label
   label = gtk_label_new ("And now for something completely different ...");
   gtk_container_add (GTK_CONTAINER (window), label);
   
-  /* show everything */
+   show everything
   gtk_widget_show (label);
   gtk_widget_show (window);
 
-  /* create the threads */
+   create the threads
   yes_args.label = label;
   yes_args.what = YES_IT_IS;
   pthread_create (&yes_tid, NULL, argument_thread, &yes_args);
@@ -130,9 +110,9 @@ int main (int argc, char *argv[])
   no_args.what = NO_IT_IS_NOT;
   pthread_create (&no_tid, NULL, argument_thread, &no_args);
 
-  /* enter the GTK main loop */
+   enter the GTK main loop
   gtk_main ();
   gdk_threads_leave ();
 
   return 0;
-}
+}*/

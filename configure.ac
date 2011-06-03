@@ -4,7 +4,7 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_CONFIG_HEADERS([config.h])
 
-AC_CHECK_PROGS([WGET], [wget curl])
+AC_CHECK_PROGS([WGET], [wget])
 
 AC_MSG_CHECKING(if wget was wget)
 if test "X$WGET" = "Xwget"; then

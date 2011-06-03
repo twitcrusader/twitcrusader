@@ -21,14 +21,17 @@
  *		WebSite: http://www.twitcrusader.org
  * 		IRC: chat.freenode.net at #teamtwc
  */
- 
-#include <libxml/xmlreader.h>
-
-#include "twitcrusader.h"
-#include "function.h"
 
 #ifndef TIMELINE_H_
 #define TIMELINE_H_
+
+#define _GNU_SOURCE
+
+#include <libxml/xmlreader.h>
+#include "twitter.h"
+
+#include "twitcrusader.h"
+#include "function.h"
 
 struct user_timeline{
 	char *id,
@@ -37,6 +40,7 @@ struct user_timeline{
 	*location,
 	*description,
 	*profile_image_url,
+	*profile_image,
 	*url,
 	*protectedtw,
 	*profile_background_color,

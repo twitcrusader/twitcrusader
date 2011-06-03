@@ -35,10 +35,8 @@
 int writeUserFile(){
 
 	FILE *fp;
-	char *cmd;
-	char *data_file;
 
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	char *data_file;
 
 	if(debug==1){
 		printf("\nwriteUserFile()");
@@ -52,7 +50,6 @@ int writeUserFile(){
 
 	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
 	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
-	system(cmd);
 	fp=fopen(progPath.configFile, "w+");
 
 	if(fp!=NULL){
@@ -376,43 +373,44 @@ int switchTimeLine(int xmlSwitch){
 
 	if(debug==1) printf("\nint switchTimeLine()");
 	if(debug==1) printf("\nxmlSwitch = %d\n",xmlSwitch);
+
 	if(xmlSwitch == 1){
-		tmpFile="/tmp/home_timeline.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
 		timelineURL=HOME_TIMELINE_URL;
 	}
 		
 	if(xmlSwitch == 2){
-		tmpFile="/tmp/public_timeline.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
 		timelineURL=PUBLIC_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 3){
-		tmpFile="/tmp/mentions.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
 		timelineURL=MENTIONS_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 4){
-		tmpFile="/tmp/friends_timeline.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
 		timelineURL=FRIENDS_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 5){
-		tmpFile="/tmp/user_timeline.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
 		timelineURL=USER_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 6){
-		tmpFile="/tmp/retweeted_by_me.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
 		timelineURL=RT_BY_ME_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 7){
-		tmpFile="/tmp/retweeted_to_me.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
 		timelineURL=RT_TO_ME_TIMELINE_URL;
 	}
 	
 	if(xmlSwitch == 8){
-		tmpFile="/tmp/retweeted_of_me.xml";
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
 		timelineURL=RT_OF_ME_TIMELINE_URL;
 	}
 
@@ -461,6 +459,13 @@ int deleteAccount(){
 	return 1;
 }
 
+
+/*
+ * disconnect()
+ *
+ * Remove temporally Authorization!
+ *
+ */
 
 void disconnect(){
 
