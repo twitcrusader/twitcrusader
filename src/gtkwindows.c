@@ -33,6 +33,13 @@ void destroyGtk(GtkButton *button, gpointer widget)
 	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 
+void updateGtk(GtkButton *button, gpointer widget)
+{
+	/* Destroy the widget */
+	gtk_widget_destroy (GTK_WIDGET (widget));
+	windowMain(0, NULL);
+}
+
 /*
  * Error-Window, if user insert incorrect input type 
  */
@@ -540,6 +547,9 @@ int windowMain(int argc, char **argv){
 	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
+	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked",
+	                               GTK_SIGNAL_FUNC(updateGtk),
+	                               GTK_OBJECT (window));
 
 	new_button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(ICON_MENTION);
