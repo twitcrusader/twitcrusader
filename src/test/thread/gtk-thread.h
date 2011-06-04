@@ -3,7 +3,7 @@
  *
  *  Created on: 03/giu/2011
  *      Author: darkstar
- */
+
 
 #ifndef GTK_THREAD_H_
 #define GTK_THREAD_H_
@@ -31,4 +31,5 @@ static volatile int yes_or_no = YES_IT_IS;
 void destroy (GtkWidget *widget, gpointer data);
 void *argument_thread (void *args);
 
-#endif /* GTK_THREAD_H_ */
+#endif // GTK_THREAD_H_
+*/
