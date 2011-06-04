@@ -473,7 +473,7 @@ int windowMain(int argc, char **argv){
 	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
-	file_menu_items = gtk_image_menu_item_new_with_label("");
+	file_menu_items = gtk_separator_menu_item_new();
 	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
 	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
