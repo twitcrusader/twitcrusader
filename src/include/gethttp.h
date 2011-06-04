@@ -28,7 +28,10 @@
 
 #include <stdio.h>
 #include <curl/curl.h>
+
 #include "function.h"
+#include "timeline.h"
+
 
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
 int getCURL(char *url, char *file);

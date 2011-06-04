@@ -16,9 +16,9 @@
  * Thanks to Sebastian Wilhelmi and Owen Taylor for pointing out some
  * bugs.
  *
- */
+*/
 
-#include "gtk-thread.h"
+/*#include "gtk-thread.h"
 
 void destroy (GtkWidget *widget, gpointer data){
   gtk_main_quit ();
@@ -30,36 +30,36 @@ void *argument_thread (void *args){
 
   for (;;)
     {
-      /* sleep a while */
+       sleep a while
       sleep(rand() / (RAND_MAX / 3) + 1);
 
-      /* lock the yes_or_no_variable */
+       lock the yes_or_no_variable
       G_LOCK(yes_or_no);
 
-      /* do we have to say something? */
+       do we have to say something?
       say_something = (yes_or_no != data->what);
 
       if(say_something)
 	{
-	  /* set the variable */
+	   set the variable
 	  yes_or_no = data->what;
 	}
 
-      /* Unlock the yes_or_no variable */
+       Unlock the yes_or_no variable
       G_UNLOCK (yes_or_no);
 
       if (say_something)
 	{
-	  /* get GTK thread lock */
+	   get GTK thread lock
 	  gdk_threads_enter ();
 
-	  /* set label text */
+	   set label text
 	  if(data->what == YES_IT_IS)
 	    gtk_label_set_text (GTK_LABEL (data->label), "O yes, it is!");
 	  else
 	    gtk_label_set_text (GTK_LABEL (data->label), "O no, it isn't!");
 
-	  /* release GTK thread lock */
+	   release GTK thread lock
 	  gdk_threads_leave ();
 	}
     }
@@ -67,7 +67,7 @@ void *argument_thread (void *args){
   return NULL;
 }
 
-/*int main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
   GtkWidget *window;
   GtkWidget *label;

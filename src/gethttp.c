@@ -69,4 +69,3 @@ int getWGET(char *url, char *file){
 
 	return 0;
 }
-

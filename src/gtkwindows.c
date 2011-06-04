@@ -33,10 +33,10 @@ void destroyGtk(GtkButton *button, gpointer widget)
 	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 
-void updateGtk(GtkButton *button, gpointer widget)
+void updateGtk(GtkButton *button, gpointer window)
 {
 	/* Destroy the widget */
-	gtk_widget_destroy (GTK_WIDGET (widget));
+	destroyGtk(button, window);
 	windowMain(0, NULL);
 }
 
@@ -597,7 +597,7 @@ int windowMain(int argc, char **argv){
 	gdk_threads_enter ();
 		gtkRefreshswitchTimeLine(table_into, window);
 	gdk_threads_leave ();
-	
+
 	// TextArea + Scrollbar
 	scroll = gtk_scrolled_window_new(NULL,NULL);
 	gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
@@ -694,14 +694,14 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 		nick = gtk_label_new (timeline[cols].user.screen_name);
 		tweet = gtk_label_new (timeline[cols].text);
-		
+
 		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
 		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
 		gtk_container_add(GTK_CONTAINER(align), nick);
 		gtk_table_attach (GTK_TABLE (table_into), align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
-		
+
 		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
 		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
 		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
