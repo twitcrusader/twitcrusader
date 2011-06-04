@@ -1,13 +1,13 @@
 =========== Known Issues ===========		
-- More «lags» with login/start twc
+- Freeeze GUI
+
+- No complete GUI interface work
 
 - Not Work mention/dm timeline
 
 - Timeline: bad layout
 
-- Not Work: refresh timeline
-
-
+- Refresh Timeline Work with Bugs
 
 =========== Fixed Issues, Improved at 0.1.87 ===========	
 - curl/libcurl segment fault with gtk3
