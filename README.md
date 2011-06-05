@@ -10,9 +10,9 @@ TwitCrusader is Twitter Client For Linux Desktop
 
 First you have to install dependencies:
 
-    $ apt-get update
-    $ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev
-    $ apt-get install liboauth0 (on Debian)
+    # apt-get update
+    # apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev
+    # apt-get install liboauth0 
 
 Then fix your GTK path:
 
@@ -25,8 +25,8 @@ Then fix your GTK path:
 
 #### Archlinux
 
-    $ pacman -Syu
-    $ pacman -S base-devel liboauth curl openssl libxml2
+    # pacman -Syu
+    # pacman -S base-devel liboauth curl openssl libxml2
 
 ### Compile
 
@@ -35,17 +35,37 @@ Then fix your GTK path:
     $ autoreconf --install
     $ ./configure
     $ make
-    $ make install (with super user)
+    # sudo make install
 
 ### Unistalling
 
-    $ make uninstall
+    # make uninstall
+    
+### GIT Branch
+
+#### Stable
+
+Stable Version Of TwitCrusader
+
+#### Beta
+
+Beta Version Of TwitCrusader
+
+#### Nightly
+
+Unstable Version Of TwitCrusader
+
+#### Experimental
+
+New Features For Nightly Version Of TwitCrusader
+
 
 ## Support
 
 You can find us on this web source:
 
 WebSite: http://www.twitcrusader.org/
-Source: https://github.com/PTKDev/
-IRC: chat.freenode.net at #teamtwc
 
+Source: https://github.com/PTKDev/
+
+IRC: chat.freenode.net at #teamtwc
