@@ -1,0 +1,20 @@
+=========== Known Issues ===========		
+- More «lags» with login/start twc
+
+- Not Work mention/dm timeline
+
+- Timeline: bad layout
+
+- Not Work: refresh timeline
+
+
+
+=========== Fixed Issues, Improved at 0.1.87 ===========	
+- curl/libcurl segment fault with gtk3
+	ISSUE: getCURL() error: segment fault
+	WHY: Not work mkdir() with user, but work with su/sudo
+	FIX: use system("mkdir -p")
+
+
+
+
