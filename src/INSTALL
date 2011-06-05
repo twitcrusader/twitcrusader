@@ -1,6 +1,6 @@
 ============= Ubuntu/Debian Essential Packages (libs) ============= 
 $ apt-get update
-$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev
+$ apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev libnss3-dev
 $ apt-get install liboauth0 <--- work on debian
 
 Download oAuth-Libs:
