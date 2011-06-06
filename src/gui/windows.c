@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/windows.h"
@@ -132,7 +134,7 @@ void windowCredits(){
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon, freddy_156");
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Team TwitCrusader, Follow @teamtwc");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
@@ -151,8 +153,6 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
-
-	FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
