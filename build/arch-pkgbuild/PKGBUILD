@@ -1,0 +1,51 @@
+# Maintainer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
+# Contributor: Alessio Biancalana <dottorblaster@archlinux.us>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+
+pkgname=twitcrusader-git
+pkgver=20110606
+pkgrel=1
+pkgdesc="A Twitter client for Linux"
+arch=('i686' 'x86_64')
+url="http://www.twitcrusader.org"
+license=('GPL')
+# 'curl' = request from liboauth
+# 'libxml2' 'openssl' = request from gtk2
+depends=('gtk2' 'liboauth') 
+makedepends=('git')
+provides=('twitcrusader')
+conflicts=('twitcrusader')
+
+_gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
+_gitname="twitcrusader"
+
+build() {
+  cd "${srcdir}"
+  msg "Connecting to GIT server...."
+
+  if [ -d ${_gitname} ] ; then
+    cd ${_gitname} && git pull origin
+    msg "The local files are updated."
+  else
+    git clone ${_gitroot} ${_gitname}
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting make..."
+
+  cd "${srcdir}"/${_gitname}
+  git checkout c932ff98e92889eef02f
+
+  rm -rf "${srcdir}/$_gitname-build"
+  git clone "${srcdir}/$_gitname" "$srcdir/$_gitname-build"
+  cd "${srcdir}/${_gitname}-build"
+
+  autoreconf --install
+  ./configure --prefix=/usr || return 1
+  make || return 1
+}
+
+package() {
+  cd "${srcdir}/${_gitname}-build"
+  make DESTDIR="${pkgdir}/" install || return 1
+} 
