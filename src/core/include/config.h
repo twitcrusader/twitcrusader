@@ -21,29 +21,42 @@
  *		WebSite: http://www.twitcrusader.org
  * 		IRC: chat.freenode.net at #teamtwc
  */
-
-#ifndef FUNCTION_H_
-#define FUNCTION_H_
+#ifndef USER_H_
+#define USER_H_
 
 #define _GNU_SOURCE
 #include <stdio.h>
 
-#include <stdlib.h>
 #include <string.h>
 
-#include "config.h"
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
 
-#define TWC_VERSION "2011"
-#define TWC_VERSION_STATUS "-Nightly"
-#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
+#define MY_ENCODING "ISO-8859-1"
+#define CONFIG_FILENAME "config.xml"
 
-int debug;
-void mollocSizeOF();
-void freeSizeOF(void);
-char *sumStrings(char *parm1, char *parm2 );
-char* getParameters(char** argv, int argc, const char* param);
-int shellParameters (int argc, char **argv);
-void createDir();
-char* downloadVersion();
 
-#endif /* FUNCTION_H_ */
+struct users{
+	char* id;
+	char* screenName;
+	char* token;
+	char* secretToken;
+	char* consumerKey;
+	char* consumerSecretKey;
+} user;
+
+struct programPath{
+	char *avatarDir;
+	char *configDir;
+	char *configFile;
+	char *timelineDir;
+} progPath;
+
+int writeUserFile();
+int readUserFile();
+void disconnect();
+int deleteAccount();
+
+
+#endif /* USER_H_ */

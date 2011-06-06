@@ -26,6 +26,7 @@
 #define TIMELINE_H_
 
 #define _GNU_SOURCE
+#include <stdio.h>
 
 #include <libxml/xmlreader.h>
 #include <pthread.h>

@@ -164,7 +164,7 @@ void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
 void gtkDeleteAccount(GtkButton *button, gpointer window){
 	if(strcmp(user.consumerKey, " ") != 0 && 
 			strcmp(user.consumerSecretKey, " ") != 0 && 
-			strcmp(user.Token, " ") != 0 && 
+			strcmp(user.token, " ") != 0 &&
 			strcmp(user.secretToken, " ") != 0){
 		deleteAccount();
 		destroyGtk(button,window);
@@ -182,14 +182,6 @@ void gtkConnect(GtkButton *button, gpointer window){
 void gtkDisconnect(GtkButton *button, gpointer window){
 
 	disconnect();
-
-	/*Fix Disconnect Message*/
-	strcpy(user.Token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
 
 	updateGtk(button, window);
 }

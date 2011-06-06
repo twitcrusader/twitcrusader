@@ -23,6 +23,7 @@
  */
 
 #include "include/twitter.h"
+#include "include/config.h"
 
 /*
  * This function generate a 2 Twitter-Temp-Key
@@ -32,111 +33,6 @@
  * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
  *
  */
-int writeUserFile(){
-
-	FILE *fp;
-
-	char *data_file;
-
-	if(debug==1){
-		printf("\nwriteUserFile()");
-		printf("\nuser.screenName= %s",user.screenName);
-		printf("\nuser.id= %s", user.id);
-		printf("\nuser.consumerKey= %s", user.consumerKey);
-		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-		printf("\nuser.Token= %s", user.Token);
-		printf("\nuser.secretToken= %s", user.secretToken);
-	}
-
-	//	if(user.id!=NULL && user.screenName!=NULL && user.Token!=NULL && user.secretToken!=NULL){
-	/* Save all personal keys and info of twitter-user at ~/.twc/config/user file */
-	fp=fopen(progPath.configFile, "w+");
-
-	if(fp!=NULL){
-
-		asprintf(&data_file, "%s||", user.screenName);
-		asprintf(&data_file, "%s%s||", data_file, user.id);
-		asprintf(&data_file, "%s%s||", data_file, user.consumerKey);
-		asprintf(&data_file, "%s%s||", data_file, user.consumerSecretKey);
-		asprintf(&data_file, "%s%s||", data_file, user.Token);
-		asprintf(&data_file, "%s%s", data_file, user.secretToken);
-
-
-		if(debug==1) printf("data_file= %s",data_file);
-
-		fputs(data_file, fp);
-		fclose(fp);
-
-		if(debug==1) printf("\nfp Scritto corretamente!");
-
-		return 0;
-	}else{
-
-		if(debug==1) printf("\nnon risco ad aprire il file: %s !", progPath.configFile);
-	}
-	//}
-
-	return 1;
-}
-
-int readUserFile(){
-
-	FILE *fp;
-
-	char buffer[256];
-
-	const char delims[] = "||";
-
-	if(debug==1) printf("\nreadUserFile()");
-
-	if(debug==1) printf("\nconfigFile= %s", progPath.configFile);
-	/* Get all user-info and user token */
-	fp = fopen (progPath.configFile, "r");
-
-	if(fp!=NULL){
-		fgets(buffer, 250, fp);
-
-		/* Username */
-		strcpy(user.screenName, strtok(buffer, delims));
-
-		/* User-ID */
-		strcpy(user.id, strtok(NULL, delims));
-
-		/* Get TwitCrusader Token */
-		strcpy(user.consumerKey, strtok(NULL, delims));
-
-		/* Get TwitCrusader Secret Token */
-		strcpy(user.consumerSecretKey, strtok(NULL, delims));
-
-		/* Get User Token */
-		strcpy(user.Token, strtok(NULL, delims));
-
-		/* Get TwitCrusader Secret Token */
-		strcpy(user.secretToken, strtok(NULL, delims));
-
-		if(debug==1){
-			printf("\nuser.screenName= %s",user.screenName);
-			printf("\nuser.id= %s", user.id);
-			printf("\nuser.consumerKey= %s", user.consumerKey);
-			printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-			printf("\nuser.Token= %s", user.Token);
-			printf("\nuser.secretToken= %s", user.secretToken);
-		}
-
-		fclose (fp);
-
-		if(user.id!=NULL &&
-				user.screenName!=NULL &&
-				user.consumerKey!=NULL &&
-				user.consumerSecretKey!=NULL &&
-				user.Token!=NULL &&
-				user.secretToken!=NULL) return 0;
-	}
-
-	return 1;
-
-}
-
 
 char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
 	char *postarg = NULL;
@@ -295,7 +191,7 @@ int tokenAccess(const char *pin){
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
-	strcpy(user.Token, getParameters(rv, rc, "oauth_token"));
+	strcpy(user.token, getParameters(rv, rc, "oauth_token"));
 	strcpy(user.secretToken, getParameters(rv, rc, "oauth_token_secret"));
 	strcpy(user.id, getParameters(rv, rc, "user_id"));
 	strcpy(user.screenName, getParameters(rv, rc, "screen_name"));
@@ -306,7 +202,7 @@ int tokenAccess(const char *pin){
 		printf("\nuser.id= %s", user.id);
 		printf("\nuser.consumerKey= %s", user.consumerKey);
 		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-		printf("\nuser.Token= %s", user.Token);
+		printf("\nuser.Token= %s", user.token);
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
@@ -338,7 +234,7 @@ int SendTweet(char *msg){
 		printf("\nuser.id= %s", user.id);
 		printf("\nuser.consumerKey= %s", user.consumerKey);
 		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-		printf("\nuser.Token= %s", user.Token);
+		printf("\nuser.Token= %s", user.token);
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
@@ -346,10 +242,10 @@ int SendTweet(char *msg){
 			strcmp(user.screenName, " ") != 0 &&
 			strcmp(user.consumerKey, " ") != 0 && 
 			strcmp(user.consumerSecretKey, " ") != 0 && 
-			strcmp(user.Token, " ") != 0 && 
+			strcmp(user.token, " ") != 0 &&
 			strcmp(user.secretToken, " ") != 0){
 
-		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+		sendTweet = oauth_sign_url2(twitterStatusURL, &postarg, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.token, user.secretToken);
 		error = oauth_http_post(sendTweet, postarg);
 
 		if(!error)
@@ -414,7 +310,7 @@ int switchTimeLine(int xmlSwitch){
 		timelineURL=RT_OF_ME_TIMELINE_URL;
 	}
 
-	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.Token, user.secretToken);
+	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.token, user.secretToken);
 	timeline= oauth_http_get(timeline, postarg);
 	if(debug==1) printf("\ntimeline= %s", timeline);
 
@@ -429,50 +325,13 @@ int switchTimeLine(int xmlSwitch){
 		system("echo \"Downloading Twitter Files...\"");
 		readDoc(tmpFile);
 
-		asprintf(&cmd,"rm -f %s", tmpFile);
+		//asprintf(&cmd,"rm -f %s", tmpFile);
 		if(debug==1) printf("\ncmd= %s",cmd);
 
-		system(cmd);
+		//system(cmd);
 		free(timeline);
 		return 0;
 	}
 	free(timeline);
 	return 1;
-}
-
-int deleteAccount(){
-
-	char *cmd,
-	*configDir,
-	*configFile;
-
-	asprintf(&configDir, "%s%s", g_get_home_dir(), "/.twc/config/");
-	asprintf(&configFile, "%s%s", configDir, "user.twc");
-	asprintf(&cmd, "%s %s", "rm ", configFile);
-
-	if(system(cmd)==0){
-		disconnect();
-
-		return 0;
-	}
-
-	return 1;
-}
-
-
-/*
- * disconnect()
- *
- * Remove temporally Authorization!
- *
- */
-
-void disconnect(){
-
-	strcpy(user.Token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
 }

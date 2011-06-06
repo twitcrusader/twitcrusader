@@ -40,6 +40,7 @@
 #include "functions.h"
 #include "timeline.h"
 #include "gethttp.h"
+#include "config.h"
 
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
@@ -62,28 +63,8 @@
 #define RT_TO_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_to_me.xml"
 #define RT_OF_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_of_me.xml"
 
-
-struct users{
-  char* id;
-  char* screenName;
-  char* Token;
-  char* secretToken;
-  char* consumerKey;
-  char* consumerSecretKey;
-} user;
-
-struct programPath{
-	char *avatarDir;
-  char *configDir;
-  char *configFile;
-  char *configFileName;
-  char *timelineDir;
-} progPath;
-
 char *tmp_token;
 
-int writeUserFile();
-int readUserFile();
 int tokenTemp();
 int tokenTempBrowser();
 int tokenAccess(const char *pin);
@@ -91,6 +72,6 @@ char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
 int SendTweet(char*);
 int switchTimeLine(int xmlSwitch);
 int deleteAccount();
-void disconnect();
+
 
 #endif /* TWITTER_H_ */

@@ -27,12 +27,6 @@
 #include "../../core/include/twitter.h"
 #include "../../core/include/gethttp.h"
 
-
-#define TWC_VERSION "2011"
-#define TWC_VERSION_STATUS "-Nightly"
-#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
-
-
 #define ICON_SETTINGS ICONS_DIR"/setting.png"
 #define ICON_ABOUT ICONS_DIR"/tw_about.png"
 #define ICON_STAR ICONS_DIR"/star.png"

@@ -163,14 +163,9 @@ void windowUpgrade(){
 	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
 
-	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	system ("wget -O /tmp/version.twc "TWC_UPDATES_URL"?current="TWC_VERSION);
-
 	/* Check version with downloaded file */
-	checkLatesVersion = fopen ("/tmp/version.twc", "r");
-	fgets(bufferLatesVersion, 15, checkLatesVersion);
-	/* Remove tmp file */
-	remove("/tmp/version.twc");
+	strcpy(bufferLatesVersion, downloadVersion());
+
 
 	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -288,9 +283,6 @@ int windowMain(int argc, char **argv){
 	GtkTextBuffer *tweetBuffer;
 
 	createDir();
-
-	progPath.configFileName="user.twc";
-	asprintf(&progPath.configFile , "%s%s", progPath.configDir, progPath.configFileName);
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);

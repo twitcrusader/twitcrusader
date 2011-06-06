@@ -23,7 +23,6 @@
  */
 
 #include "include/functions.h"
-#include "include/twitter.h"
 
 /*  
  * This function add string1 + string2 = string3
@@ -49,31 +48,30 @@ void mollocSizeOF(){
 
 	user.id =  (char*) malloc(sizeof(char) * 15);
 	user.screenName =  (char*) malloc(sizeof(char) * 140);
-	user.Token =  (char*) malloc(sizeof(char) * 160);
+	user.token =  (char*) malloc(sizeof(char) * 160);
 	user.secretToken =  (char*) malloc(sizeof(char) * 160);
 	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
 	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
 
 	/*Fix Disconnect Message*/
-	strcpy(user.Token, " ");
+	strcpy(user.token, " ");
 	strcpy(user.consumerKey, " ");
 	strcpy(user.consumerSecretKey, " ");
 	strcpy(user.id, " ");
 	strcpy(user.screenName, " ");
 	strcpy(user.secretToken, " ");
 
-	progPath.configFileName =  (char*) malloc(sizeof(char) * 15);
 	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
 	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
 
 }
 
 /* Free Allocated Structs */
-void freeSizeOF(void)
+void freeSizeOF()
 {
 	free(user.id);
 	free(user.screenName);
-	free(user.Token);
+	free(user.token);
 	free(user.secretToken);
 	free(user.consumerKey);
 	free(user.consumerSecretKey);
@@ -151,7 +149,6 @@ void createDir(){
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
 	system(cmd);
 
-
 	//Configuration File
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
@@ -162,5 +159,24 @@ void createDir(){
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
 	system(cmd);
 
+	asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
 
+}
+
+char* downloadVersion(){
+
+	FILE* checkLatesVersion;
+	char *bufferLatesVersion=malloc(sizeof(char)*10);
+
+	/* Check Online Version From WebSite and Download File To /tmp/ directory */
+	system ("wget -O /tmp/version.twc "TWC_UPDATES_URL"?current="TWC_VERSION);
+
+	/* Check version with downloaded file */
+	checkLatesVersion = fopen ("/tmp/version.twc", "r");
+	fgets(bufferLatesVersion, 15, checkLatesVersion);
+	/* Remove tmp file */
+	remove("/tmp/version.twc");
+
+	if(debug==1) printf("\nversion: %s",bufferLatesVersion);
+	return bufferLatesVersion;
 }
