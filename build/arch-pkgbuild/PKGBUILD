@@ -1,6 +1,14 @@
 # Maintainer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
-# Contributor: Alessio Biancalana <dottorblaster@archlinux.us>
-# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Alessio Biancalana (@dottorblaster) <dottorblaster@archlinux.us>
+# Contributor: Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
+
+# SUPPORT:
+# Follow on Twitter: @teamtwc / @PTKDev / @dottorblaster / @bashlnx
+# IRC: chat.freenode.net at #teamtwc
+
+#DEPENDS INFO:
+#curl = depends from liboauth
+#libxml2, openssl = depends from gtk2
 
 pkgname=twitcrusader-git
 pkgver=20110606
@@ -9,8 +17,6 @@ pkgdesc="A Twitter client for Linux"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
-# 'curl' = request from liboauth
-# 'libxml2' 'openssl' = request from gtk2
 depends=('gtk2' 'liboauth') 
 makedepends=('git')
 provides=('twitcrusader')
