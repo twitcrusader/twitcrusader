@@ -26,8 +26,6 @@
 
 int writeUserFile(){
 
-	int debug=1;
-
 	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
 	xmlNodePtr node;
@@ -43,21 +41,21 @@ int writeUserFile(){
 		printf("\nuser.secretToken= %s", user.secretToken);
 	}
 
-	doc = xmlNewDoc(BAD_CAST XML_DEFAULT_VERSION);
-	node = xmlNewDocNode(doc, NULL, BAD_CAST "CONFIG", NULL);
+	doc = xmlNewDoc((xmlChar*) XML_DEFAULT_VERSION);
+	node = xmlNewDocNode(doc, NULL, (xmlChar*) "CONFIG", NULL);
 
 	xmlDocSetRootElement(doc, node);
 	writer = xmlNewTextWriterTree(doc, node, 0);
 
 	xmlTextWriterStartDocument(writer, NULL, MY_ENCODING, NULL);
-	xmlTextWriterStartElement(writer, BAD_CAST "USER");
+	xmlTextWriterStartElement(writer, (xmlChar*) "USER");
 
-	xmlTextWriterWriteElement(writer, "screen_name", user.screenName);
-	xmlTextWriterWriteElement(writer, "id", user.id);
-	xmlTextWriterWriteElement(writer, "ConsumerKey", user.consumerKey);
-	xmlTextWriterWriteElement(writer, "consumerSecretKey", user.consumerSecretKey);
-	xmlTextWriterWriteElement(writer, "token", user.token);
-	xmlTextWriterWriteElement(writer, "secretToken", user.secretToken);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"screen_name", (xmlChar*)user.screenName);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"id", (xmlChar*)user.id);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"ConsumerKey", (xmlChar*)user.consumerKey);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"consumerSecretKey", (xmlChar*)user.consumerSecretKey);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"token", (xmlChar*)user.token);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"secretToken", (xmlChar*)user.secretToken);
 	xmlTextWriterEndElement(writer);
 	xmlTextWriterEndElement(writer);
 
@@ -91,6 +89,7 @@ char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 int readUserFile(){
 
 	int debug=1;
+	char *keys;
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -100,19 +99,20 @@ int readUserFile(){
 
 	doc=xmlParseFile(progPath.configFile);
 	if (doc == NULL ){
-		printf("no file!");
+		printf("\n no file!");
 		return 1;
 	}
 
 	cur = xmlDocGetRootElement(doc);
+
 	if (cur == NULL) {
-		puts("no RootElement");
+		puts("\n no RootElement");
 		xmlFreeDoc(doc);
 		return 1;
 	}
 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "CONFIG")) {
-		puts("no CONFIG");
+		puts("\n no CONFIG");
 		xmlFreeDoc(doc);
 		return 1;
 	}
@@ -120,34 +120,42 @@ int readUserFile(){
 	cur = cur->xmlChildrenNode;
 
 	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"status"))){
 
-			strcpy(user.screenName, getElement(doc, cur, "screen_name"));
-			cur = cur->next;
-			cur = cur->next;
 
-			strcpy(user.id, getElement(doc, cur, "id"));
-			cur = cur->next;
-			cur = cur->next;
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "USER"))){
 
-			strcpy(user.consumerKey, getElement(doc, cur, "consumerKey"));
-			cur = cur->next;
+			cur = cur->xmlChildrenNode;
+
+			keys=getElement(doc, cur, "screen_name");
+			user.screenName=keys;
 			cur = cur->next;
 
-			strcpy(user.consumerSecretKey, getElement(doc, cur, "consumerSecretKey"));
-			cur = cur->next;
+
+			keys=getElement(doc, cur, "id");
+			user.id=keys;
 			cur = cur->next;
 
-			strcpy(user.token, getElement(doc, cur, "token"));
-			cur = cur->next;
+
+			keys=getElement(doc, cur, "consumerKey");
+			user.consumerKey=keys;
 			cur = cur->next;
 
-			strcpy(user.secretToken, getElement(doc, cur, "secretToken"));
+
+			keys=getElement(doc, cur, "consumerSecretKey");
+			user.consumerSecretKey=keys;
+			cur = cur->next;
+
+
+			keys=getElement(doc, cur, "token");
+			user.token=keys;
+			cur = cur->next;
+
+
+			keys=getElement(doc, cur, "secretToken");
+			user.secretToken=keys;
+			cur = cur->next;
 		}
-
-		cur = cur->next;
 	}
-
 
 	xmlFreeDoc(doc);
 
