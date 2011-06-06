@@ -20,6 +20,8 @@
  * 		Development Guidelines: http://dev.twitcrusader.org/
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/functions.h"
@@ -111,7 +113,7 @@ int shellParameters (int argc, char **argv){
 	system("clear");
 
 	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
-	printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
+	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
 
 	if (argc > 1){
 		for (count = 1; count < argc; count++){

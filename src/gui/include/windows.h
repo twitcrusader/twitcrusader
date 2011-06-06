@@ -20,6 +20,8 @@
  * 		Development Guidelines: http://dev.twitcrusader.org/
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #ifndef GTKFUNCTION_H_
