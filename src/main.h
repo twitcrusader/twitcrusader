@@ -36,6 +36,6 @@
 #include "core/include/twitter.h"
 #include "core/include/functions.h"
 
-
+int debug;
 
 #endif

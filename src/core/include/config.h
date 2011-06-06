@@ -33,7 +33,10 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include "../../main.h"
+
 #define MY_ENCODING "ISO-8859-1"
+
 #define CONFIG_FILENAME "config.xml"
 
 

@@ -325,10 +325,10 @@ int switchTimeLine(int xmlSwitch){
 		system("echo \"Downloading Twitter Files...\"");
 		readDoc(tmpFile);
 
-		//asprintf(&cmd,"rm -f %s", tmpFile);
+		asprintf(&cmd,"rm -f %s", tmpFile);
 		if(debug==1) printf("\ncmd= %s",cmd);
 
-		//system(cmd);
+		system(cmd);
 		free(timeline);
 		return 0;
 	}
