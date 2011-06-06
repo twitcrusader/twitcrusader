@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  */
 
@@ -325,10 +325,10 @@ int switchTimeLine(int xmlSwitch){
 		system("echo \"Downloading Twitter Files...\"");
 		readDoc(tmpFile);
 
-		//asprintf(&cmd,"rm -f %s", tmpFile);
+		asprintf(&cmd,"rm -f %s", tmpFile);
 		if(debug==1) printf("\ncmd= %s",cmd);
 
-		//system(cmd);
+		system(cmd);
 		free(timeline);
 		return 0;
 	}
