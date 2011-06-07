@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/timeline.h"
@@ -158,6 +160,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 
 		// *profile_image,
 		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
+		getCURL(timeline[i].user.profile_image_url, timeline[i].user.profile_image);
 
 		// *url,
 		keys=getTimeLineElement(doc, cur2, "url");
@@ -411,39 +414,4 @@ int readTimeLine(char *docname) {
 
 	return (1);
 }
-
-int getAvatarCURL(){
-  pthread_t *thread;
-  int i,dimthr;
-  int error;
-
-  /* Must initialize libcurl before any threads are started */
-  curl_global_init(CURL_GLOBAL_ALL);
-  dimthr=sizeof(timeline)/sizeof(timeline[0]);
-  thread=malloc(dimthr);
-
-  for(i=0; i< dimthr; i++){
-    error = pthread_create(&thread[i], NULL, getSingleAvatarCURL,(void *)i);
-    if(0 != error)
-      fprintf(stderr, "Couldn't run thread number %d, errno %d\n", i, error);
-    else
-      fprintf(stderr, "Thread %d, gets %s\n", i,timeline[i].user.profile_image_url);
-  }
-
-  /* now wait for all threads to terminate */
-  for(i=0; i< dimthr; i++) {
-    error = pthread_join(thread[i], NULL);
-    fprintf(stderr, "Thread %d terminated\n", i);
-  }
-
-  return 0;
-}
-
-void *getSingleAvatarCURL(void *i){
-	int c;
-	memcpy(&c,i,sizeof(c));
-	getCURL(timeline[c].user.profile_image_url, timeline[c].user.profile_image);
-return 0;
-}
-
 

@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/windows.h"
@@ -132,7 +134,7 @@ void windowCredits(){
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "TwitCrusader");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "");
-	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) PTKDev, RoxShannon, freddy_156");
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Team TwitCrusader, Follow @teamtwc");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
@@ -151,8 +153,8 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
-
-	FILE* checkLatesVersion = NULL;
+	
+	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
@@ -282,8 +284,6 @@ int windowMain(int argc, char **argv){
 
 	GtkTextBuffer *tweetBuffer;
 
-	createDir();
-
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
@@ -380,17 +380,15 @@ int windowMain(int argc, char **argv){
 
 	/* Twitter Menu: Buttons */
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked",
-	                               GTK_SIGNAL_FUNC(updateGtk),
-	                               GTK_OBJECT (window));
+	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked", GTK_SIGNAL_FUNC(updateGtk), GTK_OBJECT (window));
+
+	new_button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_HOME);
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 
 	new_button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(ICON_MENTION);
@@ -436,7 +434,7 @@ int windowMain(int argc, char **argv){
 
 	// Read Timeline
 	gdk_threads_enter ();
-		gtkRefreshswitchTimeLine(table_into, window);
+	gtkRefreshswitchTimeLine(table_into, window);
 	gdk_threads_leave ();
 
 	// TextArea + Scrollbar

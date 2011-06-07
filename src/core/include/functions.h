@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #ifndef FUNCTION_H_
@@ -38,7 +40,7 @@
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
 int debug;
-void mollocSizeOF();
+void mallocSizeOF();
 void freeSizeOF(void);
 char *sumStrings(char *parm1, char *parm2 );
 char* getParameters(char** argv, int argc, const char* param);

@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "main.h"
@@ -33,12 +35,14 @@ int main(int argc, char **argv){
 	if(shellParameters (argc, argv)==1) return 0;
 	
 	/* Fix Struct Size */
-	mollocSizeOF();
+	mallocUsers();
+
+	createDir();
 
 	/* Main*/
 	windowMain(argc, argv);
 	
-	freeSizeOF();
+	freeSizeUsers();
 	
 	return 0;
 }

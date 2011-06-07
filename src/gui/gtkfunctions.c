@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/gtkfunctions.h"
@@ -195,7 +197,6 @@ void gtkAddUser(GtkButton *button, gpointer window){
 void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
 	int rows = 0, cols;
-	char *avatarFile;
 
 	GtkWidget *nick,
 	*tweet,
@@ -209,9 +210,6 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 	}
 
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		asprintf(&avatarFile, "%s%s", progPath.avatarDir, timeline[cols].user.screen_name);
-		getCURL(timeline[cols].user.profile_image_url,avatarFile);
-		//getWGET(timeline[cols].user.profile_image_url,avatarFile);
 		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 		nick = gtk_label_new (timeline[cols].user.screen_name);
 		tweet = gtk_label_new (timeline[cols].text);

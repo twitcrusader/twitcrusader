@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,10 +16,12 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/functions.h"
@@ -43,39 +45,7 @@ char *sumStrings(char *parm1, char *parm2 ){
 	return parm;
 }
 
-/* Change Default-Size Of char* (of struct) */
-void mollocSizeOF(){
 
-	user.id =  (char*) malloc(sizeof(char) * 15);
-	user.screenName =  (char*) malloc(sizeof(char) * 140);
-	user.token =  (char*) malloc(sizeof(char) * 160);
-	user.secretToken =  (char*) malloc(sizeof(char) * 160);
-	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
-	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
-
-	/*Fix Disconnect Message*/
-	strcpy(user.token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
-
-	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
-	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
-
-}
-
-/* Free Allocated Structs */
-void freeSizeOF()
-{
-	free(user.id);
-	free(user.screenName);
-	free(user.token);
-	free(user.secretToken);
-	free(user.consumerKey);
-	free(user.consumerSecretKey);
-}
 
 /*  
  * This function split url-parameters with delimiter char
@@ -111,7 +81,7 @@ int shellParameters (int argc, char **argv){
 	system("clear");
 
 	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
-	printf("Copyright (C) 2011  PTKDev, RoxShannon\n\n");
+	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
 
 	if (argc > 1){
 		for (count = 1; count < argc; count++){
@@ -136,6 +106,9 @@ int shellParameters (int argc, char **argv){
 void createDir(){
 
 	char *cmd;
+
+	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
+	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
 
 	/* User-Directory Path */
 
@@ -165,18 +138,23 @@ void createDir(){
 
 char* downloadVersion(){
 
+#define FILE_VERSION "/tmp/version.twc"
+#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
+
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
 
+
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	system ("wget -O /tmp/version.twc "TWC_UPDATES_URL"?current="TWC_VERSION);
+	//system ("wget -O  "TWC_UPDATES_URL"?current="TWC_VERSION);
+	getCURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
-	checkLatesVersion = fopen ("/tmp/version.twc", "r");
+	checkLatesVersion = fopen (FILE_VERSION, "r");
 	fgets(bufferLatesVersion, 15, checkLatesVersion);
 	/* Remove tmp file */
-	remove("/tmp/version.twc");
+	remove(FILE_VERSION);
 
-	if(debug==1) printf("\nversion: %s",bufferLatesVersion);
+	if(debug==1) printf("\nversion: %s", bufferLatesVersion);
 	return bufferLatesVersion;
 }

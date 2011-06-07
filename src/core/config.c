@@ -1,6 +1,6 @@
 /*
  *	TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  PTKDev, RoxShannon
+ *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -16,13 +16,43 @@
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *
- *		Author: Patryk Rzucidlo (PTKDev)
- *		Twitter: @ptkdev / @twitcrusader_en
- *		WebSite: http://www.twitcrusader.org
+ *		WebSite: http://www.twitcrusader.org/
+ * 		Development Guidelines: http://dev.twitcrusader.org/
+ *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
+ * 		E-mail: teamtwc@twitcrusader.org
+ * 
  */
 
 #include "include/config.h"
+
+void mallocUsers(){
+	user.id =  (char*) malloc(sizeof(char) * 15);
+	user.screenName =  (char*) malloc(sizeof(char) * 140);
+	user.token =  (char*) malloc(sizeof(char) * 160);
+	user.secretToken =  (char*) malloc(sizeof(char) * 160);
+	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
+	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
+
+	/*Fix Disconnect Message*/
+	strcpy(user.token, " ");
+	strcpy(user.consumerKey, " ");
+	strcpy(user.consumerSecretKey, " ");
+	strcpy(user.id, " ");
+	strcpy(user.screenName, " ");
+	strcpy(user.secretToken, " ");
+}
+
+/* Free Allocated Structs */
+void freeSizeUsers()
+{
+	free(user.id);
+	free(user.screenName);
+	free(user.token);
+	free(user.secretToken);
+	free(user.consumerKey);
+	free(user.consumerSecretKey);
+}
 
 int writeUserFile(){
 
@@ -173,12 +203,9 @@ int readUserFile(){
 
 void disconnect(){
 
-	strcpy(user.token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
+	freeSizeUsers();
+	mallocUsers();
+
 }
 
 int deleteAccount(){
