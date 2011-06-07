@@ -165,11 +165,15 @@ void createDir(){
 
 char* downloadVersion(){
 
+#define FILE_VERSION "/tmp/version.twc"
+#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
 
+
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	system ("wget -O /tmp/version.twc "TWC_UPDATES_URL"?current="TWC_VERSION);
+	//system ("wget -O  "TWC_UPDATES_URL"?current="TWC_VERSION);
+	getCURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen ("/tmp/version.twc", "r");

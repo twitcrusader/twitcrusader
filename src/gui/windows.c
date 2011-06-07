@@ -152,7 +152,7 @@ void windowCredits(){
  */
 void windowUpgrade(){
 
-	FILE* checkLatesVersion = NULL;
+	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
