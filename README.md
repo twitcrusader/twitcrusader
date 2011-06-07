@@ -26,13 +26,13 @@ Then fix your GTK path:
 #### Archlinux
 
     # pacman -Syu
-    # pacman -S base-devel liboauth curl openssl libxml2
+    # pacman -S gtk2 liboauth
 
 ### Compile
 
 #### Makefile
 
-    $ autoreconf --install
+    $ ./autogen.sh
     $ ./configure
     $ make
     # sudo make install
@@ -40,7 +40,7 @@ Then fix your GTK path:
 ### Unistalling
 
     # make uninstall
-    
+
 ### GIT Branch
 
 #### Stable

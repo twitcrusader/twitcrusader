@@ -19,7 +19,7 @@ $ export CPATH=$CPATH:/usr/include/atk-1.0/
 
 ============= Archlinux Essential Packages (libs) ============= 
 $ pacman -Syu
-$ pacman -S base-devel liboauth curl openssl libxml2
+$ pacman -S gtk2 liboauth
 
 
 
@@ -29,7 +29,7 @@ $ gcc -Wall -pthread -DICONS_DIR=\""./img"\" -o twc main.c main.h core/functions
 
 
 ============= Autoconfig & AutoMake - Install ============= 
-$ autoreconf --install
+$ ./autogen.sh
 $ ./configure
 $ make
 $ make install (with super user)
