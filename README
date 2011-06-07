@@ -7,7 +7,7 @@ First you have to install dependencies:
     # apt-get update
     # apt-get install build-essential libgtk2.0 libgtk2.0-dev libcurl-ocaml-dev libssl-dev libxml2 libxml2-dev
     # apt-get install liboauth0 
-    
+
 Then fix your GTK path:
     $ export CPATH=$CPATH:/usr/include/gtk-2.0
     $ export CPATH=$CPATH:/usr/include/glib-2.0/
@@ -19,19 +19,19 @@ Then fix your GTK path:
 
 How to Install - Archlinux
     # pacman -Syu
-    # pacman -S base-devel liboauth curl openssl libxml2
+    # pacman -S gtk2 liboauth openssl
 
 
 Compile - Makefile
-    $ autoreconf --install
+    $ ./autogen.sh
     $ ./configure
     $ make
     # make install
 
 Unistalling - Makefile
     # make uninstall
-    
-    
+
+
 GIT Branch - Stable
 Stable Version Of TwitCrusader
 
