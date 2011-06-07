@@ -153,7 +153,7 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
-	
+
 	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
