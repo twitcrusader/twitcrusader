@@ -153,6 +153,8 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
+	
+	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
 	*lastVersionMSG = gtk_label_new ("Last Version: "),
@@ -282,8 +284,6 @@ int windowMain(int argc, char **argv){
 
 	GtkTextBuffer *tweetBuffer;
 
-	createDir();
-
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
@@ -380,17 +380,15 @@ int windowMain(int argc, char **argv){
 
 	/* Twitter Menu: Buttons */
 	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
 	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked",
-	                               GTK_SIGNAL_FUNC(updateGtk),
-	                               GTK_OBJECT (window));
+	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked", GTK_SIGNAL_FUNC(updateGtk), GTK_OBJECT (window));
+
+	new_button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_HOME);
+	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
 
 	new_button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(ICON_MENTION);
@@ -436,7 +434,7 @@ int windowMain(int argc, char **argv){
 
 	// Read Timeline
 	gdk_threads_enter ();
-		gtkRefreshswitchTimeLine(table_into, window);
+	gtkRefreshswitchTimeLine(table_into, window);
 	gdk_threads_leave ();
 
 	// TextArea + Scrollbar

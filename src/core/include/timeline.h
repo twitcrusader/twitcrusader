@@ -99,7 +99,5 @@ struct timeLine timeline[30];
 void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i);
 void readDoc(char *docname);
 int readTimeLine(char *docname);
-int getAvatarCURL();
-void *getSingleAvatarCURL(void* argt);
 
 #endif /* TIMELINE_H_ */
