@@ -282,8 +282,6 @@ int windowMain(int argc, char **argv){
 
 	GtkTextBuffer *tweetBuffer;
 
-	createDir();
-
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);

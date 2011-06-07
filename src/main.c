@@ -35,6 +35,8 @@ int main(int argc, char **argv){
 	/* Fix Struct Size */
 	mollocSizeOF();
 
+	createDir();
+
 	/* Main*/
 	windowMain(argc, argv);
 	
