@@ -37,17 +37,19 @@ build() {
     cd ${_gitname} && git pull origin
     msg "The local files are updated."
   else
-    git clone ${_gitroot} ${_gitname}
+    git clone ${_gitroot} ${_gitname} -b ${_gitbranch}
   fi
+
+  cd "${srcdir}/${_gitname}"
 
   msg "GIT checkout done or server timeout"
   msg "Starting make..."
 
-  cd "${srcdir}/${_gitname}"
-  git checkout "${_gitbranch}"
+  if [ -d "${srcdir}/${_gitname}-build" ] ; then
+    rm -rf "${srcdir}/${_gitname}-build"
+  fi
 
-  rm -rf "${srcdir}/${_gitname}-build"
-  git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
+  cp -r "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
   cd "${srcdir}/${_gitname}-build"
 
   ./autogen.sh
