@@ -43,39 +43,7 @@ char *sumStrings(char *parm1, char *parm2 ){
 	return parm;
 }
 
-/* Change Default-Size Of char* (of struct) */
-void mollocSizeOF(){
 
-	user.id =  (char*) malloc(sizeof(char) * 15);
-	user.screenName =  (char*) malloc(sizeof(char) * 140);
-	user.token =  (char*) malloc(sizeof(char) * 160);
-	user.secretToken =  (char*) malloc(sizeof(char) * 160);
-	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
-	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
-
-	/*Fix Disconnect Message*/
-	strcpy(user.token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
-
-	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
-	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
-
-}
-
-/* Free Allocated Structs */
-void freeSizeOF()
-{
-	free(user.id);
-	free(user.screenName);
-	free(user.token);
-	free(user.secretToken);
-	free(user.consumerKey);
-	free(user.consumerSecretKey);
-}
 
 /*  
  * This function split url-parameters with delimiter char
@@ -137,6 +105,9 @@ void createDir(){
 
 	char *cmd;
 
+	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
+	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
+
 	/* User-Directory Path */
 
 	//Avatar Dir
@@ -167,6 +138,7 @@ char* downloadVersion(){
 
 #define FILE_VERSION "/tmp/version.twc"
 #define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
+
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
 
@@ -176,11 +148,11 @@ char* downloadVersion(){
 	getCURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
-	checkLatesVersion = fopen ("/tmp/version.twc", "r");
+	checkLatesVersion = fopen (FILE_VERSION, "r");
 	fgets(bufferLatesVersion, 15, checkLatesVersion);
 	/* Remove tmp file */
-	remove("/tmp/version.twc");
+	remove(FILE_VERSION);
 
-	if(debug==1) printf("\nversion: %s",bufferLatesVersion);
+	if(debug==1) printf("\nversion: %s", bufferLatesVersion);
 	return bufferLatesVersion;
 }

@@ -33,14 +33,14 @@ int main(int argc, char **argv){
 	if(shellParameters (argc, argv)==1) return 0;
 	
 	/* Fix Struct Size */
-	mollocSizeOF();
+	mallocUsers();
 
 	createDir();
 
 	/* Main*/
 	windowMain(argc, argv);
 	
-	freeSizeOF();
+	freeSizeUsers();
 	
 	return 0;
 }

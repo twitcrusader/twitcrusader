@@ -60,6 +60,8 @@ int writeUserFile();
 int readUserFile();
 void disconnect();
 int deleteAccount();
+void mallocUsers();
+void freeSizeUsers();
 
 
 #endif /* USER_H_ */

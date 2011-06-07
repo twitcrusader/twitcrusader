@@ -24,6 +24,34 @@
 
 #include "include/config.h"
 
+void mallocUsers(){
+	user.id =  (char*) malloc(sizeof(char) * 15);
+	user.screenName =  (char*) malloc(sizeof(char) * 140);
+	user.token =  (char*) malloc(sizeof(char) * 160);
+	user.secretToken =  (char*) malloc(sizeof(char) * 160);
+	user.consumerKey =  (char*) malloc(sizeof(char) * 160);
+	user.consumerSecretKey =  (char*) malloc(sizeof(char) * 160);
+
+	/*Fix Disconnect Message*/
+	strcpy(user.token, " ");
+	strcpy(user.consumerKey, " ");
+	strcpy(user.consumerSecretKey, " ");
+	strcpy(user.id, " ");
+	strcpy(user.screenName, " ");
+	strcpy(user.secretToken, " ");
+}
+
+/* Free Allocated Structs */
+void freeSizeUsers()
+{
+	free(user.id);
+	free(user.screenName);
+	free(user.token);
+	free(user.secretToken);
+	free(user.consumerKey);
+	free(user.consumerSecretKey);
+}
+
 int writeUserFile(){
 
 	xmlTextWriterPtr writer;
@@ -173,12 +201,9 @@ int readUserFile(){
 
 void disconnect(){
 
-	strcpy(user.token, " ");
-	strcpy(user.consumerKey, " ");
-	strcpy(user.consumerSecretKey, " ");
-	strcpy(user.id, " ");
-	strcpy(user.screenName, " ");
-	strcpy(user.secretToken, " ");
+	freeSizeUsers();
+	mallocUsers();
+
 }
 
 int deleteAccount(){
