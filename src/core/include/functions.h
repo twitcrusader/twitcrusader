@@ -40,7 +40,7 @@
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
 int debug;
-void mollocSizeOF();
+void mallocSizeOF();
 void freeSizeOF(void);
 char *sumStrings(char *parm1, char *parm2 );
 char* getParameters(char** argv, int argc, const char* param);
