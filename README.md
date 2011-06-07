@@ -26,13 +26,13 @@ Then fix your GTK path:
 #### Archlinux
 
     # pacman -Syu
-    # pacman -S gtk2 liboauth openssl
+    # pacman -S base-devel liboauth curl openssl libxml2
 
 ### Compile
 
 #### Makefile
 
-    $ ./autogen.sh
+    $ autoreconf --install
     $ ./configure
     $ make
     # sudo make install
