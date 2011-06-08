@@ -160,6 +160,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 
 		// *profile_image,
 		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
+		getCURL(timeline[i].user.profile_image_url, timeline[i].user.profile_image);
 
 		// *url,
 		keys=getTimeLineElement(doc, cur2, "url");

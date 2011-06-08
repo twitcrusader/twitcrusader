@@ -196,14 +196,12 @@ void gtkAddUser(GtkButton *button, gpointer window){
 
 void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
-	int rows, cols, i;
+	int rows = 0, cols;
 
 	GtkWidget *nick,
 	*tweet,
 	*avatar,
 	*align;
-
-	char *avatars[MAX_NUM_TWETT];
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		switchTimeLine(1);
@@ -211,14 +209,8 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 		switchTimeLine(2);
 	}
 
-	for(i=0;i<MAX_NUM_TWETT;i++){
-
-		getCURL(timeline[i].user.profile_image_url,timeline[i].user.profile_image);
-	}
-
-
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		avatar = gtk_image_new_from_file (avatars[cols]);
+		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 		nick = gtk_label_new (timeline[cols].user.screen_name);
 		tweet = gtk_label_new (timeline[cols].text);
 
