@@ -38,8 +38,7 @@
 #define NUMT 4
 
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
-int getCURL(char *url, char *file);
-void *pull_one_url(void *argv);
+void getCURL(char *url, char *file);
 int getWGET(char *url, char *file);
 
 #endif /* GETHTTP_H_ */
