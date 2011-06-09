@@ -35,10 +35,9 @@
 #include "functions.h"
 #include "timeline.h"
 
-#define NUMT 4
-
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
-int getCURL(char *url, char *file);
+void getSingleCURL(char *url, char *file);
+int getMultiCURL(char **url, char **file, int max_num_tid);
 void *pull_one_url(void *argv);
 int getWGET(char *url, char *file);
 

@@ -36,6 +36,8 @@
 #include "twitter.h"
 #include "functions.h"
 
+#define MAX_NUM_TWEETS 20
+
 struct user_timeline{
 	char *id,
 	*name,
@@ -94,10 +96,10 @@ struct timeLine{
 	*contributors;
 };
 
-struct timeLine timeline[30];
+struct timeLine timeline[MAX_NUM_TWEETS];
 
 void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i);
-void readDoc(char *docname);
+int readDoc(char *docname);
 int readTimeLine(char *docname);
 
 #endif /* TIMELINE_H_ */

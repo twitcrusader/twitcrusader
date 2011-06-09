@@ -196,36 +196,56 @@ void gtkAddUser(GtkButton *button, gpointer window){
 
 void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
-	int rows = 0, cols;
+	int rows=0, cols, i, error=0;
 
 	GtkWidget *nick,
 	*tweet,
 	*avatar,
 	*align;
 
+	char *urls[MAX_NUM_TWEETS],
+	*filenames[MAX_NUM_TWEETS];
+
+	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window)");
+
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		switchTimeLine(1);
+		error=switchTimeLine(1);
 	}else {
-		switchTimeLine(2);
+		error=switchTimeLine(2);
 	}
 
-	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
-		nick = gtk_label_new (timeline[cols].user.screen_name);
-		tweet = gtk_label_new (timeline[cols].text);
+	if(error==0){
+		for(i=0;i<=MAX_NUM_TWEETS;i++){
+			urls[i]=(char *)malloc(sizeof(char)*2038);
+			strcpy(urls[i], timeline[i].user.profile_image_url);
+			if(debug==1) fprintf(stderr,"\nurl= %s", urls[i]);
 
-		gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-		gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), nick);
-		gtk_table_attach (GTK_TABLE (table_into), align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			filenames[i]=(char *)malloc(sizeof(char)*255);
+			strcpy(filenames[i], timeline[i].user.profile_image);
+			if(debug==1) fprintf(stderr,"\nfile= %s", filenames[i]);
+
+		}
+
+		getMultiCURL(urls,filenames,MAX_NUM_TWEETS);
+
+		for (cols=0; cols < 20; rows = rows + 4, cols++) {
+			avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
+			nick = gtk_label_new (timeline[cols].user.screen_name);
+			tweet = gtk_label_new (timeline[cols].text);
+
+			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
+			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+			gtk_container_add(GTK_CONTAINER(align), nick);
+			gtk_table_attach (GTK_TABLE (table_into), align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
 
-		gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
-		align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(align), tweet);
-		gtk_table_attach (GTK_TABLE (table_into ), align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
+			gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
+			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+			gtk_container_add(GTK_CONTAINER(align), tweet);
+			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+		}
 	}
 
 }
