@@ -34,7 +34,7 @@ build() {
   msg "Connecting to GIT server...."
 
   if [ -d ${_gitname} ] ; then
-    cd ${_gitname} && git pull origin
+    cd ${_gitname} && git pull origin ${_gitbranch}
     msg "The local files are updated."
   else
     git clone ${_gitroot} ${_gitname} -b ${_gitbranch}
