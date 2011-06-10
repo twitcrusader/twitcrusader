@@ -391,13 +391,13 @@ void gtkSwitchPage (GtkNotebook *notebook){
 
 void gtkDeleteAccount(){
 
-		deleteAccount();
+	deleteAccount();
 
-		disconnect();
+	disconnect();
 
-		destroyGtk(mainWindow.window);
+	destroyGtk(mainWindow.window);
 
-		windowOption();
+	windowOption();
 
 }
 
@@ -421,11 +421,9 @@ void gtkAddUser(){
 	}
 }
 
-void gtkRefreshSwitchTimeLine(){
+int gtkRefreshSwitchTimeLine(){
 
-	int i, error=0;
-
-	pthread_t tid;
+	int error;
 
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window)");
 
@@ -436,38 +434,52 @@ void gtkRefreshSwitchTimeLine(){
 	}
 
 	if(error==0){
-		for(i=0; i<MAX_NUM_TWEETS; i++){
-			char *argv[2];
-			argv[0]=timeline[i].user.profile_image_url;
-			argv[1]=timeline[i].user.profile_image;
+		downloadsAvatars();
 
-			error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
-
-			if(debug==1){
-				if(0 != error)
-					fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
-				else
-					fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
-			}
-
-			error = pthread_join(tid, NULL);
-			if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
-
-		}
+		return 0;
 	}
-
+	return 1;
 }
 
-void updateGtk()
+void downloadsAvatars(){
+	pthread_t tid;
+	int i, error=0;
+
+	for(i=0; i<MAX_NUM_TWEETS; i++){
+		char *argv[2];
+		argv[0]=timeline[i].user.profile_image_url;
+		argv[1]=timeline[i].user.profile_image;
+
+		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
+
+		if(debug==1){
+			if(0 != error)
+				fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
+			else
+				fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
+		}
+
+		error = pthread_join(tid, NULL);
+		if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
+
+	}
+}
+
+
+int updateGtk()
 {
+	int error;
+
 	// Read Timeline
 
-		gtkRefreshSwitchTimeLine(mainWindow.table_into, mainWindow.window);
+	error=gtkRefreshSwitchTimeLine(mainWindow.table_into, mainWindow.window);
 
+	if(error==1) return 1;
 
 	/* Destroy the widget */
 	destroyGtk(mainWindow.window);
 	windowMain();
+	return 0;
 }
 
 /*

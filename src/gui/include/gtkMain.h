@@ -96,7 +96,7 @@ typedef struct configuration {
 
 int windowMain();
 void destroyGtk();
-void updateGtk();
+int updateGtk();
 gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
 void updateStatusBar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
@@ -106,7 +106,8 @@ void gtkDeleteAccount();
 void gtkConnect();
 void gtkDisconnect();
 void gtkAddUser();
-void gtkRefreshSwitchTimeLine();
+int gtkRefreshSwitchTimeLine();
+void downloadsAvatars();
 void destroyGtk();
 
 
