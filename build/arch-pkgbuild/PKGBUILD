@@ -37,18 +37,16 @@ build() {
     cd ${_gitname} && git pull origin
     msg "The local files are updated."
   else
-    git clone ${_gitroot} ${_gitname} -b ${_gitbranch}
+    git clone ${_gitroot} ${_gitname}
   fi
 
   cd "${srcdir}/${_gitname}"
+  git checkout origin/${_gitbranch}
 
   msg "GIT checkout done or server timeout"
   msg "Starting make..."
 
-  if [ -d "${srcdir}/${_gitname}-build" ] ; then
-    rm -rf "${srcdir}/${_gitname}-build"
-  fi
-
+  rm -rf "${srcdir}/${_gitname}-build"
   git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
   cd "${srcdir}/${_gitname}-build"
 
