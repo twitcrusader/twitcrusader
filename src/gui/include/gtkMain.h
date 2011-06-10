@@ -107,6 +107,7 @@ void gtkConnect();
 void gtkDisconnect();
 void gtkAddUser();
 void gtkRefreshswitchTimeLine();
+void destroyGtk();
 
 
 #endif /* GTKMAIN_H_ */

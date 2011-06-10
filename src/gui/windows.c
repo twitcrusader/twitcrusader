@@ -185,7 +185,7 @@ void windowUpgrade(){
 	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroyGtk), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (CloseWindow), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -245,5 +245,11 @@ int windowAddUser()
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (DataInput->window);
 	return 0;
+}
+
+void CloseWindow(GtkButton *button, gpointer widget)
+{
+	/* Destroy the widget */
+	gtk_widget_destroy (GTK_WIDGET (widget));
 }
 

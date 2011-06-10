@@ -53,5 +53,6 @@ void windowOption();
 void windowUpgrade();
 void windowCredits();
 int windowAddUser();
+void CloseWindow(GtkButton *button, gpointer widget);
 
 #endif /* GTKFUNCTION_H_ */

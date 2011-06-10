@@ -294,7 +294,7 @@ void gtkAccessToken(AuthWidget *DataInput){
 	if(correctVerify == 1) windowError("Error: bad Input!");
 
 
-	if(correctVerify == 0)destroyGtk(mainWindow.new_button, DataInput->window);
+	if(correctVerify == 0)destroyGtk(DataInput->window);
 
 }
 
@@ -395,7 +395,7 @@ void gtkDeleteAccount(){
 
 		disconnect();
 
-		destroyGtk();
+		destroyGtk(mainWindow.window);
 
 		windowOption();
 
@@ -417,7 +417,7 @@ void gtkDisconnect(){
 
 void gtkAddUser(){
 	if(windowAddUser()==0){
-		destroyGtk();
+		destroyGtk(mainWindow.window);
 	}
 }
 
@@ -466,15 +466,14 @@ void updateGtk()
 
 
 	/* Destroy the widget */
-	destroyGtk();
+	destroyGtk(mainWindow.window);
 	windowMain(0, NULL);
 }
 
 /*
  * Delete widget for button-event
  */
-void destroyGtk()
-{
+void destroyGtk(){
 	/* Destroy the widget */
 	gtk_widget_destroy (GTK_WIDGET (mainWindow.window));
 }
