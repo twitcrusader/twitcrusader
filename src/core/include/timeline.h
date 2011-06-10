@@ -99,7 +99,6 @@ struct timeLine{
 struct timeLine timeline[MAX_NUM_TWEETS];
 
 void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i);
-int readDoc(char *docname);
 int readTimeLine(char *docname);
 
 #endif /* TIMELINE_H_ */

@@ -362,7 +362,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 	cur = cur->next;
 }
 
-int readDoc(char *docname) {
+int readTimeLine(char *docname) {
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -402,16 +402,6 @@ int readDoc(char *docname) {
 
 	xmlFreeDoc(doc);
 
-	return 0;
-}
-
-int readTimeLine(char *docname) {
-	int error;
-
-	error=readDoc (docname);
-	if(error==1){
-		return 1;
-	}
 	return 0;
 }
 

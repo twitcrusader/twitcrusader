@@ -54,24 +54,29 @@ void *pull_one_url(void *argv){
 	if(debug==1) fprintf(stderr,"\npull_one_url(void *argv)");
 	if(debug==1) fprintf(stderr,"\nurl= %s",url);
 	if(debug==1) fprintf(stderr,"\nfile= %s",file);
-	curl = curl_easy_init();
 
-	if(curl) {
+	if(url!=NULL && file!=NULL){
 
-		curl_easy_setopt(curl, CURLOPT_URL, url);
-		curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
 
-		// Open the file to write the copied file to
-		destFile = fopen(file,"w+b");
+		curl = curl_easy_init();
 
-		// Tell libcurl where to write the file
-		curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writeFunction);
-		curl_easy_setopt(curl,CURLOPT_WRITEDATA,destFile);
-		curl_easy_perform(curl);
+		if(curl) {
 
-		/* always cleanup */
-		fclose(destFile);
-		curl_easy_cleanup(curl);
+			curl_easy_setopt(curl, CURLOPT_URL, url);
+			curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+
+			// Open the file to write the copied file to
+			destFile = fopen(file,"w+b");
+
+			// Tell libcurl where to write the file
+			curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writeFunction);
+			curl_easy_setopt(curl,CURLOPT_WRITEDATA,destFile);
+			curl_easy_perform(curl);
+
+			/* always cleanup */
+			fclose(destFile);
+			curl_easy_cleanup(curl);
+		}
 	}
 
 	return 0;
