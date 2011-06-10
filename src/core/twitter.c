@@ -267,7 +267,7 @@ int switchTimeLine(int xmlSwitch){
 	char *timelineURL=NULL,
 			*timeline, *cmd=NULL;
 	char *postarg=NULL,
-		 *tmpFile = NULL;
+			*tmpFile = NULL;
 
 	if(debug==1) printf("\nint switchTimeLine()");
 	if(debug==1) printf("\nxmlSwitch = %d\n",xmlSwitch);
@@ -276,37 +276,37 @@ int switchTimeLine(int xmlSwitch){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
 		timelineURL=HOME_TIMELINE_URL;
 	}
-		
+
 	if(xmlSwitch == 2){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
 		timelineURL=PUBLIC_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 3){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
 		timelineURL=MENTIONS_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 4){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
 		timelineURL=FRIENDS_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 5){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
 		timelineURL=USER_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 6){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
 		timelineURL=RT_BY_ME_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 7){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
 		timelineURL=RT_TO_ME_TIMELINE_URL;
 	}
-	
+
 	if(xmlSwitch == 8){
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
 		timelineURL=RT_OF_ME_TIMELINE_URL;
@@ -318,21 +318,23 @@ int switchTimeLine(int xmlSwitch){
 
 	fp=fopen(tmpFile, "w");
 
-	if(fp!=NULL){
+	if(timeline!=NULL){
+		if(fp!=NULL){
 
-		printf("\nfputs(timeline, fp)");
+			printf("\nfputs(timeline, fp)");
 
-		fprintf(fp, "%s",timeline);
-		fclose(fp);
-		system("echo \"Downloading Twitter Files...\"");
-		readDoc(tmpFile);
+			fprintf(fp, "%s",timeline);
+			fclose(fp);
+			system("echo \"Downloading Twitter Files...\"");
+			readTimeLine(tmpFile);
 
-		asprintf(&cmd,"rm -f %s", tmpFile);
-		if(debug==1) printf("\ncmd= %s",cmd);
+			asprintf(&cmd,"rm -f %s", tmpFile);
+			if(debug==1) printf("\ncmd= %s",cmd);
 
-		system(cmd);
-		free(timeline);
-		return 0;
+			system(cmd);
+			free(timeline);
+			return 0;
+		}
 	}
 	free(timeline);
 	return 1;

@@ -147,7 +147,7 @@ char* downloadVersion(){
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
 	//system ("wget -O  "TWC_UPDATES_URL"?current="TWC_VERSION);
-	getCURL(VERSION_URL, FILE_VERSION);
+	getSingleCURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen (FILE_VERSION, "r");

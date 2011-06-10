@@ -153,14 +153,13 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 		cur2 = cur2->next;
 
 		// *profile_image_url,
-			keys=getTimeLineElement(doc, cur2, "profile_image_url");
-			timeline[i].user.profile_image_url=keys;
-			cur2 = cur2->next;
-			cur2 = cur2->next;
+		keys=getTimeLineElement(doc, cur2, "profile_image_url");
+		timeline[i].user.profile_image_url=keys;
+		cur2 = cur2->next;
+		cur2 = cur2->next;
 
 		// *profile_image,
 		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
-		getCURL(timeline[i].user.profile_image_url, timeline[i].user.profile_image);
 
 		// *url,
 		keys=getTimeLineElement(doc, cur2, "url");
@@ -363,7 +362,7 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 	cur = cur->next;
 }
 
-void readDoc(char *docname) {
+int readTimeLine(char *docname) {
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -373,7 +372,7 @@ void readDoc(char *docname) {
 
 	if (doc == NULL ) {
 		if(debug==1) printf("Document not parsed successfully. \n");
-		return;
+		return 1;
 	}
 
 	cur = xmlDocGetRootElement(doc);
@@ -381,13 +380,13 @@ void readDoc(char *docname) {
 	if (cur == NULL) {
 		if(debug==1) printf("empty document\n");
 		xmlFreeDoc(doc);
-		return;
+		return 1;
 	}
 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "statuses")) {
 		if(debug==1) printf("root node != statuses");
 		xmlFreeDoc(doc);
-		return;
+		return 1;
 	}
 
 	cur = cur->xmlChildrenNode;
@@ -403,15 +402,6 @@ void readDoc(char *docname) {
 
 	xmlFreeDoc(doc);
 
-	int getAvatarCURL();
-
-	return;
-}
-
-int readTimeLine(char *docname) {
-
-	readDoc (docname);
-
-	return (1);
+	return 0;
 }
 
