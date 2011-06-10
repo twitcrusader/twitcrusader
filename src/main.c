@@ -31,6 +31,9 @@
  */
 int main(int argc, char **argv){
 
+	pthread_t tid[2];
+	int error;
+
 	/* debug */
 	if(shellParameters (argc, argv)==1) return 0;
 	
@@ -40,7 +43,12 @@ int main(int argc, char **argv){
 	createDir();
 
 	/* Main*/
-	windowMain(argc, argv);
+	error = pthread_create(&tid[0], NULL, windowMain, (void *)argv);
+
+	error = pthread_create(&tid[1], NULL, updateGtk, (void *)argv);
+
+	error = pthread_join(tid[1], NULL);
+	error = pthread_join(tid[0], NULL);
 	
 	freeSizeUsers();
 	
