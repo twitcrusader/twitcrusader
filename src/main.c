@@ -43,12 +43,12 @@ int main(int argc, char **argv){
 	createDir();
 
 	/* Main*/
-	error = pthread_create(&tid[0], NULL, windowMain, (void *)argv);
+	error = pthread_create(&tid[0], NULL, updateGtk, (void *)argv);
 
-	error = pthread_create(&tid[1], NULL, updateGtk, (void *)argv);
+	error = pthread_create(&tid[1], NULL, windowMain, (void *)argv);
 
-	error = pthread_join(tid[1], NULL);
 	error = pthread_join(tid[0], NULL);
+	error = pthread_join(tid[1], NULL);
 	
 	freeSizeUsers();
 	

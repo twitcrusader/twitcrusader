@@ -272,44 +272,51 @@ int switchTimeLine(int xmlSwitch){
 	if(debug==1) printf("\nint switchTimeLine()");
 	if(debug==1) printf("\nxmlSwitch = %d\n",xmlSwitch);
 
-	if(xmlSwitch == 1){
+	switch(xmlSwitch){
+
+	case 1:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
 		timelineURL=HOME_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 2){
+
+	case 2:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
 		timelineURL=PUBLIC_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 3){
+
+	case 3:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
 		timelineURL=MENTIONS_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 4){
+
+	case 4:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
 		timelineURL=FRIENDS_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 5){
+
+	case 5:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
 		timelineURL=USER_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 6){
+
+	case 6:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
 		timelineURL=RT_BY_ME_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 7){
+
+	case 7:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
 		timelineURL=RT_TO_ME_TIMELINE_URL;
-	}
 
-	if(xmlSwitch == 8){
+
+	case 8:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
 		timelineURL=RT_OF_ME_TIMELINE_URL;
+
+
+	default:
+		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
+		timelineURL=PUBLIC_TIMELINE_URL;
 	}
 
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.token, user.secretToken);
