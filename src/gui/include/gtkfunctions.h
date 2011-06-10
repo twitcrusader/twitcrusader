@@ -65,17 +65,17 @@ typedef struct configuration {
 	char* default_user;
 }config;
 
-void destroyGtk(GtkButton *button, gpointer widget);
-void updateGtk(GtkButton *button, gpointer window);
+void destroyGtk();
+void updateGtk();
 gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
 gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
 void updateStatusBar(GtkTextBuffer *buffer, GtkStatusbar  *statusbar);
-void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook);
-void gtkAccessToken(GtkButton *button, AuthWidget *DataInput);
-void gtkDeleteAccount(GtkButton *button, gpointer widget);
-void gtkConnect(GtkButton *button, gpointer window);
-void gtkDisconnect(GtkButton *button, gpointer window);
-void gtkAddUser(GtkButton *button, gpointer window);
-void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window);
+void gtkSwitchPage (GtkNotebook *notebook);
+void gtkAccessToken(AuthWidget *DataInput);
+void gtkDeleteAccount();
+void gtkConnect();
+void gtkDisconnect();
+void gtkAddUser();
+void gtkRefreshswitchTimeLine();
 
 #endif /* GTKWINDOWS_H_ */

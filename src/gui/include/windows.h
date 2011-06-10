@@ -62,6 +62,38 @@
 #define ICON_LINK ICONS_DIR"/link.png"
 #define ICON_PHOTO ICONS_DIR"/photo.png"
 
+struct main_window{
+	char *statusLabel;
+
+	GError *error;
+	GtkWidget *window,
+	*table,
+	*scroll,
+	*icon_menu,
+	*table_into,
+	*scrolled_window,
+	*menu_bar,
+	*layout,
+	*toolbar,
+	*statusbar,
+	*statusbar_char,
+	*new_button,
+	*text,
+	*file_menu_obj,
+	*file_menu_root,
+	*file_menu_items,
+	*aiuto_menu_obj,
+	*aiuto_menu_root,
+	*aiuto_menu_items,
+	*nick,
+	*tweet,
+	*avatar,
+	*align;
+
+	GtkTextBuffer *tweetBuffer;
+
+}mainWindow;
+
 void windowError(char* error_msg);
 void windowOption();
 void windowUpgrade();

@@ -55,7 +55,7 @@ gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata
  * And call Validate PIN function
  * 
  */
-void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
+void gtkAccessToken(AuthWidget *DataInput){
 
 	int correctVerify;
 
@@ -69,7 +69,7 @@ void gtkAccessToken(GtkButton *button, AuthWidget *DataInput){
 	if(correctVerify == 1) windowError("Error: bad Input!");
 
 
-	if(correctVerify == 0)destroyGtk(button, DataInput->window);
+	if(correctVerify == 0)destroyGtk(mainWindow.new_button, DataInput->window);
 
 }
 
@@ -149,11 +149,12 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
  * Change TAB (for setting window) 
  * 
  */
-void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
-	if (gtk_notebook_get_current_page (notebook) == 0)
-	{
+void gtkSwitchPage (GtkNotebook *notebook){
+	if (gtk_notebook_get_current_page (notebook) == 0){
+
 		gtk_notebook_set_current_page (notebook, 1);
 	}else{
+
 		gtk_notebook_set_current_page (notebook, 0);
 	}
 }
@@ -163,15 +164,16 @@ void gtkSwitchPage (GtkButton *button, GtkNotebook *notebook){
  * 
  */
 
-void gtkDeleteAccount(GtkButton *button, gpointer window){
-	if(strcmp(user.consumerKey, " ") != 0 && 
-			strcmp(user.consumerSecretKey, " ") != 0 && 
-			strcmp(user.token, " ") != 0 &&
-			strcmp(user.secretToken, " ") != 0){
+void gtkDeleteAccount(){
+
 		deleteAccount();
-		destroyGtk(button,window);
+
+		disconnect();
+
+		destroyGtk();
+
 		windowOption();
-	}
+
 }
 
 void gtkConnect(GtkButton *button, gpointer window){
@@ -181,29 +183,24 @@ void gtkConnect(GtkButton *button, gpointer window){
 	}
 }
 
-void gtkDisconnect(GtkButton *button, gpointer window){
+void gtkDisconnect(){
 
 	disconnect();
 
-	updateGtk(button, window);
+	updateGtk();
 }
 
-void gtkAddUser(GtkButton *button, gpointer window){
+void gtkAddUser(){
 	if(windowAddUser()==0){
-		destroyGtk(button, window);
+		destroyGtk();
 	}
 }
 
-void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
+void gtkRefreshswitchTimeLine(){
 
-	int rows=0, cols, i, error=0;
+	int i, error=0;
 
 	pthread_t tid;
-
-	GtkWidget *nick,
-	*tweet,
-	*avatar,
-	*align;
 
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window)");
 
@@ -214,7 +211,7 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 	}
 
 	if(error==0){
-		for(i=0; i<=MAX_NUM_TWEETS; i++){
+		for(i=0; i<MAX_NUM_TWEETS; i++){
 			char *argv[2];
 			argv[0]=timeline[i].user.profile_image_url;
 			argv[1]=timeline[i].user.profile_image;
@@ -232,42 +229,28 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 			if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
 
 		}
-
-		for (cols=0; cols < 20; rows = rows + 4, cols++) {
-			avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
-			nick = gtk_label_new (timeline[cols].user.screen_name);
-			tweet = gtk_label_new (timeline[cols].text);
-
-			gtk_table_attach (GTK_TABLE (table_into), avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-			gtk_label_set_justify(GTK_LABEL(nick),GTK_JUSTIFY_LEFT);
-			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-			gtk_container_add(GTK_CONTAINER(align), nick);
-			gtk_table_attach (GTK_TABLE (table_into), align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-
-
-			gtk_label_set_justify(GTK_LABEL(tweet),GTK_JUSTIFY_LEFT);
-			gtk_label_set_line_wrap(GTK_LABEL(tweet), TRUE);
-			align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-			gtk_container_add(GTK_CONTAINER(align), tweet);
-			gtk_table_attach (GTK_TABLE (table_into ), align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-		}
 	}
 
 }
 
-void updateGtk(GtkButton *button, gpointer window)
+void updateGtk()
 {
+	// Read Timeline
+
+		gtkRefreshswitchTimeLine(mainWindow.table_into, mainWindow.window);
+
+
 	/* Destroy the widget */
-	destroyGtk(button, window);
+	destroyGtk();
 	windowMain(0, NULL);
 }
 
 /*
  * Delete widget for button-event
  */
-void destroyGtk(GtkButton *button, gpointer widget)
+void destroyGtk()
 {
 	/* Destroy the widget */
-	gtk_widget_destroy (GTK_WIDGET (widget));
+	gtk_widget_destroy (GTK_WIDGET (mainWindow.window));
 }
 
