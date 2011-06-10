@@ -94,7 +94,7 @@ typedef struct configuration {
 	char* default_user;
 }config;
 
-int windowMain(int argc, char **argv);
+int windowMain();
 void destroyGtk();
 void updateGtk();
 gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
@@ -106,7 +106,7 @@ void gtkDeleteAccount();
 void gtkConnect();
 void gtkDisconnect();
 void gtkAddUser();
-void gtkRefreshswitchTimeLine();
+void gtkRefreshSwitchTimeLine();
 void destroyGtk();
 
 

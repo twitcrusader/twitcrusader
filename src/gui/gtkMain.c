@@ -32,10 +32,10 @@
  *
  */
 
-int windowMain(int argc, char **argv){
+int windowMain(){
 	g_thread_init (NULL);
 	gdk_threads_init ();
-	gtk_init (&argc, &argv);
+	gtk_init (0, NULL);
 
 	int rows=0, cols, i;
 
@@ -421,7 +421,7 @@ void gtkAddUser(){
 	}
 }
 
-void gtkRefreshswitchTimeLine(){
+void gtkRefreshSwitchTimeLine(){
 
 	int i, error=0;
 
@@ -462,12 +462,12 @@ void updateGtk()
 {
 	// Read Timeline
 
-		gtkRefreshswitchTimeLine(mainWindow.table_into, mainWindow.window);
+		gtkRefreshSwitchTimeLine(mainWindow.table_into, mainWindow.window);
 
 
 	/* Destroy the widget */
 	destroyGtk(mainWindow.window);
-	windowMain(0, NULL);
+	windowMain();
 }
 
 /*
