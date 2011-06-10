@@ -21,32 +21,61 @@
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
 
-#ifndef GTKWINDOWS_H_
-#define GTKWINDOWS_H_
+#ifndef GTKMAIN_H_
+#define GTKMAIN_H_
 
-#define _GNU_SOURCE
-
-#include <stdio.h>
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <pthread.h>
 #include <gdk/gdkkeysyms.h>
 
-#include <string.h>
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#include "windows.h"
+#include "icons.h"
 
 #include "../../core/include/functions.h"
-//#include "../../core/include/timeline.h"
 #include "../../core/include/twitter.h"
 #include "../../core/include/gethttp.h"
-#include "../../core/include/config.h"
+
+struct main_window{
+	char *statusLabel;
+
+	GError *error;
+	GtkWidget *window,
+	*table,
+	*scroll,
+	*icon_menu,
+	*table_into,
+	*scrolled_window,
+	*menu_bar,
+	*layout,
+	*toolbar,
+	*statusbar,
+	*statusbar_char,
+	*new_button,
+	*text,
+	*file_menu_obj,
+	*file_menu_root,
+	*file_menu_items,
+	*aiuto_menu_obj,
+	*aiuto_menu_root,
+	*aiuto_menu_items,
+	*nick,
+	*tweet,
+	*avatar,
+	*align;
+
+	GtkTextBuffer *tweetBuffer;
+
+}mainWindow;
+
+struct menu{
+	char *name;
+	char *icon;
+	void *function;
+
+};
 
 typedef struct
 {
@@ -65,6 +94,7 @@ typedef struct configuration {
 	char* default_user;
 }config;
 
+int windowMain(int argc, char **argv);
 void destroyGtk();
 void updateGtk();
 gboolean gtkOnKeyPress (GtkWidget * window, GdkEventKey* pKey, gpointer userdata);
@@ -78,4 +108,5 @@ void gtkDisconnect();
 void gtkAddUser();
 void gtkRefreshswitchTimeLine();
 
-#endif /* GTKWINDOWS_H_ */
+
+#endif /* GTKMAIN_H_ */

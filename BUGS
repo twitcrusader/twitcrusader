@@ -1,6 +1,4 @@
 =========== Known Issues ===========		
-- Twitcrusader Crash when choise "connect" 
-
 - Not Work mention/dm timeline
 
 - timeline freeze on avatars downloads
@@ -8,3 +6,7 @@
 - Timeline: bad layout
 
 - No complete GUI interface work
+
+- GUI freeze
+
+- button "CLOSE " on Credit window close all!
