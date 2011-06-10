@@ -326,7 +326,7 @@ int switchTimeLine(int xmlSwitch){
 			fprintf(fp, "%s",timeline);
 			fclose(fp);
 			system("echo \"Downloading Twitter Files...\"");
-			readDoc(tmpFile);
+			readTimeLine(tmpFile);
 
 			asprintf(&cmd,"rm -f %s", tmpFile);
 			if(debug==1) printf("\ncmd= %s",cmd);
