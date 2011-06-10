@@ -153,7 +153,7 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
-	
+
 	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
@@ -185,7 +185,7 @@ void windowUpgrade(){
 	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (destroyGtk), G_OBJECT (window));
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (CloseWindow), G_OBJECT (window));
 
 	/* Attach tabke at window container */
 	gtk_container_add (GTK_CONTAINER (window), table);
@@ -247,225 +247,9 @@ int windowAddUser()
 	return 0;
 }
 
-
-/*
- * Windows Main
- * Twitter TimeLine Content
- *
- */
-
-int windowMain(int argc, char **argv){
-	g_thread_init (NULL);
-	gdk_threads_init ();
-	gtk_init (&argc, &argv);
-
-	char *statusLabel;
-
-	GError *error = NULL;
-	GtkWidget *window,
-	*table,
-	*scroll,
-	*icon_menu,
-	*table_into,
-	*scrolled_window,
-	*menu_bar,
-	*layout,
-	*toolbar,
-	*statusbar,
-	*statusbar_char,
-	*new_button,
-	*text,
-	*file_menu_obj,
-	*file_menu_root,
-	*file_menu_items,
-	*aiuto_menu_obj,
-	*aiuto_menu_root,
-	*aiuto_menu_items;
-
-	GtkTextBuffer *tweetBuffer;
-
-	/* Set all window options (color, size, position, logo, icon, etc) */
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
-	gtk_widget_set_size_request (window, 315, 400);
-	gtk_window_set_title (GTK_WINDOW(window), "TwitCrusader");
-	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
-
-	/* GTK Widget: Menu */
-	file_menu_obj = gtk_menu_new();
-	aiuto_menu_obj = gtk_menu_new();
-
-	/* SuBMenu File
-	 * Fix Icons Linux
-	 * gconftool-2 --type boolean --set /desktop/gnome/interface/buttons_have_icons true
-	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
-	 * */
-	file_menu_items = gtk_image_menu_item_new_with_label("Connetti");
-	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkConnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("Disconnetti");
-	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_separator_menu_item_new();
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
-	icon_menu = gtk_image_new_from_file(ICON_SETTINGS);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windowOption), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
-	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_root = gtk_menu_item_new_with_label("File");
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM (file_menu_root), file_menu_obj);
-
-	/* SubMenu: Help */
-	aiuto_menu_items = gtk_image_menu_item_new_with_label("Updates");
-	icon_menu = gtk_image_new_from_file(ICON_UPGRADE);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowUpgrade), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
-
-	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
-	icon_menu = gtk_image_new_from_file(ICON_STAR);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowCredits), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
-
-	aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
-
-	/* Set Layout Position */
-	layout = gtk_vbox_new(0, 1);
-	gtk_container_add(GTK_CONTAINER(window), layout);
-	menu_bar = gtk_menu_bar_new();
-	gtk_box_pack_start(GTK_BOX(layout), menu_bar, FALSE, FALSE, 0);
-	gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), file_menu_root);
-	gtk_menu_bar_append(GTK_MENU_BAR (menu_bar), aiuto_menu_root);
-
-	/* Status Bar */
-	statusbar = gtk_statusbar_new ();
-	StatusBar.message = GTK_STATUSBAR(statusbar);
-	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
-
-
-	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
-		statusLabel="Disconnect..";
-	}else{
-		statusLabel="Connect..";
-	}
-
-	gtk_statusbar_push (StatusBar.message, 0, statusLabel);
-
-	gtk_box_pack_end (GTK_BOX (layout), statusbar, FALSE, FALSE, 0);
-
-	/* GTK Widget: Twitter Menu */
-	toolbar = gtk_toolbar_new ();
-	gtk_box_pack_end (GTK_BOX (layout), toolbar, FALSE, FALSE, 0);
-	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
-
-	/* Twitter Menu: Buttons */
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-	gtk_signal_connect_object (GTK_OBJECT (new_button), "clicked", GTK_SIGNAL_FUNC(updateGtk), GTK_OBJECT (window));
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_MENTION);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_DM);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_FAVORITES);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_LINK);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	new_button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_PHOTO);
-	gtk_button_set_image(GTK_BUTTON(new_button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), new_button);
-
-	/* Status Bar: Twitter 140char */
-	statusbar_char = gtk_statusbar_new ();
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(statusbar_char), FALSE);
-	gtk_statusbar_push (GTK_STATUSBAR(statusbar_char), 0, "140");
-	gtk_box_pack_end (GTK_BOX (layout), statusbar_char, FALSE, FALSE, 0);
-
-	/* Table Content Tweet/Mentions */
-	table = gtk_table_new (9, 3, TRUE);
-	gtk_container_add(GTK_CONTAINER(layout), table);
-
-	/* Scrolled */
-	table_into = gtk_table_new (1, 3, TRUE);
-	scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_table_attach (GTK_TABLE (table), scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), table_into);
-
-	// Read Timeline
-	gdk_threads_enter ();
-	gtkRefreshswitchTimeLine(table_into, window);
-	gdk_threads_leave ();
-
-	// TextArea + Scrollbar
-	scroll = gtk_scrolled_window_new(NULL,NULL);
-	gtk_table_attach (GTK_TABLE (table), scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
-	text = gtk_text_view_new();
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(text), TRUE);
-	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(text), GTK_WRAP_WORD_CHAR);
-	tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
-	gtk_text_buffer_set_text (tweetBuffer, "", -1);
-	g_signal_connect(tweetBuffer, "changed", G_CALLBACK(updateStatusBar), statusbar_char);
-	g_signal_connect(text, "key-press-event", G_CALLBACK(gtkSendTweet), tweetBuffer);
-	gtk_container_add(GTK_CONTAINER(scroll), text);
-
-
-	/* CALLBACK: exit event */
-	g_signal_connect (window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
-	g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
-
-	// Widget Show
-	gtk_widget_show_all (window);
-
-	//Exist Config File?
-	if(fopen (progPath.configFile, "r")==NULL) windowAddUser();
-
-	//Show GTK Main
-	gdk_threads_enter();
-	gtk_main ();
-	gdk_threads_leave ();
-
-	return 0;
+void CloseWindow(GtkButton *button, gpointer widget)
+{
+	/* Destroy the widget */
+	gtk_widget_destroy (GTK_WIDGET (widget));
 }
+

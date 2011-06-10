@@ -13,9 +13,9 @@
 # gtk2 -> libxml2
 
 pkgname=twitcrusader-git
-pkgver=20110607
+pkgver=20110610
 pkgrel=1
-pkgdesc="A Twitter client for Linux"
+pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
