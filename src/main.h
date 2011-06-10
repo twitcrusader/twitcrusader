@@ -32,6 +32,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <pthread.h>
+
 
 #include "gui/include/windows.h"
 #include "core/include/functions.h"
