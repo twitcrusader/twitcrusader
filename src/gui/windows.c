@@ -26,6 +26,13 @@
 
 #include "include/windows.h"
 
+struct menu{
+	char *name;
+	char *icon;
+	void *function;
+
+};
+
 void windowError(char* error_msg){
 
 	GtkWidget *window,
@@ -153,7 +160,7 @@ void windowCredits(){
  *
  */
 void windowUpgrade(){
-	
+
 	//FILE* checkLatesVersion = NULL;
 	char bufferLatesVersion[10];
 	GtkWidget *window,
@@ -284,6 +291,37 @@ int windowMain(int argc, char **argv){
 
 	GtkTextBuffer *tweetBuffer;
 
+	int i;
+
+	struct menu menu1[4];
+	menu1[0].name="Connetti";
+	menu1[0].icon=ICON_ADDUSER;
+	menu1[0].function=G_CALLBACK (gtkConnect);
+
+	menu1[1].name="Disconnetti";
+	menu1[1].icon=ICON_ADDUSER;
+	menu1[1].function=G_CALLBACK (gtkDisconnect);
+
+	menu1[2].name="Opzioni";
+	menu1[2].icon=ICON_SETTINGS;
+	menu1[2].function=G_CALLBACK (windowOption);
+
+	menu1[3].name="Esci";
+	menu1[3].icon=ICON_CLOSE;
+	menu1[3].function=G_CALLBACK (gtk_main_quit);
+
+	struct menu menu2[2];
+
+	menu2[0].name="Updates";
+	menu2[0].icon=ICON_UPGRADE;
+	menu2[0].function=G_CALLBACK (windowUpgrade);
+
+	menu2[1].name="Informazioni";
+	menu2[1].icon=ICON_STAR;
+	menu2[1].function=G_CALLBACK (windowCredits);
+
+
+
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 315, 650);
@@ -302,49 +340,31 @@ int windowMain(int argc, char **argv){
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/buttons_have_icons true
 	 * gconftool-2 --type boolean --set /desktop/gnome/interface/menus_have_icons true
 	 * */
-	file_menu_items = gtk_image_menu_item_new_with_label("Connetti");
-	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkConnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
 
-	file_menu_items = gtk_image_menu_item_new_with_label("Disconnetti");
-	icon_menu = gtk_image_new_from_file(ICON_ADDUSER);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtkDisconnect), G_OBJECT (window));
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	for(i=0;i<4;i++){
+		file_menu_items = gtk_image_menu_item_new_with_label(menu1[i].name);
+		icon_menu = gtk_image_new_from_file(menu1[i].icon);
+		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
+		g_signal_connect (G_OBJECT (file_menu_items), "activate", menu1[i].function, G_OBJECT (window));
+		gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+		if(i==2){
+			file_menu_items = gtk_separator_menu_item_new();
+			gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+		}
+	}
 
-	file_menu_items = gtk_separator_menu_item_new();
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	/* SubMenu: Help */
+	for(i=0;i<2;i++){
+		aiuto_menu_items = gtk_image_menu_item_new_with_label(menu2[i].name);
+		icon_menu = gtk_image_new_from_file(menu2[i].icon);
+		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
+		g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", menu2[i].function, NULL);
+		gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
 
-	file_menu_items = gtk_image_menu_item_new_with_label("Opzioni");
-	icon_menu = gtk_image_new_from_file(ICON_SETTINGS);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (windowOption), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
-
-	file_menu_items = gtk_image_menu_item_new_with_label("Esci");
-	icon_menu = gtk_image_new_from_file(ICON_CLOSE);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (file_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (file_menu_items), "activate", G_CALLBACK (gtk_main_quit), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(file_menu_obj), file_menu_items);
+	}
 
 	file_menu_root = gtk_menu_item_new_with_label("File");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (file_menu_root), file_menu_obj);
-
-	/* SubMenu: Help */
-	aiuto_menu_items = gtk_image_menu_item_new_with_label("Updates");
-	icon_menu = gtk_image_new_from_file(ICON_UPGRADE);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowUpgrade), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
-
-	aiuto_menu_items = gtk_image_menu_item_new_with_label("Informazioni");
-	icon_menu = gtk_image_new_from_file(ICON_STAR);
-	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (aiuto_menu_items), icon_menu);
-	g_signal_connect (G_OBJECT (aiuto_menu_items), "activate", G_CALLBACK (windowCredits), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(aiuto_menu_obj), aiuto_menu_items);
-
 	aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (aiuto_menu_root), aiuto_menu_obj);
 

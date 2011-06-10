@@ -198,13 +198,12 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 
 	int rows=0, cols, i, error=0;
 
+	pthread_t tid;
+
 	GtkWidget *nick,
 	*tweet,
 	*avatar,
 	*align;
-
-	char *urls[MAX_NUM_TWEETS],
-	*filenames[MAX_NUM_TWEETS];
 
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window)");
 
@@ -215,18 +214,24 @@ void gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window){
 	}
 
 	if(error==0){
-		for(i=0;i<=MAX_NUM_TWEETS;i++){
-			urls[i]=(char *)malloc(sizeof(char)*2038);
-			strcpy(urls[i], timeline[i].user.profile_image_url);
-			if(debug==1) fprintf(stderr,"\nurl= %s", urls[i]);
+		for(i=0; i<=MAX_NUM_TWEETS; i++){
+			char *argv[2];
+			argv[0]=timeline[i].user.profile_image_url;
+			argv[1]=timeline[i].user.profile_image;
 
-			filenames[i]=(char *)malloc(sizeof(char)*255);
-			strcpy(filenames[i], timeline[i].user.profile_image);
-			if(debug==1) fprintf(stderr,"\nfile= %s", filenames[i]);
+			error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
+
+			if(debug==1){
+				if(0 != error)
+					fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
+				else
+					fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
+			}
+
+			error = pthread_join(tid, NULL);
+			if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
 
 		}
-
-		getMultiCURL(urls,filenames,MAX_NUM_TWEETS);
 
 		for (cols=0; cols < 20; rows = rows + 4, cols++) {
 			avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
