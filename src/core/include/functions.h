@@ -47,5 +47,7 @@ char* getParameters(char** argv, int argc, const char* param);
 int shellParameters (int argc, char **argv);
 void createDir();
 char* downloadVersion();
+char* readRawTextFile(char* fileName);
+char** readRawMultilineTextFile(char* fileName);
 
 #endif /* FUNCTION_H_ */
