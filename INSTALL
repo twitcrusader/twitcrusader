@@ -24,7 +24,7 @@ $ pacman -S gtk2 liboauth
 
 
 ============= Compile (from Shell) ============= 
-$ gcc -Wall -pthread -DICONS_DIR=\""./img"\" -o twc main.c main.h core/functions.c core/gethttp.c core/timeline.c core/twitter.c core/include/functions.h core/include/gethttp.h core/include/timeline.h core/include/twitter.h gui/gtkfunctions.c gui/include/gtkfunctions.h gui/windows.c core/config.c core/include/config.h gui/include/windows.h  `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
+gcc -Wall -pthread -DICONS_DIR=\""./img"\" -DPROG_DIR=\""../"\" -o twc main.c main.h core/functions.c core/gethttp.c core/timeline.c core/twitter.c core/include/functions.h core/include/gethttp.h core/include/timeline.h core/include/twitter.h gui/gtkMain.c gui/include/gtkMain.h gui/windows.c core/config.c core/include/config.h gui/include/windows.h  `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
 
 
 
