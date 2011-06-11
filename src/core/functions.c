@@ -158,3 +158,28 @@ char* downloadVersion(){
 	if(debug==1) printf("\nversion: %s", bufferLatesVersion);
 	return bufferLatesVersion;
 }
+
+
+char* readRawTextFile(char* fileName){
+	FILE *fp;
+	char ch, *b1, *b2 ;
+
+	fp = fopen ( fileName, "r" ) ;
+	if(fp==NULL) return NULL;
+
+	while(1){
+
+		ch=fgetc(fp);
+
+		if (ch==EOF)
+			break ;
+		else{
+			b2=b1;
+			b1=malloc(sizeof(b2)+sizeof(char));
+			asprintf(&b1,"%s%c",b2,ch);
+		}
+	}
+	free(b2);
+	fclose (fp) ;
+	return b1;
+}

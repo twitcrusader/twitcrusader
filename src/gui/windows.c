@@ -137,7 +137,7 @@ void windowCredits(){
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Team TwitCrusader, Follow @teamtwc");
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), "Basato su librerie GTK e semplicità!\n\nVersion: "TWC_VERSION""TWC_VERSION_STATUS);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "http://www.twitcrusader.org/");
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_STAR, &error);
+	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), readRawTextFile(PROG_DIR"/GPL3"));
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pixbuf);
 	g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -245,6 +245,26 @@ int windowAddUser()
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (DataInput->window);
 	return 0;
+}
+
+void windowAuthors(){
+
+	GtkWidget *window, *entry;
+	 int position;
+
+	 window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	  gtk_window_set_title (GTK_WINDOW (window), "Authors");
+	  g_signal_connect (G_OBJECT (window), "delete_event",
+	                    G_CALLBACK (gtk_main_quit), NULL);
+
+	  entry = gtk_entry_new ();
+	  gtk_entry_set_text (GTK_ENTRY (entry), readRawTextFile(PROG_DIR"/GPL3") );
+	  position = 6;
+	  gtk_editable_insert_text (GTK_EDITABLE (entry), "Entry ", -1, &position);
+	  gtk_container_add (GTK_CONTAINER (window), entry);
+
+	  gtk_widget_show_all (window);
+
 }
 
 void CloseWindow(GtkButton *button, gpointer widget)

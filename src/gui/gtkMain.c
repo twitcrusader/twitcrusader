@@ -56,17 +56,15 @@ int windowMain(){
 	menu1[3].icon=ICON_CLOSE;
 	menu1[3].function=G_CALLBACK (gtk_main_quit);
 
-	struct menu menu2[2];
+	struct menu menuAiuto[3];
 
-	menu2[0].name="Updates";
-	menu2[0].icon=ICON_UPGRADE;
-	menu2[0].function=G_CALLBACK (windowUpgrade);
+	menuAiuto[0].name="Updates";
+	menuAiuto[0].icon=ICON_UPGRADE;
+	menuAiuto[0].function=G_CALLBACK (windowUpgrade);
 
-	menu2[1].name="Informazioni";
-	menu2[1].icon=ICON_STAR;
-	menu2[1].function=G_CALLBACK (windowCredits);
-
-
+	menuAiuto[1].name="Informazioni";
+	menuAiuto[1].icon=ICON_STAR;
+	menuAiuto[1].function=G_CALLBACK (windowCredits);
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	mainWindow.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -101,10 +99,10 @@ int windowMain(){
 
 	/* SubMenu: Help */
 	for(i=0;i<2;i++){
-		mainWindow.aiuto_menu_items = gtk_image_menu_item_new_with_label(menu2[i].name);
-		mainWindow.icon_menu = gtk_image_new_from_file(menu2[i].icon);
+		mainWindow.aiuto_menu_items = gtk_image_menu_item_new_with_label(menuAiuto[i].name);
+		mainWindow.icon_menu = gtk_image_new_from_file(menuAiuto[i].icon);
 		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.aiuto_menu_items), mainWindow.icon_menu);
-		g_signal_connect (G_OBJECT (mainWindow.aiuto_menu_items), "activate", menu2[i].function, NULL);
+		g_signal_connect (G_OBJECT (mainWindow.aiuto_menu_items), "activate", menuAiuto[i].function, NULL);
 		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.aiuto_menu_obj), mainWindow.aiuto_menu_items);
 
 	}
@@ -391,13 +389,13 @@ void gtkSwitchPage (GtkNotebook *notebook){
 
 void gtkDeleteAccount(){
 
-		deleteAccount();
+	deleteAccount();
 
-		disconnect();
+	disconnect();
 
-		destroyGtk(mainWindow.window);
+	destroyGtk(mainWindow.window);
 
-		windowOption();
+	windowOption();
 
 }
 
@@ -421,11 +419,9 @@ void gtkAddUser(){
 	}
 }
 
-void gtkRefreshSwitchTimeLine(){
+int gtkRefreshSwitchTimeLine(){
 
-	int i, error=0;
-
-	pthread_t tid;
+	int error;
 
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *table_into, gpointer window)");
 
@@ -436,38 +432,53 @@ void gtkRefreshSwitchTimeLine(){
 	}
 
 	if(error==0){
-		for(i=0; i<MAX_NUM_TWEETS; i++){
-			char *argv[2];
-			argv[0]=timeline[i].user.profile_image_url;
-			argv[1]=timeline[i].user.profile_image;
+		downloadsAvatars();
 
-			error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
-
-			if(debug==1){
-				if(0 != error)
-					fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
-				else
-					fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
-			}
-
-			error = pthread_join(tid, NULL);
-			if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
-
-		}
+		return 0;
 	}
-
+	return 1;
 }
 
-void updateGtk()
+void downloadsAvatars(){
+	pthread_t tid;
+	int i, error=0;
+
+	for(i=0; i<MAX_NUM_TWEETS; i++){
+		char *argv[2];
+		argv[0]=timeline[i].user.profile_image_url;
+		argv[1]=timeline[i].user.profile_image;
+
+		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
+
+		if(debug==1){
+			if(0 != error)
+				fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
+			else
+				fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
+		}
+
+		error = pthread_join(tid, NULL);
+		if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
+
+	}
+}
+
+
+int updateGtk()
 {
+	int error;
+
 	// Read Timeline
 
-		gtkRefreshSwitchTimeLine(mainWindow.table_into, mainWindow.window);
+	error=gtkRefreshSwitchTimeLine(mainWindow.table_into, mainWindow.window);
 
+	if(error==1) return 1;
 
 	/* Destroy the widget */
 	destroyGtk(mainWindow.window);
 	windowMain();
+
+	return 0;
 }
 
 /*

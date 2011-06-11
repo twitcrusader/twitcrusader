@@ -1,4 +1,4 @@
-imgdir = $(datadir)/icons/@PACKAGE@
+imgdir = $(datadir)/@PACKAGE@/icons
 img_DATA= \
 	add-user.png \
 	close.png \
