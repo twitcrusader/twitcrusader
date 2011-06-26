@@ -3,13 +3,13 @@
 TwitCrusader is Twitter Client For Linux Desktop
 
 
-## Are you a developer?
+## Are You A Developer?
 
 Source: https://github.com/PTKDev/ClientTwitter-TwitCrusader
 
 Development Guidelines: http://dev.twitcrusader.org/
 
-Developers Of Project: http://it.twitcrusader.org/about/
+Developers Of TwitCrusader: http://it.twitcrusader.org/about/
 
 
 ## Support
