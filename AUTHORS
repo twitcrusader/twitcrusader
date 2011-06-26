@@ -1,25 +1,87 @@
-==== PROJECT DEVELOPERS ====
+======================= DEVELOPER (TWITCRUSADER TEAM)  =======================
 
 Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
-    Lead Developer
-    
-Dott. Orazio Briante (@RoxShannon) <orazio.1985@hotmail.com>
-    Developer 
-   
-Alfredo Liguoro (@freddy_156) <freddy@haxaddicts.net>
-    Developer
-    
-    
-==== PROJECT SUPPORTERS ====
+• Lead Developer (dal: 2011-03-27)
+— • Fondatore Del Progetto
+— • CEO di TwitCrusader
+— • Responsabile Di http://www.twitcrusader.org/
+— • Contribuiti Importanti al Progetto:
+— — • Initialized Project
+— — • GUI
+— — • oAuth
+— — • XML Parser/LibCURL
+— — • WebSite Designer
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=PTKDev
+— • Link Utili:
+— — • WebSite: https://www.ptkdev.it/
+— — • Twitter: https://twitter.com/ptkdev
+— — • GitHub: https://github.com/PTKDev
 
-Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
-    PKGBUILD for archlinux - https://aur.archlinux.org/packages.php?ID=49512
+Dott. Orazio Briante (@RoxShannon) <orazio.1985@hotmail.com>
+• Lead Developer (dal: 2011-04-04)
+— • CoFondatore Del Progetto
+— • Contribuiti Importanti al Progetto:
+— — • Re-engine GUI
+— — • Debugger
+— — • Porting C function To C++
+— — • XML Parser/LibCURL
+— — • GTK Thread
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=RoxShannon
+— • Link Utili:
+— — • Twitter: https://twitter.com/RoxShannon
+— — • GitHub: https://github.com/RoxShannon
+
+
+
+======================= SUPPORTER (PATCHER) =======================
+
+Alfredo Liguoro (@freddy_156) <freddy@haxaddicts.net>
+•  Supporter/Patcher
+— • Contribuiti Importanti al Progetto:
+— — • BugFinder
+— — • FreeMolloc
+— — • LibNotify Support
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=freddy-156
+— • Link Utili:
+— — • Twitter: https://twitter.com/freddy_156
+— — • GitHub: https://github.com/freddy-156
 
 Alessio Biancalana (@dottorblaster) <dottorblaster@archlinux.us>
-    PKGBUILD for archlinux - https://aur.archlinux.org/packages.php?ID=49512
-    
-Davide Aversa (@thek3nger) <thek3nger@gmail.com>
-	Git Fork
+•  Supporter/Patcher
+— • Contribuiti Importanti al Progetto:
+— — • TwitCrusader Logo (Design)
+— — • AUR PKGBUILD
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=dottorblaster
+— • Link Utili:
+— — • WebSite: http://dottorblaster.it/
+— — • Twitter: https://twitter.com/dottorblaster
+— — • GitHub: https://github.com/dottorblaster
 
-Alessio Sergi (@axsergi) 
-	Git Fork
+Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
+•  Supporter/Patcher
+— • Contribuiti Importanti al Progetto:
+— — • AUR PKGBUILD
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=bashlnx
+— • Link Utili:
+— — • WebSite: http://bashlnx.blogspot.com
+— — • Twitter: https://twitter.com/bashlnx
+— — • GitHub: https://github.com/bashlnx
+
+Alessio Sergi (@al3hex) <al3hex@gmail.com>
+•  Supporter/Patcher
+— • Contribuiti Importanti al Progetto:
+— — • AUR PKGBUILD
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=asergi
+— • Link Utili:
+— — • Twitter: https://twitter.com/al3hex
+— — • GitHub: https://github.com/asergi
+
+Davide Aversa (@thek3nger) <thek3nger@gmail.com>
+•  Supporter/Patcher
+— • Contribuiti Importanti al Progetto:
+— — • README GitHub-Markup
+— — • And More Commits: https://github.com/PTKDev/ClientTwitter-TwitCrusader/commits/nightly?author=THeK3nger
+— • Link Utili:
+— — • WebSite: http://slashcode.davideaversa.it
+— — • Twitter: https://twitter.com/THeK3nger
+— — • GitHub: https://github.com/THeK3nger
