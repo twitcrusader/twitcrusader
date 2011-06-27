@@ -24,23 +24,38 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#include "include/StatusBar.h"
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+namespace std {
 
-#endif /* ICONS_H_ */
+StatusBar::StatusBar() {
+
+	statusbar = gtk_statusbar_new ();
+	message = GTK_STATUSBAR(statusbar);
+}
+
+StatusBar::~StatusBar()
+{
+
+}
+
+void StatusBar::pushMessage(string statusLabel, int contextId)
+{
+	this->contextId=contextId;
+	messageId=gtk_statusbar_push (this->message, this->contextId, statusLabel.c_str());
+	gtk_statusbar_set_has_resize_grip (this->message, TRUE);
+}
+
+    GtkWidget *StatusBar::getStatus()
+    {
+    	return statusbar;
+    }
+
+    void StatusBar::removeStatusBar()
+    {
+    	gtk_statusbar_remove (message,contextId, messageId);
+    }
+
+
+
+}

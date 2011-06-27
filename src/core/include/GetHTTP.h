@@ -24,23 +24,30 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef GETHTTP_H_
+#define GETHTTP_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+/*
+ *
+ */
+#include <stdio.h>
+#include <curl/curl.h>
+#include <string>
+#include <pthread.h>
 
-#endif /* ICONS_H_ */
+namespace std {
+
+class GetHTTP {
+
+public:
+
+	static size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
+	static void getSingleCURL(string url, string file);
+	int getMultiCURL(char **url, char **file, int max_num_tid);
+	static void pull_one_url(void *argv);
+
+};
+
+}
+
+#endif /* GETHTTP_H_ */

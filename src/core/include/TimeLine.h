@@ -1,5 +1,5 @@
 /*
- *	 TwitCrusader-GUI is part of TwitCrusader - Twitter Client For Linux Desktop
+ *	 	Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -24,23 +24,57 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef TIMELINE_H_
+#define TIMELINE_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+/*
+ *
+ */
+#include<iostream>
+#include<vector>
+#include <curl/curl.h>
 
-#endif /* ICONS_H_ */
+extern "C"{
+#include <oauth.h>
+}
+
+#include "Tweet.h"
+#include"Config.h"
+#include "TwitterURL.h"
+
+#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
+#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
+
+
+namespace std {
+
+class TimeLine {
+
+private:
+
+	vector<Tweet> timeline;
+	string timelineURL;
+	string timelineFile;
+
+public:
+	TimeLine();
+	virtual ~TimeLine();
+
+	string getTimelineURL();
+	string getTimelineFile();
+	vector<Tweet> getTimeline();
+
+	void setTimelineURL(string);
+	void setTimelineFile(string);
+	void setTimeline(vector<Tweet>);
+
+
+	string getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
+	void getStatus (xmlDocPtr, xmlNodePtr, int);
+	bool readTimeLine(string);
+
+};
+
+}
+
+#endif /* TIMELINE_H_ */

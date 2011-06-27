@@ -24,23 +24,58 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef LOCALUSER_H_
+#define LOCALUSER_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+/*
+ *
+ */
+#include <iostream>
+#include <string>
 
-#endif /* ICONS_H_ */
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+
+#include "Config.h"
+#include "Functions.h"
+
+#define MY_ENCODING "ISO-8859-1"
+
+#define CONFIG_FILENAME "config.xml"
+
+namespace std {
+
+class LocalUser {
+private:
+	string id;
+	string screenName;
+	string token;
+	string secretToken;
+	string consumerKey;
+	string consumerSecretKey;
+
+protected:
+	string getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
+
+public:
+	LocalUser();
+	virtual ~LocalUser();
+
+	void setId(string id);
+	void setScreenName(string secretName);
+	void setToken(string Token);
+	void setSecretToken(string secretToken);
+	void setConsumerKey(string consumerKey);
+	void setConsumerSecretKey(string secretConsumerKey);
+	string getId();
+	string getScreenName();
+	string getToken();
+	string getSecretToken();
+	string getConsumerKey();
+	string getConsumerSecretKey();
+};
+
+}
+
+#endif /* LOCALUSER_H_ */

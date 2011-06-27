@@ -24,23 +24,11 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef VERSION_H_
+#define VERSION_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+#define TWC_VERSION "2011"
+#define TWC_VERSION_STATUS "-Nightly"
+#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
-#endif /* ICONS_H_ */
+#endif /* VERSION_H_ */

@@ -24,23 +24,47 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef MENU_H_
+#define MENU_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+/*
+ *
+ */
+#include <iostream>
+#include <gtk/gtk.h>
 
-#endif /* ICONS_H_ */
+namespace std {
+
+class Menu {
+
+private:
+	string name;
+	string icon;
+	GCallback function;
+	bool separator;
+
+protected:
+
+public:
+	Menu();
+	virtual ~Menu();
+
+	string getName();
+	void setName(string name);
+
+
+	string getIcon();
+	void setIcon(string icon);
+
+
+	GCallback getFunction();
+	void setFunction(GCallback function);
+
+	bool getSeparator();
+	void setSeparator(bool separator);
+
+};
+
+}
+
+#endif /* MENU_H_ */

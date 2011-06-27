@@ -24,23 +24,53 @@
  *
  */
 
-#ifndef ICONS_H_
-#define ICONS_H_
+#ifndef CONFIG_H_
+#define CONFIG_H_
 
-#define ICON_SETTINGS ICONS_DIR"/setting.png"
-#define ICON_ABOUT ICONS_DIR"/tw_about.png"
-#define ICON_STAR ICONS_DIR"/star.png"
-#define ICON_ADDUSER ICONS_DIR"/add-user.png"
-#define ICON_SIGNIN ICONS_DIR"/sign-in-with-twitter.png"
-#define ICON_FAVICON ICONS_DIR"/favicon.png"
-#define ICON_CLOSE ICONS_DIR"/close.png"
-#define ICON_HOME ICONS_DIR"/home.png"
-#define ICON_UPDATE ICONS_DIR"/update.png"
-#define ICON_UPGRADE ICONS_DIR"/upgrade.png"
-#define ICON_MENTION ICONS_DIR"/mention.png"
-#define ICON_DM ICONS_DIR"/dm.png"
-#define ICON_FAVORITES ICONS_DIR"/favorites.png"
-#define ICON_LINK ICONS_DIR"/link.png"
-#define ICON_PHOTO ICONS_DIR"/photo.png"
+/*
+ *
+ */
+#include <iostream>
+#include <string>
+#include <gtk/gtk.h>
+#include <cstdlib>
 
-#endif /* ICONS_H_ */
+//for mkdir
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#define CONFIG_FILENAME "config.xml"
+
+namespace std {
+
+class Config {
+private:
+	string avatarDir;
+	string configDir;
+	string configFile;
+	string timelineDir;
+	string homeDir;
+
+public:
+	Config();
+	virtual ~Config();
+
+	string getAvatarDir();
+	string getConfigDir();
+	string getConfigFile();
+	string getTimeLineDir();
+
+	void setAvatarDir();
+	void setConfigFile();
+	void setConfigDir();
+	void setTimelineDir();
+
+	bool createAvatarDir();
+	bool createConfigDir();
+	bool createTimelineDir();
+	bool deleteConfigFile();
+};
+
+}
+
+#endif /* CONFIG_H_ */
