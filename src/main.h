@@ -38,6 +38,7 @@
 
 /* Headers */
 #include "tools/inc/debugger.h"
+#include "gui/inc/windows.main.h"
 
 /* Initialize Debugger */ 
 int debug;
