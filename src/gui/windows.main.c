@@ -28,7 +28,7 @@
 /* Headers */
 #include "inc/windows.main.h"
  
-GtkWidget* CreateWindowMain(){
+GtkWidget* GtkWindowMainCreate(){
 	/* Variables */
 	GtkWidget *window,
 			  *container;
@@ -46,6 +46,8 @@ GtkWidget* CreateWindowMain(){
 	container = gtk_vbox_new (FALSE, 8);
 	
 	
+	
+	
 	/* Add Container to Window TopLevel */
 	gtk_container_add (GTK_CONTAINER (window), container);
 	
@@ -58,12 +60,12 @@ GtkWidget* CreateWindowMain(){
 return window;
 }
 
-int GtkMainWindow(){
+int GtkWindowMain(){
  	g_thread_init (NULL);
 	gdk_threads_init ();
 	gtk_init (0, NULL);
 	
-	gtk_widget_show(CreateWindowMain());
+	gtk_widget_show(GtkWindowMainCreate());
 	
 	gdk_threads_enter();
 	gtk_main ();

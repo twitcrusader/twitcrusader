@@ -43,8 +43,8 @@
 #include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-int GtkMainWindow();
-GtkWidget* CreateWindowMain();
+int GtkWindowMain();
+GtkWidget* GtkWindowMainCreate();
 
 /* Default End of WINDOWMAIN_H */ 
 #endif
