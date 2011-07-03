@@ -26,28 +26,36 @@
  */
  
 /* Define */
-#ifndef WINDOWMAIN_H
+#ifndef ICONS_H
 
 /* Default Define */ 
-#define WINDOWMAIN_H
+#define ICONS_H
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
 
 /* Fix: GCC Linux Compiler */ 
 #define _GNU_SOURCE	
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <pthread.h>
-#include <gdk/gdkkeysyms.h>
+/* Path Images */
+#define ICON_SIGNIN ICONS_DIR"/twitter.sign-in.png"
 
-/* Define Function */
-int GtkWindowMain();
-GtkWidget* GtkWindowMainCreate();
-GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath);
-GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name);
-GtkWidget* GtkMenuBarCreate();
+#define ICON_SETTINGS ICONS_DIR"/menu.setting.png"
+#define ICON_STAR ICONS_DIR"/menu.about.png"
+#define ICON_ADDUSER ICONS_DIR"/menu.add.png"
+#define ICON_CLOSE ICONS_DIR"/menu.close.png"
+#define ICON_UPGRADE ICONS_DIR"/menu.upgrade.png"
 
-/* Default End of WINDOWMAIN_H */ 
+#define ICON_ABOUT ICONS_DIR"/twc.about.png"
+#define ICON_FAVICON ICONS_DIR"/twc.favicon.png"
+
+#define ICON_HOME ICONS_DIR"/timeline.home.png"
+#define ICON_UPDATE ICONS_DIR"/timeline.update.png"
+#define ICON_MENTION ICONS_DIR"/timeline.mention.png"
+#define ICON_DM ICONS_DIR"/timeline.dm.png"
+#define ICON_FAVORITES ICONS_DIR"/timeline.favorites.png"
+#define ICON_LINK ICONS_DIR"/timeline.link.png"
+#define ICON_PHOTO ICONS_DIR"/timeline.photo.png"
+
+
+/* Default End of ICONS_H */ 
 #endif

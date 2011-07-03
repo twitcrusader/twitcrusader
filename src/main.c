@@ -25,6 +25,13 @@
  * 
  */
  
+/*
+ * COMPILE THIS SOURCE WITH: 
+ * 
+ * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c gui/windows.main.c gui/inc/windows.main.h main.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
+ * 
+ */
+ 
 /* Headers */
 #include "main.h"
 

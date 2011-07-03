@@ -27,11 +27,72 @@
 
 /* Headers */
 #include "inc/windows.main.h"
+#include "inc/icons.h"
+
+GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath)
+{
+	GtkWidget * item = gtk_image_menu_item_new_with_label(title);
+	GtkWidget * image = gtk_image_new_from_file (imagePath);
+
+	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+
+	return item;
+}
+
+
+GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name)
+{
+	GtkWidget *menu = gtk_menu_new();
+	GtkWidget *item = gtk_menu_item_new_with_label(name);
+	
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), menu);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menuBar), item);
+
+	return menu;
+}
+
+GtkWidget* GtkMenuBarCreate()
+{
+	GtkWidget *menubar = gtk_menu_bar_new(),
+			  *menu,
+			  *item;
+
+	menu = GtkMenuCreate(menubar, "File");
+	
+	item = GtkMenuItemCreate(menu, "Settings", ICON_SETTINGS);
+	g_signal_connect (G_OBJECT (item), 
+					  "activate",
+					  G_CALLBACK(gtk_main_quit), 
+					  NULL);
+	
+	item = GtkMenuItemCreate(menu, "Exit", ICON_CLOSE);
+	g_signal_connect (G_OBJECT (item), 
+					  "destroy",
+					  G_CALLBACK(gtk_main_quit), 
+					  NULL);
+
+	menu = GtkMenuCreate(menubar, "Help");
+	item = GtkMenuItemCreate(menu, "Upgrade", ICON_UPGRADE);
+	g_signal_connect (G_OBJECT (item), 
+					  "activate",
+					  G_CALLBACK(gtk_main_quit), 
+					  NULL);
+					  
+	item = GtkMenuItemCreate(menu, "About", ICON_STAR);
+	g_signal_connect (G_OBJECT (item), 
+					  "activate",
+					  G_CALLBACK(gtk_main_quit), 
+					  NULL);
+
+	return menubar;
+}
  
 GtkWidget* GtkWindowMainCreate(){
 	/* Variables */
 	GtkWidget *window,
-			  *container;
+			  *container,
+			  *menubar;
 	GError *error = NULL;
 	
 	/* Set Window Parameters */
@@ -40,12 +101,24 @@ GtkWidget* GtkWindowMainCreate(){
 	gtk_widget_set_size_request (window, 315, 400);
 	gtk_window_set_title (GTK_WINDOW(window), "TwitCrusader");
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), "../../img/twc.favicon.png", &error);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
 	
 	/* Create a Main Container*/
 	container = gtk_vbox_new (FALSE, 8);
 	
+	menubar = GtkMenuBarCreate();
+	//scolling = GtkScrollingCreate();
+	//counttweet = GtkCountTweetCreate();
+	//textarea = GtkTextAreaCreate();
+	//tlgrid = GtkTimeLineGridCreate();
+	//statusbar = GtkStatusBarCreate();
 	
+	gtk_box_pack_start(GTK_BOX(container), menubar, FALSE, TRUE, 0);	
+	//gtk_box_pack_start(GTK_BOX(container), scolling, FALSE, TRUE, 0);	
+	//gtk_box_pack_start(GTK_BOX(container), counttweet, FALSE, TRUE, 0);	
+	//gtk_box_pack_start(GTK_BOX(container), textarea, FALSE, TRUE, 0);	
+	//gtk_box_pack_start(GTK_BOX(container), tlgrid, FALSE, TRUE, 0);	
+	//gtk_box_pack_end(GTK_BOX(container), statusbar, FALSE, TRUE, 0);
 	
 	
 	/* Add Container to Window TopLevel */
@@ -65,7 +138,7 @@ int GtkWindowMain(){
 	gdk_threads_init ();
 	gtk_init (0, NULL);
 	
-	gtk_widget_show(GtkWindowMainCreate());
+	gtk_widget_show_all(GtkWindowMainCreate());
 	
 	gdk_threads_enter();
 	gtk_main ();
