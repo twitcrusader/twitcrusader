@@ -27,6 +27,7 @@
 
 /* Headers */
 #include "inc/windows.main.h"
+#include "inc/windows.credits.h"
 #include "inc/icons.h"
 
 GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath)
@@ -37,7 +38,7 @@ GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gc
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
 
-	return item;
+return item;
 }
 
 
@@ -49,7 +50,7 @@ GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name)
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menuBar), item);
 
-	return menu;
+return menu;
 }
 
 GtkWidget* GtkMenuBarCreate()
@@ -82,10 +83,10 @@ GtkWidget* GtkMenuBarCreate()
 	item = GtkMenuItemCreate(menu, "About", ICON_STAR);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
-					  G_CALLBACK(gtk_main_quit),  
+					  G_CALLBACK(GtkCreditsDialogCreate),  
 					  NULL);
 
-	return menubar;
+return menubar;
 }
 
 GtkWidget* GtkStatusBarCreate()
@@ -95,7 +96,7 @@ GtkWidget* GtkStatusBarCreate()
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
 
-	return statusbar;
+return statusbar;
 }
 
 GtkWidget* GtkCountTweetCreate()
@@ -105,7 +106,7 @@ GtkWidget* GtkCountTweetCreate()
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE);
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "140");
 
-	return statusbar;
+return statusbar;
 }
 
 GtkWidget* GtkScrollingCreate()
@@ -118,7 +119,7 @@ GtkWidget* GtkScrollingCreate()
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW(scroll), scrolltable); 	
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll),GTK_SHADOW_NONE);
 	
-	return scroll;
+return scroll;
 }
 
 GtkWidget* GtkTextAreaCreate()
@@ -127,7 +128,7 @@ GtkWidget* GtkTextAreaCreate()
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(textarea), TRUE);
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(textarea), GTK_WRAP_WORD_CHAR);
 	
-	return textarea;
+return textarea;
 }
 
 GtkWidget* GtkTimeLineToolBarCreate()
@@ -174,7 +175,7 @@ GtkWidget* GtkTimeLineToolBarCreate()
 	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
 	gtk_container_add (GTK_CONTAINER (toolbar), button);
 	
-	return toolbar;
+return toolbar;
 }
  
 GtkWidget* GtkWindowMainCreate(){
@@ -220,9 +221,9 @@ GtkWidget* GtkWindowMainCreate(){
 	
 	/* Destroy WindowMain() */
 	g_signal_connect_swapped(G_OBJECT(window), 
-							"destroy",
-							G_CALLBACK(gtk_main_quit), 
-							G_OBJECT(window));
+							 "destroy",
+							 G_CALLBACK(gtk_main_quit), 
+							 G_OBJECT(window));
 	
 return window;
 }

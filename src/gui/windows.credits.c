@@ -25,30 +25,28 @@
  * 
  */
  
-/*
- * COMPILE THIS SOURCE WITH: 
- * 
- * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
- * 
- */
- 
-/* Headers */
-#include "main.h"
+/* Headers */ 
+#include "inc/windows.credits.h"
+#include "inc/icons.h"
 
-/* Main Function */
-int main(int argc, char **argv){
-	
-	/* Debugger Initalize 
-	 * 
-	 * twc --debug
-	 * if(debug == 1){ «CODE» }
-	 */
-	if(debugger(argc, argv) == 1){ 
-		return 0;
-	}
-	
-	GtkWindowMain();
-	
-return 0;
+void GtkCreditsDialogCreate()
+{
+	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file (ICON_ABOUT, NULL);
+	GtkWidget* dialog = gtk_about_dialog_new();
 
+	GError* error = NULL;
+
+	gtk_window_set_icon_from_file (GTK_WINDOW (dialog), ICON_FAVICON, &error);
+
+	gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), "TwitCrusader");
+	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
+	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), "(c) TwitCrusader Team\nVersion: NIGHTLY");
+	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), "Twitter Client For Linux Desktop");
+	gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "http://www.twitcrusader.org/");
+
+	gtk_about_dialog_set_logo (GTK_ABOUT_DIALOG (dialog), pixbuf);
+	g_object_unref (pixbuf), pixbuf = NULL;
+
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
 }

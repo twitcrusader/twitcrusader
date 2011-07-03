@@ -25,30 +25,25 @@
  * 
  */
  
-/*
- * COMPILE THIS SOURCE WITH: 
- * 
- * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
- * 
- */
- 
+/* Define */
+#ifndef WINDOWCREDITS_H
+
+/* Default Define */ 
+#define WINDOWCREDITS_H
+/* CharSet */ 
+#define MY_ENCODING "ISO-8859-1"
+
+/* Fix: GCC Linux Compiler */ 
+#define _GNU_SOURCE	
+
 /* Headers */
-#include "main.h"
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <pthread.h>
+#include <gdk/gdkkeysyms.h>
 
-/* Main Function */
-int main(int argc, char **argv){
-	
-	/* Debugger Initalize 
-	 * 
-	 * twc --debug
-	 * if(debug == 1){ «CODE» }
-	 */
-	if(debugger(argc, argv) == 1){ 
-		return 0;
-	}
-	
-	GtkWindowMain();
-	
-return 0;
+/* Define Function */
+void GtkCreditsDialogCreate();
 
-}
+/* Default End of WINDOWMAIN_H */ 
+#endif
