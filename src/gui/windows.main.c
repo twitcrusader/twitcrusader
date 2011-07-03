@@ -68,7 +68,7 @@ GtkWidget* GtkMenuBarCreate()
 	
 	item = GtkMenuItemCreate(menu, "Exit", ICON_CLOSE);
 	g_signal_connect (G_OBJECT (item), 
-					  "destroy",
+					  "activate",
 					  G_CALLBACK(gtk_main_quit), 
 					  NULL);
 
@@ -82,17 +82,111 @@ GtkWidget* GtkMenuBarCreate()
 	item = GtkMenuItemCreate(menu, "About", ICON_STAR);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
-					  G_CALLBACK(gtk_main_quit), 
+					  G_CALLBACK(gtk_main_quit),  
 					  NULL);
 
 	return menubar;
+}
+
+GtkWidget* GtkStatusBarCreate()
+{
+	GtkWidget* statusbar = gtk_statusbar_new ();
+
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
+	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
+
+	return statusbar;
+}
+
+GtkWidget* GtkCountTweetCreate()
+{
+	GtkWidget *statusbar = gtk_statusbar_new ();
+
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE);
+	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "140");
+
+	return statusbar;
+}
+
+GtkWidget* GtkScrollingCreate()
+{
+	GtkWidget *scroll = gtk_scrolled_window_new(NULL,NULL),
+		      *scrolltable = gtk_table_new (10, 10, FALSE);
+		      
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_ALWAYS);
+	gtk_container_set_border_width (GTK_CONTAINER (scroll), 0); 
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW(scroll), scrolltable); 	
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll),GTK_SHADOW_NONE);
+	
+	return scroll;
+}
+
+GtkWidget* GtkTextAreaCreate()
+{
+	GtkWidget *textarea = gtk_text_view_new();
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(textarea), TRUE);
+	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(textarea), GTK_WRAP_WORD_CHAR);
+	
+	return textarea;
+}
+
+GtkWidget* GtkTimeLineToolBarCreate()
+{
+	GtkWidget *toolbar = gtk_toolbar_new (),
+			  *button,
+			  *icon_menu;
+			  
+	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_HOME);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_MENTION);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_DM);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_FAVORITES);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_LINK);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(ICON_PHOTO);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	gtk_container_add (GTK_CONTAINER (toolbar), button);
+	
+	return toolbar;
 }
  
 GtkWidget* GtkWindowMainCreate(){
 	/* Variables */
 	GtkWidget *window,
 			  *container,
-			  *menubar;
+			  *menubar,
+			  *scolling,
+			  *counttweet,
+			  *textarea,
+			  *tltoolbar,
+			  *statusbar;
 	GError *error = NULL;
 	
 	/* Set Window Parameters */
@@ -104,21 +198,21 @@ GtkWidget* GtkWindowMainCreate(){
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
 	
 	/* Create a Main Container*/
-	container = gtk_vbox_new (FALSE, 8);
+	container = gtk_vbox_new (FALSE, 6);
 	
 	menubar = GtkMenuBarCreate();
-	//scolling = GtkScrollingCreate();
-	//counttweet = GtkCountTweetCreate();
-	//textarea = GtkTextAreaCreate();
-	//tlgrid = GtkTimeLineGridCreate();
-	//statusbar = GtkStatusBarCreate();
+	scolling = GtkScrollingCreate();
+	counttweet = GtkCountTweetCreate();
+	textarea = GtkTextAreaCreate();
+	tltoolbar = GtkTimeLineToolBarCreate();
+	statusbar = GtkStatusBarCreate();
 	
 	gtk_box_pack_start(GTK_BOX(container), menubar, FALSE, TRUE, 0);	
-	//gtk_box_pack_start(GTK_BOX(container), scolling, FALSE, TRUE, 0);	
-	//gtk_box_pack_start(GTK_BOX(container), counttweet, FALSE, TRUE, 0);	
-	//gtk_box_pack_start(GTK_BOX(container), textarea, FALSE, TRUE, 0);	
-	//gtk_box_pack_start(GTK_BOX(container), tlgrid, FALSE, TRUE, 0);	
-	//gtk_box_pack_end(GTK_BOX(container), statusbar, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(container), scolling, TRUE, TRUE, 0);	
+	gtk_box_pack_start(GTK_BOX(container), counttweet, FALSE, TRUE, 0);	
+	gtk_box_pack_start(GTK_BOX(container), textarea, FALSE, TRUE, 0);	
+	gtk_box_pack_start(GTK_BOX(container), tltoolbar, FALSE, TRUE, 0);	
+	gtk_box_pack_end(GTK_BOX(container), statusbar, FALSE, TRUE, 0);
 	
 	
 	/* Add Container to Window TopLevel */

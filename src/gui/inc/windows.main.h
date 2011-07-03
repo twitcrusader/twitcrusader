@@ -48,6 +48,11 @@ GtkWidget* GtkWindowMainCreate();
 GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath);
 GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name);
 GtkWidget* GtkMenuBarCreate();
+GtkWidget* GtkStatusBarCreate();
+GtkWidget* GtkScrollingCreate();
+GtkWidget* GtkCountTweetCreate();
+GtkWidget* GtkTextAreaCreate();
+GtkWidget* GtkTimeLineToolBarCreate();
 
 /* Default End of WINDOWMAIN_H */ 
 #endif
