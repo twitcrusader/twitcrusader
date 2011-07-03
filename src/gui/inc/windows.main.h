@@ -53,6 +53,7 @@ GtkWidget* GtkScrollingCreate();
 GtkWidget* GtkCountTweetCreate();
 GtkWidget* GtkTextAreaCreate();
 GtkWidget* GtkTimeLineToolBarCreate();
+GtkWidget* GtkTimeLineToolItemBarCreate(gchar *image);
 
 /* Default End of WINDOWMAIN_H */ 
 #endif

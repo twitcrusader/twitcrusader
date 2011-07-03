@@ -131,49 +131,31 @@ GtkWidget* GtkTextAreaCreate()
 return textarea;
 }
 
+GtkWidget* GtkTimeLineToolItemBarCreate(gchar *image){
+	
+	GtkWidget *button,
+			  *icon_menu;
+	button = gtk_button_new();
+	icon_menu = gtk_image_new_from_file(image);
+	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
+	
+return button;
+}
+
 GtkWidget* GtkTimeLineToolBarCreate()
 {
-	GtkWidget *toolbar = gtk_toolbar_new (),
-			  *button,
-			  *icon_menu;
+	GtkWidget *toolbar = gtk_toolbar_new ();
 			  
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
 
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_UPDATE);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_MENTION);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_DM);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_FAVORITES);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_LINK);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
-
-	button = gtk_button_new();
-	icon_menu = gtk_image_new_from_file(ICON_PHOTO);
-	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
-	gtk_container_add (GTK_CONTAINER (toolbar), button);
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_HOME));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_UPDATE));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_MENTION));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_DM));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_FAVORITES));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_LINK));
+	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_PHOTO));
 	
 return toolbar;
 }
@@ -199,7 +181,7 @@ GtkWidget* GtkWindowMainCreate(){
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, &error);
 	
 	/* Create a Main Container*/
-	container = gtk_vbox_new (FALSE, 6);
+	container = gtk_vbox_new (FALSE, 0);
 	
 	menubar = GtkMenuBarCreate();
 	scolling = GtkScrollingCreate();
@@ -208,9 +190,12 @@ GtkWidget* GtkWindowMainCreate(){
 	tltoolbar = GtkTimeLineToolBarCreate();
 	statusbar = GtkStatusBarCreate();
 	
+	/* Fix Size */
+	gtk_widget_set_size_request(textarea, -1, 60);
+	
 	gtk_box_pack_start(GTK_BOX(container), menubar, FALSE, TRUE, 0);	
 	gtk_box_pack_start(GTK_BOX(container), scolling, TRUE, TRUE, 0);	
-	gtk_box_pack_start(GTK_BOX(container), counttweet, FALSE, TRUE, 0);	
+	gtk_box_pack_start(GTK_BOX(container), counttweet, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(container), textarea, FALSE, TRUE, 0);	
 	gtk_box_pack_start(GTK_BOX(container), tltoolbar, FALSE, TRUE, 0);	
 	gtk_box_pack_end(GTK_BOX(container), statusbar, FALSE, TRUE, 0);
