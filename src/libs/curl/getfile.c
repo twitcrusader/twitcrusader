@@ -25,25 +25,5 @@
  * 
  */
  
-/* Define */
-#ifndef WINDOWUPDATES_H
-
-/* Default Define */ 
-#define WINDOWUPDATES_H
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
-
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
-
 /* Headers */
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <pthread.h>
-#include <gdk/gdkkeysyms.h>
-
-/* Define Function */
-void GtkUpdatesWindowCreate();
-
-/* Default End of WINDOWUPDATES_H */ 
-#endif
+#include "inc/getfile.h"

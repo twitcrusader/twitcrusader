@@ -26,10 +26,10 @@
  */
  
 /* Define */
-#ifndef WINDOWUPDATES_H
+#ifndef NODE_H
 
 /* Default Define */ 
-#define WINDOWUPDATES_H
+#define NODE_H
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
 
@@ -37,13 +37,9 @@
 #define _GNU_SOURCE	
 
 /* Headers */
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <pthread.h>
-#include <gdk/gdkkeysyms.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-/* Define Function */
-void GtkUpdatesWindowCreate();
-
-/* Default End of WINDOWUPDATES_H */ 
+/* Default End of NODE_H */ 
 #endif
