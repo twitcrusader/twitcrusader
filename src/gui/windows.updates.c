@@ -26,33 +26,39 @@
  */
  
 /* Headers */ 
-#include "inc/windows.credits.h"
+#include "inc/windows.updates.h"
 #include "inc/icons.h"
 #include "../core/inc/sys.h"
 
-/* GtkCreditsDialogCreate() Function 
+/* GtkUpdatesDialogCreate() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkCreditsDialogCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkUpdatesDialogCreate-function/
  * 
  */
-void GtkCreditsDialogCreate()
+void GtkUpdatesWindowCreate()
 {
-	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file (ICON_ABOUT, NULL);
-	GtkWidget* dialog = gtk_about_dialog_new();
-
-	GError* error = NULL;
-
-	gtk_window_set_icon_from_file (GTK_WINDOW (dialog), ICON_FAVICON, &error);
-
-	gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC);
-	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
-	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), "(c) "TWC" Team\nVersion: "TWC_VERSION_STATUS);
-	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), "Twitter Client For Linux Desktop");
-	gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "http://www.twitcrusader.org/");
-
-	gtk_about_dialog_set_logo (GTK_ABOUT_DIALOG (dialog), pixbuf);
-	g_object_unref (pixbuf), pixbuf = NULL;
-
-	gtk_dialog_run (GTK_DIALOG (dialog));
-	gtk_widget_destroy (dialog);
+	
+	GtkWidget *window,
+			  *lastVersionMSG = gtk_label_new ("Last Version: "),
+			  *currentVersionMSG = gtk_label_new ("Current Version: "),
+			  *lastVersionCheck,
+			  *currentVersionCheck = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS);
+			  
+	GError *error = NULL;
+			  
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size (GTK_WINDOW(window), 300, 200);
+	gtk_widget_set_size_request (window, 300, 200);
+	gtk_window_set_title (GTK_WINDOW(window), TWC" Updates");
+	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_UPGRADE, &error);
+			  	
+	g_signal_connect (G_OBJECT (window), 
+						"delete_event",  
+						G_CALLBACK (gtk_widget_destroy), 
+						NULL);
+	
+	gtk_widget_show_all (window);
+	
 }

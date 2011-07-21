@@ -25,38 +25,20 @@
  * 
  */
  
-/* Headers */
-#include "inc/debugger.h"
+/* Define */
+#ifndef FILE_H
 
-/* Debugger() Function 
- *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-debugger-function/
- * 
- */
-int debugger(int argc, char **argv){
-	//system("clear");
-	int count;
-	
-	printf("TwitCrusader - Twitter Client For Linux Desktop\n");
-	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
+/* Default Define */ 
+#define FILE_H
+/* CharSet */ 
+#define MY_ENCODING "ISO-8859-1"
 
-	if (argc > 1){
-		for (count = 1; count < argc; count++){
+/* Fix: GCC Linux Compiler */ 
+#define _GNU_SOURCE	
 
-			if(strcmp(argv[count],"--help")==0){
-				printf("--help		print this page\n");
-				printf("--debug		debug\n\n");
+/* System Variables */
+#define FILE_VERSION "/tmp/check_version.twc"
 
-				return 1;
-			}else if(strcmp(argv[count], "--debug")==0){
-				printf ("This program was called with \"%s\".\n",argv[0]);
-				debug = 1;
-				
-			}else{
-				printf("\nTry \"%s\" --help for help\n",argv[0]);
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
+
+/* Default End of ICONS_H */ 
+#endif

@@ -25,24 +25,19 @@
  * 
  */
  
-/*
- * COMPILE THIS SOURCE WITH: 
- * 
- * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
- * 
- */
- 
 /* Headers */
 #include "main.h"
 
-/* Main Function */
+/* Main() Function 
+ *
+ * Developer Guide: http://dev.it.twitcrusader.org/sourcecode-guide-main-function/
+ * 
+ * Compile This Software With:
+ * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h core/inc/sys.h core/inc/file.h core/inc/url.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h gui/windows.updates.c gui/inc/windows.updates.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
+ * 
+ */
 int main(int argc, char **argv){
-	
-	/* Debugger Initalize 
-	 * 
-	 * twc --debug
-	 * if(debug == 1){ «CODE» }
-	 */
+
 	if(debugger(argc, argv) == 1){ 
 		return 0;
 	}
