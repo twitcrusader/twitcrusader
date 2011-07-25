@@ -1,9 +1,0 @@
-// HOW TO COMPILE
-
-Run compile command into the source main tree:
-
-g++  -pthread -DICONS_DIR=\""./src/icons"\" -DPROG_DIR=\""."\" -o"TwitCrusader-cpp-Porting"  ./src/gui/Button.cpp ./src/gui/MainWindow.cpp \
-./src/gui/Menu.cpp ./src/gui/StatusBar.cpp ./src/gui/WindowAddUsers.cpp ./src/gui/WindowCredits.cpp ./src/gui/WindowOptions.cpp \
-./src/gui/WindowVersion.cpp  ./src/core/Config.cpp ./src/core/Functions.cpp ./src/core/GetHTTP.cpp ./src/core/LocalUser.cpp \
-./src/core/TimeLine.cpp ./src/core/Tweet.cpp ./src/core/Twitter.cpp ./src/core/User.cpp  ./src/Main.cpp \
-`pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0 libnotify`
