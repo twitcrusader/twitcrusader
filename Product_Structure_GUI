@@ -1,0 +1,44 @@
+Product Structure
+
+IMPORTANT NOTE:
+	ALL CODE NOT CONFORMED TO THE STRUCTURE MUST BE AGREED BY "TwitCrusader-GUI" LEADER DEVELOPER (@RoxShannon)
+	OR IT MUST BE REJECTED
+
+# File Structure:
+
+main <-- Only to initialize GTK+
+ |
+ |_ Debug object <-- Debug object to allow debug!
+ |
+ |_ MainWindow <-- Principal window/widget (See TwitCrusader main Project to know the style)
+ 	|
+ 	|_ WindowOptions <-- window/widget to menage User Data
+	|
+	|_ WindowVersion <-- window/widget to know your version and the latest release
+	|
+	|_ WindowCredits <- window/widget to show TwitCrusader Credits/License/Authors
+	|
+	|_ WindowAddUsers <- window/widget to add new users
+		
+
+# All window/widget must have:
+
+* The Main window/widget must have declared functions to load the others window/widget object
+
+* Datas declarations //private
+
+* One or More Costructors //public method
+
+* Destructor //public method
+
+* Optionals/Required Attributes setters //public method
+
+* Optionals/Required Attributes getters //public method
+
+* gboolean declaration(<optional parameters>) //protected method to setup graphic structure of the window
+
+* <static/non static> gboolean ShowWindow(<optional parameters>) //public method to Start graphic Drawing
+
+* gboolean UpdateWindow(<optional parameters>) //protected method to Refresh the window
+
+* gboolean destroyWindow(<optional parameters>) //protected To Destroy the Drawn window
