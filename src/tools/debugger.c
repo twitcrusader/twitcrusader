@@ -35,8 +35,7 @@
  */
 int debugger(int argc, char **argv){
 	//system("clear");
-	int count, 
-		debug;
+	int count;
 	
 	printf("TwitCrusader - Twitter Client For Linux Desktop\n");
 	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
@@ -51,7 +50,6 @@ int debugger(int argc, char **argv){
 				return 1;
 			}else if(strcmp(argv[count], "--debug")==0){
 				printf ("This program was called with \"%s\".\n",argv[0]);
-				debug = 1;
 				
 			}else{
 				printf("\nTry \"%s\" --help for help\n",argv[0]);

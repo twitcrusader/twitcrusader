@@ -43,7 +43,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-void GtkUpdatesWindowCreate();
+void gtk_updates_window_create();
 
 /* Default End of WINDOWUPDATES_H */ 
 #endif

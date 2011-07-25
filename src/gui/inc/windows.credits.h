@@ -43,7 +43,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-void GtkCreditsDialogCreate();
+void gtk_credits_dialog_create();
 
 /* Default End of WINDOWMAIN_H */ 
 #endif

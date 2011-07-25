@@ -43,17 +43,17 @@
 #include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-int GtkWindowMain();
-GtkWidget* GtkWindowMainCreate();
-GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath);
-GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name);
-GtkWidget* GtkMenuBarCreate();
-GtkWidget* GtkStatusBarCreate();
-GtkWidget* GtkScrollingCreate();
-GtkWidget* GtkCountTweetCreate();
-GtkWidget* GtkTextAreaCreate();
-GtkWidget* GtkTimeLineToolBarCreate();
-GtkWidget* GtkTimeLineToolItemBarCreate(gchar *image);
+int gtk_window_main();
+GtkWidget* gtk_window_main_create();
+GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar const* title, const gchar const* image_path);
+GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar const* name);
+GtkWidget* gtk_menu_bar_create();
+GtkWidget* gtk_status_bar_create();
+GtkWidget* gtk_scrolling_create();
+GtkWidget* gtk_count_tweet_create();
+GtkWidget* gtk_text_area_create();
+GtkWidget* gtk_timeline_toolbar_create();
+GtkWidget* gtk_timeline_tool_itembar_create(gchar *image);
 
 /* Default End of WINDOWMAIN_H */ 
 #endif

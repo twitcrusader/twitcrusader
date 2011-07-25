@@ -42,7 +42,7 @@ int main(int argc, char **argv){
 		return 0;
 	}
 	
-	GtkWindowMain();
+	gtk_window_main();
 	
 return 0;
 

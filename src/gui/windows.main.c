@@ -32,15 +32,15 @@
 #include "inc/icons.h"
 #include "../core/inc/sys.h"
 
-/* GtkMenuItemCreate() Function 
+/* gtk_menu_item_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkMenuItemCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_menu_item_create-function/
  * 
  */ 
-GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gchar const* imagePath)
+GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar const* title, const gchar const* image_path)
 {
 	GtkWidget * item = gtk_image_menu_item_new_with_label(title);
-	GtkWidget * image = gtk_image_new_from_file (imagePath);
+	GtkWidget * image = gtk_image_new_from_file (image_path);
 
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), image);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
@@ -48,69 +48,69 @@ GtkWidget* GtkMenuItemCreate(GtkWidget* menu, const gchar const* title, const gc
 return item;
 }
 
-/* GtkMenuCreate() Function 
+/* gtk_menu_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkMenuCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_menu_create-function/
  * 
  */ 
-GtkWidget* GtkMenuCreate(GtkWidget* menuBar, const gchar const* name)
+GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar const* name)
 {
 	GtkWidget *menu = gtk_menu_new();
 	GtkWidget *item = gtk_menu_item_new_with_label(name);
 	
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), menu);
-	gtk_menu_shell_append(GTK_MENU_SHELL(menuBar), item);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), item);
 
 return menu;
 }
 
-/* GtkMenuBarCreate() Function 
+/* gtk_menu_bar_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkMenuBarCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_menu_bar_create-function/
  * 
  */
-GtkWidget* GtkMenuBarCreate()
+GtkWidget* gtk_menu_bar_create()
 {
 	GtkWidget *menubar = gtk_menu_bar_new(),
 			  *menu,
 			  *item;
 
-	menu = GtkMenuCreate(menubar, "File");
+	menu = gtk_menu_create(menubar, "File");
 	
-	item = GtkMenuItemCreate(menu, "Settings", ICON_SETTINGS);
+	item = gtk_menu_item_create(menu, "Settings", ICON_SETTINGS);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
 					  G_CALLBACK(gtk_main_quit), 
 					  NULL);
 	
-	item = GtkMenuItemCreate(menu, "Exit", ICON_CLOSE);
+	item = gtk_menu_item_create(menu, "Exit", ICON_CLOSE);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
 					  G_CALLBACK(gtk_main_quit), 
 					  NULL);
 
-	menu = GtkMenuCreate(menubar, "Help");
-	item = GtkMenuItemCreate(menu, "Updates", ICON_UPGRADE);
+	menu = gtk_menu_create(menubar, "Help");
+	item = gtk_menu_item_create(menu, "Updates", ICON_UPGRADE);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
-					  G_CALLBACK(GtkUpdatesWindowCreate), 
+					  G_CALLBACK(gtk_updates_window_create), 
 					  NULL);
 					  
-	item = GtkMenuItemCreate(menu, "About", ICON_STAR);
+	item = gtk_menu_item_create(menu, "About", ICON_STAR);
 	g_signal_connect (G_OBJECT (item), 
 					  "activate",
-					  G_CALLBACK(GtkCreditsDialogCreate),  
+					  G_CALLBACK(gtk_credits_dialog_create),  
 					  NULL);
 
 return menubar;
 }
 
-/* GtkStatusBarCreate() Function 
+/* gtk_status_bar_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkStatusBarCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_status_bar_create-function/
  * 
  */ 
-GtkWidget* GtkStatusBarCreate()
+GtkWidget* gtk_status_bar_create()
 {
 	GtkWidget* statusbar = gtk_statusbar_new ();
 
@@ -120,12 +120,12 @@ GtkWidget* GtkStatusBarCreate()
 return statusbar;
 }
 
-/* GtkCountTweetCreate() Function 
+/* gtk_count_tweet_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkCountTweetCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_count_tweet_create-function/
  * 
  */
-GtkWidget* GtkCountTweetCreate()
+GtkWidget* gtk_count_tweet_create()
 {
 	GtkWidget *statusbar = gtk_statusbar_new ();
 
@@ -135,12 +135,12 @@ GtkWidget* GtkCountTweetCreate()
 return statusbar;
 }
 
-/* GtkScrollingCreate() Function 
+/* gtk_scrolling_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkScrollingCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_scrolling_create-function/
  * 
  */ 
-GtkWidget* GtkScrollingCreate()
+GtkWidget* gtk_scrolling_create()
 {
 	GtkWidget *scroll = gtk_scrolled_window_new(NULL,NULL),
 		      *scrolltable = gtk_table_new (10, 10, FALSE);
@@ -153,12 +153,12 @@ GtkWidget* GtkScrollingCreate()
 return scroll;
 }
 
-/* GtkTextAreaCreate() Function 
+/* gtk_text_area_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkTextAreaCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_text_area_create-function/
  * 
  */ 
-GtkWidget* GtkTextAreaCreate()
+GtkWidget* gtk_text_area_create()
 {
 	GtkWidget *textarea = gtk_text_view_new();
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(textarea), TRUE);
@@ -167,12 +167,12 @@ GtkWidget* GtkTextAreaCreate()
 return textarea;
 }
 
-/* GtkTimeLineToolItemBarCreate() Function 
+/* gtk_timeline_tool_itembar_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkTimeLineToolItemBarCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_timeline_tool_itembar_create-function/
  * 
  */ 
-GtkWidget* GtkTimeLineToolItemBarCreate(gchar *image){
+GtkWidget* gtk_timeline_tool_itembar_create(gchar *image){
 	
 	GtkWidget *button,
 			  *icon_menu;
@@ -183,35 +183,35 @@ GtkWidget* GtkTimeLineToolItemBarCreate(gchar *image){
 return button;
 }
 
-/* GtkTimeLineToolBarCreate() Function 
+/* gtk_timeline_toolbar_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkTimeLineToolBarCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_timeline_toolbar_create-function/
  * 
  */ 
-GtkWidget* GtkTimeLineToolBarCreate()
+GtkWidget* gtk_timeline_toolbar_create()
 {
 	GtkWidget *toolbar = gtk_toolbar_new ();
 			  
 	gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_get_icon_size (GTK_TOOLBAR (toolbar));
 
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_HOME));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_UPDATE));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_MENTION));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_DM));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_FAVORITES));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_LINK));
-	gtk_container_add (GTK_CONTAINER (toolbar), GtkTimeLineToolItemBarCreate(ICON_PHOTO));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_HOME));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_UPDATE));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_MENTION));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_DM));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_FAVORITES));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_LINK));
+	gtk_container_add (GTK_CONTAINER (toolbar), gtk_timeline_tool_itembar_create(ICON_PHOTO));
 	
 return toolbar;
 }
 
-/* GtkWindowMainCreate() Function 
+/* gtk_window_main_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkWindowMainCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_window_main_create-function/
  * 
  */ 
-GtkWidget* GtkWindowMainCreate(){
+GtkWidget* gtk_window_main_create(){
 
 	GtkWidget *window,
 			  *container,
@@ -232,12 +232,12 @@ GtkWidget* GtkWindowMainCreate(){
 	
 	container = gtk_vbox_new (FALSE, 0);
 	
-	menubar = GtkMenuBarCreate();
-	scolling = GtkScrollingCreate();
-	counttweet = GtkCountTweetCreate();
-	textarea = GtkTextAreaCreate();
-	tltoolbar = GtkTimeLineToolBarCreate();
-	statusbar = GtkStatusBarCreate();
+	menubar = gtk_menu_bar_create();
+	scolling = gtk_scrolling_create();
+	counttweet = gtk_count_tweet_create();
+	textarea = gtk_text_area_create();
+	tltoolbar = gtk_timeline_toolbar_create();
+	statusbar = gtk_status_bar_create();
 	
 	gtk_widget_set_size_request(textarea, -1, 60);
 	
@@ -259,17 +259,17 @@ GtkWidget* GtkWindowMainCreate(){
 return window;
 }
 
-/* GtkWindowMain() Function 
+/* gtk_window_main() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkWindowMain-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_window_main-function/
  * 
  */ 
-int GtkWindowMain(){
+int gtk_window_main(){
  	g_thread_init (NULL);
 	gdk_threads_init ();
 	gtk_init (0, NULL);
 	
-	gtk_widget_show_all(GtkWindowMainCreate());
+	gtk_widget_show_all(gtk_window_main_create());
 	
 	gdk_threads_enter();
 	gtk_main ();

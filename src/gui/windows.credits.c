@@ -30,12 +30,12 @@
 #include "inc/icons.h"
 #include "../core/inc/sys.h"
 
-/* GtkCreditsDialogCreate() Function 
+/* gtk_credits_dialog_create() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkCreditsDialogCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_credits_dialog_create-function/
  * 
  */
-void GtkCreditsDialogCreate()
+void gtk_credits_dialog_create()
 {
 	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file (ICON_ABOUT, NULL);
 	GtkWidget* dialog = gtk_about_dialog_new();

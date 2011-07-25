@@ -32,17 +32,17 @@
 
 /* GtkUpdatesDialogCreate() Function 
  *
- * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-GtkUpdatesDialogCreate-function/
+ * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_updates_window_create-function/
  * 
  */
-void GtkUpdatesWindowCreate()
+void gtk_updates_window_create()
 {
 	
 	GtkWidget *window,
-			  *lastVersionMSG = gtk_label_new ("Last Version: "),
-			  *currentVersionMSG = gtk_label_new ("Current Version: "),
-			  *lastVersionCheck,
-			  *currentVersionCheck = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS);
+			  *last_version_msg = gtk_label_new ("Last Version: "),
+			  *current_version_msg = gtk_label_new ("Current Version: "),
+			  *last_version_check,
+			  *current_version_check = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS);
 			  
 	GError *error = NULL;
 			  
