@@ -1,5 +1,5 @@
 bin_PROGRAMS = twc
-twc_SOURCES = main.c gui/windows.main.c tools/debugger.c
+twc_SOURCES = main.c gui/windows.main.c gui/windows.credits.c gui/windows.updates.c tools/debugger.c 
 twc_LDADD = @gtk_LIBS@ @oauth_LIBS@ @libxml2_LIBS@
 
 AM_CPPFLAGS = \
