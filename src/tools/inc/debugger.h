@@ -43,7 +43,6 @@
 
 /* Define Function */
 int debugger(int argc, char **argv);
-int debug;
 
 /* Default End of DEBUGGER_H */ 
 #endif

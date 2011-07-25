@@ -35,7 +35,8 @@
  */
 int debugger(int argc, char **argv){
 	//system("clear");
-	int count;
+	int count, 
+		debug;
 	
 	printf("TwitCrusader - Twitter Client For Linux Desktop\n");
 	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
