@@ -260,8 +260,6 @@ bool Twitter::downloadTimeLine(){
 
 				fprintf(fp, "%s",timeline.c_str());
 
-				fclose(fp);
-
 				this->timeLine.readTimeLine(timeLine.getTimelineFile());
 
 				remove(timeLine.getTimelineFile().c_str());
@@ -270,6 +268,8 @@ bool Twitter::downloadTimeLine(){
 
 				return true;
 			}
+
+                        fclose(fp);
 		}
 	}
 	return false;
