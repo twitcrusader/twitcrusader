@@ -28,7 +28,7 @@
 
 namespace std {
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 {
 
 	// This Is Fuckin Sequential Programming
@@ -117,7 +117,9 @@ MainWindow::MainWindow()
 	icon_menu[5].set(ICON_LINK);
 	icon_menu[6].set(ICON_PHOTO);
 
+
 	tool_bar.set_toolbar_style(Gtk::TOOLBAR_ICONS);
+	tool_bar.set_icon_size(Gtk::ICON_SIZE_SMALL_TOOLBAR);
 
 	button[0].set_icon_widget(icon_menu[0]);
 	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
@@ -150,10 +152,32 @@ MainWindow::MainWindow()
 
 	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
 
+	statusbar_char.push("140"); // Now are Static !
 
 	layout.pack_end(statusbar_char,Gtk::PACK_SHRINK);
 
 
+	// for() to print Tweet
+
+	this->scrolled_window.add(table_into);
+	this->scrolled_window.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
+
+	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
+
+
+	// TextArea + Scrollbar
+
+	this->text.set_editable(true);
+	this->text.set_wrap_mode(Gtk::WRAP_CHAR);
+
+	tweet_buffer=Gtk::TextBuffer::create();
+	this->text.set_buffer(this->tweet_buffer);
+	//this->text.signal_state_changed().connect(sigc::bind(sigc::mem_fun(*this, &MainWindow::updateStatusBar))); NOT WORKKKKKKKKKKKKKKKKKKKKKKKKK!!!!!!!!!!!!!!!!!
+	this->scroll_text.add(this->text);
+	this->scroll_text.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
+	this->table.attach(this->scroll_text,0, 3, 8, 9);
+
+	this->layout.pack_start(this->table);
 	add(layout);
 
 
@@ -216,6 +240,11 @@ void MainWindow::on_quit()
 	cout<<"on_quit()"<<endl;
 
 	hide();
+}
+
+void MainWindow::updateStatusBar(){
+	cout<<"updateStatusBar()"<<endl;
+
 }
 
 }

@@ -61,6 +61,12 @@ protected:
 	Gtk::ToolButton button[7];
 	Gtk::Image icon_menu[7];
 
+	Gtk::Table table;
+	Gtk::Table table_into;
+	Gtk::ScrolledWindow scrolled_window;
+	Gtk::ScrolledWindow scroll_text;
+	Gtk::TextView text;
+	  Glib::RefPtr<Gtk::TextBuffer> tweet_buffer;
 	Gtk::VBox layout;
 	Gtk::MenuBar menu_bar;
 
@@ -69,6 +75,8 @@ protected:
 	Gtk::Toolbar tool_bar;
 
 	string status_label;
+
+	void updateStatusBar();
 
 public:
 	MainWindow();
