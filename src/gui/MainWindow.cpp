@@ -104,12 +104,12 @@ MainWindow::MainWindow(){
 
 
 	icon_menu[0].set(ICON_UPDATE);
-	icon_menu[1].set();
-	icon_menu[2].set();
-	icon_menu[3].set();
-	icon_menu[4].set();
-	icon_menu[5].set();
-	icon_menu[6].set();
+	icon_menu[1].set(ICON_HOME);
+	icon_menu[2].set(ICON_MENTION);
+	icon_menu[3].set(ICON_DM);
+	icon_menu[4].set(ICON_FAVORITES);
+	icon_menu[5].set(ICON_LINK);
+	icon_menu[6].set(ICON_PHOTO);
 
 	tool_bar.set_toolbar_style(Gtk::TOOLBAR_ICONS);
 
@@ -122,6 +122,12 @@ MainWindow::MainWindow(){
 	button[6].set_icon_widget(icon_menu[6]);
 
 	tool_bar.append(button[0]);
+	tool_bar.append(button[1]);
+	tool_bar.append(button[2]);
+	tool_bar.append(button[3]);
+	tool_bar.append(button[4]);
+	tool_bar.append(button[5]);
+	tool_bar.append(button[6]);
 
 	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
 
