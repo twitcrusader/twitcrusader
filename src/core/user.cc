@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/User.h"
+#include "include/user.h"
 
 namespace std {
 

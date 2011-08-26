@@ -33,7 +33,7 @@
 #include <iostream>
 #include <libxml/xmlreader.h>
 
-#include "User.h"
+#include "user.h"
 
 #define MAX_NUM_TWEETS 20
 

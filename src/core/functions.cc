@@ -24,59 +24,52 @@
  *
  */
 
-#ifndef LOCALUSER_H_
-#define LOCALUSER_H_
-
-/*
- *
- */
-#include <iostream>
-#include <string>
-
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-
-#include "Config.h"
-#include "Functions.h"
-
-#define MY_ENCODING "ISO-8859-1"
-
-#define CONFIG_FILENAME "config.xml"
+#include "include/functions.h"
 
 namespace std {
 
-class LocalUser {
-private:
-	string id;
-	string screenName;
-	string token;
-	string secretToken;
-	string consumerKey;
-	string consumerSecretKey;
+string Functions::readRawTextFile(string fileName){
+	FILE *fp;
+	char ch;
+	string buffer=string();
 
-protected:
-	string getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
+	fp = fopen ( fileName.c_str(), "r" ) ;
+	if(fp==NULL) return buffer;
 
-public:
-	LocalUser();
-	virtual ~LocalUser();
+	while(1){
 
-	void setId(string id);
-	void setScreenName(string secretName);
-	void setToken(string Token);
-	void setSecretToken(string secretToken);
-	void setConsumerKey(string consumerKey);
-	void setConsumerSecretKey(string secretConsumerKey);
+		ch=fgetc(fp);
 
-	string getId();
-	string getScreenName();
-	string getToken();
-	string getSecretToken();
-	string getConsumerKey();
-	string getConsumerSecretKey();
-};
-
+		if (ch==EOF)
+			break ;
+		else{
+			buffer.push_back(ch);
+		}
+	}
+	fclose (fp) ;
+	return buffer;
 }
 
-#endif /* LOCALUSER_H_ */
+bool Functions::shellParameters (int argc, char **argv){
+
+	if (argc > 1){
+		for (int count = 1; count < argc; count++){
+
+			if(strcmp(argv[count],"--help")==0){
+				printf("--help		print this page\n");
+				printf("--debug		debug\n\n");
+
+				return true;
+			}else if(strcmp(argv[count], "--debug")==0){
+				printf ("This program was called with \"%s\".\n",argv[0]);
+				//debug=1;
+			}else{
+				printf("\ntry \"%s\" --help for help\n",argv[0]);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+}

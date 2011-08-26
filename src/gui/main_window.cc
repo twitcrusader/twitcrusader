@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/MainWindow.h"
+#include "include/main_window.h"
 
 namespace std {
 

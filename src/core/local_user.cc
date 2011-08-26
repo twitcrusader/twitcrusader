@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/LocalUser.h"
+#include "include/local_user.h"
 
 namespace std {
 

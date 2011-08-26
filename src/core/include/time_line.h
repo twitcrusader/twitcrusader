@@ -1,5 +1,5 @@
 /*
- *	 TwitCrusader-GUI is part of TwitCrusader - Twitter Client For Linux Desktop
+ *	 	Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -24,52 +24,57 @@
  *
  */
 
-#include "include/Functions.h"
+#ifndef TIMELINE_H_
+#define TIMELINE_H_
+
+/*
+ *
+ */
+#include<iostream>
+#include<vector>
+#include <curl/curl.h>
+
+extern "C"{
+#include <oauth.h>
+}
+
+#include "tweet.h"
+#include"config.h"
+#include "twitter_URL.h"
+
+#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
+#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
+
 
 namespace std {
 
-string Functions::readRawTextFile(string fileName){
-	FILE *fp;
-	char ch;
-	string buffer=string();
+class TimeLine {
 
-	fp = fopen ( fileName.c_str(), "r" ) ;
-	if(fp==NULL) return buffer;
+private:
 
-	while(1){
+	vector<Tweet> timeline;
+	string timelineURL;
+	string timelineFile;
 
-		ch=fgetc(fp);
+public:
+	TimeLine();
+	virtual ~TimeLine();
 
-		if (ch==EOF)
-			break ;
-		else{
-			buffer.push_back(ch);
-		}
-	}
-	fclose (fp) ;
-	return buffer;
-}
+	string getTimelineURL();
+	string getTimelineFile();
+	vector<Tweet> getTimeline();
 
-bool Functions::shellParameters (int argc, char **argv){
+	void setTimelineURL(string);
+	void setTimelineFile(string);
+	void setTimeline(vector<Tweet>);
 
-	if (argc > 1){
-		for (int count = 1; count < argc; count++){
 
-			if(strcmp(argv[count],"--help")==0){
-				printf("--help		print this page\n");
-				printf("--debug		debug\n\n");
+	string getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
+	void getStatus (xmlDocPtr, xmlNodePtr, int);
+	bool readTimeLine(string);
 
-				return true;
-			}else if(strcmp(argv[count], "--debug")==0){
-				printf ("This program was called with \"%s\".\n",argv[0]);
-				//debug=1;
-			}else{
-				printf("\ntry \"%s\" --help for help\n",argv[0]);
-				return true;
-			}
-		}
-	}
-	return false;
-}
+};
 
 }
+
+#endif /* TIMELINE_H_ */

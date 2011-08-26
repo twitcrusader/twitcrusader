@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/Config.h"
+#include "include/config.h"
 
 namespace std {
 

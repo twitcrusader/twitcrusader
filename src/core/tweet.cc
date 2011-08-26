@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/Tweet.h"
+#include "include/tweet.h"
 
 namespace std {
 

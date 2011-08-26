@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/Twitter.h"
+#include "include/twitter.h"
 
 /* FUNCTIONS_H_ */
 namespace std{

@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/GetHTTP.h"
+#include "include/getHTTP.h"
 
 namespace std {
 
