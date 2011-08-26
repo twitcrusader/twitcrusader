@@ -27,65 +27,59 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 
-/*
- *
- */
 #include <iostream>
-#include <gtk/gtk.h>
 #include <vector>
-#include <gdk/gdkkeysyms.h>
 
-#include "Menu.h"
-#include "StatusBar.h"
-#include "Button.h"
-
-#include "../../core/include/TwitterObject.h"
+#include <gtkmm.h>
 
 #include "icons.h"
-#include "WindowAddUsers.h"
-#include "WindowCredits.h"
-#include "WindowOptions.h"
-#include "WindowVersion.h"
 
 #define PROG_NAME "TwitCrusader"
 
-
 namespace std {
 
-class MainWindow {
-
-private:
-
+class MainWindow : public Gtk::Window{
 
 protected:
 
-	//Other Functions
-	static gboolean initSkeleton(GtkWidget*, gchar*, GError*);
-	static gboolean initMenu(string, vector<Menu>, GtkWidget*, GtkWidget*, GtkWidget*);
-	static gboolean initToolBar(vector<Button>, GtkWidget*, GtkWidget*);
-	static gboolean initInputBar(GtkWidget*, GtkWidget*, GtkTextBuffer*, GtkWidget*, GtkWidget*);
-	static gboolean initScrolledWindow(GtkWidget*, GtkWidget*, GtkWidget*);
+	Gtk::MenuItem file_menu_items[3];
+	Gtk::MenuItem file_menu_root;
+	Gtk::Menu file_menu;
 
-	//loading windows function!
 
-	gboolean loadWindowCredits();
-	gboolean loadWindowVersion();
-	gboolean loadWindowOptions();
-	gboolean loadWindowAdduser();
+	Gtk::MenuItem options_menu_items[1];
+	Gtk::MenuItem options_menu_root;
+	Gtk::Menu options_menu;
+
+
+	Gtk::MenuItem helps_menu_items[2];
+	Gtk::MenuItem helps_menu_root;
+	Gtk::Menu helps_menu;
+
+	Gtk::ToolButton button[7];
+	Gtk::Image icon_menu[7];
+
+	Gtk::VBox layout;
+	Gtk::MenuBar menu_bar;
+
+	Gtk::Statusbar status_bar;
+	Gtk::Toolbar tool_bar;
+
+	string status_label;
 
 public:
+	MainWindow();
+	virtual ~MainWindow();
 
-	static gboolean declaration(); //protected method to setup graphic structure of the window
-	static gboolean UpdateWindow(GtkWidget*); //protected method to Refresh the window
-	static gboolean destroyWindow(GtkWidget*); //protected To Destroy the Drawn window
-	static gboolean ShowWindow(); //public method to Start graphic Drawing
+	void foo();
+	void gtkConnect();
+	void loadWindowCredits();
+	void loadWindowVersion();
+	void loadWindowOptions();
+	void loadWindowAdduser();
 
-	gboolean gtkSendTweet(GtkWidget*, GdkEventKey*, GtkTextBuffer*, StatusBar);
-	static gboolean gtkConnect(GtkWidget*);
-	static gboolean gtkRefreshSwitchTimeLine();
-	gboolean foo();
+	void on_quit();
 };
 
-}
-
+} /* namespace std */
 #endif /* MAINWINDOW_H_ */

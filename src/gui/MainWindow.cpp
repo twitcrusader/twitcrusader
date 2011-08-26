@@ -28,408 +28,165 @@
 
 namespace std {
 
-gboolean MainWindow::destroyWindow(GtkWidget* window)
-{
-	gtk_main_quit();
-	gtk_widget_destroy( window);
+MainWindow::MainWindow(){
 
-	return true;
-}
+	// This Is Fuckin Sequential Programming
 
-gboolean MainWindow::ShowWindow()
-{
-	//Variables
+	this->set_title(PROG_NAME);
+	this->set_icon_from_file(ICON_FAVICON);
+	this->set_default_size(315, 650);
+	this->set_size_request(315, 400);
+	this->set_border_width(0);
+	this->set_position(Gtk::WIN_POS_CENTER);
 
 
-	//Data Type
-	GError *error;
 
-	GtkWidget *window,
-	*menuFileObj,
-	*menuOptionsObj,
-	*menuHelpObj,
-	*menuBar,
-	*fileMenuRoot,
-	*optionMenuRoot,
-	*helpMenuRoot,
-	*layout,
-	*statusbar,
-	*inputBar,
-	*text,
-	*table,
-	*internalTable,
-	*scrolledWindow,
-	*toolbar;
+	file_menu_items[0].set_label("Log In");
+	file_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::gtkConnect) );
+	file_menu.append(file_menu_items[0]);
 
-	GtkTextBuffer *tweetBuffer;
 
-	gchar *title;
-	StatusBar statusBar;
+	//m.setIcon(ICON_ADDUSER);
+	file_menu_items[1].set_label("Log Out");
+	file_menu_items[1].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	file_menu.append(file_menu_items[1]);
 
-	vector<Menu> menuFile;
-	vector<Menu> menuOptions;
-	vector<Menu> menuHelp;
 
-	vector<Button> menuToolbar;
+	//m.setIcon(ICON_CLOSE);
+	file_menu_items[2].set_label("Quit");
+	file_menu_items[2].signal_activate().connect(G_CALLBACK(&MainWindow::on_quit) );
+	file_menu.append(file_menu_items[2]);
 
-	// Allocations
 
-	Menu m=Menu();
+	file_menu_root.set_label("File");
+	file_menu_root.set_submenu(file_menu);
+	menu_bar.append(file_menu_root);
 
-	m.setName("Log In");
-	m.setIcon(ICON_ADDUSER);
-	m.setFunction(G_CALLBACK(& MainWindow::gtkConnect));
-	m.setSeparator(false);
-	menuFile.push_back(m);
-
-	m.setName("Log Out");
-	m.setIcon(ICON_ADDUSER);
-	m.setFunction(G_CALLBACK(&MainWindow::foo));
-	m.setSeparator(false);
-	menuFile.push_back(m);
-
-	m.setName("Esci");
-	m.setIcon(ICON_CLOSE);
-	m.setFunction(G_CALLBACK(gtk_main_quit));
-	m.setSeparator(true);
-	menuFile.push_back(m);
 
 	//menuOption
-	m.setName("Users");
-	m.setIcon(ICON_SETTINGS);
-	m.setFunction(G_CALLBACK(&MainWindow::loadWindowOptions));
-	m.setSeparator(false);
-	menuOptions.push_back(m);
-
-	//menuHelps
-	m.setName("Version");
-	m.setIcon(ICON_UPGRADE);
-	m.setFunction(G_CALLBACK(&MainWindow::loadWindowVersion));
-	m.setSeparator(false);
-	menuHelp.push_back(m);
-
-	m.setName("Credits");
-	m.setIcon(ICON_STAR);
-	m.setFunction(G_CALLBACK(&MainWindow::loadWindowCredits));
-	m.setSeparator(false);
-	menuHelp.push_back(m);
-
-	//menuToolbar
-	Button b;
-	b=Button();
-
-	b.setIcon(ICON_UPDATE);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_HOME);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_MENTION);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_DM);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_FAVORITES);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_LINK);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	b.setIcon(ICON_PHOTO);
-	b.setFunction(G_CALLBACK(&MainWindow::foo));
-	menuToolbar.push_back(b);
-
-	//MainWindowElemets
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	menuFileObj = gtk_menu_new();
-	menuOptionsObj = gtk_menu_new();
-	menuHelpObj = gtk_menu_new();
-	menuBar = gtk_menu_bar_new();
-	layout = gtk_vbox_new(0, 1);
-	title=(gchar *)PROG_NAME;
-	statusBar=StatusBar();
-	toolbar = gtk_toolbar_new ();
-	inputBar= gtk_statusbar_new ();
-	table=gtk_table_new (9, 3, TRUE);
-	internalTable= gtk_table_new (1, 3, TRUE);
-	scrolledWindow=gtk_scrolled_window_new (NULL, NULL);
-	text = gtk_text_view_new();
-
-	twitterStruct.twitter=Twitter();
+	//m.setName("Users");
 
 
-	// DECLARATIONS
+	options_menu_items[0].set_label("Users");
+	options_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	options_menu.append(options_menu_items[0]);
 
-	MainWindow::initSkeleton(window, title, error);
-
-	MainWindow::initMenu("File",  menuFile,  menuFileObj,  fileMenuRoot, menuBar);
-	MainWindow::initMenu("Options",  menuOptions,  menuOptionsObj,  optionMenuRoot, menuBar);
-	MainWindow::initMenu("Help",  menuHelp,  menuHelpObj,  helpMenuRoot, menuBar);
-
-	gtk_box_pack_start(GTK_BOX( layout),  menuBar, FALSE, FALSE, 0);
-
-	if(twitterStruct.twitter.getLocalUser().getScreenName().empty() &&
-			twitterStruct.twitter.getLocalUser().getId().empty()){
-		statusBar.pushMessage("Disconnect..", 0);
-
-	}else{
-		statusBar.pushMessage("Connect..", 0);
-
-	}
-
-	gtk_box_pack_end (GTK_BOX ( layout),  statusBar.getStatus(), FALSE, FALSE, 0);
-
-	initToolBar( menuToolbar, toolbar, layout);
-
-	initInputBar(table, text, tweetBuffer, inputBar, layout);
-
-	initScrolledWindow( scrolledWindow, internalTable , table);
+	options_menu_root.set_label("Options");
+	options_menu_root.set_submenu(options_menu);
+	menu_bar.append(options_menu_root);
 
 
-	gtk_container_add(GTK_CONTAINER( layout),  table);
-	gtk_container_add(GTK_CONTAINER( window),  layout);
+	//menu_helps
+	//m.setIcon(ICON_UPGRADE);
+	helps_menu_items[0].set_label("Version");
+	helps_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	helps_menu.append(helps_menu_items[0]);
 
-	/* CALLBACK: exit event */
-	g_signal_connect ( window, "delete_event", G_CALLBACK (gtk_main_quit), NULL);
-	g_signal_connect ( window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	//m.setIcon(ICON_STAR);
+	helps_menu_items[1].set_label("Credits");
+	helps_menu_items[1].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	helps_menu.append(helps_menu_items[1]);
+
+	helps_menu_root.set_label("Help");
+	helps_menu_root.set_submenu(helps_menu);
+	menu_bar.append(helps_menu_root);
 
 
-	gtk_widget_show_all(GTK_WIDGET( window));
+	//StatusBar
 
-	//gdk_threads_enter();
-	gtk_main();
-	//gdk_threads_leave();
 
-	return true;
+	this->status_label="StatusBar..";
+	this->status_bar.push(status_label);
+
+	layout.pack_start(menu_bar,Gtk::PACK_SHRINK);
+	layout.pack_end(status_bar,Gtk::PACK_SHRINK);
+
+
+
+	icon_menu[0].set(ICON_UPDATE);
+	icon_menu[1].set();
+	icon_menu[2].set();
+	icon_menu[3].set();
+	icon_menu[4].set();
+	icon_menu[5].set();
+	icon_menu[6].set();
+
+	tool_bar.set_toolbar_style(Gtk::TOOLBAR_ICONS);
+
+	button[0].set_icon_widget(icon_menu[0]);
+	button[1].set_icon_widget(icon_menu[1]);
+	button[2].set_icon_widget(icon_menu[2]);
+	button[3].set_icon_widget(icon_menu[3]);
+	button[4].set_icon_widget(icon_menu[4]);
+	button[5].set_icon_widget(icon_menu[5]);
+	button[6].set_icon_widget(icon_menu[6]);
+
+	tool_bar.append(button[0]);
+
+	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
+
+
+	add(layout);
+
+
+	this->show_all();
 }
 
-gboolean MainWindow::UpdateWindow(GtkWidget* window){
-	bool error;
-
-	// Read Timeline
-
-	error=gtkRefreshSwitchTimeLine();
-
-	if(!error) return false;
-
-	//BAD SOLUTION MUST BE RE_IMPLEMENTED!!!
-
-	/* Destroy the widget */
-	destroyWindow (window);
-
-	ShowWindow();
-
-	return true;
-}
-
-gboolean MainWindow::declaration(){
-
-
-
-	return true;
-}
-
-gboolean MainWindow::initSkeleton(GtkWidget* window, gchar* title, GError* error){
-	gtk_window_set_default_size (GTK_WINDOW(window), 295, 650);
-	gtk_widget_set_size_request (GTK_WIDGET(window), 295, 400);
-	gtk_window_set_title (GTK_WINDOW(window), title);
-	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_FAVICON, & error);
-	return true;
-}
-
-gboolean MainWindow::initScrolledWindow(GtkWidget* scrolledWindow, GtkWidget* internalTable , GtkWidget* table){
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW ( scrolledWindow),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW ( scrolledWindow),  internalTable);
-	gtk_table_attach (GTK_TABLE ( table),  scrolledWindow, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
-
-	return true;
-}
-
-gboolean MainWindow::initMenu(string rootName, vector<Menu> menu, GtkWidget* menuObject, GtkWidget* menuRoot, GtkWidget* menuBar){
-
-	GtkWidget *menuItems;
-
-	for(unsigned int i=0;i<menu.size();i++){
-		if(!menu[i].getSeparator()){
-			menuItems = gtk_separator_menu_item_new();
-			gtk_menu_shell_append(GTK_MENU_SHELL(menuObject), menuItems);
-		}
-		menuItems = gtk_image_menu_item_new_with_label(menu[i].getName().c_str());
-		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuItems), gtk_image_new_from_file(menu[i].getIcon().c_str()));
-
-		//gdk_threads_enter ();
-		g_signal_connect (G_OBJECT (menuItems), "activate", menu[i].getFunction() , NULL);
-		//gdk_threads_leave ();
-
-		gtk_menu_shell_append(GTK_MENU_SHELL(menuObject), menuItems);
-
-	}
-
-	menuRoot = gtk_menu_item_new_with_label(rootName.c_str());
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM (menuRoot), menuObject);
-
-	gtk_menu_bar_append(GTK_MENU_BAR ( menuBar), menuRoot);
-
-	return true;
-}
-
-gboolean MainWindow::initToolBar(vector<Button> buttons, GtkWidget* toolbar, GtkWidget* layout){
-
-	for(unsigned int i=0; i<buttons.size(); i++){
-		GtkWidget* button;
-		button=gtk_button_new();
-		gtk_button_set_image(GTK_BUTTON(button),gtk_image_new_from_file(buttons[i].getIcon().c_str()));
-		gtk_container_add (GTK_CONTAINER ( toolbar), button);
-
-		//gdk_threads_enter ();
-		gtk_signal_connect_object (GTK_OBJECT (button), "clicked", buttons[i].getFunction(), NULL);
-		//gdk_threads_leave ();
-
-	}
-
-	gtk_box_pack_end (GTK_BOX ( layout),  toolbar, FALSE, FALSE, 0);
-	gtk_toolbar_set_style (GTK_TOOLBAR ( toolbar), GTK_TOOLBAR_ICONS);
-	gtk_toolbar_get_icon_size (GTK_TOOLBAR ( toolbar));
-
-	return true;
-}
-
-gboolean MainWindow::initInputBar(GtkWidget* table, GtkWidget* text, GtkTextBuffer* tweetBuffer, GtkWidget* inputBar, GtkWidget* layout){
-
-	GtkWidget* scroll;
-	scroll = gtk_scrolled_window_new(NULL,NULL);
-	gtk_table_attach(GTK_TABLE( table), scroll, 0, 3, 8, 9, (GtkAttachOptions)(GTK_FILL | GTK_EXPAND),(GtkAttachOptions) (GTK_FILL | GTK_EXPAND), 0, 0);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
-
-	gtk_text_view_set_editable(GTK_TEXT_VIEW( text), TRUE);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW( text), TRUE);
-	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW( text), GTK_WRAP_WORD_CHAR);
-	tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW ( text));
-	gtk_text_buffer_set_text ( tweetBuffer, "", -1);
-	// g_signal_connect(tweetBuffer, "changed", G_CALLBACK("updateStatusBar"),  inputBar);
-	// g_signal_connect( text, "key-press-event", G_CALLBACK("gtkSendTweet"), tweetBuffer);
-	gtk_container_add(GTK_CONTAINER(scroll), text);
-
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR( inputBar), FALSE);
-	gtk_statusbar_push (GTK_STATUSBAR( inputBar), 0, "140");
-	gtk_box_pack_end (GTK_BOX ( layout),  inputBar, FALSE, FALSE, 0);
-	return true;
-}
-
-gboolean MainWindow::loadWindowCredits(){
-
-	WindowCredits windowCredits=WindowCredits();
-	windowCredits.ShowWindow();
-	windowCredits.~WindowCredits();
-
-	return true;
-}
-
-gboolean  MainWindow::loadWindowVersion(){
-	WindowVersion windowVersion=WindowVersion();
-	windowVersion.ShowWindow();
-	windowVersion.~WindowVersion();
-	return true;
-}
-
-gboolean MainWindow::loadWindowOptions(){
-	WindowOptions windowOptions=WindowOptions();
-	windowOptions.ShowWindow();
-	windowOptions.~WindowOptions();
-	return true;
-}
-
-gboolean MainWindow::loadWindowAdduser(){
-	WindowAddUsers windowAddUsers=WindowAddUsers();
-	windowAddUsers.ShowWindow();
-	windowAddUsers.~WindowAddUsers();
-
-	return true;
-}
-
-gboolean MainWindow::gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer, StatusBar statusBar){
-
-	GtkTextIter start,
-	end;
-	char *msg = NULL;
-
-	/* Get start position of cursor and final position */
-	gtk_text_buffer_get_start_iter (tweetBuffer, &start);
-	gtk_text_buffer_get_end_iter (tweetBuffer, &end);
-
-	/* Casting buffer to char */
-	msg = gtk_text_buffer_get_text(tweetBuffer, &start, &end, TRUE);
-
-	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
-	if(pKey->keyval == GDK_Return){
-
-		statusBar.pushMessage("Invio In Corso...",0);
-
-		//SendTweet
-
-		if(twitterStruct.twitter.SendTweet(msg)){
-			statusBar.pushMessage("Tweet Inviato!",0);
-			gtk_text_buffer_delete(tweetBuffer, &start, &end);
-
-			return true;
-
-		} else {
-			statusBar.pushMessage("Tweet Non Inviato!",0);
-		}
-	}
-
-	return false;
+MainWindow::~MainWindow(){
 
 }
 
-gboolean  MainWindow::gtkConnect(GtkWidget* window){
 
-	twitterStruct.twitter.readUserFile();
+void MainWindow::foo(){
 
-	if(twitterStruct.twitter.getLocalUser().getId().empty()){
-
-		return false;
-
-	}else{
-		UpdateWindow(window);
-		return true;
-	}
-
-	return false;
-}
-
-gboolean MainWindow::gtkRefreshSwitchTimeLine(){
-
-	bool error;
-
-	cout<<"\ngtkRefreshswitchTimeLine()";
-
-	if(twitterStruct.twitter.getLocalUser().getId().empty()||twitterStruct.twitter.getLocalUser().getScreenName().empty()){
-		error=twitterStruct.twitter.switchTimeLine(1);
-	}else {
-		error=twitterStruct.twitter.switchTimeLine(2);
-	}
-
-	if(error){
-
-		//downloadsAvatars();
-
-		return true;
-	}
-	return false;
-}
-
-gboolean MainWindow::foo(){
-	return true;
-}
+	cout<<"foo()"<<endl;
 
 }
+
+
+
+
+void MainWindow::gtkConnect()
+{
+	cout<<"gtkConnect()"<<endl;
+}
+
+
+
+void MainWindow::loadWindowCredits()
+{
+	cout<<"loadWindowCredits()"<<endl;
+}
+
+
+
+void MainWindow::loadWindowVersion()
+{
+	cout<<"loadWindowVersion()"<<endl;
+}
+
+
+
+void MainWindow::loadWindowOptions()
+{
+	cout<<"loadWindowOptions()"<<endl;
+}
+
+
+
+void MainWindow::loadWindowAdduser()
+{
+	cout<<"loadWindowAdduser()"<<endl;
+}
+
+
+
+void MainWindow::on_quit()
+{
+	cout<<"on_quit()"<<endl;
+
+	hide();
+}
+
+}
+/* namespace std */

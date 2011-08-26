@@ -29,9 +29,6 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
-	g_thread_init (NULL);
-	gdk_threads_init ();
-	gtk_init(&argc, &argv);
 	notify_init(PROG_NAME);
 
 	cout<<"\n\n";
@@ -40,10 +37,15 @@ int main(int argc, char *argv[]){
 
 	if(Functions::shellParameters(argc,argv))return 0;
 
-	MainWindow::ShowWindow();
+	Gtk::Main kit(argc, argv);
 
-	//gtk_main_quit ();
+	MainWindow window;
+
+	//Shows the window and returns when it is closed.
+	Gtk::Main::run(window);
+
 	notify_uninit();
+
 	return 0;
 }
 
