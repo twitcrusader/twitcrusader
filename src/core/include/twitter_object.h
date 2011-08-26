@@ -27,7 +27,7 @@
 #ifndef TWITTEROBJECT_H_
 #define TWITTEROBJECT_H_
 
-#include "Twitter.h"
+#include "twitter.h"
 
 namespace std{
 

@@ -33,6 +33,8 @@
 #include <gtkmm.h>
 
 #include "icons.h"
+#include "../../core/include/twitter_object.h"
+
 
 #define PROG_NAME "TwitCrusader"
 
@@ -63,6 +65,7 @@ protected:
 	Gtk::MenuBar menu_bar;
 
 	Gtk::Statusbar status_bar;
+	Gtk::Statusbar statusbar_char;
 	Gtk::Toolbar tool_bar;
 
 	string status_label;

@@ -28,7 +28,8 @@
 
 namespace std {
 
-MainWindow::MainWindow(){
+MainWindow::MainWindow()
+{
 
 	// This Is Fuckin Sequential Programming
 
@@ -40,9 +41,8 @@ MainWindow::MainWindow(){
 	this->set_position(Gtk::WIN_POS_CENTER);
 
 
-
 	file_menu_items[0].set_label("Log In");
-	file_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::gtkConnect) );
+	file_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
 	file_menu.append(file_menu_items[0]);
 
 
@@ -91,16 +91,22 @@ MainWindow::MainWindow(){
 	helps_menu_root.set_submenu(helps_menu);
 	menu_bar.append(helps_menu_root);
 
+	layout.pack_start(menu_bar,Gtk::PACK_SHRINK);
 
 	//StatusBar
 
+	if(twitterStruct.twitter.getLocalUser().getScreenName().empty() &&
+			twitterStruct.twitter.getLocalUser().getId().empty())
+	{
+		this->status_label="Disconnect..";
 
-	this->status_label="StatusBar..";
+	}else{
+		this->status_label="Connect..";
+
+	}
 	this->status_bar.push(status_label);
 
-	layout.pack_start(menu_bar,Gtk::PACK_SHRINK);
 	layout.pack_end(status_bar,Gtk::PACK_SHRINK);
-
 
 
 	icon_menu[0].set(ICON_UPDATE);
@@ -114,12 +120,25 @@ MainWindow::MainWindow(){
 	tool_bar.set_toolbar_style(Gtk::TOOLBAR_ICONS);
 
 	button[0].set_icon_widget(icon_menu[0]);
+	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[1].set_icon_widget(icon_menu[1]);
+	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[2].set_icon_widget(icon_menu[2]);
+	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[3].set_icon_widget(icon_menu[3]);
+	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[4].set_icon_widget(icon_menu[4]);
+	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[5].set_icon_widget(icon_menu[5]);
+	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
 	button[6].set_icon_widget(icon_menu[6]);
+	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 
 	tool_bar.append(button[0]);
 	tool_bar.append(button[1]);
@@ -132,18 +151,23 @@ MainWindow::MainWindow(){
 	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
 
 
+	layout.pack_end(statusbar_char,Gtk::PACK_SHRINK);
+
+
 	add(layout);
 
 
 	this->show_all();
 }
 
-MainWindow::~MainWindow(){
+MainWindow::~MainWindow()
+{
 
 }
 
 
-void MainWindow::foo(){
+void MainWindow::foo()
+{
 
 	cout<<"foo()"<<endl;
 
