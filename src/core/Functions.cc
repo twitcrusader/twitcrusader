@@ -49,6 +49,14 @@ string Functions::readRawTextFile(string fileName)
 	return buffer;
 }
 
+vector<Glib::ustring> Functions::readTextFileLinebyLine(string fileName)
+{
+
+	vector<Glib::ustring> lines;
+
+	return lines;
+}
+
 bool Functions::shellParameters (int argc, char **argv)
 {
 
@@ -76,14 +84,14 @@ string Functions::DownloadVersion(){
 
 	string LatestVersion=string();
 
-		/* Check Online Version From WebSite and Download File To /tmp/ directory */
+	/* Check Online Version From WebSite and Download File To /tmp/ directory */
 
-		GetHTTP::getSingleCURL(VERSION_URL, FILE_VERSION);
+	GetHTTP::getSingleCURL(VERSION_URL, FILE_VERSION);
 
-		LatestVersion.assign(Functions::readRawTextFile(FILE_VERSION));
+	LatestVersion.assign(Functions::readRawTextFile(FILE_VERSION));
 
-		/* Remove tmp file */
-		remove(FILE_VERSION);
+	/* Remove tmp file */
+	remove(FILE_VERSION);
 
-		return LatestVersion;
+	return LatestVersion;
 }

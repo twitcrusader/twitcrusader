@@ -224,6 +224,7 @@ void MainWindow::loadWindowCredits()
 	about.set_license_type(Gtk::LICENSE_GPL_3_0);
 	about.set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
 	about.set_logo(logo);
+	about.set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
 	about.run();
 }
 

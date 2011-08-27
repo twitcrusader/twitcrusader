@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string>
 #include <string.h>
+#include <gtkmm.h>
 
 #include "GetHTTP.h"
 #include "Version.h"
@@ -42,6 +43,7 @@ class Functions {
 public:
 
 	static string readRawTextFile(string fileName);
+	static vector<Glib::ustring> readTextFileLinebyLine(string fileName);
 	static bool shellParameters (int argc, char **argv);
 	static string DownloadVersion();
 
