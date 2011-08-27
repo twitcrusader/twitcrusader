@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/functions.h"
+#include "include/Functions.h"
 
 string Functions::readRawTextFile(string fileName)
 {

@@ -24,57 +24,15 @@
  *
  */
 
-#ifndef LOCALUSER_H_
-#define LOCALUSER_H_
+#ifndef MAIN_H_
+#define MAIN_H_
 
-/*
- *
- */
 #include <iostream>
-#include <string>
+#include <string.h>
+#include <gtk/gtk.h>
+#include <libnotify/notify.h>
 
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
+#include "gui/include/MainWindow.h"
+#include "core/include/Functions.h"
 
-#include "config.h"
-#include "functions.h"
-
-using  namespace std;
-
-#define MY_ENCODING "ISO-8859-1"
-
-#define CONFIG_FILENAME "config.xml"
-
-class LocalUser {
-private:
-	string id;
-	string screenName;
-	string token;
-	string secretToken;
-	string consumerKey;
-	string consumerSecretKey;
-
-protected:
-	string getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
-
-public:
-	LocalUser();
-	virtual ~LocalUser();
-
-	void setId(string id);
-	void setScreenName(string secretName);
-	void setToken(string Token);
-	void setSecretToken(string secretToken);
-	void setConsumerKey(string consumerKey);
-	void setConsumerSecretKey(string secretConsumerKey);
-
-	string getId();
-	string getScreenName();
-	string getToken();
-	string getSecretToken();
-	string getConsumerKey();
-	string getConsumerSecretKey();
-};
-
-#endif /* LOCALUSER_H_ */
+#endif /* MAIN_H_ */

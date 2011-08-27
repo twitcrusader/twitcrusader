@@ -23,29 +23,58 @@
  * 		E-mail: teamtwc@twitcrusader.org
  *
  */
-#include "main.h"
 
-using namespace std;
+#ifndef LOCALUSER_H_
+#define LOCALUSER_H_
 
-int main(int argc, char *argv[]){
+/*
+ *
+ */
+#include <iostream>
+#include <string>
 
-	notify_init(PROG_NAME);
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
 
-	cout<<"\n\n";
-	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
-	cout<<"Copyright (C) 2011  TwitCrusader Team\n\n";
+#include "Config.h"
+#include "Functions.h"
 
-	if(Functions::shellParameters(argc,argv))return 0;
+using  namespace std;
 
-	Gtk::Main kit(argc, argv);
+#define MY_ENCODING "ISO-8859-1"
 
-	MainWindow window;
+#define CONFIG_FILENAME "config.xml"
 
-	//Shows the window and returns when it is closed.
-	Gtk::Main::run(window);
+class LocalUser {
+private:
+	string id;
+	string screenName;
+	string token;
+	string secretToken;
+	string consumerKey;
+	string consumerSecretKey;
 
-	notify_uninit();
+protected:
+	string getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
 
-	return 0;
-}
+public:
+	LocalUser();
+	virtual ~LocalUser();
 
+	void setId(string id);
+	void setScreenName(string secretName);
+	void setToken(string Token);
+	void setSecretToken(string secretToken);
+	void setConsumerKey(string consumerKey);
+	void setConsumerSecretKey(string secretConsumerKey);
+
+	string getId();
+	string getScreenName();
+	string getToken();
+	string getSecretToken();
+	string getConsumerKey();
+	string getConsumerSecretKey();
+};
+
+#endif /* LOCALUSER_H_ */

@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/tweet.h"
+#include "include/Tweet.h"
 
 Tweet::Tweet()
 {

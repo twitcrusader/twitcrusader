@@ -24,17 +24,54 @@
  *
  */
 
-#ifndef TWITTEROBJECT_H_
-#define TWITTEROBJECT_H_
+#ifndef TIMELINE_H_
+#define TIMELINE_H_
 
-#include "twitter.h"
+/*
+ *
+ */
+#include<iostream>
+#include<vector>
+#include <curl/curl.h>
+
+extern "C"{
+#include <oauth.h>
+}
+
+#include "Tweet.h"
+#include "Config.h"
+#include "TwitterURL.h"
 
 using  namespace std;
 
-static struct TwitterStruct{
+#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
+#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 
-	Twitter twitter;
+class TimeLine {
 
-}twitterStruct;
+private:
 
-#endif /* TWITTEROBJECT_H_ */
+	vector<Tweet> timeline;
+	string timelineURL;
+	string timelineFile;
+
+public:
+	TimeLine();
+	virtual ~TimeLine();
+
+	string getTimelineURL();
+	string getTimelineFile();
+	vector<Tweet> getTimeline();
+
+	void setTimelineURL(string);
+	void setTimelineFile(string);
+	void setTimeline(vector<Tweet>);
+
+
+	string getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
+	void getStatus (xmlDocPtr, xmlNodePtr, int);
+	bool readTimeLine(string);
+
+};
+
+#endif /* TIMELINE_H_ */

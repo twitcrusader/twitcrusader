@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/user.h"
+#include "include/User.h"
 
 User::User()
 {

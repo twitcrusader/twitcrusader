@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/local_user.h"
+#include "include/LocalUser.h"
 
 LocalUser::LocalUser()
 {

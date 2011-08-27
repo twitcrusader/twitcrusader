@@ -1,5 +1,5 @@
 /*
- *	 TwitCrusader-GUI is part of TwitCrusader - Twitter Client For Linux Desktop
+ *	 	Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -24,11 +24,17 @@
  *
  */
 
-#ifndef VERSION_H_
-#define VERSION_H_
+#ifndef TWITTEROBJECT_H_
+#define TWITTEROBJECT_H_
 
-#define TWC_VERSION "2011"
-#define TWC_VERSION_STATUS "-Nightly"
-#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
+#include "Twitter.h"
 
-#endif /* VERSION_H_ */
+using  namespace std;
+
+static struct TwitterStruct{
+
+	Twitter twitter;
+
+}twitterStruct;
+
+#endif /* TWITTEROBJECT_H_ */

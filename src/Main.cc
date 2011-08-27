@@ -23,16 +23,29 @@
  * 		E-mail: teamtwc@twitcrusader.org
  *
  */
+#include "Main.h"
 
-#ifndef MAIN_H_
-#define MAIN_H_
+using namespace std;
 
-#include <iostream>
-#include <string.h>
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+int main(int argc, char *argv[]){
 
-#include "gui/include/main_window.h"
-#include "core/include/functions.h"
+	notify_init(PROG_NAME);
 
-#endif /* MAIN_H_ */
+	cout<<"\n\n";
+	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
+	cout<<"Copyright (C) 2011  TwitCrusader Team\n\n";
+
+	if(Functions::shellParameters(argc,argv))return 0;
+
+	Gtk::Main kit(argc, argv);
+
+	MainWindow window;
+
+	//Shows the window and returns when it is closed.
+	Gtk::Main::run(window);
+
+	notify_uninit();
+
+	return 0;
+}
+

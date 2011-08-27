@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/main_window.h"
+#include "include/MainWindow.h"
 
 MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 {
@@ -82,7 +82,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	//m.setIcon(ICON_STAR);
 	helps_menu_items[1].set_label("Credits");
-	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
 	helps_menu.append(helps_menu_items[1]);
 
 	helps_menu_root.set_label("Help");
@@ -207,7 +207,25 @@ void MainWindow::gtkConnect()
 
 void MainWindow::loadWindowCredits()
 {
+
+#define COMMENT "Basato su Gtkmm e semplicità!\n\nVersion: "
+
+
 	cout<<"loadWindowCredits()"<<endl;
+
+	Glib::RefPtr<Gdk::Pixbuf> logo;
+	logo=Gdk::Pixbuf::create_from_file(ICON_ABOUT);
+
+	Gtk::AboutDialog about;
+
+	about.set_name(PROG_NAME);
+	about.set_copyright(COPYRIGHT);
+	about.set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
+	about.set_website(WEBSITE);
+	about.set_license_type(Gtk::LICENSE_GPL_3_0);
+	about.set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
+	about.set_logo(logo);
+	about.run();
 }
 
 
@@ -239,6 +257,7 @@ void MainWindow::on_quit()
 
 	hide();
 }
+
 
 void MainWindow::updateStatusBar(){
 	cout<<"updateStatusBar()"<<endl;

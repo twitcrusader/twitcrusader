@@ -24,54 +24,57 @@
  *
  */
 
-#ifndef TIMELINE_H_
-#define TIMELINE_H_
+#ifndef TWITTER_H_
+#define TWITTER_H_
 
 /*
  *
  */
-#include<iostream>
-#include<vector>
-#include <curl/curl.h>
-
-extern "C"{
-#include <oauth.h>
-}
-
-#include "tweet.h"
-#include"config.h"
-#include "twitter_URL.h"
+#include <iostream>
+#include <vector>
+#include <string.h>
+#include "TwitterURL.h"
+#include "TimeLine.h"
+#include "LocalUser.h"
 
 using  namespace std;
 
-#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
-#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
-
-class TimeLine {
+class Twitter {
 
 private:
-
-	vector<Tweet> timeline;
-	string timelineURL;
-	string timelineFile;
+	LocalUser localUser;
+	TimeLine timeLine;
+	Config config;
 
 public:
-	TimeLine();
-	virtual ~TimeLine();
+	string tmp_token;
 
-	string getTimelineURL();
-	string getTimelineFile();
-	vector<Tweet> getTimeline();
+	Twitter();
+	virtual ~Twitter();
 
-	void setTimelineURL(string);
-	void setTimelineFile(string);
-	void setTimeline(vector<Tweet>);
+	LocalUser getLocalUser();
+	TimeLine getTimeLine();
+	Config getConfig();
 
+	void setlocalUser(LocalUser localUser);
+	void setTimeLine(TimeLine timeLine);
+	void setConfig(Config config);
 
-	string getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
-	void getStatus (xmlDocPtr, xmlNodePtr, int);
-	bool readTimeLine(string);
+	bool readUserFile();
+	bool writeUserFile();
+	char* getElement(xmlDocPtr doc, xmlNodePtr cur, const char *keyword);
+
+	bool switchTimeLine(int xmlSwitch);
+	bool downloadTimeLine();
+
+	bool tokenTemp();
+	bool tokenTempBrowser();
+	bool tokenAccess(const string pin);
+	string tokenRequest(const string consumerKey, const string consumerKeySecret);
+	char *getParameters(char **argv,int argc,const char *param);
+	string getParameters2(vector<string> rv, string param);
+	bool SendTweet(string msg);
 
 };
 
-#endif /* TIMELINE_H_ */
+#endif /* TWITTER_H_ */

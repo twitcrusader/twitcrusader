@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/get_http.h"
+#include "include/GetHTTP.h"
 
 size_t GetHTTP::writeFunction( void *ptr, size_t size, size_t nmemb, void *stream)
 {

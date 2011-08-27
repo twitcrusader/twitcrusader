@@ -32,13 +32,11 @@
 
 #include <gtkmm.h>
 
-#include "icons.h"
-#include "../../core/include/twitter_object.h"
+#include "Icons.h"
+#include "../../core/include/TwitterObject.h"
+#include "../../core/include/Version.h"
 
 using namespace std;
-
-#define PROG_NAME "TwitCrusader"
-
 
 class MainWindow : public Gtk::Window{
 
@@ -61,12 +59,13 @@ protected:
 	Gtk::ToolButton button[7];
 	Gtk::Image icon_menu[7];
 
+
 	Gtk::Table table;
 	Gtk::Table table_into;
 	Gtk::ScrolledWindow scrolled_window;
 	Gtk::ScrolledWindow scroll_text;
 	Gtk::TextView text;
-	  Glib::RefPtr<Gtk::TextBuffer> tweet_buffer;
+	Glib::RefPtr<Gtk::TextBuffer> tweet_buffer;
 	Gtk::VBox layout;
 	Gtk::MenuBar menu_bar;
 

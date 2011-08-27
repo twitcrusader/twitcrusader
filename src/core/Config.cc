@@ -24,7 +24,7 @@
  *
  */
 
-#include "include/config.h"
+#include "include/Config.h"
 
 Config::Config()
 {

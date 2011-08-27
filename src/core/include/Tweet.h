@@ -33,7 +33,7 @@
 #include <iostream>
 #include <libxml/xmlreader.h>
 
-#include "user.h"
+#include "User.h"
 
 using  namespace std;
 
