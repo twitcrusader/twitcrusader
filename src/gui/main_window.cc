@@ -40,19 +40,19 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 
 	file_menu_items[0].set_label("Log In");
-	file_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 	file_menu.append(file_menu_items[0]);
 
 
 	//m.setIcon(ICON_ADDUSER);
 	file_menu_items[1].set_label("Log Out");
-	file_menu_items[1].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 	file_menu.append(file_menu_items[1]);
 
 
 	//m.setIcon(ICON_CLOSE);
 	file_menu_items[2].set_label("Quit");
-	file_menu_items[2].signal_activate().connect(G_CALLBACK(&MainWindow::on_quit) );
+	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
 	file_menu.append(file_menu_items[2]);
 
 
@@ -66,7 +66,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 
 	options_menu_items[0].set_label("Users");
-	options_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	options_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 	options_menu.append(options_menu_items[0]);
 
 	options_menu_root.set_label("Options");
@@ -77,12 +77,12 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	//menu_helps
 	//m.setIcon(ICON_UPGRADE);
 	helps_menu_items[0].set_label("Version");
-	helps_menu_items[0].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 	helps_menu.append(helps_menu_items[0]);
 
 	//m.setIcon(ICON_STAR);
 	helps_menu_items[1].set_label("Credits");
-	helps_menu_items[1].signal_activate().connect(G_CALLBACK(&MainWindow::foo) );
+	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 	helps_menu.append(helps_menu_items[1]);
 
 	helps_menu_root.set_label("Help");
@@ -170,7 +170,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	tweet_buffer=Gtk::TextBuffer::create();
 	this->text.set_buffer(this->tweet_buffer);
-	//this->text.signal_state_changed().connect(sigc::bind(sigc::mem_fun(*this, &MainWindow::updateStatusBar))); NOT WORKKKKKKKKKKKKKKKKKKKKKKKKK!!!!!!!!!!!!!!!!!
+	//this->text.signal_state_changed().connect(sigc::mem_fun(*this, &MainWindow::on_my_changed));;
 	this->scroll_text.add(this->text);
 	this->scroll_text.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
 	this->table.attach(this->scroll_text,0, 3, 8, 9);
@@ -242,5 +242,10 @@ void MainWindow::on_quit()
 
 void MainWindow::updateStatusBar(){
 	cout<<"updateStatusBar()"<<endl;
+
+}
+
+void MainWindow::on_my_changed()
+{
 
 }

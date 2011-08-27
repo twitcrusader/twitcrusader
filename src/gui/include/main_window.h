@@ -76,6 +76,7 @@ protected:
 
 	string status_label;
 
+	void on_my_changed();
 	void updateStatusBar();
 
 public:
