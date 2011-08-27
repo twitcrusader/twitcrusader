@@ -32,6 +32,9 @@
 #include <string>
 #include <string.h>
 
+#include "GetHTTP.h"
+#include "Version.h"
+
 using  namespace std;
 
 class Functions {
@@ -40,6 +43,7 @@ public:
 
 	static string readRawTextFile(string fileName);
 	static bool shellParameters (int argc, char **argv);
+	static string DownloadVersion();
 
 };
 

@@ -31,6 +31,7 @@
 #include <vector>
 
 #include <gtkmm.h>
+#include <gtkmm/stock.h>
 
 #include "Icons.h"
 #include "../../core/include/TwitterObject.h"

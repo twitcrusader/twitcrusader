@@ -36,4 +36,7 @@
 #define TWC_VERSION_STATUS "-Nightly"
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
+#define FILE_VERSION "/tmp/version.twc"
+#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
+
 #endif /* VERSION_H_ */

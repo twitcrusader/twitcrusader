@@ -77,7 +77,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	//menu_helps
 	//m.setIcon(ICON_UPGRADE);
 	helps_menu_items[0].set_label("Version");
-	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
 	helps_menu.append(helps_menu_items[0]);
 
 	//m.setIcon(ICON_STAR);
@@ -233,6 +233,26 @@ void MainWindow::loadWindowCredits()
 void MainWindow::loadWindowVersion()
 {
 	cout<<"loadWindowVersion()"<<endl;
+
+
+
+
+	string current_Version_MSG("Current Version: ");
+	string last_Version_MSG("Last Version: ");
+
+	string last_Version_Check(Functions::DownloadVersion());
+	string current_Version_Check(TWC_VERSION""TWC_VERSION_STATUS);
+
+	string info(current_Version_MSG+current_Version_Check+"\n"+last_Version_MSG+last_Version_Check);
+
+	Gtk::MessageDialog version(*this, info);
+	version.set_title("Check Updates");
+	version.set_border_width(0);
+	version.set_position(Gtk::WIN_POS_CENTER);
+	version.set_default_icon_from_file(ICON_UPGRADE);
+
+	version.run();
+
 }
 
 
@@ -240,9 +260,9 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
+
+
 }
-
-
 
 void MainWindow::loadWindowAdduser()
 {

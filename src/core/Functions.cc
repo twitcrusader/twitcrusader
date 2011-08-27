@@ -71,3 +71,19 @@ bool Functions::shellParameters (int argc, char **argv)
 	}
 	return false;
 }
+
+string Functions::DownloadVersion(){
+
+	string LatestVersion=string();
+
+		/* Check Online Version From WebSite and Download File To /tmp/ directory */
+
+		GetHTTP::getSingleCURL(VERSION_URL, FILE_VERSION);
+
+		LatestVersion.assign(Functions::readRawTextFile(FILE_VERSION));
+
+		/* Remove tmp file */
+		remove(FILE_VERSION);
+
+		return LatestVersion;
+}
