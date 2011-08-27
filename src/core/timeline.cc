@@ -26,9 +26,8 @@
 
 #include "include/time_line.h"
 
-namespace std {
-
-TimeLine::TimeLine() {
+TimeLine::TimeLine()
+{
 	timelineURL=string();
 	timelineFile=string();
 	timeline=vector<Tweet>();
@@ -36,34 +35,43 @@ TimeLine::TimeLine() {
 
 }
 
-TimeLine::~TimeLine() {
+TimeLine::~TimeLine()
+{
 	timeline.~vector();
 
 }
 
-string TimeLine::getTimelineURL(){
+string TimeLine::getTimelineURL()
+{
 	return this->timelineURL;
 }
-	string TimeLine::getTimelineFile(){
-		return this->timelineFile;
-	}
 
-	vector<Tweet> TimeLine::getTimeline(){
-		return this->timeline;
-	}
-	void TimeLine::setTimelineURL(string timelineURL){
-		this->timelineURL=timelineURL;
-	}
+string TimeLine::getTimelineFile()
+{
+	return this->timelineFile;
+}
 
-	void TimeLine::setTimelineFile(string timelineFile){
-		this->timelineFile=timelineFile;
-	}
+vector<Tweet> TimeLine::getTimeline()
+{
+	return this->timeline;
+}
+void TimeLine::setTimelineURL(string timelineURL)
+{
+	this->timelineURL=timelineURL;
+}
 
-	void TimeLine::setTimeline(vector<Tweet> timeline){
-		this->timeline=timeline;
-	}
+void TimeLine::setTimelineFile(string timelineFile)
+{
+	this->timelineFile=timelineFile;
+}
 
-bool TimeLine::readTimeLine(string docname){
+void TimeLine::setTimeline(vector<Tweet> timeline)
+{
+	this->timeline=timeline;
+}
+
+bool TimeLine::readTimeLine(string docname)
+{
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -104,7 +112,8 @@ bool TimeLine::readTimeLine(string docname){
 
 }
 
-void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i){
+void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i)
+{
 	Tweet tweet=Tweet();
 
 	xmlNodePtr cur2;
@@ -385,7 +394,8 @@ void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i){
 
 }
 
-string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword){
+string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword)
+{
 	xmlChar *key = NULL;
 	string empty = "error";
 
@@ -396,7 +406,5 @@ string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keywor
 	}
 
 	return empty;
-
-}
 
 }

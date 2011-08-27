@@ -32,7 +32,7 @@
 #include <string>
 #include <string.h>
 
-namespace std {
+using  namespace std;
 
 class Functions {
 
@@ -43,6 +43,6 @@ public:
 
 };
 
-}
+
 
 #endif /* FUNCTIONS_H_ */

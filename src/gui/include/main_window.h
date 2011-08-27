@@ -35,10 +35,10 @@
 #include "icons.h"
 #include "../../core/include/twitter_object.h"
 
+using namespace std;
 
 #define PROG_NAME "TwitCrusader"
 
-namespace std {
 
 class MainWindow : public Gtk::Window{
 
@@ -92,5 +92,4 @@ public:
 	void on_quit();
 };
 
-} /* namespace std */
 #endif /* MAINWINDOW_H_ */

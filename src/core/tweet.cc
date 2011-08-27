@@ -26,9 +26,8 @@
 
 #include "include/tweet.h"
 
-namespace std {
-
-Tweet::Tweet() {
+Tweet::Tweet()
+{
 	created_at=string();
 	id=string();
 	text=string();
@@ -48,7 +47,8 @@ Tweet::Tweet() {
 	user=User();
 }
 
-Tweet::~Tweet() {
+Tweet::~Tweet()
+{
 	user.~User();
 }
 
@@ -209,6 +209,4 @@ string Tweet::getIn_reply_to_user_id()
 
 void Tweet::setUser(User user){
 	this->user=user;
-}
-
 }

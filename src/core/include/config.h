@@ -41,7 +41,7 @@
 
 #define CONFIG_FILENAME "config.xml"
 
-namespace std {
+using  namespace std;
 
 class Config {
 private:
@@ -70,7 +70,5 @@ public:
 	bool createTimelineDir();
 	bool deleteConfigFile();
 };
-
-}
 
 #endif /* CONFIG_H_ */

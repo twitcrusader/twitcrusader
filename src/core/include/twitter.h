@@ -39,7 +39,7 @@
 
 #include "twitter_URL.h"
 
-namespace std {
+using  namespace std;
 
 class Twitter {
 
@@ -78,7 +78,5 @@ public:
 	bool SendTweet(string msg);
 
 };
-
-}
 
 #endif /* TWITTER_H_ */

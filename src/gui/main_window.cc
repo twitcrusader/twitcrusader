@@ -26,8 +26,6 @@
 
 #include "include/main_window.h"
 
-namespace std {
-
 MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 {
 
@@ -104,7 +102,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 		this->status_label="Connect..";
 
 	}
-	this->status_bar.push(status_label);
+	this->status_bar.push(this->status_label);
 
 	layout.pack_end(status_bar,Gtk::PACK_SHRINK);
 
@@ -246,6 +244,3 @@ void MainWindow::updateStatusBar(){
 	cout<<"updateStatusBar()"<<endl;
 
 }
-
-}
-/* namespace std */

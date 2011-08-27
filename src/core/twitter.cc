@@ -26,25 +26,26 @@
 
 #include "include/twitter.h"
 
-/* FUNCTIONS_H_ */
-namespace std{
-
-Twitter::Twitter(){
+Twitter::Twitter()
+{
 	localUser = LocalUser();
 	timeLine = TimeLine();
 	config = Config();
 	tmp_token=string();
 }
 
-Twitter::~Twitter(){
+Twitter::~Twitter()
+{
 
 }
 
-LocalUser Twitter::getLocalUser(){
+LocalUser Twitter::getLocalUser()
+{
 	return this->localUser;
 }
 
-TimeLine Twitter::getTimeLine(){
+TimeLine Twitter::getTimeLine()
+{
 	return this->timeLine;
 }
 
@@ -53,15 +54,18 @@ Config Twitter::getConfig()
 	return this->config;
 }
 
-void Twitter::setlocalUser(LocalUser localUser){
+void Twitter::setlocalUser(LocalUser localUser)
+{
 	this->localUser=localUser;
 }
 
-void Twitter::setTimeLine(TimeLine timeLine){
+void Twitter::setTimeLine(TimeLine timeLine)
+{
 	this->timeLine=timeLine;
 }
 
-void Twitter::setConfig(Config config){
+void Twitter::setConfig(Config config)
+{
 	this->config=config;
 }
 
@@ -177,7 +181,8 @@ char* Twitter::getElement(xmlDocPtr doc, xmlNodePtr cur, const char *keyword)
 	return (char*)"";
 }
 
-bool Twitter::switchTimeLine(int xmlSwitch){
+bool Twitter::switchTimeLine(int xmlSwitch)
+{
 
 	string path=string();
 	path.assign(config.getTimeLineDir());
@@ -188,59 +193,69 @@ bool Twitter::switchTimeLine(int xmlSwitch){
 		path.append("home_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(HOME_TIMELINE_URL);
-
+		break;
 
 	case 2:
 		path.append("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
+		break;
 
 
 	case 3:
 		path.append("mentions.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(MENTIONS_TIMELINE_URL);
+		break;
 
 
 	case 4:
 		path.append("friends_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(FRIENDS_TIMELINE_URL);
+		break;
 
 
 	case 5:
 		path.append("user_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(USER_TIMELINE_URL);
+		break;
 
 
 	case 6:
 		path.append("retweeted_by_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_BY_ME_TIMELINE_URL);
+		break;
 
 
 	case 7:
 		path.append("retweeted_to_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_TO_ME_TIMELINE_URL);
+		break;
 
 
 	case 8:
 		path.append("retweeted_of_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_OF_ME_TIMELINE_URL);
+		break;
 
 
 	default:
 		path.append("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
+		break;
+
 	}
 	return true;
 }
 
-bool Twitter::downloadTimeLine(){
+bool Twitter::downloadTimeLine()
+{
 	FILE *fp;
 	string postarg=string();
 	string timeline=string();
@@ -275,7 +290,8 @@ bool Twitter::downloadTimeLine(){
 	return false;
 }
 
-bool Twitter::SendTweet(string msg){
+bool Twitter::SendTweet(string msg)
+{
 
 	string twitterStatusURL=string();
 	string sendTweet=string();
@@ -306,7 +322,8 @@ bool Twitter::SendTweet(string msg){
 	return false;
 }
 
-bool Twitter::tokenTemp(){
+bool Twitter::tokenTemp()
+{
 
 	int rc;
 	string tempKeyURL=string();
@@ -338,7 +355,8 @@ bool Twitter::tokenTemp(){
 
 }
 
-bool Twitter::tokenTempBrowser(){
+bool Twitter::tokenTempBrowser()
+{
 	int rc;
 	string cmd=string();
 	string tempKeyURL=string();
@@ -379,7 +397,9 @@ bool Twitter::tokenTempBrowser(){
 	return true;
 
 }
-bool Twitter::tokenAccess(const string pin){
+
+bool Twitter::tokenAccess(const string pin)
+{
 	int rc;
 	string buffer=string();
 	string verifyPIN=string();
@@ -439,7 +459,8 @@ bool Twitter::tokenAccess(const string pin){
 	return writeUserFile();
 }
 
-string Twitter::tokenRequest(const string consumerKey, const string consumerKeySecret){
+string Twitter::tokenRequest(const string consumerKey, const string consumerKeySecret)
+{
 
 	char *postarg = NULL;
 	string tempKeyParameters=string();
@@ -466,6 +487,4 @@ char* Twitter::getParameters(char **argv,int argc,const char *param)
 		}
 	}
 	return NULL;
-}
-
 }

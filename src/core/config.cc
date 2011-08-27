@@ -26,9 +26,8 @@
 
 #include "include/config.h"
 
-namespace std {
-
-Config::Config() {
+Config::Config()
+{
 	avatarDir=string();
 	configDir=string();
 	configFile=string();
@@ -41,26 +40,28 @@ Config::Config() {
 	setConfigFile();
 	setTimelineDir();
 
-	 cout<<"config: \n";
-	 cout<<getAvatarDir()<<"\n";
-	 cout<<getConfigDir()<<"\n";
-	 cout<<getConfigFile()<<"\n";
-	 cout<<getTimeLineDir()<<"\n";
+	cout<<"config: \n";
+	cout<<getAvatarDir()<<"\n";
+	cout<<getConfigDir()<<"\n";
+	cout<<getConfigFile()<<"\n";
+	cout<<getTimeLineDir()<<"\n";
 
 }
 
-Config::~Config() {
+Config::~Config()
+{
 
 }
 
-void Config::setAvatarDir(){
+void Config::setAvatarDir()
+{
 
 	avatarDir.assign(homeDir);
 	avatarDir.append("/.twc/avatar/");
 }
 
-bool Config::createAvatarDir(){
-
+bool Config::createAvatarDir()
+{
 
 	/* User-Directory Path */
 
@@ -72,7 +73,7 @@ bool Config::createAvatarDir(){
 		string cmd=string();
 		cmd.assign("mkdir -p ");
 		cmd.append(avatarDir);
-		 cout<<cmd;
+		cout<<cmd;
 		system(cmd.c_str());
 
 		return true;
@@ -81,14 +82,16 @@ bool Config::createAvatarDir(){
 	return false;
 }
 
-void Config::setConfigDir(){
+void Config::setConfigDir()
+{
 
 	//Configuration File
 	configDir.assign(homeDir);
 	configDir.append("/.twc/config/");
 }
 
-bool Config::createConfigDir(){
+bool Config::createConfigDir()
+{
 
 	if(!configDir.empty()){
 		//mkdir( configDir.c_str(), 0777);
@@ -102,13 +105,15 @@ bool Config::createConfigDir(){
 
 }
 
-void Config::setTimelineDir(){
+void Config::setTimelineDir()
+{
 	timelineDir.assign(homeDir);
 	timelineDir.append("/.twc/timeline/");
 
 }
 
-bool Config::createTimelineDir(){
+bool Config::createTimelineDir()
+{
 
 	if(!timelineDir.empty()){
 		//mkdir(timelineDir.c_str(), 0777);
@@ -123,31 +128,37 @@ bool Config::createTimelineDir(){
 
 }
 
-void Config::setConfigFile(){
+void Config::setConfigFile()
+{
 	configFile.assign(configDir);
 	configFile.append(CONFIG_FILENAME);
 }
 
 
-string Config::getAvatarDir(){
+string Config::getAvatarDir()
+{
 	return avatarDir;
 }
 
-string Config::getConfigDir(){
+string Config::getConfigDir()
+{
 	return configDir;
 }
 
-string Config::getConfigFile(){
+string Config::getConfigFile()
+{
 	return configFile;
 }
 
 
-string Config::getTimeLineDir(){
+string Config::getTimeLineDir()
+{
 	return timelineDir;
 }
 
 
-bool Config::deleteConfigFile(){
+bool Config::deleteConfigFile()
+{
 	string cmd=string();
 
 	cmd.assign("rm ");
@@ -155,6 +166,4 @@ bool Config::deleteConfigFile(){
 	system(cmd.c_str());
 
 	return true;
-}
-
 }

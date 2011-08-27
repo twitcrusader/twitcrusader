@@ -24,16 +24,16 @@
  *
  */
 
-#include "include/getHTTP.h"
+#include "include/get_http.h"
 
-namespace std {
-
-size_t GetHTTP::writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){
+size_t GetHTTP::writeFunction( void *ptr, size_t size, size_t nmemb, void *stream)
+{
 	fwrite(ptr, size, nmemb, (FILE *)stream);
 	return nmemb*size;
 };
 
-void GetHTTP::getSingleCURL(string url, string file){
+void GetHTTP::getSingleCURL(string url, string file)
+{
 	string argv[2];
 	argv[0]=string();
 	argv[0].assign(url);
@@ -43,7 +43,8 @@ void GetHTTP::getSingleCURL(string url, string file){
 	pull_one_url((void *)argv);
 }
 
-void GetHTTP::pull_one_url(void* argv){
+void GetHTTP::pull_one_url(void* argv)
+{
 
 	CURL *curl;
 	FILE *destFile;
@@ -75,6 +76,4 @@ void GetHTTP::pull_one_url(void* argv){
 			curl_easy_cleanup(curl);
 		}
 	}
-
-}
 }

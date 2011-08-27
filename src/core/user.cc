@@ -26,9 +26,8 @@
 
 #include "include/user.h"
 
-namespace std {
-
-User::User() {
+User::User()
+{
 	id=string();
 	name=string();
 	screen_name=string();
@@ -67,7 +66,8 @@ User::User() {
 	listed_count=string();
 }
 
-User::~User() {
+User::~User()
+{
 	// TODO Auto-generated destructor stub
 }
 
@@ -430,8 +430,4 @@ void User::setContributors_enabled(string contributors_enabled)
 void User::setDefault_profile_image(string default_profile_image)
 {
 	this->default_profile_image.assign(default_profile_image);
-}
-
-
-
 }

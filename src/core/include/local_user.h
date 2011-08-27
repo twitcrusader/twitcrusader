@@ -40,11 +40,11 @@
 #include "config.h"
 #include "functions.h"
 
+using  namespace std;
+
 #define MY_ENCODING "ISO-8859-1"
 
 #define CONFIG_FILENAME "config.xml"
-
-namespace std {
 
 class LocalUser {
 private:
@@ -76,7 +76,5 @@ public:
 	string getConsumerKey();
 	string getConsumerSecretKey();
 };
-
-}
 
 #endif /* LOCALUSER_H_ */

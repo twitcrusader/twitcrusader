@@ -26,9 +26,8 @@
 
 #include "include/local_user.h"
 
-namespace std {
-
-LocalUser::LocalUser() {
+LocalUser::LocalUser()
+{
 	id=string();
 	screenName=string();
 	token=string();
@@ -37,56 +36,67 @@ LocalUser::LocalUser() {
 	consumerSecretKey=string();
 }
 
-LocalUser::~LocalUser() {
+LocalUser::~LocalUser()
+{
 
 }
 
-void  LocalUser::setId(string id){
+void  LocalUser::setId(string id)
+{
 	this->id.append(id);
 }
 
-void  LocalUser::setScreenName(string secretName){
+void  LocalUser::setScreenName(string secretName)
+{
 	this->screenName.append(secretName);
 }
 
-void  LocalUser::setToken(string Token){
+void  LocalUser::setToken(string Token)
+{
 	this->token.append(Token);
 }
 
-void  LocalUser::setSecretToken(string secretToken){
+void  LocalUser::setSecretToken(string secretToken)
+{
 	this->secretToken.append(secretToken);
 }
 
-void  LocalUser::setConsumerKey(string consumerKey){
+void  LocalUser::setConsumerKey(string consumerKey)
+{
 	this->consumerKey.append(consumerKey);
 }
 
-void  LocalUser::setConsumerSecretKey(string secretConsumerKey){
+void  LocalUser::setConsumerSecretKey(string secretConsumerKey)
+{
 	this->consumerSecretKey.assign(secretConsumerKey);
 }
 
-string LocalUser::getId(){
+string LocalUser::getId()
+{
 	return id;
 }
 
-string LocalUser::getScreenName(){
+string LocalUser::getScreenName()
+{
 	return screenName;
 }
 
-string LocalUser::getToken(){
+string LocalUser::getToken()
+{
 	return token;
 }
 
-string LocalUser::getSecretToken(){
+string LocalUser::getSecretToken()
+{
 	return secretToken;
 }
 
-string LocalUser::getConsumerKey(){
+string LocalUser::getConsumerKey()
+{
 	return consumerKey;
 }
 
-string LocalUser::getConsumerSecretKey(){
+string LocalUser::getConsumerSecretKey()
+{
 	return consumerSecretKey;
-}
-
 }

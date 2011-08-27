@@ -26,9 +26,8 @@
 
 #include "include/functions.h"
 
-namespace std {
-
-string Functions::readRawTextFile(string fileName){
+string Functions::readRawTextFile(string fileName)
+{
 	FILE *fp;
 	char ch;
 	string buffer=string();
@@ -50,7 +49,8 @@ string Functions::readRawTextFile(string fileName){
 	return buffer;
 }
 
-bool Functions::shellParameters (int argc, char **argv){
+bool Functions::shellParameters (int argc, char **argv)
+{
 
 	if (argc > 1){
 		for (int count = 1; count < argc; count++){
@@ -70,6 +70,4 @@ bool Functions::shellParameters (int argc, char **argv){
 		}
 	}
 	return false;
-}
-
 }

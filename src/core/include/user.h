@@ -32,7 +32,7 @@
  */
 #include <iostream>
 
-namespace std {
+using  namespace std;
 
 class User {
 
@@ -154,7 +154,5 @@ public:
 	void setListed_count(string listed_count);
 
 };
-
-}
 
 #endif /* USER_H_ */

@@ -29,7 +29,7 @@
 
 #include "twitter.h"
 
-namespace std{
+using  namespace std;
 
 static struct TwitterStruct{
 
@@ -37,5 +37,4 @@ static struct TwitterStruct{
 
 }twitterStruct;
 
-}
 #endif /* TWITTEROBJECT_H_ */

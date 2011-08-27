@@ -35,7 +35,7 @@
 #include <string>
 #include <pthread.h>
 
-namespace std {
+using  namespace std;
 
 class GetHTTP {
 
@@ -48,6 +48,5 @@ public:
 
 };
 
-}
 
 #endif /* GETHTTP_H_ */
