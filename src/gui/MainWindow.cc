@@ -121,31 +121,30 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	button[0].set_icon_widget(icon_menu[0]);
 	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[0]);
 
 	button[1].set_icon_widget(icon_menu[1]);
 	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[1]);
 
 	button[2].set_icon_widget(icon_menu[2]);
 	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[2]);
 
 	button[3].set_icon_widget(icon_menu[3]);
 	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[3]);
 
 	button[4].set_icon_widget(icon_menu[4]);
 	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[4]);
 
 	button[5].set_icon_widget(icon_menu[5]);
 	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[5]);
 
 	button[6].set_icon_widget(icon_menu[6]);
 	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-
-	tool_bar.append(button[0]);
-	tool_bar.append(button[1]);
-	tool_bar.append(button[2]);
-	tool_bar.append(button[3]);
-	tool_bar.append(button[4]);
-	tool_bar.append(button[5]);
 	tool_bar.append(button[6]);
 
 	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
@@ -234,9 +233,6 @@ void MainWindow::loadWindowVersion()
 {
 	cout<<"loadWindowVersion()"<<endl;
 
-
-
-
 	string current_Version_MSG("Current Version: ");
 	string last_Version_MSG("Last Version: ");
 
@@ -284,7 +280,12 @@ void MainWindow::updateStatusBar(){
 
 }
 
-void MainWindow::on_my_changed()
+void MainWindow::on_submit_text()
 {
+	cout<<"on_submit_text()"<<endl;
+}
 
+void MainWindow::on_writing()
+{
+	cout<<"on_writing()"<<endl;
 }

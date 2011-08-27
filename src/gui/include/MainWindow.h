@@ -76,8 +76,15 @@ protected:
 
 	string status_label;
 
-	void on_my_changed();
+	void on_submit_text();
+	void on_writing();
 	void updateStatusBar();
+
+	void loadWindowCredits();
+	void loadWindowVersion();
+	void loadWindowOptions();
+	void loadWindowAdduser();
+
 
 public:
 	MainWindow();
@@ -85,10 +92,6 @@ public:
 
 	void foo();
 	void gtkConnect();
-	void loadWindowCredits();
-	void loadWindowVersion();
-	void loadWindowOptions();
-	void loadWindowAdduser();
 
 	void on_quit();
 };
