@@ -36,7 +36,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	this->set_default_size(315, 650);
 	this->set_size_request(315, 400);
 	this->set_border_width(0);
-	this->set_position(Gtk::WIN_POS_CENTER);
+	this->set_position(WIN_POS_CENTER);
 
 
 	file_menu_items[0].set_label("Log In");
@@ -66,7 +66,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 
 	options_menu_items[0].set_label("Users");
-	options_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+	options_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
 	options_menu.append(options_menu_items[0]);
 
 	options_menu_root.set_label("Options");
@@ -89,7 +89,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	helps_menu_root.set_submenu(helps_menu);
 	menu_bar.append(helps_menu_root);
 
-	layout.pack_start(menu_bar,Gtk::PACK_SHRINK);
+	layout.pack_start(menu_bar,PACK_SHRINK);
 
 	//StatusBar
 
@@ -104,7 +104,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	}
 	this->status_bar.push(this->status_label);
 
-	layout.pack_end(status_bar,Gtk::PACK_SHRINK);
+	layout.pack_end(status_bar,PACK_SHRINK);
 
 
 	icon_menu[0].set(ICON_UPDATE);
@@ -116,8 +116,8 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	icon_menu[6].set(ICON_PHOTO);
 
 
-	tool_bar.set_toolbar_style(Gtk::TOOLBAR_ICONS);
-	tool_bar.set_icon_size(Gtk::ICON_SIZE_SMALL_TOOLBAR);
+	tool_bar.set_toolbar_style(TOOLBAR_ICONS);
+	tool_bar.set_icon_size(ICON_SIZE_SMALL_TOOLBAR);
 
 	button[0].set_icon_widget(icon_menu[0]);
 	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
@@ -147,17 +147,17 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[6]);
 
-	layout.pack_end(tool_bar,Gtk::PACK_SHRINK);
+	layout.pack_end(tool_bar,PACK_SHRINK);
 
 	statusbar_char.push("140"); // Now are Static !
 
-	layout.pack_end(statusbar_char,Gtk::PACK_SHRINK);
+	layout.pack_end(statusbar_char,PACK_SHRINK);
 
 
 	// for() to print Tweet
 
 	this->scrolled_window.add(table_into);
-	this->scrolled_window.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
+	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
 
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
 
@@ -165,13 +165,13 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	// TextArea + Scrollbar
 
 	this->text.set_editable(true);
-	this->text.set_wrap_mode(Gtk::WRAP_CHAR);
+	this->text.set_wrap_mode(WRAP_CHAR);
 
-	tweet_buffer=Gtk::TextBuffer::create();
+	tweet_buffer=TextBuffer::create();
 	this->text.set_buffer(this->tweet_buffer);
 	//this->text.signal_state_changed().connect(sigc::mem_fun(*this, &MainWindow::on_my_changed));;
 	this->scroll_text.add(this->text);
-	this->scroll_text.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
+	this->scroll_text.set_policy(POLICY_NEVER, POLICY_AUTOMATIC);
 	this->table.attach(this->scroll_text,0, 3, 8, 9);
 
 	this->layout.pack_start(this->table);
@@ -215,13 +215,13 @@ void MainWindow::loadWindowCredits()
 	Glib::RefPtr<Gdk::Pixbuf> logo;
 	logo=Gdk::Pixbuf::create_from_file(ICON_ABOUT);
 
-	Gtk::AboutDialog about;
+	AboutDialog about;
 
 	about.set_name(PROG_NAME);
 	about.set_copyright(COPYRIGHT);
 	about.set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
 	about.set_website(WEBSITE);
-	about.set_license_type(Gtk::LICENSE_GPL_3_0);
+	about.set_license_type(LICENSE_GPL_3_0);
 	about.set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
 	about.set_logo(logo);
 	about.set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
@@ -242,10 +242,10 @@ void MainWindow::loadWindowVersion()
 
 	string info(current_Version_MSG+current_Version_Check+"\n"+last_Version_MSG+last_Version_Check);
 
-	Gtk::MessageDialog version(*this, info);
+	MessageDialog version(*this, info);
 	version.set_title("Check Updates");
 	version.set_border_width(0);
-	version.set_position(Gtk::WIN_POS_CENTER);
+	version.set_position(WIN_POS_CENTER);
 	version.set_default_icon_from_file(ICON_UPGRADE);
 
 	version.run();
@@ -259,11 +259,15 @@ void MainWindow::loadWindowOptions()
 	cout<<"loadWindowOptions()"<<endl;
 
 
+
+	OptionWindow options;
 }
 
 void MainWindow::loadWindowAdduser()
 {
 	cout<<"loadWindowAdduser()"<<endl;
+
+
 }
 
 

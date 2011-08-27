@@ -24,78 +24,24 @@
  *
  */
 
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
-
-#include <iostream>
-#include <vector>
+#ifndef OPTIONWINDOW_H_
+#define OPTIONWINDOW_H_
 
 #include <gtkmm.h>
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
-#include "OptionWindow.h"
 #include "../../core/include/TwitterObject.h"
-#include "../../core/include/Version.h"
 
-using namespace std;
 using namespace Gtk;
+using namespace std;
 
-class MainWindow : public Window{
-
-protected:
-
-	MenuItem file_menu_items[3];
-	MenuItem file_menu_root;
-	Menu file_menu;
-
-
-	MenuItem options_menu_items[1];
-	MenuItem options_menu_root;
-	Menu options_menu;
-
-
-	MenuItem helps_menu_items[2];
-	MenuItem helps_menu_root;
-	Menu helps_menu;
-
-	ToolButton button[7];
-	Image icon_menu[7];
-
-
-	Table table;
-	Table table_into;
-	ScrolledWindow scrolled_window;
-	ScrolledWindow scroll_text;
-	TextView text;
-	Glib::RefPtr<TextBuffer> tweet_buffer;
-	VBox layout;
-	MenuBar menu_bar;
-
-	Statusbar status_bar;
-	Statusbar statusbar_char;
-	Toolbar tool_bar;
-
-	string status_label;
-
-	void on_submit_text();
-	void on_writing();
-	void updateStatusBar();
-
-	void loadWindowCredits();
-	void loadWindowVersion();
-	void loadWindowOptions();
-	void loadWindowAdduser();
-
+class OptionWindow: Window
+{
 
 public:
-	MainWindow();
-	virtual ~MainWindow();
-
-	void foo();
-	void gtkConnect();
-
-	void on_quit();
+	OptionWindow();
+	virtual ~OptionWindow();
 };
 
-#endif /* MAINWINDOW_H_ */
+#endif /* OPTIONWINDOW_H_ */
