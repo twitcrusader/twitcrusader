@@ -1,5 +1,5 @@
 bin_PROGRAMS = twc
-twc_SOURCES =Main.cc gui/MainWindow.cc core/Tweet.cc core/Functions.cc core/LocalUser.cc core/GetHTTp.cc core/User.cc core/Twitter.cc core/Config.cc Core/Timeline.cc
+twc_SOURCES =gui/MainWindow.cc core/GetHTTP.cc core/Tweet.cc core/User.cc core/Twitter.cc core/Timeline.cc core/Config.cc core/Functions.cc core/LocalUser.cc Main.cc
 twc_LDADD = @gtkmm_LIBS@ @oauth_LIBS@ @libxml2_LIBS@ @libnotify_LIBS@
 
 AM_CPPFLAGS = \
