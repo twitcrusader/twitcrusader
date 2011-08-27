@@ -1,7 +1,0 @@
-// HOW TO COMPILE
-
-Run compile command into the source main tree:
-
-g++ -DICONS_DIR=\""./src/icons"\" -DPROG_DIR=\""."\" -o"TwitCrusader-cpp" gui/MainWindow.cc \
-core/GetHTTP.cc core/Tweet.cc core/User.cc core/Twitter.cc core/Timeline.cc core/Config.cc core/Functions.cc \
-core/LocalUser.cc Main.cc `pkg-config --cflags --libs gtkmm-3.0 oauth libxml-2.0 libnotify`
