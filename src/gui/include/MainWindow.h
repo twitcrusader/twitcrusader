@@ -53,7 +53,7 @@ protected:
 
 	bool connected;
 
-	MenuItem file_menu_items[4];
+	MenuItem file_menu_items[3];
 	MenuItem file_menu_root;
 	Menu file_menu;
 

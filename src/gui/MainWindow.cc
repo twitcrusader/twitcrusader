@@ -91,33 +91,36 @@ void MainWindow::init_menu(){
 
 
 	if(this->connected){
+
 		//m.setIcon(ICON_ADDUSER);
-		file_menu_items[0].set_label("Log In");
+		file_menu_items[0].set_label("Log Out");
 		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 		file_menu.append(file_menu_items[0]);
 
 
-		//m.setIcon(ICON_ADDUSER);
-		file_menu_items[1].set_label("Log Out");
-		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
-		file_menu.append(file_menu_items[1]);
+	}else{
+		if(twitterStruct.twitter.getConfig().is_registered()){
+			//m.setIcon(ICON_ADDUSER);
+			file_menu_items[0].set_label("Log In");
+			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+			file_menu.append(file_menu_items[0]);
+		}else{
+			//m.setIcon(ICON_ADDUSER);
+			file_menu_items[0].set_label("Register");
+			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
+			file_menu.append(file_menu_items[0]);
+		}
 
 		//m.setName("Users");
-		file_menu_items[2].set_label("Account");
-		file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
-		file_menu.append(file_menu_items[2]);
-
-	}else{
-		//m.setIcon(ICON_ADDUSER);
-		file_menu_items[0].set_label("Register");
-		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
-		file_menu.append(file_menu_items[0]);
+		file_menu_items[1].set_label("Account");
+		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
+		file_menu.append(file_menu_items[1]);
 	}
 
 	//m.setIcon(ICON_CLOSE);
-	file_menu_items[3].set_label("Quit");
-	file_menu_items[3].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
-	file_menu.append(file_menu_items[3]);
+	file_menu_items[2].set_label("Quit");
+	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
+	file_menu.append(file_menu_items[2]);
 
 
 	file_menu_root.set_label("File");
@@ -229,7 +232,8 @@ void MainWindow::loadWindowCredits()
 
 	cout<<"loadWindowCredits()"<<endl;
 
-	AboutWindow AboutWindow;
+	AboutWindow aboutWindow;
+	aboutWindow.~AboutWindow();
 }
 
 
@@ -239,6 +243,7 @@ void MainWindow::loadWindowVersion()
 	cout<<"loadWindowVersion()"<<endl;
 
 	WindowVersion windowVersion;
+	windowVersion.~WindowVersion();
 
 }
 
@@ -251,13 +256,15 @@ void MainWindow::loadWindowOptions()
 
 
 	OptionWindow options;
+	options.~OptionWindow();
 }
 
 void MainWindow::loadRegWindow()
 {
 	cout<<"loadWindowAdduser()"<<endl;
 
-RegWindow regWindow;
+	RegWindow regWindow;
+	regWindow.~RegWindow();
 }
 
 

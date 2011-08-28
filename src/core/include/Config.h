@@ -39,6 +39,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "Functions.h"
+
 #define CONFIG_FILENAME "config.xml"
 
 using  namespace std;
@@ -69,6 +71,7 @@ public:
 	bool createConfigDir();
 	bool createTimelineDir();
 	bool deleteConfigFile();
+	bool is_registered();
 };
 
 #endif /* CONFIG_H_ */

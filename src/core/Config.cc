@@ -167,3 +167,8 @@ bool Config::deleteConfigFile()
 
 	return true;
 }
+
+bool Config::is_registered(){
+	bool reg=Functions::readRawTextFile(getConfigFile().c_str()).empty();
+	return !reg;
+}

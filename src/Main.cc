@@ -35,6 +35,8 @@ int main(int argc, char *argv[]){
 	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
 	cout<<"Copyright (C) 2011  TwitCrusader Team\n\n";
 
+	twitterStruct.twitter=Twitter();
+
 	if(Functions::shellParameters(argc,argv))return 0;
 
 	Gtk::Main kit(argc, argv);
@@ -43,6 +45,8 @@ int main(int argc, char *argv[]){
 
 	//Shows the window and returns when it is closed.
 	Gtk::Main::run(window);
+
+	window.~MainWindow();
 
 	notify_uninit();
 

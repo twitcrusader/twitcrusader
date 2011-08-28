@@ -46,11 +46,16 @@ private:
 	Label label;
 	Button button, cancel_button, tw_login_event;
 	Image tw_login_img;
+
+	RefPtr<Gtk::TextBuffer> pin_buffer;
 	TextView pin;
 
 protected:
 	void foo();
 	void quit();
+	void browser_authorization();
+	void get_access_token();
+
 
 
 public:

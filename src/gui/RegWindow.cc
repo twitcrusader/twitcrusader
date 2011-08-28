@@ -36,12 +36,11 @@ RegWindow::RegWindow() : table(9, 10, TRUE), cancel_button(Stock::CANCEL)
 	this->set_icon_from_file(ICON_ADDUSER);
 
 
-
 	/* Attach twitter-login image */
 
 	tw_login_img.set(ICON_SIGNIN);
 	this->tw_login_event.set_image(tw_login_img);
-	tw_login_event.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::foo) );
+	tw_login_event.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::browser_authorization) );
 	table.attach(tw_login_event, 1, 9, 1, 2);
 
 	label.set_text("Insert PIN");
@@ -51,7 +50,7 @@ RegWindow::RegWindow() : table(9, 10, TRUE), cancel_button(Stock::CANCEL)
 	table.attach(pin, 1, 9, 3, 4);
 
 	button.set_label("Register Account");
-	button.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::foo));
+	button.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::get_access_token));
 
 	table.attach(button, 1, 9, 5, 6);
 
@@ -78,3 +77,19 @@ void RegWindow::quit(){
 	cout<<"RegWindow::quit()"<<endl;
 	hide();
 }
+
+void RegWindow::browser_authorization(){
+	twitterStruct.twitter.tokenTempBrowser();
+}
+
+void RegWindow::get_access_token(){
+	pin_buffer=this->pin.get_buffer();
+	string str=pin_buffer->get_text();
+	if(!twitterStruct.twitter.tokenAccess(str)){
+		MessageDialog error("Bad PIN",false,MESSAGE_ERROR ,BUTTONS_OK,false);
+		error.run();
+	}else{
+		hide();
+	}
+}
+
