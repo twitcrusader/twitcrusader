@@ -1,3 +1,7 @@
+icondir = /usr/share/icons
+icon_DATA= \
+	tw_logo_original.png
+	
 imgdir = $(datadir)/@PACKAGE@/icons
 img_DATA= \
 	add-user.png \

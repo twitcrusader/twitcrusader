@@ -1,4 +1,4 @@
-SUBDIRS = src src/icons
+SUBDIRS = src src/icons src/applications
 
 progdir = $(datadir)/@PACKAGE@
 

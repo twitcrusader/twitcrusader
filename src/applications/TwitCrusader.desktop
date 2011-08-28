@@ -1,0 +1,9 @@
+Desktop Entry]
+Name=TwitCrusader
+Comment=Simple Twitter Client
+TryExec=twc
+Exec=twc
+Icon=tw_logo_original.png
+Type=Application
+Categories=Network;WebBrowser;
+StartupNotify=true

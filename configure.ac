@@ -3,11 +3,11 @@ AC_PREREQ(2.59)
 AC_CANONICAL_SYSTEM
 
 AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com, orazio.1985@hotmail.com])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall ])
 
+AC_PROG_CXX([gcc cl KCC CC cxx cc++ xlC aCC c++ g++])
 
-
-AC_PROG_CXX
+AC_CONFIG_HEADERS([config.h])
 
 PKG_CHECK_MODULES(gtkmm, [gtkmm-3.0 >= 3.0.1], , [
 		AC_MSG_RESULT(no)
@@ -54,5 +54,6 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 src/icons/Makefile
+src/applications/Makefile
 ])
 AC_OUTPUT
