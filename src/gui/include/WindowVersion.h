@@ -24,83 +24,25 @@
  *
  */
 
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
-
-#include <iostream>
-#include <vector>
+#ifndef WINDOWVERSION_H_
+#define WINDOWVERSION_H_
 
 #include <gtkmm.h>
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
-#include "OptionWindow.h"
-#include "WindowVersion.h"
-#include "AboutWindow.h"
-
 #include "../../core/include/Functions.h"
-#include "../../core/include/TwitterObject.h"
 #include "../../core/include/Version.h"
 
 using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
-class MainWindow : public Window{
 
-protected:
-
-	bool connected;
-
-	MenuItem file_menu_items[4];
-	MenuItem file_menu_root;
-	Menu file_menu;
-
-
-	MenuItem helps_menu_items[2];
-	MenuItem helps_menu_root;
-	Menu helps_menu;
-
-	ToolButton button[7];
-	Image icon_menu[7];
-
-
-	Table table;
-	Table table_into;
-	ScrolledWindow scrolled_window;
-	ScrolledWindow scroll_text;
-	TextView text;
-	Glib::RefPtr<TextBuffer> tweet_buffer;
-	VBox layout;
-	MenuBar menu_bar;
-
-	Statusbar status_bar;
-	Statusbar statusbar_char;
-	Toolbar tool_bar;
-
-	string status_label;
-
-	void init_menu();
-
-	void on_submit_text();
-	void on_writing();
-	void updateStatusBar();
-
-	void loadWindowCredits();
-	void loadWindowVersion();
-	void loadWindowOptions();
-	void loadWindowAdduser();
-
-	void is_connected();
-
+class WindowVersion {
 public:
-	MainWindow();
-	virtual ~MainWindow();
-
-	void foo();
-	void gtkConnect();
-
-	void on_quit();
+	WindowVersion();
+	virtual ~WindowVersion();
 };
 
-#endif /* MAINWINDOW_H_ */
+#endif /* WINDOWVERSION_H_ */

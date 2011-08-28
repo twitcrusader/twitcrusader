@@ -1,9 +1,13 @@
+AC_PREREQ(2.59)
+
+AC_CANONICAL_SYSTEM
+
 AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com, orazio.1985@hotmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-AC_PROG_CC
-AC_PROG_CPP
-AC_PROG_CXX([gcc cl KCC CC cxx cc++ xlC aCC c++ g++])
-AC_CONFIG_HEADERS([config.h])
+
+
+
+AC_PROG_CXX
 
 PKG_CHECK_MODULES(gtkmm, [gtkmm-3.0 >= 3.0.1], , [
 		AC_MSG_RESULT(no)

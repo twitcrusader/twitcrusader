@@ -31,6 +31,8 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	// This Is Fuckin Sequential Programming
 
+	is_connected();
+
 	this->set_title(PROG_NAME);
 	this->set_icon_from_file(ICON_FAVICON);
 	this->set_default_size(315, 650);
@@ -38,70 +40,20 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
 
-
-	file_menu_items[0].set_label("Log In");
-	file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
-	file_menu.append(file_menu_items[0]);
-
-
-	//m.setIcon(ICON_ADDUSER);
-	file_menu_items[1].set_label("Log Out");
-	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
-	file_menu.append(file_menu_items[1]);
-
-
-	//m.setIcon(ICON_CLOSE);
-	file_menu_items[2].set_label("Quit");
-	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
-	file_menu.append(file_menu_items[2]);
-
-
-	file_menu_root.set_label("File");
-	file_menu_root.set_submenu(file_menu);
-	menu_bar.append(file_menu_root);
-
-
-	//menuOption
-	//m.setName("Users");
-
-
-	options_menu_items[0].set_label("Users");
-	options_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
-	options_menu.append(options_menu_items[0]);
-
-	options_menu_root.set_label("Options");
-	options_menu_root.set_submenu(options_menu);
-	menu_bar.append(options_menu_root);
-
-
-	//menu_helps
-	//m.setIcon(ICON_UPGRADE);
-	helps_menu_items[0].set_label("Version");
-	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
-	helps_menu.append(helps_menu_items[0]);
-
-	//m.setIcon(ICON_STAR);
-	helps_menu_items[1].set_label("Credits");
-	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
-	helps_menu.append(helps_menu_items[1]);
-
-	helps_menu_root.set_label("Help");
-	helps_menu_root.set_submenu(helps_menu);
-	menu_bar.append(helps_menu_root);
-
-	layout.pack_start(menu_bar,PACK_SHRINK);
+	init_menu();
 
 	//StatusBar
 
-	if(twitterStruct.twitter.getLocalUser().getScreenName().empty() &&
-			twitterStruct.twitter.getLocalUser().getId().empty())
-	{
-		this->status_label="Disconnect..";
-
-	}else{
+	if(this->connected){
 		this->status_label="Connect..";
 
 	}
+	else{
+
+		this->status_label="Disconnect..";
+
+	}
+
 	this->status_bar.push(this->status_label);
 
 	layout.pack_end(status_bar,PACK_SHRINK);
@@ -186,6 +138,66 @@ MainWindow::~MainWindow()
 
 }
 
+void MainWindow::is_connected(){
+	this->connected=!twitterStruct.twitter.getLocalUser().getScreenName().empty();
+}
+
+
+void MainWindow::init_menu(){
+
+
+	if(this->connected){
+		//m.setIcon(ICON_ADDUSER);
+		file_menu_items[0].set_label("Log In");
+		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+		file_menu.append(file_menu_items[0]);
+
+
+		//m.setIcon(ICON_ADDUSER);
+		file_menu_items[1].set_label("Log Out");
+		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+		file_menu.append(file_menu_items[1]);
+
+		//m.setName("Users");
+		file_menu_items[2].set_label("Account");
+		file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
+		file_menu.append(file_menu_items[2]);
+
+	}else{
+		//m.setIcon(ICON_ADDUSER);
+		file_menu_items[0].set_label("Register");
+		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+		file_menu.append(file_menu_items[0]);
+	}
+
+	//m.setIcon(ICON_CLOSE);
+	file_menu_items[3].set_label("Quit");
+	file_menu_items[3].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
+	file_menu.append(file_menu_items[3]);
+
+
+	file_menu_root.set_label("File");
+	file_menu_root.set_submenu(file_menu);
+	menu_bar.append(file_menu_root);
+
+	//menu_helps
+	//m.setIcon(ICON_UPGRADE);
+	helps_menu_items[0].set_label("Version");
+	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
+	helps_menu.append(helps_menu_items[0]);
+
+	//m.setIcon(ICON_STAR);
+	helps_menu_items[1].set_label("About");
+	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
+	helps_menu.append(helps_menu_items[1]);
+
+	helps_menu_root.set_label("Help");
+	helps_menu_root.set_submenu(helps_menu);
+	menu_bar.append(helps_menu_root);
+
+	layout.pack_start(menu_bar,PACK_SHRINK);
+}
+
 
 void MainWindow::foo()
 {
@@ -212,20 +224,7 @@ void MainWindow::loadWindowCredits()
 
 	cout<<"loadWindowCredits()"<<endl;
 
-	Glib::RefPtr<Gdk::Pixbuf> logo;
-	logo=Gdk::Pixbuf::create_from_file(ICON_ABOUT);
-
-	AboutDialog about;
-
-	about.set_name(PROG_NAME);
-	about.set_copyright(COPYRIGHT);
-	about.set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
-	about.set_website(WEBSITE);
-	about.set_license_type(LICENSE_GPL_3_0);
-	about.set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
-	about.set_logo(logo);
-	about.set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
-	about.run();
+	AboutWindow AboutWindow;
 }
 
 
@@ -234,21 +233,7 @@ void MainWindow::loadWindowVersion()
 {
 	cout<<"loadWindowVersion()"<<endl;
 
-	string current_Version_MSG("Current Version: ");
-	string last_Version_MSG("Last Version: ");
-
-	string last_Version_Check(Functions::DownloadVersion());
-	string current_Version_Check(TWC_VERSION""TWC_VERSION_STATUS);
-
-	string info(current_Version_MSG+current_Version_Check+"\n"+last_Version_MSG+last_Version_Check);
-
-	MessageDialog version(*this, info);
-	version.set_title("Check Updates");
-	version.set_border_width(0);
-	version.set_position(WIN_POS_CENTER);
-	version.set_default_icon_from_file(ICON_UPGRADE);
-
-	version.run();
+	WindowVersion windowVersion;
 
 }
 
