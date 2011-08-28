@@ -255,8 +255,8 @@ void MainWindow::loadWindowOptions()
 
 
 
-	OptionWindow options;
-	options.~OptionWindow();
+	//OptionWindow options;
+	//options.~OptionWindow();
 }
 
 void MainWindow::loadRegWindow()
