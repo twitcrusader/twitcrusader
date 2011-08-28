@@ -42,68 +42,12 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	init_menu();
 
-	//StatusBar
-
-	if(this->connected){
-		this->status_label="Connect..";
-
-	}
-	else{
-
-		this->status_label="Disconnect..";
-
-	}
-
-	this->status_bar.push(this->status_label);
-
-	layout.pack_end(status_bar,PACK_SHRINK);
+	init_statusbar();
 
 
-	icon_menu[0].set(ICON_UPDATE);
-	icon_menu[1].set(ICON_HOME);
-	icon_menu[2].set(ICON_MENTION);
-	icon_menu[3].set(ICON_DM);
-	icon_menu[4].set(ICON_FAVORITES);
-	icon_menu[5].set(ICON_LINK);
-	icon_menu[6].set(ICON_PHOTO);
+	init_toolbar();
 
-
-	tool_bar.set_toolbar_style(TOOLBAR_ICONS);
-	tool_bar.set_icon_size(ICON_SIZE_SMALL_TOOLBAR);
-
-	button[0].set_icon_widget(icon_menu[0]);
-	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[0]);
-
-	button[1].set_icon_widget(icon_menu[1]);
-	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[1]);
-
-	button[2].set_icon_widget(icon_menu[2]);
-	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[2]);
-
-	button[3].set_icon_widget(icon_menu[3]);
-	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[3]);
-
-	button[4].set_icon_widget(icon_menu[4]);
-	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[4]);
-
-	button[5].set_icon_widget(icon_menu[5]);
-	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[5]);
-
-	button[6].set_icon_widget(icon_menu[6]);
-	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
-	tool_bar.append(button[6]);
-
-	layout.pack_end(tool_bar,PACK_SHRINK);
-
-	statusbar_char.push("140"); // Now are Static !
-
-	layout.pack_end(statusbar_char,PACK_SHRINK);
+	init_charbar();
 
 
 	// for() to print Tweet
@@ -166,7 +110,7 @@ void MainWindow::init_menu(){
 	}else{
 		//m.setIcon(ICON_ADDUSER);
 		file_menu_items[0].set_label("Register");
-		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
 		file_menu.append(file_menu_items[0]);
 	}
 
@@ -198,6 +142,69 @@ void MainWindow::init_menu(){
 	layout.pack_start(menu_bar,PACK_SHRINK);
 }
 
+void MainWindow::init_statusbar(){
+
+	//StatusBar
+	if(this->connected){
+		this->status_label="Connect..";
+	}
+	else{
+		this->status_label="Disconnect..";
+	}
+
+	this->status_bar.push(this->status_label);
+	layout.pack_end(status_bar,PACK_SHRINK);
+}
+
+void MainWindow::init_toolbar(){
+
+	tool_bar.set_toolbar_style(TOOLBAR_ICONS);
+	tool_bar.set_icon_size(ICON_SIZE_SMALL_TOOLBAR);
+
+	icon_menu[0].set(ICON_UPDATE);
+	button[0].set_icon_widget(icon_menu[0]);
+	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[0]);
+
+	icon_menu[1].set(ICON_HOME);
+	button[1].set_icon_widget(icon_menu[1]);
+	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[1]);
+
+	icon_menu[2].set(ICON_MENTION);
+	button[2].set_icon_widget(icon_menu[2]);
+	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[2]);
+
+	icon_menu[3].set(ICON_DM);
+	button[3].set_icon_widget(icon_menu[3]);
+	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[3]);
+
+	icon_menu[4].set(ICON_FAVORITES);
+	button[4].set_icon_widget(icon_menu[4]);
+	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[4]);
+
+	icon_menu[5].set(ICON_LINK);
+	button[5].set_icon_widget(icon_menu[5]);
+	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[5]);
+
+	icon_menu[6].set(ICON_PHOTO);
+	button[6].set_icon_widget(icon_menu[6]);
+	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	tool_bar.append(button[6]);
+
+	layout.pack_end(tool_bar,PACK_SHRINK);
+}
+
+void MainWindow::init_charbar(){
+
+	charbar.push("140"); // Now are Static !
+
+	layout.pack_end(charbar,PACK_SHRINK);
+}
 
 void MainWindow::foo()
 {
@@ -205,8 +212,6 @@ void MainWindow::foo()
 	cout<<"foo()"<<endl;
 
 }
-
-
 
 
 void MainWindow::gtkConnect()
@@ -248,11 +253,11 @@ void MainWindow::loadWindowOptions()
 	OptionWindow options;
 }
 
-void MainWindow::loadWindowAdduser()
+void MainWindow::loadRegWindow()
 {
 	cout<<"loadWindowAdduser()"<<endl;
 
-
+RegWindow regWindow;
 }
 
 
