@@ -1,9 +1,9 @@
-Desktop Entry]
+[Desktop Entry]
 Name=TwitCrusader
 Comment=Simple Twitter's Client
 TryExec=twc
 Exec=twc
-Icon=tw_logo_original
+Icon=TwitCrusader
 Type=Application
 Categories=Network;Twitter Client;
 StartupNotify=true

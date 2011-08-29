@@ -1,22 +1,25 @@
-TwitCrusader
+#TwitCrusader
 TwitCrusader is Twitter Client For Linux Desktop
 
-How to Install - Ubuntu/Debian
+##How to Install - Ubuntu/Debian
 
-How to Install - Archlinux
+#### How to Install - Archlinux
+    
+### Dependencies:
+    $ su
     # pacman -Syu
     # pacman -S gtkmm3 liboauth libxml2 libnotify
 
 
-Compile - Makefile
+### Compile - Makefile
     $ ./autogen.sh
     $ ./configure
     $ make
     $ su
     # make install
 
-Unistalling - Makefile
-	$ su
+#### Unistalling - Makefile
+    $ su
     # make uninstall
 
 
