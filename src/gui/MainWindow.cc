@@ -119,44 +119,38 @@ void MainWindow::init_menu(){
 
 	if(this->connected){
 
-		//m.setIcon(ICON_ADDUSER);
-		file_menu_items[0].set_label("Log Out");
+		file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Log Out", 0, 0);
 		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 
 
 
 	}else{
 		if(twitterStruct.twitter.getConfig().is_registered()){
-			//m.setIcon(ICON_ADDUSER);
-			file_menu_items[0].set_label("Log In");
+
+			file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Log In", 0, 0);
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
 
 		}else{
-			//m.setIcon(ICON_ADDUSER);
-			file_menu_items[0].set_label("Register");
+
+			file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Register", 0, 0);
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
 		}
 
-		//m.setName("Users");
-		file_menu_items[1].set_label("Account");
+		file_menu_items[1].add_pixlabel(ICON_SETTINGS, "Account", 0, 0);
 		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
 	}
 
-	//m.setIcon(ICON_CLOSE);
-	file_menu_items[2].set_label("Quit");
+
+	file_menu_items[2].add_pixlabel(ICON_CLOSE, "Quit", 0, 0);
 	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
 
 
 
 	//menu_helps
-
-	//m.setIcon(ICON_UPGRADE);
-	helps_menu_items[0].set_label("Version");
+	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, "Version", 0, 0);
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
 
-
-	//m.setIcon(ICON_STAR);
-	helps_menu_items[1].set_label("About");
+	helps_menu_items[1].add_pixlabel(ICON_STAR, "About", 0, 0);
 	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
 
 }
