@@ -43,6 +43,12 @@ int main(int argc, char *argv[]){
 
 	MainWindow window;
 
+	if(!twitterStruct.twitter.getConfig().is_registered()){
+		RegWindow regWindow;
+	}
+
+	window.refresh_timeline();
+
 	//Shows the window and returns when it is closed.
 	Gtk::Main::run(window);
 

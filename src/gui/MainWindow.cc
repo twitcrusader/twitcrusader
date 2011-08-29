@@ -41,13 +41,18 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	this->set_position(WIN_POS_CENTER);
 
 	init_menu();
+	layout.pack_start(menu_bar,PACK_SHRINK);
 
 	init_statusbar();
 
+	layout.pack_end(status_bar,PACK_SHRINK);
+
 
 	init_toolbar();
+	layout.pack_end(tool_bar,PACK_SHRINK);
 
 	init_charbar();
+	layout.pack_end(charbar,PACK_SHRINK);
 
 
 	// for() to print Tweet
@@ -60,21 +65,14 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	// TextArea + Scrollbar
 
-	this->text.set_editable(true);
-	this->text.set_wrap_mode(WRAP_CHAR);
-
-	tweet_buffer=TextBuffer::create();
-	this->text.set_buffer(this->tweet_buffer);
-	//this->text.signal_state_changed().connect(sigc::mem_fun(*this, &MainWindow::on_my_changed));;
-	this->scroll_text.add(this->text);
-	this->scroll_text.set_policy(POLICY_NEVER, POLICY_AUTOMATIC);
-	this->table.attach(this->scroll_text,0, 3, 8, 9);
-
+	init_text_area();
 	this->layout.pack_start(this->table);
+
+
 	add(layout);
 
-
 	this->show_all();
+
 }
 
 MainWindow::~MainWindow()
@@ -102,7 +100,7 @@ void MainWindow::init_menu(){
 		if(twitterStruct.twitter.getConfig().is_registered()){
 			//m.setIcon(ICON_ADDUSER);
 			file_menu_items[0].set_label("Log In");
-			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
 			file_menu.append(file_menu_items[0]);
 		}else{
 			//m.setIcon(ICON_ADDUSER);
@@ -142,7 +140,7 @@ void MainWindow::init_menu(){
 	helps_menu_root.set_submenu(helps_menu);
 	menu_bar.append(helps_menu_root);
 
-	layout.pack_start(menu_bar,PACK_SHRINK);
+
 }
 
 void MainWindow::init_statusbar(){
@@ -156,7 +154,7 @@ void MainWindow::init_statusbar(){
 	}
 
 	this->status_bar.push(this->status_label);
-	layout.pack_end(status_bar,PACK_SHRINK);
+
 }
 
 void MainWindow::init_toolbar(){
@@ -199,14 +197,25 @@ void MainWindow::init_toolbar(){
 	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[6]);
 
-	layout.pack_end(tool_bar,PACK_SHRINK);
 }
 
 void MainWindow::init_charbar(){
 
 	charbar.push("140"); // Now are Static !
 
-	layout.pack_end(charbar,PACK_SHRINK);
+}
+
+void MainWindow::init_text_area(){
+	this->text.set_editable(true);
+	this->text.set_wrap_mode(WRAP_CHAR);
+
+	tweet_buffer=TextBuffer::create();
+	this->text.set_buffer(this->tweet_buffer);
+	//this->text.signal_state_changed().connect(sigc::mem_fun(*this, &MainWindow::on_my_changed));;
+	this->scroll_text.add(this->text);
+	this->scroll_text.set_policy(POLICY_NEVER, POLICY_AUTOMATIC);
+	this->table.attach(this->scroll_text,0, 3, 8, 9);
+
 }
 
 void MainWindow::foo()
@@ -220,6 +229,12 @@ void MainWindow::foo()
 void MainWindow::gtkConnect()
 {
 	cout<<"gtkConnect()"<<endl;
+	twitterStruct.twitter.readUserFile();
+	this->is_connected();
+	status_bar.pop(status_bar.get_context_id("Disconnect.."));
+	init_statusbar();
+	refresh();
+
 }
 
 
@@ -265,6 +280,18 @@ void MainWindow::loadRegWindow()
 
 	RegWindow regWindow;
 	regWindow.~RegWindow();
+
+	file_menu.~Menu();
+	helps_menu.~Menu();
+	status_bar.~Statusbar();
+
+	this->init_menu();
+	this->init_statusbar();
+
+	file_menu.show_now();
+	helps_menu.show_now();
+	status_bar.show_now();
+	this->show_all_children();
 }
 
 
@@ -290,4 +317,28 @@ void MainWindow::on_submit_text()
 void MainWindow::on_writing()
 {
 	cout<<"on_writing()"<<endl;
+}
+
+
+void MainWindow::refresh_timeline(){
+	bool error;
+
+	if(this->connected){
+		error=twitterStruct.twitter.switchTimeLine(1);
+	}else{
+		error=twitterStruct.twitter.switchTimeLine(2);
+	}
+
+	if(error){
+
+		//downloadsAvatars();
+
+	}
+}
+
+void MainWindow::refresh(){
+
+	while ( Gtk::Main::events_pending() )
+		Gtk::Main::iteration() ;
+	this->queue_draw();
 }

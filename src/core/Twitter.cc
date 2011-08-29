@@ -190,15 +190,16 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 	switch(xmlSwitch){
 
 	case 1:
-		path.append("home_timeline.xml");
-		this->timeLine.setTimelineFile(path);
-		this->timeLine.setTimelineURL(HOME_TIMELINE_URL);
-		break;
-
-	case 2:
 		path.append("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
+		break;
+
+
+	case 2:
+		path.append("home_timeline.xml");
+		this->timeLine.setTimelineFile(path);
+		this->timeLine.setTimelineURL(HOME_TIMELINE_URL);
 		break;
 
 

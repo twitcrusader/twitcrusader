@@ -49,7 +49,7 @@ using namespace Glib;
 
 class MainWindow : public Window{
 
-protected:
+private:
 
 	bool connected;
 
@@ -81,10 +81,15 @@ protected:
 
 	string status_label;
 
+	int selected_timeline;
+
+protected:
+
 	void init_menu();
 	void init_statusbar();
 	void init_toolbar();
 	void init_charbar();
+	void init_text_area();
 
 
 	void on_submit_text();
@@ -104,6 +109,8 @@ public:
 
 	void foo();
 	void gtkConnect();
+	void refresh_timeline();
+	void refresh();
 
 	void on_quit();
 };
