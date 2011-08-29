@@ -887,6 +887,7 @@ src/gui/MainWindow.d: ../src/gui/MainWindow.cc \
  /usr/include/gtkmm-3.0/gtkmm/uimanager.h \
  /usr/include/gtkmm-3.0/gtkmm/actiongroup.h \
  /usr/include/gtkmm-3.0/gtkmm/viewport.h ../src/gui/include/Icons.h \
+ ../src/gui/include/AccountWindow.h ../src/gui/include/MainWindow.h \
  ../src/gui/include/WindowVersion.h \
  ../src/gui/include/../../core/include/Functions.h \
  ../src/gui/include/../../core/include/GetHTTP.h \
@@ -2812,6 +2813,10 @@ src/gui/MainWindow.d: ../src/gui/MainWindow.cc \
 /usr/include/gtkmm-3.0/gtkmm/viewport.h:
 
 ../src/gui/include/Icons.h:
+
+../src/gui/include/AccountWindow.h:
+
+../src/gui/include/MainWindow.h:
 
 ../src/gui/include/WindowVersion.h:
 

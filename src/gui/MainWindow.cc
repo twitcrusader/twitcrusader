@@ -103,7 +103,7 @@ MainWindow::~MainWindow()
 	tool_bar.~Toolbar();
 
 	status_label.~basic_string();
-*/
+	 */
 
 }
 
@@ -319,9 +319,13 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
+	AccountWindow account_window;
+	account_window.~AccountWindow();
 
-	//OptionWindow options;
-	//options.~OptionWindow();
+	this->is_connected();
+	this->init_menu();
+	init_statusbar();
+	refresh();
 }
 
 void MainWindow::loadRegWindow()
@@ -330,7 +334,7 @@ void MainWindow::loadRegWindow()
 
 	RegWindow regWindow;
 	regWindow.~RegWindow();
-
+	this->is_connected();
 	refresh();
 }
 
@@ -341,6 +345,7 @@ void MainWindow::on_quit()
 	cout<<"on_quit()"<<endl;
 
 	this->hide();
+	Gtk::Main::quit();
 }
 
 

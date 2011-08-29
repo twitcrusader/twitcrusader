@@ -34,7 +34,7 @@
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
-//#include "OptionWindow.h"
+#include "AccountWindow.h"
 #include "WindowVersion.h"
 #include "AboutWindow.h"
 #include "RegWindow.h"

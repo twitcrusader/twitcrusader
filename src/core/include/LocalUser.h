@@ -69,6 +69,8 @@ public:
 	void setConsumerKey(string consumerKey);
 	void setConsumerSecretKey(string secretConsumerKey);
 
+	void clear();
+
 	string getId();
 	string getScreenName();
 	string getToken();

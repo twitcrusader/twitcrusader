@@ -100,3 +100,11 @@ string LocalUser::getConsumerSecretKey()
 {
 	return consumerSecretKey;
 }
+void LocalUser::clear(){
+	this->setId("");
+	this->setScreenName("");
+	this->setToken("");
+	this->setSecretToken("");
+	this->setConsumerKey("");
+	this->setConsumerSecretKey("");
+}
