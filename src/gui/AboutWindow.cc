@@ -1,6 +1,6 @@
 /*
- *	 TwitCrusader-GUI is part of TwitCrusader - Twitter Client For Linux Desktop
- *		Copyright (C) 2011  TwitCrusader Team
+ *	 TwitCrusader++ - Twitter Client For Linux Desktop
+ *		Copyright (C) 2011  TwitCrusader++
  *
  *		This program is free software: you can redistribute it and/or modify
  *		it under the terms of the GNU General Public License as published by
@@ -15,12 +15,8 @@
  *		You should have received a copy of the GNU General Public License
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *
- *		WebSite: http://www.twitcrusader.org/
- * 		Development Guidelines: http://dev.twitcrusader.org/
- *		Follow on Twitter: @teamtwc
- * 		IRC: chat.freenode.net at #teamtwc
- * 		E-mail: teamtwc@twitcrusader.org
+ *		Source: https://github.com/RoxShannon/TwitCrusaderpp
+ *		email: orazio.1985@hotmail.com
  *
  */
 
@@ -39,7 +35,7 @@ AboutWindow::AboutWindow()
 		set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
 		set_website(WEBSITE);
 		//set_license()set_license_type(LICENSE_GPL_3_0);
-		set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
+		set_license(Functions::readRawTextFile(PROG_DIR"/COPYING"));
 		set_logo(logo);
 		set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
 

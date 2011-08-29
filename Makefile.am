@@ -4,7 +4,8 @@ progdir = $(datadir)/@PACKAGE@
 
 prog_DATA= \
 	AUTHORS \
-	GPL3
+	COPYING \
+	VERSION
 
 uninstall-local:
 	rm -rf $(prefix)/share/@PACKAGE@/icons
