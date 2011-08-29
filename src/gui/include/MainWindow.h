@@ -47,23 +47,31 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
+#define CONNECTED "Connected"
+#define DISCONNECTED "Disconnected"
+#define NO_ONLINE "Off-Line"
+
+#define FILE_MENU_ITEMS 3
+#define HELP_MENU_ITEMS 2
+#define NUM_BUTTON 7
+
 class MainWindow : public Window{
 
 private:
 
 	bool connected;
 
-	MenuItem file_menu_items[3];
+	MenuItem file_menu_items[FILE_MENU_ITEMS];
 	MenuItem file_menu_root;
 	Menu file_menu;
 
 
-	MenuItem helps_menu_items[2];
+	MenuItem helps_menu_items[HELP_MENU_ITEMS];
 	MenuItem helps_menu_root;
 	Menu helps_menu;
 
-	ToolButton button[7];
-	Image icon_menu[7];
+	ToolButton button[NUM_BUTTON];
+	Image icon_menu[NUM_BUTTON];
 
 
 	Table table;
@@ -82,15 +90,18 @@ private:
 	string status_label;
 
 	int selected_timeline;
+	int timeline_mode;
 
 protected:
+	void init_window();
 
 	void init_menu();
 	void init_statusbar();
 	void init_toolbar();
 	void init_charbar();
 	void init_text_area();
-
+	void init_menu_bar();
+	void init_scrolled_window();
 
 	void on_submit_text();
 	void on_writing();

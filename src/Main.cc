@@ -56,6 +56,8 @@ int main(int argc, char *argv[]){
 
 	notify_uninit();
 
+	Gtk::Main::quit();
+
 	return 0;
 }
 

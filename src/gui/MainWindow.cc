@@ -33,20 +33,14 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	is_connected();
 
-	this->set_title(PROG_NAME);
-	this->set_icon_from_file(ICON_FAVICON);
-	this->set_default_size(315, 650);
-	this->set_size_request(315, 400);
-	this->set_border_width(0);
-	this->set_position(WIN_POS_CENTER);
+	init_window();
 
 	init_menu();
+	init_menu_bar();
 	layout.pack_start(menu_bar,PACK_SHRINK);
 
 	init_statusbar();
-
 	layout.pack_end(status_bar,PACK_SHRINK);
-
 
 	init_toolbar();
 	layout.pack_end(tool_bar,PACK_SHRINK);
@@ -57,14 +51,11 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	// for() to print Tweet
 
-	this->scrolled_window.add(table_into);
-	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
-
+	init_scrolled_window();
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
 
 
 	// TextArea + Scrollbar
-
 	init_text_area();
 	this->layout.pack_start(this->table);
 
@@ -77,11 +68,82 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 MainWindow::~MainWindow()
 {
+	/*for(int i=0;i<FILE_MENU_ITEMS;i++){
+		file_menu_items[i].~MenuItem();
+	}
+
+	file_menu_root.~MenuItem();
+	file_menu.~Menu();
+
+	for(int i=0;i<HELP_MENU_ITEMS;i++){
+		helps_menu_items[i].~MenuItem();
+	}
+
+	helps_menu_root.~MenuItem();
+	helps_menu.~Menu();
+
+	for(int i=0;i<NUM_BUTTON;i++){
+
+		button[i].~ToolButton();
+		icon_menu[i].~Image();
+
+	}
+
+	table.~Table();
+	table_into.~Table();
+	scrolled_window.~ScrolledWindow();
+	scroll_text.~ScrolledWindow();
+	text.~TextView();
+	tweet_buffer.~RefPtr();
+	layout.~VBox();
+	menu_bar.~MenuBar();
+
+	status_bar.~Statusbar();
+	charbar.~Statusbar();
+	tool_bar.~Toolbar();
+
+	status_label.~basic_string();
+*/
 
 }
 
 void MainWindow::is_connected(){
 	this->connected=!twitterStruct.twitter.getLocalUser().getScreenName().empty();
+}
+void MainWindow::init_scrolled_window(){
+	this->scrolled_window.add(table_into);
+	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
+}
+
+
+void MainWindow::init_window(){
+	this->set_title(PROG_NAME);
+	this->set_icon_from_file(ICON_FAVICON);
+	this->set_default_size(315, 650);
+	this->set_size_request(315, 400);
+	this->set_border_width(0);
+	this->set_position(WIN_POS_CENTER);
+}
+
+void MainWindow::init_menu_bar(){
+
+	for(int i=0;i<FILE_MENU_ITEMS;i++){
+		file_menu.append(file_menu_items[i]);
+	}
+
+	file_menu_root.set_label("File");
+	file_menu_root.set_submenu(file_menu);
+	menu_bar.append(file_menu_root);
+
+
+	for(int i=0;i<HELP_MENU_ITEMS;i++){
+		helps_menu.append(helps_menu_items[i]);
+	}
+
+	helps_menu_root.set_label("Help");
+	helps_menu_root.set_submenu(helps_menu);
+	menu_bar.append(helps_menu_root);
+
 }
 
 
@@ -93,7 +155,7 @@ void MainWindow::init_menu(){
 		//m.setIcon(ICON_ADDUSER);
 		file_menu_items[0].set_label("Log Out");
 		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
-		file_menu.append(file_menu_items[0]);
+
 
 
 	}else{
@@ -101,56 +163,50 @@ void MainWindow::init_menu(){
 			//m.setIcon(ICON_ADDUSER);
 			file_menu_items[0].set_label("Log In");
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
-			file_menu.append(file_menu_items[0]);
+
 		}else{
 			//m.setIcon(ICON_ADDUSER);
 			file_menu_items[0].set_label("Register");
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
-			file_menu.append(file_menu_items[0]);
 		}
 
 		//m.setName("Users");
 		file_menu_items[1].set_label("Account");
 		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
-		file_menu.append(file_menu_items[1]);
 	}
 
 	//m.setIcon(ICON_CLOSE);
 	file_menu_items[2].set_label("Quit");
 	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
-	file_menu.append(file_menu_items[2]);
 
 
-	file_menu_root.set_label("File");
-	file_menu_root.set_submenu(file_menu);
-	menu_bar.append(file_menu_root);
 
 	//menu_helps
+
 	//m.setIcon(ICON_UPGRADE);
 	helps_menu_items[0].set_label("Version");
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
-	helps_menu.append(helps_menu_items[0]);
+
 
 	//m.setIcon(ICON_STAR);
 	helps_menu_items[1].set_label("About");
 	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
-	helps_menu.append(helps_menu_items[1]);
-
-	helps_menu_root.set_label("Help");
-	helps_menu_root.set_submenu(helps_menu);
-	menu_bar.append(helps_menu_root);
-
 
 }
 
-void MainWindow::init_statusbar(){
+void MainWindow::init_statusbar()
+{
+	status_bar.pop(status_bar.get_context_id(CONNECTED));
+	status_bar.pop(status_bar.get_context_id(DISCONNECTED));
+	status_bar.pop(status_bar.get_context_id(NO_ONLINE));
+
 
 	//StatusBar
 	if(this->connected){
-		this->status_label="Connect..";
+		this->status_label=CONNECTED;
 	}
 	else{
-		this->status_label="Disconnect..";
+		this->status_label=DISCONNECTED;
 	}
 
 	this->status_bar.push(this->status_label);
@@ -220,7 +276,6 @@ void MainWindow::init_text_area(){
 
 void MainWindow::foo()
 {
-
 	cout<<"foo()"<<endl;
 
 }
@@ -231,7 +286,8 @@ void MainWindow::gtkConnect()
 	cout<<"gtkConnect()"<<endl;
 	twitterStruct.twitter.readUserFile();
 	this->is_connected();
-	status_bar.pop(status_bar.get_context_id("Disconnect.."));
+	this->init_menu();
+	this->timeline_mode=2;
 	init_statusbar();
 	refresh();
 
@@ -241,10 +297,6 @@ void MainWindow::gtkConnect()
 
 void MainWindow::loadWindowCredits()
 {
-
-#define COMMENT "Basato su Gtkmm e semplicità!\n\nVersion: "
-
-
 	cout<<"loadWindowCredits()"<<endl;
 
 	AboutWindow aboutWindow;
@@ -268,8 +320,6 @@ void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
 
-
-
 	//OptionWindow options;
 	//options.~OptionWindow();
 }
@@ -281,17 +331,7 @@ void MainWindow::loadRegWindow()
 	RegWindow regWindow;
 	regWindow.~RegWindow();
 
-	file_menu.~Menu();
-	helps_menu.~Menu();
-	status_bar.~Statusbar();
-
-	this->init_menu();
-	this->init_statusbar();
-
-	file_menu.show_now();
-	helps_menu.show_now();
-	status_bar.show_now();
-	this->show_all_children();
+	refresh();
 }
 
 
@@ -300,7 +340,7 @@ void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
 
-	hide();
+	this->hide();
 }
 
 
@@ -323,11 +363,7 @@ void MainWindow::on_writing()
 void MainWindow::refresh_timeline(){
 	bool error;
 
-	if(this->connected){
-		error=twitterStruct.twitter.switchTimeLine(1);
-	}else{
-		error=twitterStruct.twitter.switchTimeLine(2);
-	}
+	error=twitterStruct.twitter.switchTimeLine(this->timeline_mode);
 
 	if(error){
 
@@ -340,5 +376,6 @@ void MainWindow::refresh(){
 
 	while ( Gtk::Main::events_pending() )
 		Gtk::Main::iteration() ;
+
 	this->queue_draw();
 }
