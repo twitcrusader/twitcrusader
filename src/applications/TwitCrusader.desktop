@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=TwitCrusader
-Comment=Simple Twitter's Client
+Comment=Simple Twitter Client
 TryExec=twc
 Exec=twc
 Icon=TwitCrusader
