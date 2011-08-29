@@ -1,9 +1,7 @@
 #TwitCrusader
-TwitCrusader is Twitter Client For Linux Desktop
+###TwitCrusader is Twitter Client For Linux Desktop
 
-##How to Install - Ubuntu/Debian
-
-#### How to Install - Archlinux
+## How to Install - Archlinux
     
 ### Dependencies:
     $ su
@@ -38,7 +36,8 @@ New Features For Nightly Version Of TwitCrusader
 GIT Branch - testing-cpp
 C++ porting <- by RoxShannon
 
-Support
+###Support
+
 You can find us on this web source:
 WebSite: http://www.twitcrusader.org/
 Source: https://github.com/PTKDev/
