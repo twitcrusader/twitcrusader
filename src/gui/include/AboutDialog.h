@@ -20,33 +20,29 @@
  *
  */
 
-#include "include/AboutWindow.h"
+#ifndef ABOUTDIALOG_H_
+#define ABOUTDIALOG_H_
+
+#include <gtkmm.h>
+#include <gtkmm/stock.h>
+
+#include "Icons.h"
+#include "../../core/include/Functions.h"
+#include "../../core/include/Version.h"
+
+using namespace std;
+using namespace Gtk;
+using namespace Glib;
+
+#define COMMENT "Basato su Gtkmm e semplicità!\n\nVersion: "
 
 namespace TwitCrusader {
 
-AboutWindow::AboutWindow()
+class AboutDialog : public Gtk::AboutDialog
 {
-	Glib::RefPtr<Gdk::Pixbuf> logo;
-		logo=Gdk::Pixbuf::create_from_file(ICON_ABOUT);
-
-
-		set_name(PROG_NAME);
-		set_copyright(COPYRIGHT);
-		set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
-		set_website(WEBSITE);
-		//set_license()set_license_type(LICENSE_GPL_3_0);
-		set_license(Functions::readRawTextFile(PROG_DIR"/COPYING"));
-		set_logo(logo);
-		set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
-
-		set_default_response( Gtk::RESPONSE_OK ) ;
-
-		run();
-
+public:
+	AboutDialog();
+	virtual ~AboutDialog();
+};
 }
-
-AboutWindow::~AboutWindow() {
-	// TODO Auto-generated destructor stub
-}
-
-}
+#endif /* ABOUTDIALOG_H_ */

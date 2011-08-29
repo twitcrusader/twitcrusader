@@ -267,8 +267,8 @@ void MainWindow::loadWindowCredits()
 {
 	cout<<"loadWindowCredits()"<<endl;
 
-	AboutWindow aboutWindow;
-	aboutWindow.~AboutWindow();
+	AboutDialog aboutDialog;
+	aboutDialog.~AboutDialog();
 }
 
 

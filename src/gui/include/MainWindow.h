@@ -31,7 +31,7 @@
 
 #include "Icons.h"
 #include "WindowVersion.h"
-#include "AboutWindow.h"
+#include "AboutDialog.h"
 #include "AccountDialog.h"
 #include "RegWindow.h"
 
