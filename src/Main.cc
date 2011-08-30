@@ -29,6 +29,8 @@ using namespace std;
 
 int main(int argc, char *argv[]){
 
+	pthread_t tid[2];
+
 	notify_init(PROG_NAME);
 
 	cout<<"\n\n";
@@ -37,29 +39,27 @@ int main(int argc, char *argv[]){
 
 	twitterStruct.twitter=Twitter();
 
+
 	if(Functions::shellParameters(argc,argv))return 0;
 
 	Gtk::Main kit(argc, argv);
 
-	MainWindow window;
-
 	if(!twitterStruct.twitter.getConfig().is_registered()){
 		RegWindow regWindow;
 	}
+	MainWindow window;
 
-	window.refresh_timeline();
+	//pthread_create(&tid[0], NULL, window.refresh_timeline(), (void *)argv);
+
+	//;
 
 	//Shows the window and returns when it is closed.
 	Gtk::Main::run(window);
-
-	window.~MainWindow();
-
 	notify_uninit();
 
-	Gtk::Main::quit();
+	window.~MainWindow();
 
 	kit.quit();
 
 	return 0;
 }
-

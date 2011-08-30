@@ -72,6 +72,10 @@ private:
 	ToolButton button[NUM_BUTTON];
 	Image icon_menu[NUM_BUTTON];
 
+	Image avatar;
+	Label nick;
+	Label tweet;
+
 
 	Table table;
 	Table table_into;

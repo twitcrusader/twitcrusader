@@ -71,7 +71,7 @@ void Twitter::setConfig(Config config)
 
 bool Twitter::writeUserFile()
 {
-	config.createConfigDir();
+	//config.createConfigDir();
 
 	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
@@ -183,6 +183,7 @@ char* Twitter::getElement(xmlDocPtr doc, xmlNodePtr cur, const char *keyword)
 
 bool Twitter::switchTimeLine(int xmlSwitch)
 {
+	this->config.createTimelineDir();
 
 	string path=string();
 	path.assign(config.getTimeLineDir());
@@ -252,6 +253,9 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 		break;
 
 	}
+
+	downloadTimeLine();
+
 	return true;
 }
 

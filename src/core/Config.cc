@@ -46,6 +46,10 @@ Config::Config()
 	cout<<getConfigFile()<<"\n";
 	cout<<getTimeLineDir()<<"\n";
 
+	this->createAvatarDir();
+	this->createConfigDir();
+	this->createTimelineDir();
+
 }
 
 Config::~Config()

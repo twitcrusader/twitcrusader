@@ -41,6 +41,7 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	layout.pack_end(status_bar,PACK_SHRINK);
 	layout.pack_end(tool_bar,PACK_SHRINK);
 	layout.pack_end(charbar,PACK_SHRINK);
+	this->scrolled_window.add(table_into);
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
 	this->layout.pack_start(this->table);
 
@@ -94,19 +95,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::declare(){
 	init_menu();
-		init_menu_bar();
-		init_statusbar();
-		init_toolbar();
-		init_charbar();
-		init_scrolled_window();
-		init_text_area();
+	init_menu_bar();
+	init_statusbar();
+	init_toolbar();
+	init_charbar();
+	init_scrolled_window();
+	init_text_area();
 }
 
 void MainWindow::is_connected(){
 	this->connected=!twitterStruct.twitter.getLocalUser().getScreenName().empty();
 }
 void MainWindow::init_scrolled_window(){
-	this->scrolled_window.add(table_into);
+	//twitterStruct.twitter.getTimeLine().readTimeLine();
+	vector<Tweet> tweets=twitterStruct.twitter.getTimeLine().getTimeline();
+
+	for (unsigned int i=0; i<tweets.size(); i++) {
+		avatar.set(tweets[i].getUser().getProfile_image());
+		nick.set_label(tweets[i].getUser().getScreen_name());
+		tweet.set_label(tweets[i].getText());
+		table_into.attach(avatar,0, 1, i, i+4);
+		table_into.attach(nick,1, 10,i, i+1);
+		table_into.attach(tweet, 1,10, i+1, i+4);
+	}
+
 	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
 }
 
@@ -284,6 +296,7 @@ void MainWindow::gtkConnect()
 	this->init_menu();
 	this->timeline_mode=2;
 	init_statusbar();
+	refresh_timeline();
 	refresh();
 
 }
@@ -367,6 +380,8 @@ void MainWindow::refresh_timeline(){
 		//downloadsAvatars();
 
 	}
+
+	init_scrolled_window();
 }
 
 void MainWindow::refresh(){

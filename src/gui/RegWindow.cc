@@ -26,7 +26,7 @@
 
 #include "include/RegWindow.h"
 
-RegWindow::RegWindow() : table(9, 10, TRUE), cancel_button(Stock::CANCEL)
+RegWindow::RegWindow() : table(7, 10, TRUE)
 {
 	this->set_default_size(70, 80);
 	this->set_size_request(70,80);
@@ -55,13 +55,11 @@ RegWindow::RegWindow() : table(9, 10, TRUE), cancel_button(Stock::CANCEL)
 	table.attach(button, 1, 9, 5, 6);
 
 
-	cancel_button.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::quit));
-	table.attach(cancel_button, 1, 9, 7, 8);
-
-	add(table);
-
+	this->add_button(Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+	this->get_vbox()->add(table);
+	this ->set_default_response( Gtk::RESPONSE_CANCEL ) ;
 	show_all();
-	Main::run();
+	run();
 
 }
 
@@ -76,6 +74,7 @@ void RegWindow::foo(){
 void RegWindow::quit(){
 	cout<<"RegWindow::quit()"<<endl;
 	hide();
+	this ->set_default_response( Gtk::RESPONSE_OK ) ;
 }
 
 void RegWindow::browser_authorization(){

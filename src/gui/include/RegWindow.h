@@ -39,7 +39,7 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
-class RegWindow : public Window{
+class RegWindow : public Dialog{
 
 private:
 	Table table;

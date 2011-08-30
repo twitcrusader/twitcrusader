@@ -54,8 +54,14 @@ string Functions::readRawTextFile(string fileName)
 
 	  infile.open (fileName.c_str(), ifstream::in);
 
-	  while (infile.good())
-		  buffer.push_back( infile.get());
+	  while (infile.good()){
+		  char ch=infile.get();
+
+		  if(ch!=EOF){
+			  buffer.push_back(ch);
+		  }
+	  }
+
 
 	  infile.close();
 
