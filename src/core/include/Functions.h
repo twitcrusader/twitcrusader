@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string>
 #include <string.h>
+#include <fstream>
 #include <gtkmm.h>
 
 #include "GetHTTP.h"

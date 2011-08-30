@@ -89,7 +89,7 @@ void RegWindow::get_access_token(){
 		MessageDialog error("Bad PIN",false,MESSAGE_ERROR ,BUTTONS_OK,false);
 		error.run();
 	}else{
-		hide();
+		quit();
 	}
 }
 

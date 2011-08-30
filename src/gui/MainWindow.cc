@@ -35,28 +35,13 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 	init_window();
 
-	init_menu();
-	init_menu_bar();
+	this->declare();
+
 	layout.pack_start(menu_bar,PACK_SHRINK);
-
-	init_statusbar();
 	layout.pack_end(status_bar,PACK_SHRINK);
-
-	init_toolbar();
 	layout.pack_end(tool_bar,PACK_SHRINK);
-
-	init_charbar();
 	layout.pack_end(charbar,PACK_SHRINK);
-
-
-	// for() to print Tweet
-
-	init_scrolled_window();
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
-
-
-	// TextArea + Scrollbar
-	init_text_area();
 	this->layout.pack_start(this->table);
 
 
@@ -105,6 +90,16 @@ MainWindow::~MainWindow()
 	status_label.~basic_string();
 	 */
 
+}
+
+void MainWindow::declare(){
+	init_menu();
+		init_menu_bar();
+		init_statusbar();
+		init_toolbar();
+		init_charbar();
+		init_scrolled_window();
+		init_text_area();
 }
 
 void MainWindow::is_connected(){
@@ -319,8 +314,6 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
-	AccountWindow account_window;
-	account_window.~AccountWindow();
 
 	this->is_connected();
 	this->init_menu();
@@ -345,7 +338,6 @@ void MainWindow::on_quit()
 	cout<<"on_quit()"<<endl;
 
 	this->hide();
-	Gtk::Main::quit();
 }
 
 

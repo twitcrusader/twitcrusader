@@ -58,6 +58,8 @@ int main(int argc, char *argv[]){
 
 	Gtk::Main::quit();
 
+	kit.quit();
+
 	return 0;
 }
 

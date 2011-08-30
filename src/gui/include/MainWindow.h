@@ -34,7 +34,6 @@
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
-#include "AccountWindow.h"
 #include "WindowVersion.h"
 #include "AboutWindow.h"
 #include "RegWindow.h"
@@ -94,7 +93,6 @@ private:
 
 protected:
 	void init_window();
-
 	void init_menu();
 	void init_statusbar();
 	void init_toolbar();
@@ -103,6 +101,7 @@ protected:
 	void init_menu_bar();
 	void init_scrolled_window();
 
+	void declare();
 	void on_submit_text();
 	void on_writing();
 	void updateStatusBar();

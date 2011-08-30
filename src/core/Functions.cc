@@ -28,9 +28,10 @@
 
 string Functions::readRawTextFile(string fileName)
 {
-	FILE *fp;
-	char ch;
 	string buffer=string();
+/*	FILE *fp;
+	char ch;
+
 
 	fp = fopen ( fileName.c_str(), "r" ) ;
 	if(fp==NULL) return buffer;
@@ -46,13 +47,35 @@ string Functions::readRawTextFile(string fileName)
 		}
 	}
 	fclose (fp) ;
-	return buffer;
+
+*/
+
+	ifstream infile;
+
+	  infile.open (fileName.c_str(), ifstream::in);
+
+	  while (infile.good())
+		  buffer.push_back( infile.get());
+
+	  infile.close();
+
+	  return buffer;
 }
 
 vector<Glib::ustring> Functions::readTextFileLinebyLine(string fileName)
 {
 
 	vector<Glib::ustring> lines;
+	string sLine;
+	ifstream inFile;
+
+	inFile.open(fileName.c_str(), ifstream::in);
+
+	while(getline(inFile, sLine)){
+	lines.push_back(sLine);
+	}
+
+	inFile.close();
 
 	return lines;
 }
