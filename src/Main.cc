@@ -27,9 +27,12 @@
 
 int main(int argc, char *argv[]){
 
-	pthread_t tid[2];
+	//pthread_t tid[2];
 
 	notify_init(PROG_NAME);
+	GError *error = NULL;
+	NotifyNotification *twc=notify_notification_new(PROG_NAME,"Started Fine!",NULL);
+	notify_notification_show(twc,&error);
 
 	cout<<"\n\n";
 	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
