@@ -25,7 +25,7 @@
  */
 
 #include "include/Twitter.h"
-
+namespace TwitCrusader {
 Twitter::Twitter()
 {
 	localUser = LocalUser();
@@ -492,4 +492,5 @@ char* Twitter::getParameters(char **argv,int argc,const char *param)
 		}
 	}
 	return NULL;
+}
 }

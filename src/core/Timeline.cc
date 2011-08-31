@@ -25,7 +25,7 @@
  */
 
 #include "include/TimeLine.h"
-
+namespace TwitCrusader {
 TimeLine::TimeLine()
 {
 	timelineURL=string();
@@ -407,4 +407,5 @@ string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keywor
 
 	return empty;
 
+}
 }

@@ -719,7 +719,7 @@ src/Main.d: ../src/Main.cc ../src/Main.h ../src/gui/include/MainWindow.h \
  ../src/gui/include/../../core/include/GetHTTP.h \
  ../src/gui/include/../../core/include/Version.h \
  ../src/gui/include/../../core/include/Version.h \
- ../src/gui/include/AboutWindow.h ../src/gui/include/RegWindow.h \
+ ../src/gui/include/AboutWindow.h ../src/gui/include/AccountWindow.h \
  ../src/gui/include/../../core/include/TwitterObject.h \
  ../src/gui/include/../../core/include/Twitter.h \
  ../src/gui/include/../../core/include/TwitterURL.h \
@@ -750,7 +750,8 @@ src/Main.d: ../src/Main.cc ../src/Main.h ../src/gui/include/MainWindow.h \
  ../src/gui/include/../../core/include/Config.h \
  ../src/gui/include/../../core/include/Functions.h \
  ../src/gui/include/../../core/include/LocalUser.h \
- /usr/include/libxml2/libxml/xmlwriter.h ../src/core/include/Functions.h
+ /usr/include/libxml2/libxml/xmlwriter.h ../src/gui/include/RegWindow.h \
+ ../src/core/include/Functions.h
 
 ../src/Main.h:
 
@@ -2262,7 +2263,7 @@ src/Main.d: ../src/Main.cc ../src/Main.h ../src/gui/include/MainWindow.h \
 
 ../src/gui/include/AboutWindow.h:
 
-../src/gui/include/RegWindow.h:
+../src/gui/include/AccountWindow.h:
 
 ../src/gui/include/../../core/include/TwitterObject.h:
 
@@ -2331,5 +2332,7 @@ src/Main.d: ../src/Main.cc ../src/Main.h ../src/gui/include/MainWindow.h \
 ../src/gui/include/../../core/include/LocalUser.h:
 
 /usr/include/libxml2/libxml/xmlwriter.h:
+
+../src/gui/include/RegWindow.h:
 
 ../src/core/include/Functions.h:

@@ -38,11 +38,12 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
+namespace TwitCrusader {
 
 class WindowVersion {
 public:
 	WindowVersion();
 	virtual ~WindowVersion();
 };
-
+}
 #endif /* WINDOWVERSION_H_ */

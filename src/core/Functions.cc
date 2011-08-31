@@ -26,6 +26,8 @@
 
 #include "include/Functions.h"
 
+namespace TwitCrusader {
+
 string Functions::readRawTextFile(string fileName)
 {
 	string buffer=string();
@@ -123,4 +125,5 @@ string Functions::DownloadVersion(){
 	remove(FILE_VERSION);
 
 	return LatestVersion;
+}
 }

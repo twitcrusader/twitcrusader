@@ -25,7 +25,7 @@
  */
 
 #include "include/MainWindow.h"
-
+namespace TwitCrusader {
 MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 {
 
@@ -327,6 +327,8 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
+	AccountWindow accounWindow;
+	accounWindow.~AccountWindow();
 
 	this->is_connected();
 	this->init_menu();
@@ -390,4 +392,5 @@ void MainWindow::refresh(){
 		Gtk::Main::iteration() ;
 
 	this->queue_draw();
+}
 }

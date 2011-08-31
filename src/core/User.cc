@@ -25,7 +25,7 @@
  */
 
 #include "include/User.h"
-
+namespace TwitCrusader {
 User::User()
 {
 	id=string();
@@ -430,4 +430,5 @@ void User::setContributors_enabled(string contributors_enabled)
 void User::setDefault_profile_image(string default_profile_image)
 {
 	this->default_profile_image.assign(default_profile_image);
+}
 }

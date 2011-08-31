@@ -25,7 +25,7 @@
  */
 
 #include "include/Tweet.h"
-
+namespace TwitCrusader {
 Tweet::Tweet()
 {
 	created_at=string();
@@ -209,4 +209,5 @@ string Tweet::getIn_reply_to_user_id()
 
 void Tweet::setUser(User user){
 	this->user=user;
+}
 }

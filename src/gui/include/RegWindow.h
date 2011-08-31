@@ -39,6 +39,8 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
+namespace TwitCrusader {
+
 class RegWindow : public Dialog{
 
 private:
@@ -62,5 +64,5 @@ public:
 	RegWindow();
 	virtual ~RegWindow();
 };
-
+}
 #endif /* REGWINDOW_H_ */

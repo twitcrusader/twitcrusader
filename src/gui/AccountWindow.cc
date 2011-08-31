@@ -24,29 +24,51 @@
  *
  */
 
-#include "include/WindowVersion.h"
+#include "include/AccountWindow.h"
+
 namespace TwitCrusader {
-WindowVersion::WindowVersion() {
-	string current_Version_MSG("Current Version:\t");
-	string last_Version_MSG("Last Version:\t\t");
 
-	string last_Version_Check(Functions::DownloadVersion());
-	string current_Version_Check(TWC_VERSION""TWC_VERSION_STATUS);
+AccountWindow::AccountWindow() : table(7, 10, TRUE)
+{
+	twitterStruct.twitter.readUserFile();
 
-	string info(current_Version_MSG+current_Version_Check+"\n"+last_Version_MSG+last_Version_Check);
+	this->set_default_size(210, 200);
+	this->set_size_request(210, 200);
+	this->set_title("Account");
+	this->set_border_width(0);
+	this->set_position(WIN_POS_CENTER);
+	this->set_icon_from_file(ICON_SETTINGS);
 
-	MessageDialog version(info);
-	version.set_title("Check Updates");
-	version.set_border_width(0);
-	version.set_position(WIN_POS_CENTER);
-	version.set_default_icon_from_file(ICON_UPGRADE);
+	label.set_label("Twitter's Account:");
+	table.attach(label, 1, 9, 1, 2 );
 
-	version.run();
+	account.set_label(twitterStruct.twitter.getLocalUser().getScreenName());
+	table.attach(account, 1, 9, 3, 4);
 
+	button.set_label("Delete Account");
+	button.signal_activate().connect(sigc::mem_fun(*this, &AccountWindow::delete_account));
+	table.attach(button, 3, 7, 5, 6);
+
+	this->get_vbox()->add(table);
+	this->add_button(Stock::OK, Gtk::RESPONSE_OK);
+	set_default_response(RESPONSE_OK) ;
+	this->show_all_children();
+	run();
 
 }
 
-WindowVersion::~WindowVersion() {
+AccountWindow::~AccountWindow() {
 	// TODO Auto-generated destructor stub
 }
+
+void AccountWindow::delete_account(){
+	if(twitterStruct.twitter.getConfig().deleteConfigFile()){
+
+	this->set_default_response(RESPONSE_OK) ;
+
+	hide();
+	}
+
 }
+
+} /* namespace TwitCrusader */

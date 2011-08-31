@@ -26,6 +26,8 @@
 
 #include "include/Config.h"
 
+namespace TwitCrusader {
+
 Config::Config()
 {
 	avatarDir=string();
@@ -175,4 +177,5 @@ bool Config::deleteConfigFile()
 bool Config::is_registered(){
 	bool reg=Functions::readRawTextFile(getConfigFile().c_str()).empty();
 	return !reg;
+}
 }

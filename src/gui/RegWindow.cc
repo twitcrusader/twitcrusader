@@ -25,7 +25,7 @@
  */
 
 #include "include/RegWindow.h"
-
+namespace TwitCrusader {
 RegWindow::RegWindow() : table(7, 10, TRUE)
 {
 	this->set_default_size(70, 80);
@@ -73,8 +73,9 @@ void RegWindow::foo(){
 
 void RegWindow::quit(){
 	cout<<"RegWindow::quit()"<<endl;
-	hide();
 	this ->set_default_response( Gtk::RESPONSE_OK ) ;
+	hide();
+
 }
 
 void RegWindow::browser_authorization(){
@@ -91,4 +92,4 @@ void RegWindow::get_access_token(){
 		quit();
 	}
 }
-
+}

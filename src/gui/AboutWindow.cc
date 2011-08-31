@@ -26,22 +26,26 @@
 
 #include "include/AboutWindow.h"
 
+namespace TwitCrusader {
+
 AboutWindow::AboutWindow()
 {
 	Glib::RefPtr<Gdk::Pixbuf> logo;
 		logo=Gdk::Pixbuf::create_from_file(ICON_ABOUT);
 
-		AboutDialog about;
 
-		about.set_name(PROG_NAME);
-		about.set_copyright(COPYRIGHT);
-		about.set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
-		about.set_website(WEBSITE);
-		about.set_license_type(LICENSE_GPL_3_0);
-		about.set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
-		about.set_logo(logo);
-		about.set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
-		about.run();
+		set_name(PROG_NAME);
+		set_copyright(COPYRIGHT);
+		set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
+		set_website(WEBSITE);
+		set_license_type(LICENSE_GPL_3_0);
+		set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
+		set_logo(logo);
+		set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));
+
+		set_default_response( Gtk::RESPONSE_OK ) ;
+
+		run();
 
 }
 
@@ -49,3 +53,4 @@ AboutWindow::~AboutWindow() {
 	// TODO Auto-generated destructor stub
 }
 
+}

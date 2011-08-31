@@ -39,6 +39,8 @@
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 class Functions {
 
 public:
@@ -49,7 +51,5 @@ public:
 	static string DownloadVersion();
 
 };
-
-
-
+}
 #endif /* FUNCTIONS_H_ */

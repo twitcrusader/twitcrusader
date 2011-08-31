@@ -35,4 +35,8 @@
 #include "gui/include/MainWindow.h"
 #include "core/include/Functions.h"
 
+
+using namespace std;
+using namespace TwitCrusader;
+
 #endif /* MAIN_H_ */

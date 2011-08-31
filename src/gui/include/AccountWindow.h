@@ -1,5 +1,5 @@
 /*
- *	 	Twitter Client For Linux Desktop
+ *	 TwitCrusader-GUI is part of TwitCrusader - Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -24,19 +24,36 @@
  *
  */
 
-#ifndef TWITTEROBJECT_H_
-#define TWITTEROBJECT_H_
+#ifndef ACCOUNTWINDOW_H_
+#define ACCOUNTWINDOW_H_
 
-#include "Twitter.h"
+#include <gtkmm.h>
+#include <gtkmm/stock.h>
 
-using  namespace std;
+#include "Icons.h"
+#include "../../core/include/TwitterObject.h"
+
+using namespace std;
+using namespace Gtk;
+using namespace Glib;
 
 namespace TwitCrusader {
 
-static struct TwitterStruct{
+class AccountWindow: public Dialog
+{
+private:
+	Table table;
+	Label label;
+	Label account;
+	Button button;
 
-	Twitter twitter;
+protected:
+void delete_account();
 
-}twitterStruct;
-}
-#endif /* TWITTEROBJECT_H_ */
+public:
+	AccountWindow();
+	virtual ~AccountWindow();
+};
+
+} /* namespace TwitCrusader */
+#endif /* ACCOUNTWINDOW_H_ */

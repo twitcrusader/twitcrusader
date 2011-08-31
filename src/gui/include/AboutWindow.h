@@ -40,11 +40,13 @@ using namespace Glib;
 
 #define COMMENT "Basato su Gtkmm e semplicità!\n\nVersion: "
 
-class AboutWindow : AboutDialog
+namespace TwitCrusader {
+
+class AboutWindow : public AboutDialog
 {
 public:
 	AboutWindow();
 	virtual ~AboutWindow();
 };
-
+}
 #endif /* ABOUTWINDOW_H_ */

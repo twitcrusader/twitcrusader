@@ -37,6 +37,8 @@
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 class GetHTTP {
 
 public:
@@ -47,6 +49,6 @@ public:
 	static void pull_one_url(void *argv);
 
 };
-
+}
 
 #endif /* GETHTTP_H_ */

@@ -26,6 +26,8 @@
 
 #include "include/LocalUser.h"
 
+namespace TwitCrusader {
+
 LocalUser::LocalUser()
 {
 	id=string();
@@ -107,4 +109,5 @@ void LocalUser::clear(){
 	this->setSecretToken("");
 	this->setConsumerKey("");
 	this->setConsumerSecretKey("");
+}
 }

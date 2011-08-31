@@ -34,6 +34,8 @@
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 class User {
 
 private:
@@ -154,5 +156,5 @@ public:
 	void setListed_count(string listed_count);
 
 };
-
+}
 #endif /* USER_H_ */

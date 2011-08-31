@@ -5,18 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CC_SRCS += \
 ../src/gui/AboutWindow.cc \
+../src/gui/AccountWindow.cc \
 ../src/gui/MainWindow.cc \
 ../src/gui/RegWindow.cc \
 ../src/gui/WindowVersion.cc 
 
 OBJS += \
 ./src/gui/AboutWindow.o \
+./src/gui/AccountWindow.o \
 ./src/gui/MainWindow.o \
 ./src/gui/RegWindow.o \
 ./src/gui/WindowVersion.o 
 
 CC_DEPS += \
 ./src/gui/AboutWindow.d \
+./src/gui/AccountWindow.d \
 ./src/gui/MainWindow.d \
 ./src/gui/RegWindow.d \
 ./src/gui/WindowVersion.d 

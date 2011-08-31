@@ -26,6 +26,8 @@
 
 #include "include/GetHTTP.h"
 
+namespace TwitCrusader {
+
 size_t GetHTTP::writeFunction( void *ptr, size_t size, size_t nmemb, void *stream)
 {
 	fwrite(ptr, size, nmemb, (FILE *)stream);
@@ -76,4 +78,5 @@ void GetHTTP::pull_one_url(void* argv)
 			curl_easy_cleanup(curl);
 		}
 	}
+}
 }
