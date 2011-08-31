@@ -30,13 +30,19 @@
 
 /* Default Define */ 
 #define _TWITCRUSADER_H
+
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
+
+/* Program Name */
+#define PROG_NAME "TwitCrusader"
 
 /* Fix: GCC Linux Compiler */ 
 #define _GNU_SOURCE	
 
 /* Headers */
+#include <libnotify/notify.h>
+
 #include "tools/inc/debugger.h"
 #include "gui/inc/windows.main.h"
 

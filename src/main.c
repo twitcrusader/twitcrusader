@@ -38,12 +38,16 @@
  */
 int main(int argc, char **argv){
 
+	notify_init(PROG_NAME);
+
 	if(debugger(argc, argv) == 1){ 
 		return 0;
 	}
 	
 	gtk_window_main();
 	
+	notify_uninit();
+
 return 0;
 
 }
