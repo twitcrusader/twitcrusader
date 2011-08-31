@@ -39,9 +39,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "Functions.h"
+
 #define CONFIG_FILENAME "config.xml"
 
-namespace std {
+using  namespace std;
 
 class Config {
 private:
@@ -69,8 +71,7 @@ public:
 	bool createConfigDir();
 	bool createTimelineDir();
 	bool deleteConfigFile();
+	bool is_registered();
 };
-
-}
 
 #endif /* CONFIG_H_ */

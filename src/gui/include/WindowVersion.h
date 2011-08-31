@@ -27,51 +27,22 @@
 #ifndef WINDOWVERSION_H_
 #define WINDOWVERSION_H_
 
-/*
- *
- */
+#include <gtkmm.h>
+#include <gtkmm/stock.h>
 
-#include <iostream>
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
-
-#include "icons.h"
+#include "Icons.h"
 #include "../../core/include/Functions.h"
 #include "../../core/include/Version.h"
-#include "../../core/include/GetHTTP.h"
 
-#define FILE_VERSION "/tmp/version.twc"
-#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
+using namespace std;
+using namespace Gtk;
+using namespace Glib;
 
-namespace std {
 
 class WindowVersion {
-private:
-
-	GtkWidget *window,
-	*lastVersionMSG,
-	*lastVersionCheck,
-	*currentVersionMSG,
-	*currentVersionCheck,
-	*table,
-	*button;
-
-	GError *error;
-
-
-protected:
-
 public:
-
 	WindowVersion();
 	virtual ~WindowVersion();
-	gboolean ShowWindow(); //public method to Start graphic Drawing
-	gboolean declaration(); //protected method to setup graphic structure of the window
-	gboolean UpdateWindow(); //protected method to Refresh the window
-	gboolean destroyWindow(); //protected To Destroy the Drawn window
-	string downloadVersion();
 };
-
-}
 
 #endif /* WINDOWVERSION_H_ */
