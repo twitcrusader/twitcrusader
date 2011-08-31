@@ -35,9 +35,9 @@
 
 #include "User.h"
 
-#define MAX_NUM_TWEETS 20
+using  namespace std;
 
-namespace std {
+#define MAX_NUM_TWEETS 20
 
 class Tweet {
 
@@ -101,7 +101,5 @@ public:
 	void setContributors(string contributors);
 
 };
-
-}
 
 #endif /* TWEET_H_ */

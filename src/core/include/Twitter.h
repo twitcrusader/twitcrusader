@@ -37,9 +37,7 @@
 #include "TimeLine.h"
 #include "LocalUser.h"
 
-#include "TwitterURL.h"
-
-namespace std {
+using  namespace std;
 
 class Twitter {
 
@@ -78,7 +76,5 @@ public:
 	bool SendTweet(string msg);
 
 };
-
-}
 
 #endif /* TWITTER_H_ */

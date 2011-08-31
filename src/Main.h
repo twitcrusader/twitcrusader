@@ -29,7 +29,7 @@
 
 #include <iostream>
 #include <string.h>
-#include <gtk/gtk.h>
+#include <pthread.h>
 #include <libnotify/notify.h>
 
 #include "gui/include/MainWindow.h"
