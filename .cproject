@@ -28,7 +28,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1926608486" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1919193957" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.2076493528" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.misc.other.1241490628" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -DGSEAL_ENABLE -pthread -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-nightly/share(icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;Development/WorkSpace/TwitCrusader-nightly&quot;\&quot;" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1241490628" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -DGSEAL_ENABLE -pthread -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-C/share/icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;Development/WorkSpace/TwitCrusader-C&quot;\&quot;" valueType="string"/>
 								<option id="gnu.c.compiler.option.include.paths.174801038" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/include/gtk-3.0"/>
 									<listOptionValue builtIn="false" value="/usr/include/atk-1.0"/>
@@ -50,6 +50,26 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.505354705" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
 								<option id="gnu.c.link.option.libs.1587443076" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="gtk-3"/>
+									<listOptionValue builtIn="false" value="gdk-3"/>
+									<listOptionValue builtIn="false" value="atk-1.0"/>
+									<listOptionValue builtIn="false" value="gio-2.0"/>
+									<listOptionValue builtIn="false" value="pangoft2-1.0"/>
+									<listOptionValue builtIn="false" value="pangocairo-1.0"/>
+									<listOptionValue builtIn="false" value="gdk_pixbuf-2.0"/>
+									<listOptionValue builtIn="false" value="cairo-gobject"/>
+									<listOptionValue builtIn="false" value="cairo"/>
+									<listOptionValue builtIn="false" value="pango-1.0"/>
+									<listOptionValue builtIn="false" value="freetype"/>
+									<listOptionValue builtIn="false" value="fontconfig"/>
+									<listOptionValue builtIn="false" value="gobject-2.0"/>
+									<listOptionValue builtIn="false" value="gmodule-2.0"/>
+									<listOptionValue builtIn="false" value="gthread-2.0"/>
+									<listOptionValue builtIn="false" value="rt"/>
+									<listOptionValue builtIn="false" value="glib-2.0"/>
+									<listOptionValue builtIn="false" value="notify"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="oauth"/>
 									<listOptionValue builtIn="false" value="gtk-3"/>
 									<listOptionValue builtIn="false" value="gdk-3"/>
 									<listOptionValue builtIn="false" value="atk-1.0"/>
@@ -171,16 +191,19 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="TwitCrusader-nightly.cdt.managedbuild.target.gnu.cross.exe.67726955" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
+		<project id="TwitterCrusader-C.cdt.managedbuild.target.gnu.cross.exe.1638739263" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.272435154;cdt.managedbuild.config.gnu.cross.exe.release.272435154.;cdt.managedbuild.tool.gnu.cross.c.compiler.160601739;cdt.managedbuild.tool.gnu.c.compiler.input.251481558">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.1668807024;cdt.managedbuild.config.gnu.cross.exe.debug.1668807024.;cdt.managedbuild.tool.gnu.cross.c.compiler.1926608486;cdt.managedbuild.tool.gnu.c.compiler.input.110080276">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.debug.2078492393;cdt.managedbuild.config.gnu.cross.exe.debug.2078492393.;cdt.managedbuild.tool.gnu.cross.c.compiler.2089545934;cdt.managedbuild.tool.gnu.c.compiler.input.1837534060">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cross.exe.release.1300957598;cdt.managedbuild.config.gnu.cross.exe.release.1300957598.;cdt.managedbuild.tool.gnu.cross.c.compiler.329740759;cdt.managedbuild.tool.gnu.c.compiler.input.1799148942">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
 </cproject>
