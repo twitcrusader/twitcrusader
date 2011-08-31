@@ -1,31 +1,18 @@
+AC_PREREQ(2.59)
 AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com])
+
+AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+
 AC_PROG_CC
-AC_PROG_CPP
+
 AC_CONFIG_HEADERS([config.h])
 
-AC_CHECK_PROGS([WGET], [wget])
-
-AC_MSG_CHECKING(if wget was wget)
-if test "X$WGET" = "Xwget"; then
-   AC_MSG_RESULT(yes)
-   WGET="wget -q" 
-else
-   AC_MSG_RESULT(no)
-fi
-
-AC_MSG_CHECKING(if wget was nothing)
-if test -z "$WGET"; then
-   AC_MSG_RESULT(yes, but that may be fatal)
-else
-   AC_MSG_RESULT(no, which is good.)
-fi
-
-PKG_CHECK_MODULES(gtk, [gtk+-2.0 >= 2.10.0], , [
+PKG_CHECK_MODULES(gtk3, [gtk+-3.0 >= 3.0.12], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have gtk+ >= 2.10.0
+You must have gtk+-3.0 >= 3.0.12
 ])])
 
 AC_SUBST(gtk_CFLAGS)
@@ -51,6 +38,7 @@ AC_SUBST(oauth_LIBS)
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-img/Makefile
+share/icons/Makefile
+share/applications/Makefile
 ])
 AC_OUTPUT

@@ -1,3 +1,6 @@
+icondir = /usr/share/icons
+icon_DATA= TwitCrusader.png
+
 imgdir = $(datadir)/@PACKAGE@/icons
 img_DATA= \
 	menu.about.png \
@@ -14,5 +17,5 @@ img_DATA= \
 	timeline.update.png \
 	twc.about.png \
 	twc.favicon.png \
-	twc.logo.png \
+	TwitCrusader.png \
 	twitter.sign-in.png
