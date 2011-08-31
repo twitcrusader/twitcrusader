@@ -44,7 +44,7 @@ void gtk_credits_dialog_create()
 
 	gtk_window_set_icon_from_file (GTK_WINDOW (dialog), ICON_FAVICON, &error);
 
-	gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC);
+	//gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC); deprecated gtk+-2.0
 	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
 	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), "(c) "TWC" Team\nVersion: "TWC_VERSION_STATUS);
 	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), "Twitter Client For Linux Desktop");

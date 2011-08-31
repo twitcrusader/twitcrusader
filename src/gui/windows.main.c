@@ -114,7 +114,7 @@ GtkWidget* gtk_status_bar_create()
 {
 	GtkWidget* statusbar = gtk_statusbar_new ();
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
+	//gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE); deprecated gtk+-2.0
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "");
 
 return statusbar;
@@ -129,7 +129,7 @@ GtkWidget* gtk_count_tweet_create()
 {
 	GtkWidget *statusbar = gtk_statusbar_new ();
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE);
+	//gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE); deprecated gtk+-2.0
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar), 0, "140");
 
 return statusbar;
