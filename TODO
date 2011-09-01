@@ -10,4 +10,6 @@
 
 * Dialog aren't deallocated after hide()
 
+* Login crash
+
 * Fix MakeFile
