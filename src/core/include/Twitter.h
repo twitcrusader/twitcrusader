@@ -39,6 +39,8 @@
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 class Twitter {
 
 private:
@@ -76,5 +78,5 @@ public:
 	bool SendTweet(string msg);
 
 };
-
+}
 #endif /* TWITTER_H_ */

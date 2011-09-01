@@ -36,6 +36,7 @@
 #include "Icons.h"
 #include "WindowVersion.h"
 #include "AboutWindow.h"
+#include "AccountDialog.h"
 #include "RegWindow.h"
 
 #include "../../core/include/Functions.h"
@@ -53,6 +54,8 @@ using namespace Glib;
 #define FILE_MENU_ITEMS 3
 #define HELP_MENU_ITEMS 2
 #define NUM_BUTTON 7
+
+namespace TwitCrusader {
 
 class MainWindow : public Window{
 
@@ -128,5 +131,6 @@ public:
 
 	void on_quit();
 };
+}
 
 #endif /* MAINWINDOW_H_ */

@@ -44,6 +44,8 @@ extern "C"{
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 
@@ -73,5 +75,5 @@ public:
 	bool readTimeLine(string);
 
 };
-
+}
 #endif /* TIMELINE_H_ */

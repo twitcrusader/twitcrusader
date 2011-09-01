@@ -26,6 +26,8 @@
 
 #include "include/Functions.h"
 
+namespace TwitCrusader {
+
 string Functions::readRawTextFile(string fileName)
 {
 	string buffer=string();
@@ -123,4 +125,17 @@ string Functions::DownloadVersion(){
 	remove(FILE_VERSION);
 
 	return LatestVersion;
+}
+
+    void Functions::notifySystem(string Message)
+    {
+    	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
+
+    	notify_notification_set_timeout(notify, 3000);
+    	notify_notification_set_urgency (notify, NOTIFY_URGENCY_CRITICAL);
+
+    	GError *error=NULL;
+    	notify_notification_show(notify, &error);
+
+    }
 }

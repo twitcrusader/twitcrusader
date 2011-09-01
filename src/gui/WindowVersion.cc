@@ -25,7 +25,7 @@
  */
 
 #include "include/WindowVersion.h"
-
+namespace TwitCrusader {
 WindowVersion::WindowVersion() {
 	string current_Version_MSG("Current Version:\t");
 	string last_Version_MSG("Last Version:\t\t");
@@ -49,4 +49,4 @@ WindowVersion::WindowVersion() {
 WindowVersion::~WindowVersion() {
 	// TODO Auto-generated destructor stub
 }
-
+}

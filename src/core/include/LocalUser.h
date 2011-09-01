@@ -46,6 +46,8 @@ using  namespace std;
 
 #define CONFIG_FILENAME "config.xml"
 
+namespace TwitCrusader {
+
 class LocalUser {
 private:
 	string id;
@@ -78,5 +80,5 @@ public:
 	string getConsumerKey();
 	string getConsumerSecretKey();
 };
-
+}
 #endif /* LOCALUSER_H_ */

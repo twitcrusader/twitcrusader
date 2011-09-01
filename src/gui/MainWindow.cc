@@ -25,7 +25,7 @@
  */
 
 #include "include/MainWindow.h"
-
+namespace TwitCrusader {
 MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 {
 
@@ -54,42 +54,6 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 
 MainWindow::~MainWindow()
 {
-	/*for(int i=0;i<FILE_MENU_ITEMS;i++){
-		file_menu_items[i].~MenuItem();
-	}
-
-	file_menu_root.~MenuItem();
-	file_menu.~Menu();
-
-	for(int i=0;i<HELP_MENU_ITEMS;i++){
-		helps_menu_items[i].~MenuItem();
-	}
-
-	helps_menu_root.~MenuItem();
-	helps_menu.~Menu();
-
-	for(int i=0;i<NUM_BUTTON;i++){
-
-		button[i].~ToolButton();
-		icon_menu[i].~Image();
-
-	}
-
-	table.~Table();
-	table_into.~Table();
-	scrolled_window.~ScrolledWindow();
-	scroll_text.~ScrolledWindow();
-	text.~TextView();
-	tweet_buffer.~RefPtr();
-	layout.~VBox();
-	menu_bar.~MenuBar();
-
-	status_bar.~Statusbar();
-	charbar.~Statusbar();
-	tool_bar.~Toolbar();
-
-	status_label.~basic_string();
-	 */
 
 }
 
@@ -327,6 +291,28 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
+	AccountDialog accountDialog;
+	accountDialog.set_transient_for( *this );
+	accountDialog.show_all();
+	if(accountDialog.run()==Gtk::RESPONSE_CANCEL){
+		Dialog confirm;
+			Label conf;
+			conf.set_label("Do you want delete the Profile?");
+			confirm.get_vbox()->add(conf);
+			confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
+			confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
+			confirm.set_default_response(RESPONSE_CANCEL);
+			confirm.show_all_children();
+			if(confirm.run()==Gtk::RESPONSE_OK){
+				if(twitterStruct.twitter.getConfig().deleteConfigFile()){
+					confirm.hide();
+					accountDialog.hide();
+					accountDialog.run();
+				}
+			}
+	}
+	accountDialog.hide();
+	accountDialog.~AccountDialog();
 
 	this->is_connected();
 	this->init_menu();
@@ -390,4 +376,5 @@ void MainWindow::refresh(){
 		Gtk::Main::iteration() ;
 
 	this->queue_draw();
+}
 }

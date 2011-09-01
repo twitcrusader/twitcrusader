@@ -39,6 +39,8 @@ using  namespace std;
 
 #define MAX_NUM_TWEETS 20
 
+namespace TwitCrusader {
+
 class Tweet {
 
 private:
@@ -101,5 +103,5 @@ public:
 	void setContributors(string contributors);
 
 };
-
+}
 #endif /* TWEET_H_ */

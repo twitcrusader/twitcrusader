@@ -25,7 +25,7 @@
  */
 
 #include "include/Twitter.h"
-
+namespace TwitCrusader {
 Twitter::Twitter()
 {
 	localUser = LocalUser();
@@ -191,63 +191,63 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 	switch(xmlSwitch){
 
 	case 1:
-		path.append("public_timeline.xml");
+		path.assign("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
 		break;
 
 
 	case 2:
-		path.append("home_timeline.xml");
+		path.assign("home_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(HOME_TIMELINE_URL);
 		break;
 
 
 	case 3:
-		path.append("mentions.xml");
+		path.assign("mentions.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(MENTIONS_TIMELINE_URL);
 		break;
 
 
 	case 4:
-		path.append("friends_timeline.xml");
+		path.assign("friends_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(FRIENDS_TIMELINE_URL);
 		break;
 
 
 	case 5:
-		path.append("user_timeline.xml");
+		path.assign("user_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(USER_TIMELINE_URL);
 		break;
 
 
 	case 6:
-		path.append("retweeted_by_me.xml");
+		path.assign("retweeted_by_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_BY_ME_TIMELINE_URL);
 		break;
 
 
 	case 7:
-		path.append("retweeted_to_me.xml");
+		path.assign("retweeted_to_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_TO_ME_TIMELINE_URL);
 		break;
 
 
 	case 8:
-		path.append("retweeted_of_me.xml");
+		path.assign("retweeted_of_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_OF_ME_TIMELINE_URL);
 		break;
 
 
 	default:
-		path.append("public_timeline.xml");
+		path.assign("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
 		break;
@@ -263,12 +263,9 @@ bool Twitter::downloadTimeLine()
 {
 	FILE *fp;
 	string postarg=string();
-	string timeline=string();
-	timeline.assign(oauth_sign_url2(timeLine.getTimelineURL().c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
-	timeline.assign(oauth_http_get(timeline.c_str(), postarg.c_str()));
-
-	postarg.~string();
-
+	string tml=string();
+	tml.append(oauth_sign_url2(timeLine.getTimelineURL().c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
+	tml.assign(oauth_http_get(tml.c_str(), postarg.c_str()));
 
 	if(!timeLine.getTimelineFile().empty()){
 
@@ -276,20 +273,21 @@ bool Twitter::downloadTimeLine()
 
 		if(fp!=NULL){
 
-			if(!timeline.empty()){
+			if(!tml.empty()){
 
-				fprintf(fp, "%s",timeline.c_str());
+				fprintf(fp, "%s",timeLine.getTimelineFile().c_str());
 
 				fclose(fp);
+				cout<<"timeLine.getTimelineFile().c_str()="+timeLine.getTimelineFile()<<endl;
+				this->timeLine.readTimeLine(this->getConfig().getTimeLineDir()+timeLine.getTimelineFile());
 
-				this->timeLine.readTimeLine(timeLine.getTimelineFile());
+				remove(tml.c_str());
 
-				remove(timeLine.getTimelineFile().c_str());
 
-				timeline.~string();
 
 				return true;
 			}
+
 		}
 	}
 	return false;
@@ -492,4 +490,5 @@ char* Twitter::getParameters(char **argv,int argc,const char *param)
 		}
 	}
 	return NULL;
+}
 }

@@ -45,6 +45,8 @@
 
 using  namespace std;
 
+namespace TwitCrusader {
+
 class Config {
 private:
 	string avatarDir;
@@ -73,5 +75,5 @@ public:
 	bool deleteConfigFile();
 	bool is_registered();
 };
-
+}
 #endif /* CONFIG_H_ */

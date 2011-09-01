@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TwitCrusader++
+Comment=Simple gtkmm Twitter Client
+TryExec=twcpp
+Exec=twcpp
+Icon=TwitCrusader++
+Type=Application
+Categories=Network;Twitter Client;
+StartupNotify=true

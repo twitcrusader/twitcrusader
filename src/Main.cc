@@ -25,13 +25,12 @@
  */
 #include "Main.h"
 
-using namespace std;
-
 int main(int argc, char *argv[]){
 
-	pthread_t tid[2];
+	//pthread_t tid[2];
 
 	notify_init(PROG_NAME);
+	Functions::notifySystem("");
 
 	cout<<"\n\n";
 	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
