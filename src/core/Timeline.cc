@@ -402,7 +402,7 @@ string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keywor
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword.c_str()))) {
 		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
 
-		return string().assign((char *)key);
+		return string().assign((char* )key);
 	}
 
 	return empty;

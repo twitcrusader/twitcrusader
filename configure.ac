@@ -53,7 +53,7 @@ AC_SUBST(libnotify_LIBS)
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-src/icons/Makefile
-src/applications/Makefile
+src/share/icons/Makefile
+src/share/applications/Makefile
 ])
 AC_OUTPUT

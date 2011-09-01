@@ -60,10 +60,22 @@ AccountWindow::~AccountWindow() {
 }
 
 void AccountWindow::delete_account(){
-	if(twitterStruct.twitter.getConfig().deleteConfigFile()){
 
+	Dialog confirm;
+	Label conf;
+	conf.set_label("Do you want delete the Profile?");
+	confirm.get_vbox()->add(conf);
+	confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
+	confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
+	set_default_response(RESPONSE_CANCEL);
+	this->run();
+	if(confirm.run()==Gtk::RESPONSE_OK){
+		if(twitterStruct.twitter.getConfig().deleteConfigFile()){
+			hide();
+			this->label.set_label("");
+			this->run();
+		}
 	}
-
 }
 
 } /* namespace TwitCrusader */

@@ -129,13 +129,13 @@ string Functions::DownloadVersion(){
 
     void Functions::notifySystem(string Message)
     {
-    	NotifyNotification *notify= notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
+    	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
 
-    	notify_notification_set_timeout(notify,3000);
-    	notify_notification_set_urgency (notify,NOTIFY_URGENCY_CRITICAL);
+    	notify_notification_set_timeout(notify, 3000);
+    	notify_notification_set_urgency (notify, NOTIFY_URGENCY_CRITICAL);
 
     	GError *error=NULL;
-    	notify_notification_show(notify,&error);
+    	notify_notification_show(notify, &error);
 
     }
 }
