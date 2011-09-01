@@ -13,6 +13,7 @@ RM := rm -rf
 -include src/subdir.mk
 -include src/libs/oauth/subdir.mk
 -include src/libs/libxml/subdir.mk
+-include src/libs/libnotify/subdir.mk
 -include src/libs/curl/subdir.mk
 -include src/gui/subdir.mk
 -include objects.mk

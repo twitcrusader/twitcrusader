@@ -269,7 +269,10 @@ src/main.d: ../src/main.c ../src/main.h ../src/tools/inc/debugger.h \
  /usr/include/gtk-3.0/gtk/gtkvolumebutton.h \
  /usr/include/gtk-3.0/gtk/gtkvpaned.h \
  /usr/include/gtk-3.0/gtk/gtkvscale.h \
- /usr/include/gtk-3.0/gtk/gtkvseparator.h
+ /usr/include/gtk-3.0/gtk/gtkvseparator.h ../src/core/inc/sys.h \
+ ../src/libs/libnotify/inc/notify.h \
+ ../src/libs/libnotify/inc/../../../core/inc/sys.h \
+ ../src/libs/libnotify/inc/../../../gui/inc/icons.h
 
 ../src/main.h:
 
@@ -862,3 +865,11 @@ src/main.d: ../src/main.c ../src/main.h ../src/tools/inc/debugger.h \
 /usr/include/gtk-3.0/gtk/gtkvscale.h:
 
 /usr/include/gtk-3.0/gtk/gtkvseparator.h:
+
+../src/core/inc/sys.h:
+
+../src/libs/libnotify/inc/notify.h:
+
+../src/libs/libnotify/inc/../../../core/inc/sys.h:
+
+../src/libs/libnotify/inc/../../../gui/inc/icons.h:

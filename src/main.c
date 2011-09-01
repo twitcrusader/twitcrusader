@@ -38,7 +38,9 @@
  */
 int main(int argc, char **argv){
 
-	notify_init(PROG_NAME);
+	notify_init(TWC);
+
+	notifySystem("Start");
 
 	if(debugger(argc, argv) == 1){ 
 		return 0;
