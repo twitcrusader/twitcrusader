@@ -27,14 +27,14 @@
 #ifndef VERSION_H_
 #define VERSION_H_
 
-#define PROG_NAME "TwitCrusader"
+#define PROG_NAME "TwitCrusader++"
 #define COPYRIGHT_CHAR "\u00A9"
-#define COPYRIGHT COPYRIGHT_CHAR" Team TwitCrusader, Follow @teamtwc"
-#define WEBSITE "http://www.twitcrusader.org/"
+#define COPYRIGHT COPYRIGHT_CHAR" TwitCrusader++"
+#define WEBSITE "https://github.com/RoxShannon/TwitCrusaderpp/"
 
-#define TWC_VERSION "2011"
-#define TWC_VERSION_STATUS "-Nightly"
-#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
+#define TWC_VERSION "0.1"
+#define TWC_VERSION_STATUS "-alpha"
+#define TWC_UPDATES_URL "https://github.com/RoxShannon/TwitCrusaderpp/VERSION"
 
 #define FILE_VERSION "/tmp/version.twc"
 #define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
