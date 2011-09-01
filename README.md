@@ -1,5 +1,5 @@
-#TwitCrusader
-###TwitCrusader is Twitter Client For Linux Desktop
+#TwitCrusader++
+###TwitCrusader++ is Twitter Client For Linux Desktop
 
 ## How to Install - Archlinux
     
@@ -19,8 +19,6 @@
 #### Unistalling - Makefile
     $ su
     # make uninstall
-
-C++ porting <- by RoxShannon
 
 ###Support
 
