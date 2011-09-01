@@ -38,7 +38,7 @@ AboutWindow::AboutWindow()
 		set_copyright(COPYRIGHT);
 		set_comments(COMMENT""TWC_VERSION""TWC_VERSION_STATUS);
 		set_website(WEBSITE);
-		set_license_type(LICENSE_GPL_3_0);
+		//set_license()set_license_type(LICENSE_GPL_3_0);
 		set_license(Functions::readRawTextFile(PROG_DIR"/GPL3"));
 		set_logo(logo);
 		set_authors(Functions::readTextFileLinebyLine(PROG_DIR"/AUTHORS"));

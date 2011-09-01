@@ -33,9 +33,11 @@
 #include <string.h>
 #include <fstream>
 #include <gtkmm.h>
+#include <libnotify/notify.h>
 
 #include "GetHTTP.h"
 #include "Version.h"
+#include "../../gui/include/Icons.h"
 
 using  namespace std;
 
@@ -49,6 +51,7 @@ public:
 	static vector<Glib::ustring> readTextFileLinebyLine(string fileName);
 	static bool shellParameters (int argc, char **argv);
 	static string DownloadVersion();
+	static void notifySystem(string Message);
 
 };
 }

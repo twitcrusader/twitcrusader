@@ -52,8 +52,6 @@ AccountWindow::AccountWindow() : table(7, 10, TRUE)
 	this->get_vbox()->add(table);
 	this->add_button(Stock::OK, Gtk::RESPONSE_OK);
 	set_default_response(RESPONSE_OK) ;
-	this->show_all_children();
-	run();
 
 }
 
@@ -64,9 +62,6 @@ AccountWindow::~AccountWindow() {
 void AccountWindow::delete_account(){
 	if(twitterStruct.twitter.getConfig().deleteConfigFile()){
 
-	this->set_default_response(RESPONSE_OK) ;
-
-	hide();
 	}
 
 }
