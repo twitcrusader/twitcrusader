@@ -30,6 +30,7 @@ namespace TwitCrusader {
 
 AccountDialog::AccountDialog() : table(7, 10, TRUE)
 {
+	label.set_label("");
 	twitterStruct.twitter.readUserFile();
 
 	this->set_default_size(210, 200);
@@ -45,11 +46,12 @@ AccountDialog::AccountDialog() : table(7, 10, TRUE)
 	account.set_label(twitterStruct.twitter.getLocalUser().getScreenName());
 	table.attach(account, 1, 9, 3, 4);
 
-	button.set_label("Delete Account");
-	button.signal_activate().connect(sigc::mem_fun(*this, &AccountDialog::delete_account));
-	table.attach(button, 3, 7, 5, 6);
+	//button.set_label("Delete Account");
+	//button.signal_activate().connect(sigc::mem_fun(*this, &AccountDialog::delete_account));
+	//table.attach(button, 3, 7, 5, 6);
 
 	this->get_vbox()->add(table);
+	this->add_button("Delete Account", Gtk::RESPONSE_CANCEL);
 	this->add_button(Stock::OK, Gtk::RESPONSE_OK);
 	set_default_response(RESPONSE_OK) ;
 
