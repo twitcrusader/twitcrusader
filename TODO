@@ -1,0 +1,15 @@
+// TO DO
+
+* GTK -> GTKMM
+
+* Re-Engine Syntax
+
+* GUI like TwitCrusader C
+
+* Delete Account Button Don't WORK!
+
+* Dialog aren't deallocated after hide()
+
+* Login crash
+
+* Fix MakeFile
