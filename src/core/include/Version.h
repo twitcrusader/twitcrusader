@@ -34,7 +34,7 @@
 
 #define TWC_VERSION "0.1"
 #define TWC_VERSION_STATUS "-alpha"
-#define TWC_UPDATES_URL "https://github.com/RoxShannon/TwitCrusaderpp/VERSION"
+#define TWC_UPDATES_URL "https://raw.github.com/RoxShannon/TwitCrusaderpp/master/VERSION"
 
 #define FILE_VERSION "/tmp/version.twc"
 #define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION

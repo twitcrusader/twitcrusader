@@ -46,8 +46,8 @@ using  namespace std;
 
 namespace TwitCrusader {
 
-#define TWITTER_KEY " "
-#define TWITTER_KEY_SECRET " "
+#define CONSUMER_KEY "1c0wHFXtyVkbzoC1MJQdA"
+#define CONSUMER_SECRET_KEY "ZV3ogdCeDBxX3tRv7CzcFrtRVBEQ71cH1cOUmB8KGg"
 
 class TimeLine {
 

@@ -52,13 +52,13 @@
 									<listOptionValue builtIn="false" value="/usr/include/libpng14"/>
 									<listOptionValue builtIn="false" value="/usr/include/libxml2"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.1673219295" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-Cpp/src/share/icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-Cpp&quot;\&quot;" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.1673219295" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusaderpp/src/share/icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusaderpp&quot;\&quot;" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.281540951" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.155912123" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
 								<option id="gnu.cpp.compiler.option.optimization.level.1531082890" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1812759253" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.1028874486" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-Cpp/src/share/icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusader-Cpp&quot;\&quot;" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1028874486" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -DICONS_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusaderpp/src/share/icons&quot;\&quot; -DPROG_DIR=\&quot;&quot;/Development/WorkSpace/TwitCrusaderpp&quot;\&quot;" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1251473848" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/include/gtkmm-3.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gtkmm-3.0/include"/>
@@ -93,6 +93,34 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.1897573993" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.21462794" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
 								<option id="gnu.cpp.link.option.libs.2005022840" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="gtkmm-3.0"/>
+									<listOptionValue builtIn="false" value="atkmm-1.6"/>
+									<listOptionValue builtIn="false" value="gdkmm-3.0"/>
+									<listOptionValue builtIn="false" value="giomm-2.4"/>
+									<listOptionValue builtIn="false" value="pangomm-1.4"/>
+									<listOptionValue builtIn="false" value="gtk-3"/>
+									<listOptionValue builtIn="false" value="glibmm-2.4"/>
+									<listOptionValue builtIn="false" value="cairomm-1.0"/>
+									<listOptionValue builtIn="false" value="gdk-3"/>
+									<listOptionValue builtIn="false" value="atk-1.0"/>
+									<listOptionValue builtIn="false" value="gio-2.0"/>
+									<listOptionValue builtIn="false" value="pangoft2-1.0"/>
+									<listOptionValue builtIn="false" value="pangocairo-1.0"/>
+									<listOptionValue builtIn="false" value="gdk_pixbuf-2.0"/>
+									<listOptionValue builtIn="false" value="cairo-gobject"/>
+									<listOptionValue builtIn="false" value="pango-1.0"/>
+									<listOptionValue builtIn="false" value="freetype"/>
+									<listOptionValue builtIn="false" value="fontconfig"/>
+									<listOptionValue builtIn="false" value="gmodule-2.0"/>
+									<listOptionValue builtIn="false" value="cairo"/>
+									<listOptionValue builtIn="false" value="sigc-2.0"/>
+									<listOptionValue builtIn="false" value="gobject-2.0"/>
+									<listOptionValue builtIn="false" value="gthread-2.0"/>
+									<listOptionValue builtIn="false" value="rt"/>
+									<listOptionValue builtIn="false" value="glib-2.0"/>
+									<listOptionValue builtIn="false" value="notify"/>
+									<listOptionValue builtIn="false" value="xml2"/>
+									<listOptionValue builtIn="false" value="oauth"/>
 									<listOptionValue builtIn="false" value="gtkmm-3.0"/>
 									<listOptionValue builtIn="false" value="atkmm-1.6"/>
 									<listOptionValue builtIn="false" value="gdkmm-3.0"/>

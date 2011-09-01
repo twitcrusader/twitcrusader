@@ -338,7 +338,7 @@ bool Twitter::tokenTemp()
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL.assign(tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET));
+	tempKeyURL.assign(tokenRequest(CONSUMER_KEY, CONSUMER_SECRET_KEY));
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL.c_str(), &rv);
@@ -350,9 +350,9 @@ bool Twitter::tokenTemp()
 	 */
 	tmp_token.assign(tempKeyURL);
 	tmp_token.append("&c_key=");
-	tmp_token.append(TWITTER_KEY);
+	tmp_token.append(CONSUMER_KEY);
 	tmp_token.append("&c_key_secret=");
-	tmp_token.append(TWITTER_KEY_SECRET);
+	tmp_token.append(CONSUMER_SECRET_KEY);
 
 	return true;
 
@@ -371,7 +371,7 @@ bool Twitter::tokenTempBrowser()
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL.assign(tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET));
+	tempKeyURL.assign(tokenRequest(CONSUMER_KEY, CONSUMER_SECRET_KEY));
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL.c_str(), &rv);
@@ -383,9 +383,9 @@ bool Twitter::tokenTempBrowser()
 	 */
 	tmp_token.assign(tempKeyURL);
 	tmp_token.append("&c_key=");
-	tmp_token.append(TWITTER_KEY);
+	tmp_token.append(CONSUMER_KEY);
 	tmp_token.append("&c_key_secret=");
-	tmp_token.append(TWITTER_KEY_SECRET);
+	tmp_token.append(CONSUMER_SECRET_KEY);
 	cout<<"\n"<<tmp_token;
 
 	/* Generate a Twitter-URL for get user-PIN */
