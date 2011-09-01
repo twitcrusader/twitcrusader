@@ -24,11 +24,11 @@
  *
  */
 
-#include "include/AccountWindow.h"
+#include "include/AccountDialog.h"
 
 namespace TwitCrusader {
 
-AccountWindow::AccountWindow() : table(7, 10, TRUE)
+AccountDialog::AccountDialog() : table(7, 10, TRUE)
 {
 	twitterStruct.twitter.readUserFile();
 
@@ -46,7 +46,7 @@ AccountWindow::AccountWindow() : table(7, 10, TRUE)
 	table.attach(account, 1, 9, 3, 4);
 
 	button.set_label("Delete Account");
-	button.signal_activate().connect(sigc::mem_fun(*this, &AccountWindow::delete_account));
+	button.signal_activate().connect(sigc::mem_fun(*this, &AccountDialog::delete_account));
 	table.attach(button, 3, 7, 5, 6);
 
 	this->get_vbox()->add(table);
@@ -55,11 +55,11 @@ AccountWindow::AccountWindow() : table(7, 10, TRUE)
 
 }
 
-AccountWindow::~AccountWindow() {
+AccountDialog::~AccountDialog() {
 	// TODO Auto-generated destructor stub
 }
 
-void AccountWindow::delete_account(){
+void AccountDialog::delete_account(){
 
 	Dialog confirm;
 	Label conf;

@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef ACCOUNTWINDOW_H_
-#define ACCOUNTWINDOW_H_
+#ifndef ACCOUNTDIALOG_H_
+#define ACCOUNTDIALOG_H_
 
 #include <gtkmm.h>
 #include <gtkmm/stock.h>
@@ -39,7 +39,7 @@ using namespace Glib;
 
 namespace TwitCrusader {
 
-class AccountWindow: public Dialog
+class AccountDialog: public Dialog
 {
 private:
 	Table table;
@@ -51,9 +51,9 @@ protected:
 void delete_account();
 
 public:
-	AccountWindow();
-	virtual ~AccountWindow();
+	AccountDialog();
+	virtual ~AccountDialog();
 };
 
 } /* namespace TwitCrusader */
-#endif /* ACCOUNTWINDOW_H_ */
+#endif /* ACCOUNTDIALOG_H_ */

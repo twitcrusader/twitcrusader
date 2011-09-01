@@ -36,7 +36,7 @@
 #include "Icons.h"
 #include "WindowVersion.h"
 #include "AboutWindow.h"
-#include "AccountWindow.h"
+#include "AccountDialog.h"
 #include "RegWindow.h"
 
 #include "../../core/include/Functions.h"

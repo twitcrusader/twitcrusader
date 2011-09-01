@@ -327,12 +327,12 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
-	AccountWindow accountWindow;
-	accountWindow.set_transient_for( *this );
-	accountWindow.show_all();
-	accountWindow.run();
-	accountWindow.hide();
-	accountWindow.~AccountWindow();
+	AccountDialog accountDialog;
+	accountDialog.set_transient_for( *this );
+	accountDialog.show_all();
+	accountDialog.run();
+	accountDialog.hide();
+	accountDialog.~AccountDialog();
 
 	this->is_connected();
 	this->init_menu();
