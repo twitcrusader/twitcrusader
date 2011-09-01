@@ -1,6 +1,6 @@
 icondir = /usr/share/icons
 icon_DATA= \
-	TwitCrusader.png
+	TwitCrusader++.png
 	
 imgdir = $(datadir)/@PACKAGE@/icons
 img_DATA= \
@@ -17,7 +17,7 @@ img_DATA= \
 	sign-in-with-twitter.png \
 	star.png \
 	tw_about.png \
-	TwitCrusader.png \
+	TwitCrusader++.png \
 	upgrade.png \
 	update.png
 
