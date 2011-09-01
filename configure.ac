@@ -35,6 +35,16 @@ You must have libxml-2.0 >= 2.6.32
 AC_SUBST(oauth_CFLAGS)
 AC_SUBST(oauth_LIBS)
 
+PKG_CHECK_MODULES(libnotify, [libnotify >= 0.7.3], , [
+		AC_MSG_RESULT(no)
+		AC_MSG_ERROR([
+
+You must have libnotify >= 0.7.3
+])])
+
+AC_SUBST(libnotify_CFLAGS)
+AC_SUBST(libnotify_LIBS)
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile

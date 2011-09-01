@@ -1,5 +1,5 @@
 /*
- *	TwitCrusader - Twitter Client For Linux Desktop
+ *	 TwitCrusader - Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -18,35 +18,24 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
+#include "inc/notify.h"
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+    void notifySystem(char *message)
+    {
+    	NotifyNotification *notify= NULL;
+    	notify=notify_notification_new(TWC,message,ICON_FAVICON);
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+    	notify_notification_set_timeout(notify,3000);
+    	notify_notification_set_urgency (notify,NOTIFY_URGENCY_CRITICAL);
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
+    	GError *error=NULL;
+    	notify_notification_show(notify,&error);
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+    }
 
-/* Headers */
-#include <libnotify/notify.h>
 
-#include "tools/inc/debugger.h"
-#include "gui/inc/windows.main.h"
-#include "core/inc/sys.h"
-#include "libs/libnotify/inc/notify.h"
-
-/* Initialize Debugger */ 
-int debug;
-
-/* Default End of _TWITCRUSADER_H */ 
-#endif

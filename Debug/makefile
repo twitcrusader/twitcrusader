@@ -13,6 +13,7 @@ RM := rm -rf
 -include src/subdir.mk
 -include src/libs/oauth/subdir.mk
 -include src/libs/libxml/subdir.mk
+-include src/libs/libnotify/subdir.mk
 -include src/libs/curl/subdir.mk
 -include src/gui/subdir.mk
 -include objects.mk
@@ -28,19 +29,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: TwitCrusader-nightly
+all: TwitCrusader-C
 
 # Tool invocations
-TwitCrusader-nightly: $(OBJS) $(USER_OBJS)
+TwitCrusader-C: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc  -o "TwitCrusader-nightly" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "TwitCrusader-C" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) TwitCrusader-nightly
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) TwitCrusader-C
 	-@echo ' '
 
 .PHONY: all clean dependents
