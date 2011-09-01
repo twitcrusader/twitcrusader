@@ -31,7 +31,7 @@ AC_SUBST(oauth_CFLAGS)
 AC_SUBST(oauth_LIBS)
 
 
-PKG_CHECK_MODULES(libxml2, [libxml-2.0 >= 2.7.8], , [
+PKG_CHECK_MODULES(libxmlpp, [libxml++-2.6 >= 2.34.1], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
