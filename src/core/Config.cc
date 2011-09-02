@@ -59,7 +59,7 @@ void Config::setAvatarDir()
 {
 
 	avatarDir.assign(homeDir);
-	avatarDir.append("/.twc/avatar/");
+	avatarDir.append("/.twc++/avatar/");
 }
 
 bool Config::createAvatarDir()
@@ -89,7 +89,7 @@ void Config::setConfigDir()
 
 	//Configuration File
 	configDir.assign(homeDir);
-	configDir.append("/.twc/config/");
+	configDir.append("/.twc++/config/");
 }
 
 bool Config::createConfigDir()
@@ -110,7 +110,7 @@ bool Config::createConfigDir()
 void Config::setTimelineDir()
 {
 	timelineDir.assign(homeDir);
-	timelineDir.append("/.twc/timeline/");
+	timelineDir.append("/.twc++/timeline/");
 
 }
 

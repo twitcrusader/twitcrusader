@@ -29,10 +29,7 @@ using  namespace std;
 
 namespace TwitCrusader {
 
-static struct TwitterStruct{
+static Twitter twitter;
 
-	Twitter twitter;
-
-}twitterStruct;
 }
 #endif /* TWITTEROBJECT_H_ */

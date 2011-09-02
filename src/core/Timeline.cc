@@ -94,7 +94,7 @@ bool TimeLine::readTimeLine(string docname)
 	cur = cur->xmlChildrenNode;
 
 	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"status"))){
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "status"))){
 			getStatus (doc, cur, i);
 			i++;
 		}
@@ -361,7 +361,6 @@ void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i)
 		cur2 = cur2->next;
 
 		tweet.setUser(tUser);
-
 	}
 
 
@@ -387,18 +386,20 @@ void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i)
 	cur = cur->next;
 
 	timeline.push_back(tweet);
-
 }
 
 string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword)
 {
 	xmlChar *key = NULL;
-	string empty = "error";
+	string empty=string();
 
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword.c_str()))) {
 		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
 
-		return string().assign((char* )key);
+		if(key!=NULL){
+		string ret((char *)key);
+		return ret;
+		}
 	}
 
 	return empty;

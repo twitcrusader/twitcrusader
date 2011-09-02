@@ -181,69 +181,68 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 {
 	this->config.createTimelineDir();
 
-	string path=string();
-	path.assign(config.getTimeLineDir());
+	string path(config.getTimeLineDir());
 
 	switch(xmlSwitch){
 
 	case 1:
-		path.assign("public_timeline.xml");
+		path.append(path+"public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
 		break;
 
 
 	case 2:
-		path.assign("home_timeline.xml");
+		path.append("home_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(HOME_TIMELINE_URL);
 		break;
 
 
 	case 3:
-		path.assign("mentions.xml");
+		path.append("mentions.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(MENTIONS_TIMELINE_URL);
 		break;
 
 
 	case 4:
-		path.assign("friends_timeline.xml");
+		path.append("friends_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(FRIENDS_TIMELINE_URL);
 		break;
 
 
 	case 5:
-		path.assign("user_timeline.xml");
+		path.append("user_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(USER_TIMELINE_URL);
 		break;
 
 
 	case 6:
-		path.assign("retweeted_by_me.xml");
+		path.append("retweeted_by_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_BY_ME_TIMELINE_URL);
 		break;
 
 
 	case 7:
-		path.assign("retweeted_to_me.xml");
+		path.append("retweeted_to_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_TO_ME_TIMELINE_URL);
 		break;
 
 
 	case 8:
-		path.assign("retweeted_of_me.xml");
+		path.append("retweeted_of_me.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(RT_OF_ME_TIMELINE_URL);
 		break;
 
 
 	default:
-		path.assign("public_timeline.xml");
+		path.append("public_timeline.xml");
 		this->timeLine.setTimelineFile(path);
 		this->timeLine.setTimelineURL(PUBLIC_TIMELINE_URL);
 		break;
@@ -259,8 +258,7 @@ bool Twitter::downloadTimeLine()
 {
 	FILE *fp;
 	string postarg=string();
-	string tml=string();
-	tml.append(oauth_sign_url2(timeLine.getTimelineURL().c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
+	string tml(oauth_sign_url2(timeLine.getTimelineURL().c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
 	tml.assign(oauth_http_get(tml.c_str(), postarg.c_str()));
 
 	if(!timeLine.getTimelineFile().empty()){
@@ -271,15 +269,13 @@ bool Twitter::downloadTimeLine()
 
 			if(!tml.empty()){
 
-				fprintf(fp, "%s",timeLine.getTimelineFile().c_str());
+				fprintf(fp, "%s",tml.c_str());
 
 				fclose(fp);
 				cout<<"timeLine.getTimelineFile().c_str()="+timeLine.getTimelineFile()<<endl;
-				this->timeLine.readTimeLine(this->getConfig().getTimeLineDir()+timeLine.getTimelineFile());
+				this->timeLine.readTimeLine(timeLine.getTimelineFile());
 
-				remove(tml.c_str());
-
-
+				remove(timeLine.getTimelineFile().c_str());
 
 				return true;
 			}

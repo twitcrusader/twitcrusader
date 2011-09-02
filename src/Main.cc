@@ -33,14 +33,14 @@ int main(int argc, char *argv[]){
 	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
 	cout<<"Copyright (C) 2011  TwitCrusader Team\n\n";
 
-	twitterStruct.twitter=Twitter();
+	twitter=Twitter();
 
 
 	if(Functions::shellParameters(argc,argv))return 0;
 
 	Gtk::Main kit(argc, argv);
 
-	if(!twitterStruct.twitter.getConfig().is_registered()){
+	if(!twitter.getConfig().is_registered()){
 		RegWindow regWindow;
 	}
 	MainWindow window;

@@ -64,11 +64,11 @@ void MainWindow::declare(){
 }
 
 void MainWindow::is_connected(){
-	this->connected=!twitterStruct.twitter.getLocalUser().getScreenName().empty();
+	this->connected=!twitter.getLocalUser().getScreenName().empty();
 }
 void MainWindow::init_scrolled_window(){
 	//twitterStruct.twitter.getTimeLine().readTimeLine();
-	vector<Tweet> tweets=twitterStruct.twitter.getTimeLine().getTimeline();
+	vector<Tweet> tweets=twitter.getTimeLine().getTimeline();
 
 	for (unsigned int i=0; i<tweets.size(); i++) {
 		avatar.set(tweets[i].getUser().getProfile_image());
@@ -115,7 +115,8 @@ void MainWindow::init_menu_bar(){
 
 
 void MainWindow::init_menu(){
-
+	this->file_menu_root.unset_submenu ();
+	this->helps_menu_root.unset_submenu ();
 
 	if(this->connected){
 
@@ -125,7 +126,7 @@ void MainWindow::init_menu(){
 
 
 	}else{
-		if(twitterStruct.twitter.getConfig().is_registered()){
+		if(twitter.getConfig().is_registered()){
 
 			file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Log In", 0, 0);
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
@@ -245,12 +246,10 @@ void MainWindow::foo()
 void MainWindow::gtkConnect()
 {
 	cout<<"gtkConnect()"<<endl;
-	twitterStruct.twitter.readUserFile();
+	twitter.readUserFile();
 	this->is_connected();
-	this->init_menu();
 	this->timeline_mode=2;
-	init_statusbar();
-	refresh_timeline();
+
 	refresh();
 
 }
@@ -286,20 +285,20 @@ void MainWindow::loadWindowOptions()
 	accountDialog.show_all();
 	if(accountDialog.run()==Gtk::RESPONSE_CANCEL){
 		Dialog confirm;
-			Label conf;
-			conf.set_label("Do you want delete the Profile?");
-			confirm.get_vbox()->add(conf);
-			confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
-			confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
-			confirm.set_default_response(RESPONSE_CANCEL);
-			confirm.show_all_children();
-			if(confirm.run()==Gtk::RESPONSE_OK){
-				if(twitterStruct.twitter.getConfig().deleteConfigFile()){
-					confirm.hide();
-					accountDialog.hide();
-					accountDialog.run();
-				}
+		Label conf;
+		conf.set_label("Do you want delete the Profile?");
+		confirm.get_vbox()->add(conf);
+		confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
+		confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
+		confirm.set_default_response(RESPONSE_CANCEL);
+		confirm.show_all_children();
+		if(confirm.run()==Gtk::RESPONSE_OK){
+			if(twitter.getConfig().deleteConfigFile()){
+				confirm.hide();
+				accountDialog.hide();
+				accountDialog.run();
 			}
+		}
 	}
 	accountDialog.hide();
 	accountDialog.~AccountDialog();
@@ -349,7 +348,7 @@ void MainWindow::on_writing()
 void MainWindow::refresh_timeline(){
 	bool error;
 
-	error=twitterStruct.twitter.switchTimeLine(this->timeline_mode);
+	error=twitter.switchTimeLine(this->timeline_mode);
 
 	if(error){
 
@@ -364,6 +363,10 @@ void MainWindow::refresh(){
 
 	while ( Gtk::Main::events_pending() )
 		Gtk::Main::iteration() ;
+
+	init_menu();
+	init_statusbar();
+	refresh_timeline();
 
 	this->queue_draw();
 }

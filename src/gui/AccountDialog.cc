@@ -27,7 +27,7 @@ namespace TwitCrusader {
 AccountDialog::AccountDialog() : table(7, 10, TRUE)
 {
 	label.set_label("");
-	twitterStruct.twitter.readUserFile();
+	twitter.readUserFile();
 
 	this->set_default_size(210, 200);
 	this->set_size_request(210, 200);
@@ -39,7 +39,7 @@ AccountDialog::AccountDialog() : table(7, 10, TRUE)
 	label.set_label("Twitter's Account:");
 	table.attach(label, 1, 9, 1, 2 );
 
-	account.set_label(twitterStruct.twitter.getLocalUser().getScreenName());
+	account.set_label(twitter.getLocalUser().getScreenName());
 	table.attach(account, 1, 9, 3, 4);
 
 	//button.set_label("Delete Account");
@@ -68,7 +68,7 @@ void AccountDialog::delete_account(){
 	set_default_response(RESPONSE_CANCEL);
 	this->run();
 	if(confirm.run()==Gtk::RESPONSE_OK){
-		if(twitterStruct.twitter.getConfig().deleteConfigFile()){
+		if(twitter.getConfig().deleteConfigFile()){
 			hide();
 			this->label.set_label("");
 			this->run();

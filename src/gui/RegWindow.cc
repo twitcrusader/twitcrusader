@@ -75,13 +75,13 @@ void RegWindow::quit(){
 }
 
 void RegWindow::browser_authorization(){
-	twitterStruct.twitter.tokenTempBrowser();
+	twitter.tokenTempBrowser();
 }
 
 void RegWindow::get_access_token(){
 	pin_buffer=this->pin.get_buffer();
 	string str=pin_buffer->get_text();
-	if(!twitterStruct.twitter.tokenAccess(str)){
+	if(!twitter.tokenAccess(str)){
 		MessageDialog error("Bad PIN",false,MESSAGE_ERROR ,BUTTONS_OK,false);
 		error.run();
 	}else{
