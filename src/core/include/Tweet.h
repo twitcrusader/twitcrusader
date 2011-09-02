@@ -39,64 +39,28 @@ namespace TwitCrusader {
 
 class Tweet {
 
-private:
+public:
 
 	User user;
 
-	string created_at,
-	id,
-	text,
-	source,
-	truncated,
-	favorited,
-	in_reply_to_status_id,
-	in_reply_to_user_id,
-	in_reply_to_screen_name,
-	retweet_count,
-	retweeted,
-	geo,
-	coordinates,
-	place,
-	contributors;
+	char *created_at,
+	*id,
+	*text,
+	*source,
+	*truncated,
+	*favorited,
+	*in_reply_to_status_id,
+	*in_reply_to_user_id,
+	*in_reply_to_screen_name,
+	*retweet_count,
+	*retweeted,
+	*geo,
+	*coordinates,
+	*place,
+	*contributors;
 
-public:
 	Tweet();
 	virtual ~Tweet();
-
-	User getUser();
-	void setUser(User user);
-
-	string getCreated_at();
-	string getId();
-	string getText();
-	string getSource();
-	string getTruncated();
-	string getFavorited();
-	string getIn_reply_to_status_id();
-	string getIn_reply_to_user_id();
-	string getIn_reply_to_screen_name();
-	string getRetweet_count();
-	string getRetweeted();
-	string getGeo();
-	string getCoordinates();
-	string getPlace();
-	string getContributors();
-
-	void setCreated_at(string created_at);
-	void setId(string id);
-	void setText(string text);
-	void setSource(string source);
-	void setTruncated(string truncated);
-	void setFavorited(string favorited);
-	void setIn_reply_to_status_id(string in_reply_to_status_id);
-	void setIn_reply_to_user_id(string in_reply_to_user_id);
-	void setIn_reply_to_screen_name(string in_reply_to_screen_name);
-	void setRetweet_count(string retweet_count);
-	void setRetweeted(string retweeted);
-	void setGeo(string geo);
-	void setCoordinates(string coordinates);
-	void setPlace(string place);
-	void setContributors(string contributors);
 
 };
 }

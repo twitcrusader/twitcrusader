@@ -123,6 +123,16 @@ string Functions::DownloadVersion(){
 	return LatestVersion;
 }
 
+    bool Functions::writeRawTextFile(string fileName, string text)
+    {
+    	  ofstream myfile;
+    	  myfile.open (fileName.c_str());
+    	  myfile << text;
+    	  myfile.close();
+    	  return true;
+
+    }
+
     void Functions::notifySystem(string Message)
     {
     	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);

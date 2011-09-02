@@ -256,31 +256,22 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 
 bool Twitter::downloadTimeLine()
 {
-	FILE *fp;
 	string postarg=string();
 	string tml(oauth_sign_url2(timeLine.getTimelineURL().c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
 	tml.assign(oauth_http_get(tml.c_str(), postarg.c_str()));
 
 	if(!timeLine.getTimelineFile().empty()){
 
-		fp=fopen(timeLine.getTimelineFile().c_str(), "w");
-
-		if(fp!=NULL){
-
 			if(!tml.empty()){
-
-				fprintf(fp, "%s",tml.c_str());
-
-				fclose(fp);
+				Functions::writeRawTextFile(timeLine.getTimelineFile(), tml);
 				cout<<"timeLine.getTimelineFile().c_str()="+timeLine.getTimelineFile()<<endl;
-				this->timeLine.readTimeLine(timeLine.getTimelineFile());
+				timeLine.readTimeLine(timeLine.getTimelineFile());
 
 				remove(timeLine.getTimelineFile().c_str());
 
 				return true;
 			}
 
-		}
 	}
 	return false;
 }

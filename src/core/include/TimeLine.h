@@ -66,7 +66,7 @@ public:
 	void setTimeline(vector<Tweet>);
 
 
-	string getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
+	char* getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
 	void getStatus (xmlDocPtr, xmlNodePtr, int);
 	bool readTimeLine(string);
 

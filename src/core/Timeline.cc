@@ -33,7 +33,6 @@ TimeLine::TimeLine()
 
 TimeLine::~TimeLine()
 {
-	timeline.~vector();
 
 }
 
@@ -110,295 +109,282 @@ bool TimeLine::readTimeLine(string docname)
 
 void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i)
 {
-	Tweet tweet=Tweet();
+	Tweet *tweet=new Tweet();
 
 	xmlNodePtr cur2;
 	cur = cur->xmlChildrenNode;
 	cur = cur->next;
-
-	tweet.setCreated_at(getTimeLineElement(doc, cur, "created_at"));
+	tweet->created_at=getTimeLineElement(doc, cur, "created_at");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *id,
-	tweet.setId(getTimeLineElement(doc, cur, "id"));
+	tweet->id=getTimeLineElement(doc, cur, "id");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *text,
-	tweet.setText(getTimeLineElement(doc, cur, "text"));
+	tweet->text=getTimeLineElement(doc, cur, "text");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *source,
-	tweet.setSource(getTimeLineElement(doc, cur, "source"));
+	tweet->source=getTimeLineElement(doc, cur, "source");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *truncated,
-	tweet.setTruncated(getTimeLineElement(doc, cur, "truncated"));
+	tweet->truncated=getTimeLineElement(doc, cur, "truncated");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *favorited,
-	tweet.setFavorited(getTimeLineElement(doc, cur, "favorited"));
+	tweet->favorited=getTimeLineElement(doc, cur, "favorited");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_status_id,
-	tweet.setIn_reply_to_status_id(getTimeLineElement(doc, cur, "in_reply_to_status_id"));
+	tweet->in_reply_to_status_id=getTimeLineElement(doc, cur, "in_reply_to_status_id");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_user_id,
-	tweet.setIn_reply_to_user_id(getTimeLineElement(doc, cur, "in_reply_to_user_id"));
+	tweet->in_reply_to_user_id=getTimeLineElement(doc, cur, "in_reply_to_user_id");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_screen_name,
-	tweet.setIn_reply_to_screen_name(getTimeLineElement(doc, cur, "in_reply_to_screen_name"));
+	tweet->in_reply_to_screen_name=getTimeLineElement(doc, cur, "in_reply_to_screen_name");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *retweet_count,
-	tweet.setRetweet_count(getTimeLineElement(doc, cur, "retweet_count"));
+	tweet->retweet_count=getTimeLineElement(doc, cur, "retweet_count");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *retweeted,
-	tweet.setRetweeted(getTimeLineElement(doc, cur, "retweeted"));
+	tweet->retweeted=getTimeLineElement(doc, cur, "retweeted");
 	cur = cur->next;
 	cur = cur->next;
 
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)"user"))) {
 
-		User tUser=User();
-
 		cur2 = cur->xmlChildrenNode;
 		cur2 = cur2->next;
 
 		// char *id,
-		tUser.setId(getTimeLineElement(doc, cur2, "id"));
+		tweet->user.id=getTimeLineElement(doc, cur2, "id");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *name,
-		tUser.setName(getTimeLineElement(doc, cur2, "name"));
+		tweet->user.name=getTimeLineElement(doc, cur2, "name");
 
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *screen_name,
-		tUser.setScreen_name(getTimeLineElement(doc, cur2, "screen_name"));
+		tweet->user.screen_name=getTimeLineElement(doc, cur2, "screen_name");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *location,
-		tUser.setLocation(getTimeLineElement(doc, cur2, "location"));
+		tweet->user.location=getTimeLineElement(doc, cur2, "location");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		//		*description,
-		tUser.setDescription(getTimeLineElement(doc, cur2, "description"));
+		tweet->user.description=getTimeLineElement(doc, cur2, "description");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_image_url,
-		tUser.setProfile_image_url(getTimeLineElement(doc, cur2, "profile_image_url"));
+		tweet->user.profile_image_url=getTimeLineElement(doc, cur2, "profile_image_url");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
-
-		// *profile_image,
-		Config config=Config();
-		string profileImage;
-		profileImage.assign(config.getAvatarDir());
-		profileImage.append(tUser.getScreen_name());
-		tUser.setProfile_image(profileImage);
 
 		// *url,
-		tUser.setUrl(getTimeLineElement(doc, cur2, "url"));
+		tweet->user.url=getTimeLineElement(doc, cur2, "url");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *protectedtw,
-		tUser.setProtectedtw(getTimeLineElement(doc, cur2, "protected"));
+		tweet->user.protectedtw=getTimeLineElement(doc, cur2, "protected");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_color,
-		tUser.setProfile_background_color(getTimeLineElement(doc, cur2, "profile_background_color"));
+		tweet->user.profile_background_color=getTimeLineElement(doc, cur2, "profile_background_color");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_text_color,
-		tUser.setProfile_text_color(getTimeLineElement(doc, cur2, "profile_text_color"));
+		tweet->user.profile_text_color=getTimeLineElement(doc, cur2, "profile_text_color");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_link_color,
-		tUser.setProfile_link_color(getTimeLineElement(doc, cur2, "profile_link_color"));
+		tweet->user.profile_link_color=getTimeLineElement(doc, cur2, "profile_link_color");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_sidebar_fill_color,
-		tUser.setProfile_sidebar_fill_color(getTimeLineElement(doc, cur2, "profile_sidebar_fill_color"));
+		tweet->user.profile_sidebar_fill_color=getTimeLineElement(doc, cur2, "profile_sidebar_fill_color");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_sidebar_border_color,
-		tUser.setProfile_sidebar_border_color(getTimeLineElement(doc, cur2, "profile_sidebar_border_color"));
+		tweet->user.profile_sidebar_border_color=getTimeLineElement(doc, cur2, "profile_sidebar_border_color");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *created_at,
-		tUser.setCreated_at(getTimeLineElement(doc, cur2, "created_at"));
+		tweet->user.created_at=getTimeLineElement(doc, cur2, "created_at");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *utc_offset,
-		tUser.setUtc_offset(getTimeLineElement(doc, cur2, "utc_offset"));
+		tweet->user.utc_offset=getTimeLineElement(doc, cur2, "utc_offset");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *time_zone,
-		tUser.setTime_zone(getTimeLineElement(doc, cur2, "time_zone"));
+		tweet->user.time_zone=getTimeLineElement(doc, cur2, "time_zone");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_image_url,
-		tUser.setProfile_background_image_url(getTimeLineElement(doc, cur2, "profile_background_image_url"));
+		tweet->user.profile_background_image_url=getTimeLineElement(doc, cur2, "profile_background_image_url");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_tile,
-		tUser.setProfile_background_tile(getTimeLineElement(doc, cur2, "profile_background_tile"));
+		tweet->user.profile_background_tile=getTimeLineElement(doc, cur2, "profile_background_tile");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_use_background_image,
-		tUser.setProfile_use_background_image(getTimeLineElement(doc, cur2, "profile_use_background_image"));
+		tweet->user.profile_use_background_image=getTimeLineElement(doc, cur2, "profile_use_background_image");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *notifications,
-		tUser.setNotifications(getTimeLineElement(doc, cur2, "notifications"));
+		tweet->user.notifications=getTimeLineElement(doc, cur2, "notifications");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *geo_enabled,
-		tUser.setGeo_enabled(getTimeLineElement(doc, cur2, "geo_enabled"));
+		tweet->user.geo_enabled=getTimeLineElement(doc, cur2, "geo_enabled");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *verified,
-		tUser.setVerified(getTimeLineElement(doc, cur2, "verified"));
+		tweet->user.verified=getTimeLineElement(doc, cur2, "verified");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *following,
-		tUser.setFollowing(getTimeLineElement(doc, cur2, "following"));
+		tweet->user.following=getTimeLineElement(doc, cur2, "following");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *lang,
-		tUser.setLang(getTimeLineElement(doc, cur2, "lang"));
+		tweet->user.lang=getTimeLineElement(doc, cur2, "lang");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *contributors_enabled,
-		tUser.setContributors_enabled(getTimeLineElement(doc, cur2, "contributors_enabled"));
+		tweet->user.contributors_enabled=getTimeLineElement(doc, cur2, "contributors_enabled");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *follow_request_sent,
-		tUser.setFollow_request_sent(getTimeLineElement(doc, cur2, "follow_request_sent"));
+		tweet->user.follow_request_sent=getTimeLineElement(doc, cur2, "follow_request_sent");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *show_all_inline_media,
-		tUser.setShow_all_inline_media(getTimeLineElement(doc, cur2, "show_all_inline_media"));
+		tweet->user.show_all_inline_media=getTimeLineElement(doc, cur2, "show_all_inline_media");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *default_profile,
-		tUser.setDefault_profile(getTimeLineElement(doc, cur2, "default_profile"));
+		tweet->user.default_profile=getTimeLineElement(doc, cur2, "default_profile");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *default_profile_image,
-		tUser.setDefault_profile_image(getTimeLineElement(doc, cur2, "default_profile_image"));
+		tweet->user.default_profile_image=getTimeLineElement(doc, cur2, "default_profile_image");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *is_translator,
-		tUser.setIs_translator(getTimeLineElement(doc, cur2, "is_translator"));
+		tweet->user.is_translator=getTimeLineElement(doc, cur2, "is_translator");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *followers_count,
-		tUser.setFollowers_count(getTimeLineElement(doc, cur2, "followers_count"));
+		tweet->user.followers_count=getTimeLineElement(doc, cur2, "followers_count");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *friends_count,
-		tUser.setFriends_count(getTimeLineElement(doc, cur2, "friends_count"));
+		tweet->user.friends_count=getTimeLineElement(doc, cur2, "friends_count");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *favourites_count,
-		tUser.setFavourites_count(getTimeLineElement(doc, cur2, "favourites_count"));
+		tweet->user.favourites_count=getTimeLineElement(doc, cur2, "favourites_count");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// statuses_count, ;
-		tUser.setStatuses_count(getTimeLineElement(doc, cur2, "statuses_count"));
+		tweet->user.statuses_count=getTimeLineElement(doc, cur2, "statuses_count");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// listed_count
-		tUser.setListed_count(getTimeLineElement(doc, cur2, "listed_count"));
+		tweet->user.listed_count=getTimeLineElement(doc, cur2, "listed_count");
 		cur2 = cur2->next;
 		cur2 = cur2->next;
-
-		tweet.setUser(tUser);
 	}
 
 
 	// *geo,
-	tweet.setGeo(getTimeLineElement(doc, cur, "geo"));
+	tweet->geo=getTimeLineElement(doc, cur, "geo");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *coordinates,
-	tweet.setCoordinates(getTimeLineElement(doc, cur, "coordinates"));
+	tweet->coordinates=getTimeLineElement(doc, cur, "coordinates");
 
 	cur = cur->next;
 	cur = cur->next;
 
 	// *place,
-	tweet.setPlace(getTimeLineElement(doc, cur, "place"));
+	tweet->place=getTimeLineElement(doc, cur, "place");
 	cur = cur->next;
 	cur = cur->next;
 
 	// *contributors;
-	tweet.setContributors(getTimeLineElement(doc, cur, "contributors"));
+	tweet->contributors=getTimeLineElement(doc, cur, "contributors");
 	cur = cur->next;
 	cur = cur->next;
 
-	timeline.push_back(tweet);
+	timeline.push_back(*tweet);
 }
 
-string TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword)
+char* TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword)
 {
 	xmlChar *key = NULL;
-	string empty=string();
+	char *empty="";
 
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword.c_str()))) {
 		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
 
 		if(key!=NULL){
-		string ret((char *)key);
-		return ret;
+			return (char *)key;
 		}
 	}
 

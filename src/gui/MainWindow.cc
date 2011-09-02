@@ -67,16 +67,16 @@ void MainWindow::is_connected(){
 	this->connected=!twitter.getLocalUser().getScreenName().empty();
 }
 void MainWindow::init_scrolled_window(){
-	//twitterStruct.twitter.getTimeLine().readTimeLine();
-	vector<Tweet> tweets=twitter.getTimeLine().getTimeline();
 
-	for (unsigned int i=0; i<tweets.size(); i++) {
-		avatar.set(tweets[i].getUser().getProfile_image());
-		nick.set_label(tweets[i].getUser().getScreen_name());
-		tweet.set_label(tweets[i].getText());
+	int i=0;
+	for(vector<Tweet>::iterator it =  twitter.getTimeLine().getTimeline().begin(); it!=twitter.getTimeLine().getTimeline().end(); ++it){
+		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
+		nick.set_label(it.base()->user.screen_name);
+		tweet.set_label(it.base()->text);
 		table_into.attach(avatar,0, 1, i, i+4);
 		table_into.attach(nick,1, 10,i, i+1);
 		table_into.attach(tweet, 1,10, i+1, i+4);
+		i++;
 	}
 
 	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);

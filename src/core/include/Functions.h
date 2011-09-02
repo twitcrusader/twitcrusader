@@ -44,6 +44,7 @@ class Functions {
 public:
 
 	static string readRawTextFile(string fileName);
+	static bool writeRawTextFile(string fileName, string text);
 	static vector<Glib::ustring> readTextFileLinebyLine(string fileName);
 	static bool shellParameters (int argc, char **argv);
 	static string DownloadVersion();
