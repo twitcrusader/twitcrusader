@@ -1,0 +1,440 @@
+/*
+ *	 TwitCrusader++ - Twitter Client For Linux Desktop
+ *		Copyright (C) 2011  TwitCrusader++
+ *
+ *		This program is free software: you can redistribute it and/or modify
+ *		it under the terms of the GNU General Public License as published by
+ *		the Free Software Foundation, either version 3 of the License, or
+ *		(at your option) any later version.
+ *
+ *		This program is distributed in the hope that it will be useful,
+ *		but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *		GNU General Public License for more details.
+ *
+ *		You should have received a copy of the GNU General Public License
+ *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *		Source: https://github.com/RoxShannon/TwitCrusaderpp
+ *		email: orazio.1985@hotmail.com
+ *
+ */
+
+#include "include/TimeLine.h"
+namespace TwitCrusader {
+TimeLine::TimeLine()
+{
+	timelineURL=string();
+	timelineFile=string();
+	timeline=vector<Tweet>();
+
+
+}
+
+TimeLine::~TimeLine()
+{
+
+}
+
+string TimeLine::getTimelineURL()
+{
+	return this->timelineURL;
+}
+
+string TimeLine::getTimelineFile()
+{
+	return this->timelineFile;
+}
+
+vector<Tweet> TimeLine::getTimeline()
+{
+	return this->timeline;
+}
+void TimeLine::setTimelineURL(string timelineURL)
+{
+	this->timelineURL=timelineURL;
+}
+
+void TimeLine::setTimelineFile(string timelineFile)
+{
+	this->timelineFile=timelineFile;
+}
+
+void TimeLine::setTimeline(vector<Tweet> timeline)
+{
+	this->timeline=timeline;
+}
+
+bool TimeLine::readTimeLine(string docname)
+{
+
+	xmlDocPtr doc;
+	xmlNodePtr cur;
+	int i=0;
+
+	doc = xmlParseFile(docname.c_str());
+
+	if (doc == NULL ) {
+		return 1;
+	}
+
+	cur = xmlDocGetRootElement(doc);
+
+	if (cur == NULL) {
+		xmlFreeDoc(doc);
+		return 1;
+	}
+
+	if (xmlStrcmp(cur->name, (const xmlChar *) "statuses")) {
+		xmlFreeDoc(doc);
+		return 1;
+	}
+
+	cur = cur->xmlChildrenNode;
+
+	while (cur != NULL) {
+		if ((!xmlStrcmp(cur->name, (const xmlChar *) "status"))){
+			getStatus (doc, cur, i);
+			i++;
+		}
+
+		cur = cur->next;
+	}
+
+	xmlFreeDoc(doc);
+
+	return true;
+
+}
+
+void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i)
+{
+	Tweet *tweet=new Tweet();
+
+	xmlNodePtr cur2;
+	cur = cur->xmlChildrenNode;
+
+	while (cur != NULL) {
+		if(!xmlStrcmp(cur->name, (const xmlChar *)"created_at")){
+
+			tweet->created_at=getTimeLineElement(doc, cur, "created_at");
+		}
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"id")){
+
+			tweet->id=getTimeLineElement(doc, cur, "id");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"text")){
+
+			tweet->text=getTimeLineElement(doc, cur, "text");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"source")){
+
+			tweet->source=getTimeLineElement(doc, cur, "source");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"truncated")){
+			// *truncated,
+			tweet->truncated=getTimeLineElement(doc, cur, "truncated");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"favorited")){
+			// *favorited,
+			tweet->favorited=getTimeLineElement(doc, cur, "favorited");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"in_reply_to_status_id")){
+			// *in_reply_to_status_id,
+			tweet->in_reply_to_status_id=getTimeLineElement(doc, cur, "in_reply_to_status_id");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"in_reply_to_user_id")){
+			// *in_reply_to_user_id,
+			tweet->in_reply_to_user_id=getTimeLineElement(doc, cur, "in_reply_to_user_id");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"in_reply_to_screen_name")){
+			// *in_reply_to_screen_name,
+			tweet->in_reply_to_screen_name=getTimeLineElement(doc, cur, "in_reply_to_screen_name");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"retweet_count")){
+			// *retweet_count,
+			tweet->retweet_count=getTimeLineElement(doc, cur, "retweet_count");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"retweeted")){
+			// *retweeted,
+			tweet->retweeted=getTimeLineElement(doc, cur, "retweeted");
+		}
+
+		else if ((!xmlStrcmp(cur->name, (const xmlChar *)"user"))) {
+
+			cur2 = cur->xmlChildrenNode;
+			while(cur!=NULL){
+
+				if(!xmlStrcmp(cur2->name, (const xmlChar *)"id")){
+
+					// char *id,
+					tweet->user.id=getTimeLineElement(doc, cur2, "id");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"name")){
+
+					tweet->user.name=getTimeLineElement(doc, cur2, "name");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"screen_name")){
+
+					// *screen_name,
+					tweet->user.screen_name=getTimeLineElement(doc, cur2, "screen_name");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"location")){
+
+					// *location,
+					tweet->user.location=getTimeLineElement(doc, cur2, "location");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"description")){
+
+					//		*description,
+					tweet->user.description=getTimeLineElement(doc, cur2, "description");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_image_url")){
+
+					// *profile_image_url,
+					tweet->user.profile_image_url=getTimeLineElement(doc, cur2, "profile_image_url");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"url")){
+
+					// *url,
+					tweet->user.url=getTimeLineElement(doc, cur2, "url");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"protected")){
+
+					// *protectedtw,
+					tweet->user.protectedtw=getTimeLineElement(doc, cur2, "protected");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_background_color")){
+
+					// *profile_background_color,
+					tweet->user.profile_background_color=getTimeLineElement(doc, cur2, "profile_background_color");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_text_color")){
+
+					// *profile_text_color,
+					tweet->user.profile_text_color=getTimeLineElement(doc, cur2, "profile_text_color");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_link_color")){
+
+					// *profile_link_color,
+					tweet->user.profile_link_color=getTimeLineElement(doc, cur2, "profile_link_color");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_sidebar_fill_color")){
+
+					// *profile_sidebar_fill_color,
+					tweet->user.profile_sidebar_fill_color=getTimeLineElement(doc, cur2, "profile_sidebar_fill_color");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_sidebar_border_color")){
+
+					// *profile_sidebar_border_color,
+					tweet->user.profile_sidebar_border_color=getTimeLineElement(doc, cur2, "profile_sidebar_border_color");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"created_at")){
+
+					// *created_at,
+					tweet->user.created_at=getTimeLineElement(doc, cur2, "created_at");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"utc_offset")){
+
+					// *utc_offset,
+					tweet->user.utc_offset=getTimeLineElement(doc, cur2, "utc_offset");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"time_zone")){
+
+					// *time_zone,
+					tweet->user.time_zone=getTimeLineElement(doc, cur2, "time_zone");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_background_image_url")){
+
+					// *profile_background_image_url,
+					tweet->user.profile_background_image_url=getTimeLineElement(doc, cur2, "profile_background_image_url");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_background_tile")){
+
+					// *profile_background_tile,
+					tweet->user.profile_background_tile=getTimeLineElement(doc, cur2, "profile_background_tile");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"profile_use_background_image")){
+
+					// *profile_use_background_image,
+					tweet->user.profile_use_background_image=getTimeLineElement(doc, cur2, "profile_use_background_image");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"notifications")){
+
+					// *notifications,
+					tweet->user.notifications=getTimeLineElement(doc, cur2, "notifications");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"geo_enabled")){
+
+					// *geo_enabled,
+					tweet->user.geo_enabled=getTimeLineElement(doc, cur2, "geo_enabled");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"verified")){
+
+					// *verified,
+					tweet->user.verified=getTimeLineElement(doc, cur2, "verified");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"following")){
+
+					// *following,
+					tweet->user.following=getTimeLineElement(doc, cur2, "following");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"lang")){
+
+					// *lang,
+					tweet->user.lang=getTimeLineElement(doc, cur2, "lang");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"contributors_enabled")){
+
+					// *contributors_enabled,
+					tweet->user.contributors_enabled=getTimeLineElement(doc, cur2, "contributors_enabled");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"follow_request_sent")){
+
+					// *follow_request_sent,
+					tweet->user.follow_request_sent=getTimeLineElement(doc, cur2, "follow_request_sent");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"show_all_inline_media")){
+
+					// *show_all_inline_media,
+					tweet->user.show_all_inline_media=getTimeLineElement(doc, cur2, "show_all_inline_media");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"default_profile")){
+
+					// *default_profile,
+					tweet->user.default_profile=getTimeLineElement(doc, cur2, "default_profile");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"default_profile_image")){
+
+					// *default_profile_image,
+					tweet->user.default_profile_image=getTimeLineElement(doc, cur2, "default_profile_image");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"is_translator")){
+
+					// *is_translator,
+					tweet->user.is_translator=getTimeLineElement(doc, cur2, "is_translator");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"followers_count")){
+
+					// *followers_count,
+					tweet->user.followers_count=getTimeLineElement(doc, cur2, "followers_count");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"friends_count")){
+
+					// *friends_count,
+					tweet->user.friends_count=getTimeLineElement(doc, cur2, "friends_count");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"favourites_count")){
+
+					// *favourites_count,
+					tweet->user.favourites_count=getTimeLineElement(doc, cur2, "favourites_count");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"statuses_count")){
+
+					// statuses_count, ;
+					tweet->user.statuses_count=getTimeLineElement(doc, cur2, "statuses_count");
+				}
+
+				else if(!xmlStrcmp(cur2->name, (const xmlChar *)"listed_count")){
+
+					// listed_count
+					tweet->user.listed_count=getTimeLineElement(doc, cur2, "listed_count");
+				}
+			}
+
+			cur2 = cur2->next;
+
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"geo")){
+
+			// *geo,
+			tweet->geo=getTimeLineElement(doc, cur, "geo");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"coordinates")){
+
+			// *coordinates,
+			tweet->coordinates=getTimeLineElement(doc, cur, "coordinates");
+
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"place")){
+
+			// *place,
+			tweet->place=getTimeLineElement(doc, cur, "place");
+		}
+
+		else if(!xmlStrcmp(cur->name, (const xmlChar *)"contributors")){
+
+			tweet->contributors=getTimeLineElement(doc, cur, "contributors");
+
+		}
+
+		cur = cur->next;
+
+	}
+
+	timeline.push_back(*tweet);
+
+}
+
+char* TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword)
+{
+	xmlChar *key = NULL;
+	char *empty="";
+
+	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword.c_str()))) {
+		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+
+		if(key!=NULL){
+			return (char *)key;
+		}
+	}
+
+	return empty;
+
+}
+}

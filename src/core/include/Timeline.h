@@ -20,47 +20,35 @@
  *
  */
 
-#ifndef TWEET_H_
-#define TWEET_H_
+#ifndef TIMELINE_H_
+#define TIMELINE_H_
 
-/*
- *
- */
-#include <iostream>
+#include<iostream>
+#include<vector>
+#include <curl/curl.h>
 
-#include "User.h"
+extern "C"{
+#include <oauth.h>
+}
+
+#include <libxml++/libxml++.h>
+
+#include "Tweet.h"
+#include "Config.h"
+#include "TwitterURL.h"
 
 using  namespace std;
 
-#define MAX_NUM_TWEETS 20
-
 namespace TwitCrusader {
 
-class Tweet {
-
+class Timeline {
 public:
 
-	User user;
-
-	char *created_at,
-	*id,
-	*text,
-	*source,
-	*truncated,
-	*favorited,
-	*in_reply_to_status_id,
-	*in_reply_to_user_id,
-	*in_reply_to_screen_name,
-	*retweet_count,
-	*retweeted,
-	*geo,
-	*coordinates,
-	*place,
-	*contributors;
-
-	Tweet();
-	virtual ~Tweet();
+	vector<Tweet> timeline;
+	string timelineURL;
+	string timelineFile;
 
 };
-}
-#endif /* TWEET_H_ */
+
+} /* namespace TwitCrusader */
+#endif /* TIMELINE_H_ */

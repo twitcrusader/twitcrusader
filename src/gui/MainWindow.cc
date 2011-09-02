@@ -73,7 +73,7 @@ void MainWindow::init_scrolled_window(){
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
 		nick.set_label(it.base()->user.screen_name);
 		tweet.set_label(it.base()->text);
-		table_into.attach(avatar,0, 1, i, i+4);
+		//table_into.attach(avatar,0, 1, i, i+4);
 		table_into.attach(nick,1, 10,i, i+1);
 		table_into.attach(tweet, 1,10, i+1, i+4);
 		i++;

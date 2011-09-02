@@ -23,6 +23,9 @@
 #ifndef TWITTERURL_H_
 #define TWITTERURL_H_
 
+#define CONSUMER_KEY "1c0wHFXtyVkbzoC1MJQdA"
+#define CONSUMER_SECRET_KEY "ZV3ogdCeDBxX3tRv7CzcFrtRVBEQ71cH1cOUmB8KGg"
+
 #define HTTP_API_URL "http://api.twitter.com"
 #define HTTPS_API_URL "https://api.twitter.com"
 
