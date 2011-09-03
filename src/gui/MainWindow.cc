@@ -354,7 +354,12 @@ void MainWindow::on_writing()
 	int count=tweet_buffer.operator ->()->get_char_count();
 
 	if(count<140){
-		on_submit_text();
+
+		if(buffer.find("\n")==0||buffer.find("\r")==0){ //can't see endLine
+			on_submit_text();
+			this->tweet_buffer.operator ->()->set_text("");
+			count=tweet_buffer.operator ->()->get_char_count();
+		}
 	}
 
 
