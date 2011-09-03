@@ -25,7 +25,10 @@
 
 #include<iostream>
 #include<vector>
-#include <libxml++/libxml++.h>
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+
 
 #include "Tweet.h"
 #include "Config.h"
@@ -43,7 +46,9 @@ public:
 	string timelineURL;
 	string timelineFile;
 
-	vector<Tweet> readTimeLine(string);
+	char* getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
+	void getStatus (xmlDocPtr, xmlNodePtr, int);
+	bool readTimeLine(string);
 };
 
 } /* namespace TwitCrusader */

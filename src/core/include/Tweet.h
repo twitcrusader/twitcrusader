@@ -64,7 +64,6 @@ public:
 
 	Tweet();
 	virtual ~Tweet();
-	void setUser(const ContentNode *node);
 
 };
 
