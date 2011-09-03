@@ -27,10 +27,14 @@
  *
  */
 #include <iostream>
+#include <gtkmm.h>
+#include <libxml++/libxml++.h>
 
 #include "User.h"
 
 using  namespace std;
+using namespace xmlpp;
+using namespace Glib;
 
 #define MAX_NUM_TWEETS 20
 
@@ -42,25 +46,28 @@ public:
 
 	User user;
 
-	char *created_at,
-	*id,
-	*text,
-	*source,
-	*truncated,
-	*favorited,
-	*in_reply_to_status_id,
-	*in_reply_to_user_id,
-	*in_reply_to_screen_name,
-	*retweet_count,
-	*retweeted,
-	*geo,
-	*coordinates,
-	*place,
-	*contributors;
+	ustring created_at,
+	id,
+	text,
+	source,
+	truncated,
+	favorited,
+	in_reply_to_status_id,
+	in_reply_to_user_id,
+	in_reply_to_screen_name,
+	retweet_count,
+	retweeted,
+	geo,
+	coordinates,
+	place,
+	contributors;
 
 	Tweet();
 	virtual ~Tweet();
+	void setUser(const ContentNode *node);
 
 };
+
+
 }
 #endif /* TWEET_H_ */

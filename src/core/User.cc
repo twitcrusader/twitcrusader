@@ -24,41 +24,41 @@
 namespace TwitCrusader {
 User::User()
 {
-	id=NULL;
-	name=NULL;
-	screen_name=NULL;
-	location=NULL;
-	description=NULL;
-	profile_image_url=NULL;
-	url=NULL;
-	protectedtw=NULL;
-	profile_background_color=NULL;
-	profile_text_color=NULL;
-	profile_link_color=NULL;
-	profile_sidebar_fill_color=NULL;
-	profile_sidebar_border_color=NULL;
-	created_at=NULL;
-	utc_offset=NULL;
-	time_zone=NULL;
-	profile_background_image_url=NULL;
-	profile_background_tile=NULL;
-	profile_use_background_image=NULL;
-	notifications=NULL;
-	geo_enabled=NULL;
-	verified=NULL;
-	following=NULL;
-	lang=NULL;
-	contributors_enabled=NULL;
-	follow_request_sent=NULL;
-	show_all_inline_media=NULL;
-	default_profile=NULL;
-	default_profile_image=NULL;
-	is_translator=NULL;
-	followers_count=NULL;
-	friends_count=NULL;
-	favourites_count=NULL;
-	statuses_count=NULL;
-	listed_count=NULL;
+	id=ustring();
+	name=ustring();
+	screen_name=ustring();
+	location=ustring();
+	description=ustring();
+	profile_image_url=ustring();
+	url=ustring();
+	protectedtw=ustring();
+	profile_background_color=ustring();
+	profile_text_color=ustring();
+	profile_link_color=ustring();
+	profile_sidebar_fill_color=ustring();
+	profile_sidebar_border_color=ustring();
+	created_at=ustring();
+	utc_offset=ustring();
+	time_zone=ustring();
+	profile_background_image_url=ustring();
+	profile_background_tile=ustring();
+	profile_use_background_image=ustring();
+	notifications=ustring();
+	geo_enabled=ustring();
+	verified=ustring();
+	following=ustring();
+	lang=ustring();
+	contributors_enabled=ustring();
+	follow_request_sent=ustring();
+	show_all_inline_media=ustring();
+	default_profile=ustring();
+	default_profile_image=ustring();
+	is_translator=ustring();
+	followers_count=ustring();
+	friends_count=ustring();
+	favourites_count=ustring();
+	statuses_count=ustring();
+	listed_count=ustring();
 }
 
 User::~User()

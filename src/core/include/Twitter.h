@@ -29,6 +29,11 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
+
+extern "C"{
+#include <oauth.h>
+}
+
 #include "TwitterURL.h"
 #include "TimeLine.h"
 #include "LocalUser.h"

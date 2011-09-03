@@ -20,9 +20,31 @@
  *
  */
 
-#include "include/Timeline.h"
+#ifndef TIMELINE_H_
+#define TIMELINE_H_
+
+#include<iostream>
+#include<vector>
+#include <libxml++/libxml++.h>
+
+#include "Tweet.h"
+#include "Config.h"
+#include "TwitterURL.h"
+
+using  namespace std;
+using  namespace xmlpp;
 
 namespace TwitCrusader {
 
+class TimeLine {
+public:
+
+	vector<Tweet> timeline;
+	string timelineURL;
+	string timelineFile;
+
+	vector<Tweet> readTimeLine(string);
+};
 
 } /* namespace TwitCrusader */
+#endif /* TIMELINE_H_ */

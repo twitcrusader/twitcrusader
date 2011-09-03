@@ -69,7 +69,7 @@ void MainWindow::is_connected(){
 void MainWindow::init_scrolled_window(){
 
 	int i=0;
-	for(vector<Tweet>::iterator it =  twitter.getTimeLine().getTimeline().begin(); it!=twitter.getTimeLine().getTimeline().end(); ++it){
+	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); ++it){
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
 		nick.set_label(it.base()->user.screen_name);
 		tweet.set_label(it.base()->text);

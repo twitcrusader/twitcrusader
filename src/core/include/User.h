@@ -27,8 +27,10 @@
  *
  */
 #include <iostream>
+#include <gtkmm.h>
 
 using  namespace std;
+using  namespace Glib;
 
 namespace TwitCrusader {
 
@@ -36,41 +38,41 @@ class User {
 
 public:
 
-	char *id,
-	*name,
-	*screen_name,
-	*location,
-	*description,
-	*profile_image_url,
-	*url,
-	*protectedtw,
-	*profile_background_color,
-	*profile_text_color,
-	*profile_link_color,
-	*profile_sidebar_fill_color,
-	*profile_sidebar_border_color,
-	*created_at,
-	*utc_offset,
-	*time_zone,
-	*profile_background_image_url,
-	*profile_background_tile,
-	*profile_use_background_image,
-	*notifications,
-	*geo_enabled,
-	*verified,
-	*following,
-	*lang,
-	*contributors_enabled,
-	*follow_request_sent,
-	*show_all_inline_media,
-	*default_profile,
-	*default_profile_image,
-	*is_translator,
-	*followers_count,
-	*friends_count,
-	*favourites_count,
-	*statuses_count,
-	*listed_count;
+	ustring id,
+	name,
+	screen_name,
+	location,
+	description,
+	profile_image_url,
+	url,
+	protectedtw,
+	profile_background_color,
+	profile_text_color,
+	profile_link_color,
+	profile_sidebar_fill_color,
+	profile_sidebar_border_color,
+	created_at,
+	utc_offset,
+	time_zone,
+	profile_background_image_url,
+	profile_background_tile,
+	profile_use_background_image,
+	notifications,
+	geo_enabled,
+	verified,
+	following,
+	lang,
+	contributors_enabled,
+	follow_request_sent,
+	show_all_inline_media,
+	default_profile,
+	default_profile_image,
+	is_translator,
+	followers_count,
+	friends_count,
+	favourites_count,
+	statuses_count,
+	listed_count;
 
 	User();
 	virtual ~User();
