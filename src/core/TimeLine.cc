@@ -36,88 +36,42 @@ vector<Tweet> TwitCrusader::TimeLine::readTimeLine(string fileName)
 		const Node* rootNode = parser.get_document()->get_root_node();
 		const ustring rootName = rootNode->get_name();
 
-		if(rootName.compare("statuses")==0)
-		{
+		cout<<rootName<<endl;
 
-			xmlpp::Node::NodeList status=rootNode->get_children("status");
+		Node::NodeList status=rootNode->get_children("status");
 
+		for(Node::NodeList::iterator i=status.begin(); i!=status.end(); ++i){
+			ustring statusname(i.operator *()->get_name());
 
-			for(xmlpp::Node::NodeList::iterator a = status.begin(); a != status.end(); a++){
+			cout<<"statusname:\t"<<statusname<<endl;
 
-				const ustring statusname = a.operator *()->get_name();
-				cout<<"statusname:\t"<<statusname<<endl;
-				xmlpp::Node::NodeList tweet=a.operator *()->get_children();
-				Tweet *tw=new Tweet();
+			Node::NodeList tweet=i.operator *()->get_children();
 
-				for(xmlpp::Node::NodeList::iterator j = tweet.begin(); j != tweet.end(); j++)
-				{
+			for(Node::NodeList::iterator j=tweet.begin(); j!=tweet.end(); ++j){
 
-					const ContentNode *i=dynamic_cast<const xmlpp::ContentNode*>(j.operator *());
+				ustring tweetname(j.operator *()->get_name());
 
-					cout<<"i:\t"<<i->get_name()<<endl;
-					if(i->get_name().compare("created_at")==0){
-						tw->created_at.assign(i->get_content());
-					}
+				cout<<"tweetname:\t"<<tweetname<<endl;
 
-					else if(i->get_name().compare("id")==0){
-						tw->id.assign(i->get_content());
-					}
-					else if(i->get_name().compare("text")==0){
-						tw->text.assign(i->get_content());
-					}
-					else if(i->get_name().compare("source")==0){
-						tw->source.assign(i->get_content());
-					}
-					else if(i->get_name().compare("truncated")==0){
-						tw->truncated.assign(i->get_content());
-					}
-					else if(i->get_name().compare("favorited")==0){
-						tw->favorited.assign(i->get_content());
-					}
-					else if(i->get_name().compare("in_reply_to_status_id")==0){
-						tw->in_reply_to_status_id.assign(i->get_content());
-					}
-					else if(i->get_name().compare("in_reply_to_user_id")==0){
-						tw->in_reply_to_user_id.assign(i->get_content());
-					}
-					else if(i->get_name().compare("in_reply_to_screen_name")==0){
-						tw->in_reply_to_screen_name.assign(i->get_content());
-					}
-					else if(i->get_name().compare("retweet_count")==0){
-						tw->retweet_count.assign(i->get_content());
-					}
-					else if(i->get_name().compare("retweeted")==0){
-						tw->retweeted.assign(i->get_content());
-					}
-					else if(i->get_name().compare("user")==0){
+				if(tweetname.compare("user")==0){
 
-						xmlpp::Node::NodeList user=i->get_children("user");
+					Node::NodeList usr=j.operator *()->get_children();
 
-						for(xmlpp::Node::NodeList::iterator x = user.begin(); x != user.end(); ++x){
-
-							tw->setUser(dynamic_cast<const xmlpp::TextNode*>(x.operator *()));
-
-						}
-
+					for(Node::NodeList::iterator z=usr.begin(); z!=usr.end(); ++z){
+						ustring username(z.operator *()->get_name());
+						cout<<"username:\t"<<username<<endl;
 					}
-					else if(i->get_name().compare("geo")==0){
-						tw->geo.assign(i->get_content());
-					}
-					else if(i->get_name().compare("coordinates")==0){
-						tw->coordinates.assign(i->get_content());
-					}
-					else if(i->get_name().compare("place")==0){
-						tw->place.assign(i->get_content());
-					}
-					else if(i->get_name().compare("contributors")==0){
-						tw->contributors.assign(i->get_content());
-					}
+					cout<<"end username"<<endl<<endl;
 				}
-				timeline.push_back(*tw);
-
+				cout<<"end tweet"<<endl<<endl;
 			}
+
+			cout<<"end status"<<endl<<endl;
 		}
+
+
 	}
+
 	return timeline;
 }
 
