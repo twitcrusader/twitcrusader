@@ -115,8 +115,9 @@ void MainWindow::init_menu_bar(){
 
 
 void MainWindow::init_menu(){
-	this->file_menu_root.unset_submenu ();
-	this->helps_menu_root.unset_submenu ();
+	for(int i=0; i<3;i++){
+		this->file_menu_items[i].remove();
+	}
 
 	if(this->connected){
 
@@ -148,6 +149,11 @@ void MainWindow::init_menu(){
 
 
 	//menu_helps
+
+	for(int i=0; i<2;i++){
+		this->helps_menu_items[i].remove();
+	}
+
 	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, "Version", 0, 0);
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
 

@@ -31,6 +31,7 @@ vector<Tweet> TwitCrusader::TimeLine::readTimeLine(string fileName)
 	DomParser parser;
 	parser.set_substitute_entities();
 	parser.parse_file(fileName);
+
 	if(parser)
 	{
 		const Node* rootNode = parser.get_document()->get_root_node();
@@ -41,6 +42,7 @@ vector<Tweet> TwitCrusader::TimeLine::readTimeLine(string fileName)
 		Node::NodeList status=rootNode->get_children("status");
 
 		for(Node::NodeList::iterator i=status.begin(); i!=status.end(); ++i){
+
 			ustring statusname(i.operator *()->get_name());
 
 			cout<<"statusname:\t"<<statusname<<endl;
@@ -51,25 +53,29 @@ vector<Tweet> TwitCrusader::TimeLine::readTimeLine(string fileName)
 
 				ustring tweetname(j.operator *()->get_name());
 
-				cout<<"tweetname:\t"<<tweetname<<endl;
+				cout<<"\ttweetname:\t"<<tweetname<<endl;
 
 				if(tweetname.compare("user")==0){
 
 					Node::NodeList usr=j.operator *()->get_children();
 
 					for(Node::NodeList::iterator z=usr.begin(); z!=usr.end(); ++z){
-						ustring username(z.operator *()->get_name());
-						cout<<"username:\t"<<username<<endl;
-					}
-					cout<<"end username"<<endl<<endl;
-				}
-				cout<<"end tweet"<<endl<<endl;
-			}
 
-			cout<<"end status"<<endl<<endl;
+						ustring username(z.operator *()->get_name());
+						cout<<"\t\tusername:\t"<<username<<endl;
+
+					}
+					cout<<"\t\tend username"<<endl<<endl;
+				}
+
+
+			}
+			cout<<"\tend tweet"<<endl<<endl;
+
+
 		}
 
-
+		cout<<"end status"<<endl<<endl;
 	}
 
 	return timeline;
