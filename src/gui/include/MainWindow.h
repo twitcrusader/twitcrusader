@@ -81,7 +81,7 @@ private:
 	ScrolledWindow scrolled_window;
 	ScrolledWindow scroll_text;
 	TextView text;
-	Glib::RefPtr<TextBuffer> tweet_buffer;
+	RefPtr<Gtk::TextBuffer> tweet_buffer;
 	VBox layout;
 	MenuBar menu_bar;
 
@@ -90,6 +90,7 @@ private:
 	Toolbar tool_bar;
 
 	string status_label;
+	string char_count;
 
 	int selected_timeline;
 	int timeline_mode;

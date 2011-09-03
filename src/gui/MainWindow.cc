@@ -22,7 +22,7 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
+MainWindow::MainWindow(): table(9, 3, true),table_into(1, 3, true), char_count("140")
 {
 
 	// This Is Fuckin Sequential Programming
@@ -34,12 +34,16 @@ MainWindow::MainWindow(): table(9, 3, true), table_into(1, 3, true)
 	this->declare();
 
 	layout.pack_start(menu_bar,PACK_SHRINK);
+
+	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
+	this->scrolled_window.add(table_into);
+	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
+	this->table.attach(this->scroll_text,0, 3, 8, 9);
+	this->layout.pack_start(this->table);
+
 	layout.pack_end(status_bar,PACK_SHRINK);
 	layout.pack_end(tool_bar,PACK_SHRINK);
 	layout.pack_end(charbar,PACK_SHRINK);
-	this->scrolled_window.add(table_into);
-	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
-	this->layout.pack_start(this->table);
 
 
 	add(layout);
@@ -68,6 +72,7 @@ void MainWindow::is_connected(){
 }
 void MainWindow::init_scrolled_window(){
 
+
 	int i=0;
 	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); ++it){
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
@@ -79,15 +84,15 @@ void MainWindow::init_scrolled_window(){
 		i++;
 	}
 
-	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
+
 }
 
 
 void MainWindow::init_window(){
 	this->set_title(PROG_NAME);
 	this->set_icon_from_file(ICON_FAVICON);
-	this->set_default_size(315, 650);
-	this->set_size_request(315, 400);
+	this->set_default_size(320, 650);
+	this->set_size_request(320, 400);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
 }
@@ -225,20 +230,17 @@ void MainWindow::init_toolbar(){
 
 void MainWindow::init_charbar(){
 
-	charbar.push("140"); // Now are Static !
+	charbar.push(char_count);
 
 }
 
 void MainWindow::init_text_area(){
 	this->text.set_editable(true);
 	this->text.set_wrap_mode(WRAP_CHAR);
-
-	tweet_buffer=TextBuffer::create();
-	this->text.set_buffer(this->tweet_buffer);
-	//this->text.signal_state_changed().connect(sigc::mem_fun(*this, &MainWindow::on_my_changed));;
+	tweet_buffer=this->text.get_buffer();
+	tweet_buffer.operator ->()->signal_changed().connect(sigc::mem_fun(*this, &MainWindow::on_writing));
 	this->scroll_text.add(this->text);
 	this->scroll_text.set_policy(POLICY_NEVER, POLICY_AUTOMATIC);
-	this->table.attach(this->scroll_text,0, 3, 8, 9);
 
 }
 
@@ -348,6 +350,22 @@ void MainWindow::on_submit_text()
 void MainWindow::on_writing()
 {
 	cout<<"on_writing()"<<endl;
+	string buffer=tweet_buffer.operator ->()->get_text(true);
+	int count=tweet_buffer.operator ->()->get_char_count();
+
+	if(count<140){
+		on_submit_text();
+	}
+
+
+	this->charbar.pop(this->charbar.get_context_id(char_count));
+
+	count=140-count;
+	std::stringstream out;
+	out << count;
+	char_count=out.str();
+	init_charbar();
+	this->queue_draw();
 }
 
 
@@ -372,6 +390,7 @@ void MainWindow::refresh(){
 
 	init_menu();
 	init_statusbar();
+
 	refresh_timeline();
 
 	this->queue_draw();
