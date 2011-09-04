@@ -1,15 +1,9 @@
 // TO DO
 
-* GTK -> GTKMM
+* Show Timeline into the scrollbar
 
-* Re-Engine Syntax
-
-* GUI like TwitCrusader C
-
-* Delete Account Button Don't WORK!
+* Download Timeline avatar with threads
 
 * Dialog aren't deallocated after hide()
-
-* Login crash
 
 * Fix MakeFile
