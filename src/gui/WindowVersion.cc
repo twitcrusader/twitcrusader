@@ -24,8 +24,10 @@
 namespace TwitCrusader {
 WindowVersion::WindowVersion() {
 
-	string last_Version_Check(Functions::DownloadVersion());
-	string current_Version_Check( Functions::readRawTextFile(TWC_VERSION_PATH) );
+	string last_Version_Check;
+	last_Version_Check.assign(Functions::DownloadVersion());
+	string current_Version_Check;
+	current_Version_Check.assign(Functions::readRawTextFile(TWC_VERSION_PATH) );
 
 	string info(CURRENT_VERSION_MSG+current_Version_Check+"\n"+LAST_VERSION_MSG+last_Version_Check);
 

@@ -111,6 +111,8 @@ private:
 
 	Glib::Thread *thread;
 
+	int timer;
+
 protected:
 	void init_window();
 	void init_menu();

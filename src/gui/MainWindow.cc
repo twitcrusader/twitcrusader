@@ -340,11 +340,11 @@ void MainWindow::loadRegWindow()
 	refresh();
 }
 
-
-
 void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
+
+	Functions::notifySystem(QUIT);
 
 	this->hide();
 }
