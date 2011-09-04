@@ -169,10 +169,8 @@ void MainWindow::init_menu(){
 
 void MainWindow::init_statusbar()
 {
-	status_bar.pop(status_bar.get_context_id(CONNECTED));
-	status_bar.pop(status_bar.get_context_id(DISCONNECTED));
-	status_bar.pop(status_bar.get_context_id(NO_ONLINE));
 
+	clear_statusbar();
 
 	//StatusBar
 	if(this->connected){
@@ -185,6 +183,15 @@ void MainWindow::init_statusbar()
 	this->status_bar.push(this->status_label);
 
 }
+
+void MainWindow::clear_statusbar(){
+
+	status_bar.pop(status_bar.get_context_id(CONNECTED));
+	status_bar.pop(status_bar.get_context_id(DISCONNECTED));
+	status_bar.pop(status_bar.get_context_id(NO_ONLINE));
+
+}
+
 
 void MainWindow::init_toolbar(){
 
@@ -345,6 +352,24 @@ void MainWindow::updateStatusBar(){
 void MainWindow::on_submit_text()
 {
 	cout<<"on_submit_text()"<<endl;
+
+	clear_statusbar();
+	status_bar.push("Sending Message..");
+	this->queue_draw();
+
+	string msg=tweet_buffer.operator ->()->get_text(false);
+
+	if(twitter.SendTweet(msg)){
+		Functions::notifySystem("Message sent");
+		status_bar.pop(status_bar.get_context_id("Sending Message.."));
+		status_bar.push("Message sent");
+	}else{
+		Functions::notifySystem("Message not sent");
+		status_bar.pop(status_bar.get_context_id("Sending Message.."));
+		status_bar.push("Message not sent");
+	}
+
+
 }
 
 void MainWindow::on_writing()

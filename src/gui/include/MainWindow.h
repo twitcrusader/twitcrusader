@@ -38,6 +38,7 @@
 
 #include "../../core/include/Functions.h"
 #include "../../core/include/TwitterObject.h"
+#include "../../core/include/Twitter.h"
 #include "../../core/include/Version.h"
 
 using namespace std;
@@ -100,6 +101,7 @@ protected:
 	void init_window();
 	void init_menu();
 	void init_statusbar();
+
 	void init_toolbar();
 	void init_charbar();
 	void init_text_area();
@@ -115,6 +117,8 @@ protected:
 	void loadWindowVersion();
 	void loadWindowOptions();
 	void loadRegWindow();
+
+	void clear_statusbar();
 
 	void is_connected();
 
