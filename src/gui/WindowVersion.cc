@@ -23,13 +23,11 @@
 #include "include/WindowVersion.h"
 namespace TwitCrusader {
 WindowVersion::WindowVersion() {
-	string current_Version_MSG("Current Version:\t");
-	string last_Version_MSG("Last Version:\t\t");
 
 	string last_Version_Check(Functions::DownloadVersion());
-	string current_Version_Check(TWC_VERSION""TWC_VERSION_STATUS);
+	string current_Version_Check( Functions::readRawTextFile(TWC_VERSION_PATH) );
 
-	string info(current_Version_MSG+current_Version_Check+"\n"+last_Version_MSG+last_Version_Check);
+	string info(CURRENT_VERSION_MSG+current_Version_Check+"\n"+LAST_VERSION_MSG+last_Version_Check);
 
 	MessageDialog version(info);
 	version.set_title("Check Updates");

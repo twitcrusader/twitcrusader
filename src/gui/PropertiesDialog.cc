@@ -20,23 +20,23 @@
  *
  */
 
-#include "include/AccountDialog.h"
+#include "include/PropertiesDialog.h"
 
 namespace TwitCrusader {
 
-AccountDialog::AccountDialog() : table(7, 10, TRUE)
+PropertiesDialog::PropertiesDialog() : table(7, 10, TRUE)
 {
 	label.set_label("");
 	twitter.readUserFile();
 
 	this->set_default_size(210, 200);
 	this->set_size_request(210, 200);
-	this->set_title("Account");
+	this->set_title(PROPERTIES_TITLE);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
 	this->set_icon_from_file(ICON_SETTINGS);
 
-	label.set_label("Twitter's Account:");
+	label.set_label(PROPERTIES_LABEL);
 	table.attach(label, 1, 9, 1, 2 );
 
 	account.set_label(twitter.getLocalUser().getScreenName());
@@ -47,33 +47,14 @@ AccountDialog::AccountDialog() : table(7, 10, TRUE)
 	//table.attach(button, 3, 7, 5, 6);
 
 	this->get_vbox()->add(table);
-	this->add_button("Delete Account", Gtk::RESPONSE_CANCEL);
+	this->add_button(DELETE_ACCOUT_BUTTON, Gtk::RESPONSE_CANCEL);
 	this->add_button(Stock::OK, Gtk::RESPONSE_OK);
 	set_default_response(RESPONSE_OK) ;
 
 }
 
-AccountDialog::~AccountDialog() {
+PropertiesDialog::~PropertiesDialog() {
 	// TODO Auto-generated destructor stub
-}
-
-void AccountDialog::delete_account(){
-
-	Dialog confirm;
-	Label conf;
-	conf.set_label("Do you want delete the Profile?");
-	confirm.get_vbox()->add(conf);
-	confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
-	confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
-	set_default_response(RESPONSE_CANCEL);
-	this->run();
-	if(confirm.run()==Gtk::RESPONSE_OK){
-		if(twitter.getConfig().deleteConfigFile()){
-			hide();
-			this->label.set_label("");
-			this->run();
-		}
-	}
 }
 
 } /* namespace TwitCrusader */

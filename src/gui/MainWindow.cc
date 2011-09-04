@@ -95,6 +95,7 @@ void MainWindow::init_window(){
 	this->set_size_request(320, 400);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
+
 }
 
 void MainWindow::init_menu_bar(){
@@ -120,13 +121,13 @@ void MainWindow::init_menu_bar(){
 
 
 void MainWindow::init_menu(){
-	for(int i=0; i<3;i++){
+	for(int i=0; i<FILE_MENU_ITEMS;i++){
 		this->file_menu_items[i].remove();
 	}
 
 	if(this->connected){
 
-		file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Log Out", 0, 0);
+		file_menu_items[0].add_pixlabel(ICON_ADDUSER, LOGOUT, 0, 0);
 		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
 
 
@@ -134,21 +135,22 @@ void MainWindow::init_menu(){
 	}else{
 		if(twitter.getConfig().is_registered()){
 
-			file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Log In", 0, 0);
+			file_menu_items[0].add_pixlabel(ICON_ADDUSER, LOGIN, 0, 0);
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
 
 		}else{
 
-			file_menu_items[0].add_pixlabel(ICON_ADDUSER, "Register", 0, 0);
+			file_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
 			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
 		}
 
-		file_menu_items[1].add_pixlabel(ICON_SETTINGS, "Account", 0, 0);
-		file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
+
 	}
 
+	file_menu_items[1].add_pixlabel(ICON_SETTINGS, PROPERTIES, 0, 0);
+	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
 
-	file_menu_items[2].add_pixlabel(ICON_CLOSE, "Quit", 0, 0);
+	file_menu_items[2].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
 	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
 
 
@@ -159,10 +161,10 @@ void MainWindow::init_menu(){
 		this->helps_menu_items[i].remove();
 	}
 
-	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, "Version", 0, 0);
+	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, VERSION, 0, 0);
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
 
-	helps_menu_items[1].add_pixlabel(ICON_STAR, "About", 0, 0);
+	helps_menu_items[1].add_pixlabel(ICON_STAR, ABOUT, 0, 0);
 	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
 
 }
@@ -200,7 +202,7 @@ void MainWindow::init_toolbar(){
 
 	icon_menu[0].set(ICON_UPDATE);
 	button[0].set_icon_widget(icon_menu[0]);
-	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::refresh_timeline) );
 	tool_bar.append(button[0]);
 
 	icon_menu[1].set(ICON_HOME);
@@ -295,13 +297,13 @@ void MainWindow::loadWindowVersion()
 void MainWindow::loadWindowOptions()
 {
 	cout<<"loadWindowOptions()"<<endl;
-	AccountDialog accountDialog;
-	accountDialog.set_transient_for( *this );
-	accountDialog.show_all();
-	if(accountDialog.run()==Gtk::RESPONSE_CANCEL){
+	PropertiesDialog propertiesDialog;
+	propertiesDialog.set_transient_for( *this );
+	propertiesDialog.show_all();
+	if(propertiesDialog.run()==Gtk::RESPONSE_CANCEL){
 		Dialog confirm;
 		Label conf;
-		conf.set_label("Do you want delete the Profile?");
+		conf.set_label(DELETE_CONFIRM);
 		confirm.get_vbox()->add(conf);
 		confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
 		confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
@@ -310,18 +312,18 @@ void MainWindow::loadWindowOptions()
 		if(confirm.run()==Gtk::RESPONSE_OK){
 			if(twitter.getConfig().deleteConfigFile()){
 				confirm.hide();
-				accountDialog.hide();
-				accountDialog.run();
+				propertiesDialog.hide();
+				propertiesDialog.run();
 			}
 		}
 	}
-	accountDialog.hide();
-	accountDialog.~AccountDialog();
+	propertiesDialog.hide();
+	propertiesDialog.~PropertiesDialog();
 
 	this->is_connected();
 	this->init_menu();
 	init_statusbar();
-	refresh();
+	refresh_timeline();
 }
 
 void MainWindow::loadRegWindow()
@@ -343,30 +345,24 @@ void MainWindow::on_quit()
 	this->hide();
 }
 
-
-void MainWindow::updateStatusBar(){
-	cout<<"updateStatusBar()"<<endl;
-
-}
-
 void MainWindow::on_submit_text()
 {
 	cout<<"on_submit_text()"<<endl;
 
 	clear_statusbar();
-	status_bar.push("Sending Message..");
+	status_bar.push(SENDING_MSG);
 	this->queue_draw();
 
 	string msg=tweet_buffer.operator ->()->get_text(false);
 
 	if(twitter.SendTweet(msg)){
-		Functions::notifySystem("Message sent");
-		status_bar.pop(status_bar.get_context_id("Sending Message.."));
-		status_bar.push("Message sent");
+		Functions::notifySystem(MSG_SENT);
+		status_bar.pop(status_bar.get_context_id(SENDING_MSG));
+		status_bar.push(MSG_SENT);
 	}else{
-		Functions::notifySystem("Message not sent");
-		status_bar.pop(status_bar.get_context_id("Sending Message.."));
-		status_bar.push("Message not sent");
+		Functions::notifySystem(MSG_NOT_SENT);
+		status_bar.pop(status_bar.get_context_id(SENDING_MSG));
+		status_bar.push(MSG_NOT_SENT);
 	}
 
 
@@ -411,7 +407,7 @@ void MainWindow::refresh_timeline(){
 
 	}
 
-	init_scrolled_window();
+	refresh();
 }
 
 void MainWindow::refresh(){
@@ -421,9 +417,7 @@ void MainWindow::refresh(){
 
 	init_menu();
 	init_statusbar();
-
-	refresh_timeline();
-
+	init_scrolled_window();
 	this->queue_draw();
 }
 }

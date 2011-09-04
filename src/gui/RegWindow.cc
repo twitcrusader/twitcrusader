@@ -26,7 +26,7 @@ RegWindow::RegWindow() : table(7, 10, TRUE)
 {
 	this->set_default_size(70, 80);
 	this->set_size_request(70,80);
-	this->set_title("Register");
+	this->set_title(REG_TITLE);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
 	this->set_icon_from_file(ICON_ADDUSER);
@@ -39,13 +39,13 @@ RegWindow::RegWindow() : table(7, 10, TRUE)
 	tw_login_event.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::browser_authorization) );
 	table.attach(tw_login_event, 1, 9, 1, 2);
 
-	label.set_text("Insert PIN");
+	label.set_text(LABEL_PIN);
 	table.attach(label, 1, 9, 2, 3);
 
 	pin.set_editable(true);
 	table.attach(pin, 1, 9, 3, 4);
 
-	button.set_label("Register Account");
+	button.set_label(SUBMIT_REG_BUTTON);
 	button.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::get_access_token));
 
 	table.attach(button, 1, 9, 5, 6);
@@ -69,7 +69,6 @@ void RegWindow::foo(){
 
 void RegWindow::quit(){
 	cout<<"RegWindow::quit()"<<endl;
-	this ->set_default_response( Gtk::RESPONSE_OK ) ;
 	hide();
 
 }
@@ -82,7 +81,7 @@ void RegWindow::get_access_token(){
 	pin_buffer=this->pin.get_buffer();
 	string str=pin_buffer->get_text();
 	if(!twitter.tokenAccess(str)){
-		MessageDialog error("Bad PIN",false,MESSAGE_ERROR ,BUTTONS_OK,false);
+		MessageDialog error(REG_ERROR_LABEL,false,MESSAGE_ERROR ,BUTTONS_OK,false);
 		error.run();
 	}else{
 		quit();

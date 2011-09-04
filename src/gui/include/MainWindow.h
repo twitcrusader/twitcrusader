@@ -33,7 +33,7 @@
 #include "Icons.h"
 #include "WindowVersion.h"
 #include "AboutDialog.h"
-#include "AccountDialog.h"
+#include "PropertiesDialog.h"
 #include "RegWindow.h"
 
 #include "../../core/include/Functions.h"
@@ -45,9 +45,21 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
-#define CONNECTED "Connected"
-#define DISCONNECTED "Disconnected"
+#define CONNECTED "Profile: Loaded.."
+#define DISCONNECTED "Profile: Not Loaded.."
 #define NO_ONLINE "Off-Line"
+
+#define LOGOUT "Logout"
+#define LOGIN "Login"
+#define REGISTER "Register"
+#define PROPERTIES "Properties"
+#define QUIT "Quit"
+#define VERSION "Version"
+#define ABOUT "About"
+#define DELETE_CONFIRM "Do you want delete the Profile?"
+#define SENDING_MSG "Sending Message.."
+#define MSG_SENT "Message sent"
+#define MSG_NOT_SENT "Message not sent"
 
 #define FILE_MENU_ITEMS 3
 #define HELP_MENU_ITEMS 2
@@ -97,6 +109,8 @@ private:
 	int selected_timeline;
 	int timeline_mode;
 
+	Glib::Thread *thread;
+
 protected:
 	void init_window();
 	void init_menu();
@@ -111,7 +125,6 @@ protected:
 	void declare();
 	void on_submit_text();
 	void on_writing();
-	void updateStatusBar();
 
 	void loadWindowCredits();
 	void loadWindowVersion();

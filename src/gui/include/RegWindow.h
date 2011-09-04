@@ -31,6 +31,11 @@
 
 #include "../../core/include/TwitterObject.h"
 
+#define REG_TITLE "Register"
+#define LABEL_PIN "Insert PIN"
+#define SUBMIT_REG_BUTTON "Register Account"
+#define REG_ERROR_LABEL "Bad PIN"
+
 using namespace std;
 using namespace Gtk;
 using namespace Glib;

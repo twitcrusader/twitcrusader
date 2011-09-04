@@ -27,43 +27,22 @@ namespace TwitCrusader {
 string Functions::readRawTextFile(string fileName)
 {
 	string buffer=string();
-/*	FILE *fp;
-	char ch;
+	ifstream infile;
 
+	infile.open (fileName.c_str(), ifstream::in);
 
-	fp = fopen ( fileName.c_str(), "r" ) ;
-	if(fp==NULL) return buffer;
+	while (infile.good()){
+		char ch=infile.get();
 
-	while(1){
-
-		ch=fgetc(fp);
-
-		if (ch==EOF)
-			break ;
-		else{
+		if(ch!=EOF){
 			buffer.push_back(ch);
 		}
 	}
-	fclose (fp) ;
-
-*/
-
-	ifstream infile;
-
-	  infile.open (fileName.c_str(), ifstream::in);
-
-	  while (infile.good()){
-		  char ch=infile.get();
-
-		  if(ch!=EOF){
-			  buffer.push_back(ch);
-		  }
-	  }
 
 
-	  infile.close();
+	infile.close();
 
-	  return buffer;
+	return buffer;
 }
 
 vector<Glib::ustring> Functions::readTextFileLinebyLine(string fileName)
@@ -76,7 +55,7 @@ vector<Glib::ustring> Functions::readTextFileLinebyLine(string fileName)
 	inFile.open(fileName.c_str(), ifstream::in);
 
 	while(getline(inFile, sLine)){
-	lines.push_back(sLine);
+		lines.push_back(sLine);
 	}
 
 	inFile.close();
@@ -113,7 +92,7 @@ string Functions::DownloadVersion(){
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
 
-	GetHTTP::getSingleCURL(VERSION_URL, FILE_VERSION);
+	GetHTTP::getSingleCURL(TWC_UPDATES_URL, FILE_VERSION);
 
 	LatestVersion.assign(Functions::readRawTextFile(FILE_VERSION));
 
@@ -123,25 +102,25 @@ string Functions::DownloadVersion(){
 	return LatestVersion;
 }
 
-    bool Functions::writeRawTextFile(string fileName, string text)
-    {
-    	  ofstream myfile;
-    	  myfile.open (fileName.c_str());
-    	  myfile << text;
-    	  myfile.close();
-    	  return true;
+bool Functions::writeRawTextFile(string fileName, string text)
+{
+	ofstream myfile;
+	myfile.open (fileName.c_str());
+	myfile << text;
+	myfile.close();
+	return true;
 
-    }
+}
 
-    void Functions::notifySystem(string Message)
-    {
-    	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
+void Functions::notifySystem(string Message)
+{
+	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
 
-    	notify_notification_set_timeout(notify, 3000);
-    	notify_notification_set_urgency (notify, NOTIFY_URGENCY_CRITICAL);
+	notify_notification_set_timeout(notify, 3000);
+	notify_notification_set_urgency (notify, NOTIFY_URGENCY_CRITICAL);
 
-    	GError *error=NULL;
-    	notify_notification_show(notify, &error);
+	GError *error=NULL;
+	notify_notification_show(notify, &error);
 
-    }
+}
 }

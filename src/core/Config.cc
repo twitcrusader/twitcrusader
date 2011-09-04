@@ -37,13 +37,13 @@ Config::Config()
 	setConfigDir();
 	setConfigFile();
 	setTimelineDir();
-
+/*
 	cout<<"config: \n";
 	cout<<getAvatarDir()<<"\n";
 	cout<<getConfigDir()<<"\n";
 	cout<<getConfigFile()<<"\n";
 	cout<<getTimeLineDir()<<"\n";
-
+*/
 	this->createAvatarDir();
 	this->createConfigDir();
 	this->createTimelineDir();
@@ -59,7 +59,7 @@ void Config::setAvatarDir()
 {
 
 	avatarDir.assign(homeDir);
-	avatarDir.append("/.twc++/avatar/");
+	avatarDir.append(AVATAR_SUBDIR);
 }
 
 bool Config::createAvatarDir()
@@ -73,7 +73,7 @@ bool Config::createAvatarDir()
 		//mkdir( avatarDir.c_str(), 0777);
 
 		string cmd=string();
-		cmd.assign("mkdir -p ");
+		cmd.assign(MKDIR_CMD);
 		cmd.append(avatarDir);
 		cout<<cmd;
 		system(cmd.c_str());
@@ -89,7 +89,7 @@ void Config::setConfigDir()
 
 	//Configuration File
 	configDir.assign(homeDir);
-	configDir.append("/.twc++/config/");
+	configDir.append(CONFIG_SUBDIR);
 }
 
 bool Config::createConfigDir()
@@ -98,7 +98,7 @@ bool Config::createConfigDir()
 	if(!configDir.empty()){
 		//mkdir( configDir.c_str(), 0777);
 		string cmd=string();
-		cmd.assign("mkdir -p ");
+		cmd.assign(MKDIR_CMD);
 		cmd.append(configDir);
 		system(cmd.c_str());
 		return true;
@@ -110,7 +110,7 @@ bool Config::createConfigDir()
 void Config::setTimelineDir()
 {
 	timelineDir.assign(homeDir);
-	timelineDir.append("/.twc++/timeline/");
+	timelineDir.append(TIMELINE_SUBDIR);
 
 }
 
@@ -120,7 +120,7 @@ bool Config::createTimelineDir()
 	if(!timelineDir.empty()){
 		//mkdir(timelineDir.c_str(), 0777);
 		string cmd=string();
-		cmd.assign("mkdir -p ");
+		cmd.assign(MKDIR_CMD);
 		cmd.append(timelineDir);
 		system(cmd.c_str());
 		return true;
@@ -163,7 +163,7 @@ bool Config::deleteConfigFile()
 {
 	string cmd=string();
 
-	cmd.assign("rm ");
+	cmd.assign(RM_CMD);
 	cmd.append(configFile);
 	system(cmd.c_str());
 

@@ -39,6 +39,15 @@
 
 #define CONFIG_FILENAME "config.xml"
 
+#define SUB_DIR "/.local/TwitCrusader++/"
+
+#define AVATAR_SUBDIR SUB_DIR"avatar/"
+#define CONFIG_SUBDIR SUB_DIR"config/"
+#define TIMELINE_SUBDIR SUB_DIR"timeline/"
+
+#define MKDIR_CMD "mkdir -p "
+#define RM_CMD "rm "
+
 using  namespace std;
 
 namespace TwitCrusader {

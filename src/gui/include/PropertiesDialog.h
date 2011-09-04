@@ -29,13 +29,17 @@
 #include "Icons.h"
 #include "../../core/include/TwitterObject.h"
 
+#define PROPERTIES_TITLE "Properties"
+#define PROPERTIES_LABEL "Twitter's Account:"
+#define DELETE_ACCOUT_BUTTON "Delete Account"
+
 using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
 namespace TwitCrusader {
 
-class AccountDialog: public Dialog
+class PropertiesDialog: public Dialog
 {
 private:
 	Table table;
@@ -43,12 +47,9 @@ private:
 	Label account;
 	Button button;
 
-protected:
-void delete_account();
-
 public:
-	AccountDialog();
-	virtual ~AccountDialog();
+	PropertiesDialog();
+	virtual ~PropertiesDialog();
 };
 
 } /* namespace TwitCrusader */
