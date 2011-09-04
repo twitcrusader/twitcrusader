@@ -353,13 +353,14 @@ void MainWindow::on_writing()
 	string buffer=tweet_buffer.operator ->()->get_text(true);
 	int count=tweet_buffer.operator ->()->get_char_count();
 
-	if(count<140){
-
-		if(buffer.find("\n")==0||buffer.find("\r")==0){ //can't see endLine
+	if(count<140 && count>0){
+		string ch=buffer.substr(count-1,count);
+		if(strstr(ch.c_str(),"\n")!=NULL){ //can't see endLine
 			on_submit_text();
 			this->tweet_buffer.operator ->()->set_text("");
 			count=tweet_buffer.operator ->()->get_char_count();
 		}
+		cout<<"ch:\t"<<ch<<endl;
 	}
 
 

@@ -28,6 +28,7 @@
 
 #include <gtkmm.h>
 #include <gtkmm/stock.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "Icons.h"
 #include "WindowVersion.h"
