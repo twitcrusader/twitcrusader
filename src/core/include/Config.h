@@ -39,7 +39,7 @@
 
 #define CONFIG_FILENAME "config.xml"
 
-#define SUB_DIR "/.local/TwitCrusader++/"
+#define SUB_DIR "/.TwitCrusader++/"
 
 #define AVATAR_SUBDIR SUB_DIR"avatar/"
 #define CONFIG_SUBDIR SUB_DIR"config/"
