@@ -128,7 +128,7 @@ protected:
 
 	void loadWindowCredits();
 	void loadWindowVersion();
-	void loadWindowOptions();
+	void loadWindowProperties();
 	void loadRegWindow();
 
 	void clear_statusbar();

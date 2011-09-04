@@ -42,10 +42,6 @@ PropertiesDialog::PropertiesDialog() : table(7, 10, TRUE)
 	account.set_label(twitter.getLocalUser().getScreenName());
 	table.attach(account, 1, 9, 3, 4);
 
-	//button.set_label("Delete Account");
-	//button.signal_activate().connect(sigc::mem_fun(*this, &AccountDialog::delete_account));
-	//table.attach(button, 3, 7, 5, 6);
-
 	this->get_vbox()->add(table);
 	this->add_button(DELETE_ACCOUT_BUTTON, Gtk::RESPONSE_CANCEL);
 	this->add_button(Stock::OK, Gtk::RESPONSE_OK);

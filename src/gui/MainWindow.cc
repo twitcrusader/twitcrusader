@@ -148,7 +148,7 @@ void MainWindow::init_menu(){
 	}
 
 	file_menu_items[1].add_pixlabel(ICON_SETTINGS, PROPERTIES, 0, 0);
-	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowOptions) );
+	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
 
 	file_menu_items[2].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
 	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
@@ -294,36 +294,40 @@ void MainWindow::loadWindowVersion()
 
 
 
-void MainWindow::loadWindowOptions()
+void MainWindow::loadWindowProperties()
 {
 	cout<<"loadWindowOptions()"<<endl;
 	PropertiesDialog propertiesDialog;
 	propertiesDialog.set_transient_for( *this );
 	propertiesDialog.show_all();
 	if(propertiesDialog.run()==Gtk::RESPONSE_CANCEL){
-		Dialog confirm;
-		Label conf;
-		conf.set_label(DELETE_CONFIRM);
-		confirm.get_vbox()->add(conf);
-		confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
-		confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
-		confirm.set_default_response(RESPONSE_CANCEL);
-		confirm.show_all_children();
-		if(confirm.run()==Gtk::RESPONSE_OK){
-			if(twitter.getConfig().deleteConfigFile()){
-				confirm.hide();
-				propertiesDialog.hide();
-				propertiesDialog.run();
+		if(this->connected){
+			Dialog confirm;
+			Label conf;
+			conf.set_label(DELETE_CONFIRM);
+			confirm.get_vbox()->add(conf);
+			confirm.add_button(Stock::OK,Gtk::RESPONSE_OK);
+			confirm.add_button(Stock::CANCEL,Gtk::RESPONSE_CANCEL);
+			confirm.set_default_response(RESPONSE_CANCEL);
+			confirm.show_all_children();
+			if(confirm.run()==Gtk::RESPONSE_OK){
+
+				if(twitter.getConfig().deleteConfigFile()){
+					confirm.hide();
+					propertiesDialog.hide();
+					propertiesDialog.run();
+				}
+
 			}
 		}
-	}
-	propertiesDialog.hide();
-	propertiesDialog.~PropertiesDialog();
+		propertiesDialog.hide();
+		propertiesDialog.~PropertiesDialog();
 
-	this->is_connected();
-	this->init_menu();
-	init_statusbar();
-	refresh_timeline();
+		this->is_connected();
+		this->init_menu();
+		init_statusbar();
+		refresh_timeline();
+	}
 }
 
 void MainWindow::loadRegWindow()
