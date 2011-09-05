@@ -67,100 +67,14 @@ void Twitter::setConfig(Config config)
 
 bool Twitter::writeUserFile()
 {
-	//config.createConfigDir();
-
-	xmlTextWriterPtr writer;
-	xmlDocPtr doc;
-	xmlNodePtr node;
-	doc = xmlNewDoc((xmlChar*)(XML_DEFAULT_VERSION));
-	node = xmlNewDocNode(doc, NULL, (xmlChar*) "CONFIG", NULL);
-	xmlDocSetRootElement(doc, node);
-	writer = xmlNewTextWriterTree(doc, node, 0);
-	xmlTextWriterStartDocument(writer, NULL, MY_ENCODING, NULL);
-	xmlTextWriterStartElement(writer, (xmlChar*)("USER"));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("screen_name"), (xmlChar*)(localUser.getScreenName().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("id"), (xmlChar*)(localUser.getId().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerKey"), (xmlChar*)(localUser.getConsumerKey().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerSecretKey"), (xmlChar*)(localUser.getConsumerSecretKey().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("token"), (xmlChar*)(localUser.getToken().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("secretToken"), (xmlChar*)(localUser.getSecretToken().c_str()));
-	xmlTextWriterEndElement(writer);
-	xmlTextWriterEndElement(writer);
-	xmlFreeTextWriter(writer);
-	xmlSaveFileEnc(config.getConfigFile().c_str(), doc, MY_ENCODING);
-	xmlFreeDoc(doc);
+	localUser.writeUserFile(config.getConfigFile());
 	return true;
+
 }
 
 bool Twitter::readUserFile()
 {
-	string keys = string();
-	xmlDocPtr doc;
-	xmlNodePtr cur;
-	if(Functions::readRawTextFile(config.getConfigFile().c_str()).empty()){
-		cout<<"\n no file!";
-		return false;
-	}else{
-
-		doc=xmlParseFile(config.getConfigFile().c_str());
-
-		cur = xmlDocGetRootElement(doc);
-
-		if (cur == NULL) {
-			cout<<"\n no RootElement";
-			xmlFreeDoc(doc);
-			return false;
-		}
-
-		if (xmlStrcmp(cur->name, (const xmlChar *) "CONFIG")) {
-			cout<<"\n no CONFIG";
-			xmlFreeDoc(doc);
-			return false;
-		}
-
-		cur = cur->xmlChildrenNode;
-
-		while (cur != NULL) {
-
-
-			if ((!xmlStrcmp(cur->name, (const xmlChar *) "USER"))){
-
-				cur = cur->xmlChildrenNode;
-
-				localUser.setScreenName(Twitter::getElement(doc, cur, "screen_name"));
-				cout<<"\n"<<Twitter::getElement(doc, cur, "screen_name");
-				cout<<"\n"<<localUser.getScreenName();
-				cur = cur->next;
-
-
-				localUser.setId(Twitter::getElement(doc, cur, "id"));
-				cout<<"\n"<<localUser.getId();
-				cur = cur->next;
-
-
-				localUser.setConsumerKey(Twitter::getElement(doc, cur, "consumerKey"));
-				cout<<"\n"<<localUser.getConsumerKey();
-				cur = cur->next;
-
-
-				localUser.setConsumerSecretKey(Twitter::getElement(doc, cur, "consumerSecretKey"));
-				cout<<"\n"<<localUser.getConsumerSecretKey();
-				cur = cur->next;
-
-
-				localUser.setToken(Twitter::getElement(doc, cur, "token"));
-				cout<<"\n"<<localUser.getToken();
-				cur = cur->next;
-
-
-				localUser.setSecretToken(getElement(doc, cur, "secretToken"));
-				cout<<"\n"<<localUser.getSecretToken();
-				cur = cur->next;
-			}
-		}
-
-		xmlFreeDoc(doc);
-	}
+	localUser.readUserFile(config.getConfigFile());
 	return true;
 }
 

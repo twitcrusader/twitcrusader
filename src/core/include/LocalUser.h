@@ -27,16 +27,18 @@
  *
  */
 #include <iostream>
-#include <string>
 
 #include <libxml/xmlreader.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libxml++/libxml++.h>
 #include "Config.h"
 #include "Functions.h"
 
-using  namespace std;
+using namespace xmlpp;
+using namespace std;
+using namespace Glib;
 
 #define MY_ENCODING "ISO-8859-1"
 
@@ -54,7 +56,8 @@ private:
 	string consumerSecretKey;
 
 protected:
-	string getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
+
+
 
 public:
 	LocalUser();
@@ -67,6 +70,8 @@ public:
 	void setConsumerKey(string consumerKey);
 	void setConsumerSecretKey(string secretConsumerKey);
 
+	bool readUserFile(string filename);
+	bool writeUserFile(string filename);
 	void clear();
 
 	string getId();

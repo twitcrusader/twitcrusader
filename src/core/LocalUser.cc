@@ -94,9 +94,91 @@ string LocalUser::getConsumerKey()
 	return consumerKey;
 }
 
+    bool LocalUser::writeUserFile(string filename)
+    {
+    	//config.createConfigDir();
+
+    	xmlTextWriterPtr writer;
+    	xmlDocPtr doc;
+    	xmlNodePtr node;
+    	doc = xmlNewDoc((xmlChar*)(XML_DEFAULT_VERSION));
+    	node = xmlNewDocNode(doc, NULL, (xmlChar*) "CONFIG", NULL);
+    	xmlDocSetRootElement(doc, node);
+    	writer = xmlNewTextWriterTree(doc, node, 0);
+    	xmlTextWriterStartDocument(writer, NULL, MY_ENCODING, NULL);
+    	xmlTextWriterStartElement(writer, (xmlChar*)("USER"));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("screen_name"), (xmlChar*)(getScreenName().c_str()));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("id"), (xmlChar*)(getId().c_str()));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerKey"), (xmlChar*)(getConsumerKey().c_str()));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerSecretKey"), (xmlChar*)(getConsumerSecretKey().c_str()));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("token"), (xmlChar*)(getToken().c_str()));
+    	xmlTextWriterWriteElement(writer, (xmlChar*)("secretToken"), (xmlChar*)(getSecretToken().c_str()));
+    	xmlTextWriterEndElement(writer);
+    	xmlTextWriterEndElement(writer);
+    	xmlFreeTextWriter(writer);
+    	xmlSaveFileEnc(filename.c_str(), doc, MY_ENCODING);
+    	xmlFreeDoc(doc);
+    	return true;
+    }
+
 string LocalUser::getConsumerSecretKey()
 {
 	return consumerSecretKey;
+}
+
+bool LocalUser::readUserFile(string filename)
+{
+
+	DomParser parser;
+
+	parser.set_substitute_entities(); //We just want the text to be resolved/unescaped automatically.
+	parser.parse_file(filename);
+	if(parser)
+	{
+		//Walk the tree:
+		const xmlpp::Node* pNode = parser.get_document()->get_root_node(); //deleted by DomParser.
+		const Glib::ustring nodename = pNode->get_name();
+
+		xmlpp::Node::NodeList users = pNode->get_children("USER");
+		for(xmlpp::Node::NodeList::iterator user = users.begin(); user != users.end(); ++user)
+		{
+
+			xmlpp::Node::NodeList values = user.operator *()->get_children();
+			for(xmlpp::Node::NodeList::iterator iter = values.begin(); iter != values.end(); ++iter){
+
+				const xmlpp::Element* nodeElement = dynamic_cast<const xmlpp::Element*>(*iter);
+
+				if(nodeElement){
+
+					if(nodeElement->get_name().compare("id")==0){
+						id.assign(nodeElement->get_child_text()->get_content());
+					}
+					else if(nodeElement->get_name().compare("screen_name")==0){
+						screenName.assign(nodeElement->get_child_text()->get_content());
+					}
+					else if(nodeElement->get_name().compare("token")==0){
+						token.assign(nodeElement->get_child_text()->get_content());
+
+					}
+					else if(nodeElement->get_name().compare("secretToken")==0){
+						secretToken.assign(nodeElement->get_child_text()->get_content());
+
+					}
+					else if(nodeElement->get_name().compare("consumerKey")==0){
+						consumerKey.assign(nodeElement->get_child_text()->get_content());
+
+					}
+					else if(nodeElement->get_name().compare("consumerSecretKey")==0){
+						consumerSecretKey.assign(nodeElement->get_child_text()->get_content());
+
+					}
+				}
+
+			}
+
+		}
+	}
+	return true;
 }
 void LocalUser::clear(){
 	this->setId("");
