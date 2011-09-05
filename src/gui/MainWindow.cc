@@ -22,7 +22,7 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true),table_into(150, 3, true), char_count("140")
+MainWindow::MainWindow(): table(9, 3, true),table_into(150, 2, true), char_count("140")
 {
 	// This Is Fuckin Sequential Programming
 
@@ -75,15 +75,18 @@ void MainWindow::is_connected(){
 }
 void MainWindow::init_scrolled_window(){
 
-
+	Label *tweet;
 	int i=0;
 	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); ++it){
+		tweet=new Gtk::Label();
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
-		nick.set_label(it.base()->user.screen_name);
-		tweet.set_label(it.base()->text);
+		//nick.set_label(it.base()->user.screen_name);
+		tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
+		cout<<tweet->get_label()<<endl;
+
 		//table_into.attach(avatar,0, 1, i, i+4);
-		table_into.attach(nick,1, 2,i, i+1);
-		table_into.attach(tweet, 2,3, i+1, i+2);
+		//table_into.attach(nick,1, 2,i, i+1);
+		table_into.attach(*tweet, 1,2, i, i+1);
 		i++;
 	}
 

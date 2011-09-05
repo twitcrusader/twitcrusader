@@ -89,7 +89,7 @@ private:
 
 	Image avatar;
 	Label nick;
-	Label tweet;
+
 
 
 	Table table;
