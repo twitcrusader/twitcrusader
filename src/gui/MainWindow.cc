@@ -154,7 +154,7 @@ void MainWindow::init_menu(){
 	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
 
 	file_menu_items[2].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
-	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::on_quit) );
+	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&Window::hide) );
 
 
 
@@ -355,25 +355,41 @@ bool MainWindow::on_timeout()
 {
 	++counter;
 
-    if(counter>=delayInMin*60000){
-    	cout<<"Timeout"<<endl;
-    	counter=0;
-    	refresh_timeline();
-    }
+	if(counter>=delayInMin*60000){
+		cout<<"Timeout"<<endl;
+		counter=0;
+		refresh_timeline();
+	}
 
-    return true;
+	return true;
 }
 
 void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
 
-	Functions::notifySystem(QUIT);
+	if(Quit_Dialog()){
+		timeout->quit();
 
-	timeout->quit();
 
-	this->hide();
+		this->hide();
+		Functions::notifySystem(QUIT);
+	}else{
+		show_all();
+	}
+}
 
+bool MainWindow::Quit_Dialog()
+{
+	Gtk::MessageDialog quitDialog( *this, QUIT_MESSAGE, false, Gtk::MESSAGE_QUESTION,  Gtk::BUTTONS_NONE,true );
+
+
+	quitDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+	quitDialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL );
+
+	if (quitDialog.run() == Gtk::RESPONSE_CANCEL ) return false;
+
+	return true;
 }
 
 void MainWindow::on_submit_text()

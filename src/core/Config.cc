@@ -32,7 +32,7 @@ Config::Config()
 	timelineDir=string();
 	homeDir=string();
 
-	homeDir.assign(g_get_home_dir());
+	homeDir.assign(Glib::get_home_dir());
 	setAvatarDir();
 	setConfigDir();
 	setConfigFile();

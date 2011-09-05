@@ -61,6 +61,7 @@ using namespace Glib;
 #define SENDING_MSG "Sending Message.."
 #define MSG_SENT "Message sent"
 #define MSG_NOT_SENT "Message not sent"
+#define QUIT_MESSAGE "Do you want really quit?"
 
 #define FILE_MENU_ITEMS 3
 #define HELP_MENU_ITEMS 2
@@ -111,7 +112,7 @@ private:
 	int timeline_mode;
 
 	Glib::Thread *thread;
-	RefPtr<MainLoop> timeout;
+
 
 	unsigned counter;
 	static const unsigned delayInMin = 2;
@@ -142,7 +143,10 @@ protected:
 
 	void is_connected();
 
+	bool Quit_Dialog();
+
 public:
+	RefPtr<MainLoop> timeout;
 	MainWindow();
 	virtual ~MainWindow();
 

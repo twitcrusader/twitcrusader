@@ -28,7 +28,7 @@
  */
 #include <iostream>
 #include <string>
-#include <gtk/gtk.h>
+#include <glibmm.h>
 #include <cstdlib>
 
 //for mkdir
