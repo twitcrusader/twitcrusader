@@ -35,7 +35,6 @@
 #include "TwitterURL.h"
 
 using  namespace std;
-using  namespace xmlpp;
 
 namespace TwitCrusader {
 

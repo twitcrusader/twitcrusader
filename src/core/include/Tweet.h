@@ -28,12 +28,10 @@
  */
 #include <iostream>
 #include <gtkmm.h>
-#include <libxml++/libxml++.h>
 
 #include "User.h"
 
 using  namespace std;
-using namespace xmlpp;
 using namespace Glib;
 
 #define MAX_NUM_TWEETS 20
