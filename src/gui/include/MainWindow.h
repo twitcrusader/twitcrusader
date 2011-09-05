@@ -26,6 +26,7 @@
 #include <iostream>
 #include <vector>
 
+#include <glibmm.h>
 #include <gtkmm.h>
 #include <gtkmm/stock.h>
 #include <gdk/gdkkeysyms.h>
@@ -110,8 +111,10 @@ private:
 	int timeline_mode;
 
 	Glib::Thread *thread;
+	RefPtr<MainLoop> timeout;
 
-	int timer;
+	unsigned counter;
+	static const unsigned delayInMin = 2;
 
 protected:
 	void init_window();
@@ -123,10 +126,12 @@ protected:
 	void init_text_area();
 	void init_menu_bar();
 	void init_scrolled_window();
+	void init_timer();
 
 	void declare();
 	void on_submit_text();
 	void on_writing();
+	bool on_timeout();
 
 	void loadWindowCredits();
 	void loadWindowVersion();

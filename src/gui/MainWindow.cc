@@ -22,9 +22,8 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true),table_into(1, 3, true), char_count("140")
+MainWindow::MainWindow(): table(9, 3, true),table_into(150, 3, true), char_count("140")
 {
-
 	// This Is Fuckin Sequential Programming
 
 	is_connected();
@@ -48,8 +47,11 @@ MainWindow::MainWindow(): table(9, 3, true),table_into(1, 3, true), char_count("
 
 	add(layout);
 
+	this->signal_hide().connect(sigc::mem_fun(*this, &MainWindow::on_quit));
+
 	this->show_all();
 
+	init_timer();
 }
 
 MainWindow::~MainWindow()
@@ -58,6 +60,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::declare(){
+	counter=0;
 	init_menu();
 	init_menu_bar();
 	init_statusbar();
@@ -79,8 +82,8 @@ void MainWindow::init_scrolled_window(){
 		nick.set_label(it.base()->user.screen_name);
 		tweet.set_label(it.base()->text);
 		//table_into.attach(avatar,0, 1, i, i+4);
-		table_into.attach(nick,1, 10,i, i+1);
-		table_into.attach(tweet, 1,10, i+1, i+4);
+		table_into.attach(nick,1, 2,i, i+1);
+		table_into.attach(tweet, 2,3, i+1, i+2);
 		i++;
 	}
 
@@ -340,13 +343,37 @@ void MainWindow::loadRegWindow()
 	refresh();
 }
 
+void MainWindow::init_timer()
+{
+	sigc::slot<bool> tslot = sigc::mem_fun(*this, &MainWindow::on_timeout);
+	Glib::signal_timeout().connect(tslot, delayInMin);
+	this->timeout=Glib::MainLoop::create(false);
+	this->timeout.operator ->()->run();
+}
+
+bool MainWindow::on_timeout()
+{
+	++counter;
+
+    if(counter>=delayInMin*60000){
+    	cout<<"Timeout"<<endl;
+    	counter=0;
+    	refresh_timeline();
+    }
+
+    return true;
+}
+
 void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
 
 	Functions::notifySystem(QUIT);
 
+	timeout->quit();
+
 	this->hide();
+
 }
 
 void MainWindow::on_submit_text()

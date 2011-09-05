@@ -54,7 +54,6 @@ int main(int argc, char *argv[]){
 	notify_uninit();
 
 	window.~MainWindow();
-
 	kit.quit();
 
 	return 0;
