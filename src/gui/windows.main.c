@@ -174,8 +174,7 @@ return textarea;
  */ 
 GtkWidget* gtk_timeline_tool_itembar_create(gchar *image){
 	
-	GtkWidget *button,
-			  *icon_menu;
+	GtkWidget *button,*icon_menu;
 	button = gtk_button_new();
 	icon_menu = gtk_image_new_from_file(image);
 	gtk_button_set_image(GTK_BUTTON(button),icon_menu);
