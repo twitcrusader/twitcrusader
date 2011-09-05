@@ -78,19 +78,6 @@ bool Twitter::readUserFile()
 	return true;
 }
 
-char* Twitter::getElement(xmlDocPtr doc, xmlNodePtr cur, const char *keyword)
-{
-	xmlChar *key = NULL;
-	string buffer = string();
-	buffer.assign("error");
-
-	if((!xmlStrcmp(cur->name, (const xmlChar*)(keyword)))){
-		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		return (char*)key;
-	}
-	return (char*)"";
-}
-
 bool Twitter::switchTimeLine(int xmlSwitch)
 {
 	this->config.createTimelineDir();

@@ -65,7 +65,6 @@ public:
 
 	bool readUserFile();
 	bool writeUserFile();
-	char* getElement(xmlDocPtr doc, xmlNodePtr cur, const char *keyword);
 
 	bool switchTimeLine(int xmlSwitch);
 	bool downloadTimeLine();
