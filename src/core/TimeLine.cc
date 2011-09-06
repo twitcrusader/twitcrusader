@@ -24,331 +24,266 @@
 
 namespace TwitCrusader {
 
-bool TimeLine::readTimeLine(string docname){
+bool TimeLine::readTimeLine(ustring docname){
 
-	xmlDocPtr doc;
-	xmlNodePtr cur;
-	int i=0;
+	DomParser parser;
+	Tweet tweet;
 
-	doc = xmlParseFile(docname.c_str());
+	parser.set_substitute_entities();
+	parser.parse_file(docname);
+	if(parser)
+	{
 
-	if (doc == NULL ) {
-		return 1;
-	}
+		const xmlpp::Node* pNode = parser.get_document()->get_root_node();
+		const Glib::ustring nodename = pNode->get_name();
+		cout<<nodename<<endl;
 
-	cur = xmlDocGetRootElement(doc);
 
-	if (cur == NULL) {
-		xmlFreeDoc(doc);
-		return 1;
-	}
+		xmlpp::Node::NodeList status = pNode->get_children("status");
+		for(xmlpp::Node::NodeList::iterator state = status.begin(); state != status.end(); ++state)
+		{
+			cout<<state.operator *()->get_name()<<endl;
 
-	if (xmlStrcmp(cur->name, (const xmlChar *) "statuses")) {
-		xmlFreeDoc(doc);
-		return 1;
-	}
+			tweet=Tweet();
 
-	cur = cur->xmlChildrenNode;
+			xmlpp::Node::NodeList values = state.operator *()->get_children();
+			for(xmlpp::Node::NodeList::iterator iter = values.begin(); iter != values.end(); ++iter){
 
-	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"status"))){
-			getStatus (doc, cur, i);
-			i++;
+
+				const xmlpp::Element* nodeElement = dynamic_cast<const xmlpp::Element*>(*iter);
+
+				Glib::ustring name;
+				Glib::ustring content;
+
+
+				if(nodeElement){
+
+					name=nodeElement->get_name();
+					if(nodeElement->get_child_text()!=NULL)content=nodeElement->get_child_text()->get_content();
+
+					cout<<name.c_str()<<":\t";
+					cout<<content.c_str()<<endl;
+
+					if(name.compare("created_at")==0){
+						tweet.created_at.assign(content);
+					}
+					else if(name.compare("id")==0){
+						tweet.id.assign(content);
+
+					}
+					else if(name.compare("text")==0){
+						tweet.text.assign(content);
+
+					}else if(name.compare("source")==0){
+						tweet.source.assign(content);
+
+					}else if(name.compare("truncated")==0){
+						tweet.truncated.assign(content);
+
+					}else if(name.compare("favorited")==0){
+						tweet.favorited.assign(content);
+
+					}else if(name.compare("in_reply_to_status_id")==0){
+						tweet.in_reply_to_status_id.assign(content);
+
+					}else if(name.compare("in_reply_to_user_id")==0){
+						tweet.in_reply_to_user_id.assign(content);
+
+					}else if(name.compare("in_reply_to_screen_name")==0){
+						tweet.in_reply_to_screen_name.assign(content);
+
+					}else if(name.compare("retweet_count")==0){
+						tweet.retweet_count.assign(content);
+
+					}else if(name.compare("retweeted")==0){
+						tweet.retweeted.assign(content);
+
+					}else if(name.compare("user")==0){
+						xmlpp::Node::NodeList users = iter.operator *()->get_children();
+
+						for(xmlpp::Node::NodeList::iterator user = users.begin(); user != users.end(); ++user){
+							const xmlpp::Element* userElement = dynamic_cast<const xmlpp::Element*>(*user);
+							Glib::ustring username;
+							Glib::ustring usercontent;
+
+
+							if(userElement){
+
+								username=userElement->get_name();
+								if(userElement->get_child_text()!=NULL)usercontent=userElement->get_child_text()->get_content();
+								cout<<"\t"<<username.c_str()<<":\t";
+								cout<<"\t"<<usercontent.c_str()<<endl;
+
+
+								if(username.compare("id")==0){
+									tweet.user.id.assign(usercontent);
+								}
+								else if(username.compare("name")==0){
+									tweet.user.name.assign(usercontent);
+
+								}
+								else if(username.compare("screen_name")==0){
+									tweet.user.screen_name.assign(usercontent);
+
+								}
+								else if(username.compare("location")==0){
+									tweet.user.location.assign(usercontent);
+
+								}
+								else if(username.compare("description")==0){
+									tweet.user.description.assign(usercontent);
+
+								}
+								else if(username.compare("profile_image_url")==0){
+									tweet.user.profile_image_url.assign(usercontent);
+
+								}
+								else if(username.compare("url")==0){
+									tweet.user.url.assign(usercontent);
+
+								}
+								else if(username.compare("protectedtw")==0){
+									tweet.user.protectedtw.assign(usercontent);
+
+								}
+								else if(username.compare("profile_background_color")==0){
+									tweet.user.profile_background_color.assign(usercontent);
+
+								}
+								else if(username.compare("profile_text_color")==0){
+									tweet.user.profile_text_color.assign(usercontent);
+
+								}
+								else if(username.compare("profile_link_color")==0){
+									tweet.user.profile_link_color.assign(usercontent);
+
+								}
+								else if(username.compare("profile_sidebar_fill_color")==0){
+									tweet.user.profile_sidebar_fill_color.assign(usercontent);
+
+								}
+								else if(username.compare("profile_sidebar_border_color")==0){
+									tweet.user.profile_sidebar_border_color.assign(usercontent);
+
+								}
+								else if(username.compare("created_at")==0){
+									tweet.user.created_at.assign(usercontent);
+
+								}
+								else if(username.compare("utc_offset")==0){
+									tweet.user.utc_offset.assign(usercontent);
+
+								}
+								else if(username.compare("time_zone")==0){
+									tweet.user.time_zone.assign(usercontent);
+
+								}
+								else if(username.compare("profile_background_image_url")==0){
+									tweet.user.profile_background_image_url.assign(usercontent);
+
+								}
+								else if(username.compare("profile_background_tile")==0){
+									tweet.user.profile_background_tile.assign(usercontent);
+
+								}
+								else if(username.compare("profile_use_background_image")==0){
+									tweet.user.profile_use_background_image.assign(usercontent);
+
+								}
+								else if(username.compare("notifications")==0){
+									tweet.user.notifications.assign(usercontent);
+
+								}
+								else if(username.compare("geo_enabled")==0){
+									tweet.user.geo_enabled.assign(usercontent);
+
+								}
+								else if(username.compare("verified")==0){
+									tweet.user.verified.assign(usercontent);
+
+								}
+								else if(username.compare("following")==0){
+									tweet.user.following.assign(usercontent);
+
+								}
+								else if(username.compare("lang")==0){
+									tweet.user.lang.assign(usercontent);
+
+								}
+								else if(username.compare("contributors_enabled")==0){
+									tweet.user.contributors_enabled.assign(usercontent);
+
+								}
+								else if(username.compare("follow_request_sent")==0){
+									tweet.user.follow_request_sent.assign(usercontent);
+
+								}
+								else if(username.compare("show_all_inline_media")==0){
+									tweet.user.show_all_inline_media.assign(usercontent);
+
+								}
+								else if(username.compare("default_profile")==0){
+									tweet.user.default_profile.assign(usercontent);
+
+								}
+								else if(username.compare("default_profile_image")==0){
+									tweet.user.default_profile_image.assign(usercontent);
+
+								}
+								else if(username.compare("is_translator")==0){
+									tweet.user.is_translator.assign(usercontent);
+
+								}
+								else if(username.compare("followers_count")==0){
+									tweet.user.followers_count.assign(usercontent);
+
+								}
+								else if(username.compare("friends_count")==0){
+									tweet.user.friends_count.assign(usercontent);
+
+								}
+								else if(username.compare("favourites_count")==0){
+									tweet.user.favourites_count.assign(usercontent);
+
+								}
+								else if(username.compare("statuses_count")==0){
+									tweet.user.statuses_count.assign(usercontent);
+
+								}
+								else if(username.compare("listed_count")==0){
+									tweet.user.listed_count.assign(usercontent);
+
+								}
+							}
+						}
+					}
+					else if(name.compare("geo")==0){
+						tweet.geo.assign(content);
+
+					}
+					else if(name.compare("coordinates")==0){
+						tweet.coordinates.assign(content);
+
+					}
+					else if(name.compare("place")==0){
+						tweet.place.assign(content);
+
+					}
+					else if(name.compare("contributors")==0){
+						tweet.contributors.assign(content);
+
+					}
+
+				}
+
+			}
+			timeline.push_back(tweet);
 		}
-
-		cur = cur->next;
 	}
 
-	xmlFreeDoc(doc);
-
-	return true;
+	return 0;
 
 }
 
-void TimeLine::getStatus(xmlDocPtr doc, xmlNodePtr cur, int i){
-	Tweet tweet=Tweet();
-
-	xmlNodePtr cur2;
-	cur = cur->xmlChildrenNode;
-	cur = cur->next;
-
-	tweet.created_at.assign(getTimeLineElement(doc, cur, "created_at"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *id,
-	tweet.id.assign(getTimeLineElement(doc, cur, "id"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *text,
-	tweet.text.assign(getTimeLineElement(doc, cur, "text"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *source,
-	tweet.source.assign(getTimeLineElement(doc, cur, "source"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *truncated,
-	tweet.truncated.assign(getTimeLineElement(doc, cur, "truncated"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *favorited,
-	tweet.favorited.assign(getTimeLineElement(doc, cur, "favorited"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *in_reply_to_status_id,
-	tweet.in_reply_to_status_id.assign(getTimeLineElement(doc, cur, "in_reply_to_status_id"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *in_reply_to_user_id,
-	tweet.in_reply_to_user_id.assign(getTimeLineElement(doc, cur, "in_reply_to_user_id"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *in_reply_to_screen_name,
-	tweet.in_reply_to_screen_name.assign(getTimeLineElement(doc, cur, "in_reply_to_screen_name"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *retweet_count,
-	tweet.retweet_count.assign(getTimeLineElement(doc, cur, "retweet_count"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *retweeted,
-	tweet.retweeted.assign(getTimeLineElement(doc, cur, "retweeted"));
-	cur = cur->next;
-	cur = cur->next;
-
-	if ((!xmlStrcmp(cur->name, (const xmlChar *)"user"))) {
-
-		cur2 = cur->xmlChildrenNode;
-		cur2 = cur2->next;
-
-		// char *id,
-		tweet.user.id.assign(getTimeLineElement(doc, cur2, "id"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *name,
-		tweet.user.name.assign(getTimeLineElement(doc, cur2, "name"));
-
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *screen_name,
-		tweet.user.screen_name.assign(getTimeLineElement(doc, cur2, "screen_name"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *location,
-		tweet.user.location.assign(getTimeLineElement(doc, cur2, "location"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		//		*description,
-		tweet.user.description.assign(getTimeLineElement(doc, cur2, "description"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_image_url,
-		tweet.user.profile_image_url.assign(getTimeLineElement(doc, cur2, "profile_image_url"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *url,
-		tweet.user.url.assign(getTimeLineElement(doc, cur2, "url"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *protectedtw,
-		tweet.user.protectedtw.assign(getTimeLineElement(doc, cur2, "protected"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_background_color,
-		tweet.user.profile_background_color.assign(getTimeLineElement(doc, cur2, "profile_background_color"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_text_color,
-		tweet.user.profile_text_color.assign(getTimeLineElement(doc, cur2, "profile_text_color"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_link_color,
-		tweet.user.profile_link_color.assign(getTimeLineElement(doc, cur2, "profile_link_color"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_sidebar_fill_color,
-		tweet.user.profile_sidebar_fill_color.assign(getTimeLineElement(doc, cur2, "profile_sidebar_fill_color"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_sidebar_border_color,
-		tweet.user.profile_sidebar_border_color.assign(getTimeLineElement(doc, cur2, "profile_sidebar_border_color"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *created_at,
-		tweet.user.created_at.assign(getTimeLineElement(doc, cur2, "created_at"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *utc_offset,
-		tweet.user.utc_offset.assign(getTimeLineElement(doc, cur2, "utc_offset"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *time_zone,
-		tweet.user.time_zone.assign(getTimeLineElement(doc, cur2, "time_zone"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_background_image_url,
-		tweet.user.profile_background_image_url.assign(getTimeLineElement(doc, cur2, "profile_background_image_url"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_background_tile,
-		tweet.user.profile_background_tile.assign(getTimeLineElement(doc, cur2, "profile_background_tile"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *profile_use_background_image,
-		tweet.user.profile_use_background_image.assign(getTimeLineElement(doc, cur2, "profile_use_background_image"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *notifications,
-		tweet.user.notifications.assign(getTimeLineElement(doc, cur2, "notifications"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *geo_enabled,
-		tweet.user.geo_enabled.assign(getTimeLineElement(doc, cur2, "geo_enabled"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *verified,
-		tweet.user.verified.assign(getTimeLineElement(doc, cur2, "verified"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *following,
-		tweet.user.following.assign(getTimeLineElement(doc, cur2, "following"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *lang,
-		tweet.user.lang.assign(getTimeLineElement(doc, cur2, "lang"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *contributors_enabled,
-		tweet.user.contributors_enabled.assign(getTimeLineElement(doc, cur2, "contributors_enabled"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *follow_request_sent,
-		tweet.user.follow_request_sent.assign(getTimeLineElement(doc, cur2, "follow_request_sent"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *show_all_inline_media,
-		tweet.user.show_all_inline_media.assign(getTimeLineElement(doc, cur2, "show_all_inline_media"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *default_profile,
-		tweet.user.default_profile.assign(getTimeLineElement(doc, cur2, "default_profile"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *default_profile_image,
-		tweet.user.default_profile_image.assign(getTimeLineElement(doc, cur2, "default_profile_image"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *is_translator,
-		tweet.user.is_translator.assign(getTimeLineElement(doc, cur2, "is_translator"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *followers_count,
-		tweet.user.followers_count.assign(getTimeLineElement(doc, cur2, "followers_count"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *friends_count,
-		tweet.user.friends_count.assign(getTimeLineElement(doc, cur2, "friends_count"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// *favourites_count,
-		tweet.user.favourites_count.assign(getTimeLineElement(doc, cur2, "favourites_count"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// statuses_count, ;
-		tweet.user.statuses_count.assign(getTimeLineElement(doc, cur2, "statuses_count"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-		// listed_count
-		tweet.user.listed_count.assign(getTimeLineElement(doc, cur2, "listed_count"));
-		cur2 = cur2->next;
-		cur2 = cur2->next;
-
-
-
-	}
-
-
-	// *geo,
-	tweet.geo.assign(getTimeLineElement(doc, cur, "geo"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *coordinates,
-	tweet.coordinates.assign(getTimeLineElement(doc, cur, "coordinates"));
-
-	cur = cur->next;
-	cur = cur->next;
-
-	// *place,
-	tweet.place.assign(getTimeLineElement(doc, cur, "place"));
-	cur = cur->next;
-	cur = cur->next;
-
-	// *contributors;
-	tweet.contributors.assign(getTimeLineElement(doc, cur, "contributors"));
-	cur = cur->next;
-	cur = cur->next;
-
-	timeline.push_back(tweet);
-
-}
-
-char* TimeLine::getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, string keyword){
-	xmlChar *key = NULL;
-	char *empty = " ";
-
-	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword.c_str()))) {
-		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-
-		if (key!=NULL) return (char *)key;
-	}
-
-	return empty;
-
-}
 
 } /* namespace TwitCrusader */

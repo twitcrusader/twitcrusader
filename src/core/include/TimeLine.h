@@ -25,16 +25,14 @@
 
 #include<iostream>
 #include<vector>
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-
+#include <libxml++/libxml++.h>
 
 #include "Tweet.h"
 #include "Config.h"
 #include "TwitterURL.h"
 
 using  namespace std;
+using  namespace xmlpp;
 
 namespace TwitCrusader {
 
@@ -45,9 +43,7 @@ public:
 	string timelineURL;
 	string timelineFile;
 
-	char* getTimeLineElement(xmlDocPtr, xmlNodePtr, string);
-	void getStatus (xmlDocPtr, xmlNodePtr, int);
-	bool readTimeLine(string);
+	bool readTimeLine(ustring);
 };
 
 } /* namespace TwitCrusader */
