@@ -43,9 +43,10 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 
 
 	layout.pack_end(status_bar,PACK_SHRINK);
+	layout.pack_end(charbar,PACK_SHRINK);
 	layout.pack_end(scroll_text,PACK_SHRINK);
 	layout.pack_end(tool_bar,PACK_SHRINK);
-	layout.pack_end(charbar,PACK_SHRINK);
+
 	this->layout.pack_end(this->table);
 
 	add(layout);
