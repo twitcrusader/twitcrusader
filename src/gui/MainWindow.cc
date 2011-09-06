@@ -54,7 +54,7 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 
 	this->show_all();
 
-	//	init_timer();
+	//init_timer();
 }
 
 MainWindow::~MainWindow()

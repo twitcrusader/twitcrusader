@@ -14,7 +14,7 @@ core/Functions.cc \
 core/LocalUser.cc \
 Main.cc 
  
-twcpp_LDADD = @gtkmm_LIBS@ @oauth_LIBS@ @libxmlpp_LIBS@ @libnotify_LIBS@
+twcpp_LDADD = @gtkmm_LIBS@ @oauth_LIBS@ @libxmlpp_LIBS@ @libnotify_LIBS@ @libcurl_LIBS@
 
 AM_CPPFLAGS = \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
@@ -23,4 +23,5 @@ AM_CPPFLAGS = \
 	-pthread \
 	@oauth_CFLAGS@ \
 	@libxmlpp_CFLAGS@ \
-	@libnotify_CFLAGS@
+	@libnotify_CFLAGS@ \
+	@libcurl_CFLAGS@
