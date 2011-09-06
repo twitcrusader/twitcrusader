@@ -26,11 +26,11 @@ namespace TwitCrusader {
 
 Config::Config()
 {
-	avatarDir=string();
-	configDir=string();
-	configFile=string();
-	timelineDir=string();
-	homeDir=string();
+	avatarDir=ustring();
+	configDir=ustring();
+	configFile=ustring();
+	timelineDir=ustring();
+	homeDir=ustring();
 
 	homeDir.assign(Glib::get_home_dir());
 	setAvatarDir();
@@ -72,7 +72,7 @@ bool Config::createAvatarDir()
 		remove(avatarDir.c_str());
 		//mkdir( avatarDir.c_str(), 0777);
 
-		string cmd=string();
+		ustring cmd=ustring();
 		cmd.assign(MKDIR_CMD);
 		cmd.append(avatarDir);
 		cout<<cmd;
@@ -97,7 +97,7 @@ bool Config::createConfigDir()
 
 	if(!configDir.empty()){
 		//mkdir( configDir.c_str(), 0777);
-		string cmd=string();
+		ustring cmd=ustring();
 		cmd.assign(MKDIR_CMD);
 		cmd.append(configDir);
 		system(cmd.c_str());
@@ -119,7 +119,7 @@ bool Config::createTimelineDir()
 
 	if(!timelineDir.empty()){
 		//mkdir(timelineDir.c_str(), 0777);
-		string cmd=string();
+		ustring cmd=ustring();
 		cmd.assign(MKDIR_CMD);
 		cmd.append(timelineDir);
 		system(cmd.c_str());
@@ -137,23 +137,23 @@ void Config::setConfigFile()
 }
 
 
-string Config::getAvatarDir()
+ustring Config::getAvatarDir()
 {
 	return avatarDir;
 }
 
-string Config::getConfigDir()
+ustring Config::getConfigDir()
 {
 	return configDir;
 }
 
-string Config::getConfigFile()
+ustring Config::getConfigFile()
 {
 	return configFile;
 }
 
 
-string Config::getTimeLineDir()
+ustring Config::getTimeLineDir()
 {
 	return timelineDir;
 }
@@ -161,7 +161,7 @@ string Config::getTimeLineDir()
 
 bool Config::deleteConfigFile()
 {
-	string cmd=string();
+	ustring cmd=ustring();
 
 	cmd.assign(RM_CMD);
 	cmd.append(configFile);

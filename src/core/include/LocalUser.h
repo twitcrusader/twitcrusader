@@ -27,7 +27,7 @@
  *
  */
 #include <iostream>
-
+#include <glibmm.h>
 #include <libxml/xmlreader.h>
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
@@ -48,12 +48,12 @@ namespace TwitCrusader {
 
 class LocalUser {
 private:
-	string id;
-	string screenName;
-	string token;
-	string secretToken;
-	string consumerKey;
-	string consumerSecretKey;
+	ustring id;
+	ustring screenName;
+	ustring token;
+	ustring secretToken;
+	ustring consumerKey;
+	ustring consumerSecretKey;
 
 protected:
 
@@ -63,23 +63,23 @@ public:
 	LocalUser();
 	virtual ~LocalUser();
 
-	void setId(string id);
-	void setScreenName(string secretName);
-	void setToken(string Token);
-	void setSecretToken(string secretToken);
-	void setConsumerKey(string consumerKey);
-	void setConsumerSecretKey(string secretConsumerKey);
+	void setId(ustring id);
+	void setScreenName(ustring secretName);
+	void setToken(ustring Token);
+	void setSecretToken(ustring secretToken);
+	void setConsumerKey(ustring consumerKey);
+	void setConsumerSecretKey(ustring secretConsumerKey);
 
-	bool readUserFile(string filename);
-	bool writeUserFile(string filename);
+	bool readUserFile(ustring filename);
+	bool writeUserFile(ustring filename);
 	void clear();
 
-	string getId();
-	string getScreenName();
-	string getToken();
-	string getSecretToken();
-	string getConsumerKey();
-	string getConsumerSecretKey();
+	ustring getId();
+	ustring getScreenName();
+	ustring getToken();
+	ustring getSecretToken();
+	ustring getConsumerKey();
+	ustring getConsumerSecretKey();
 };
 }
 #endif /* LOCALUSER_H_ */

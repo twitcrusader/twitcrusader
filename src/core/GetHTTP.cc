@@ -30,12 +30,12 @@ size_t GetHTTP::writeFunction( void *ptr, size_t size, size_t nmemb, void *strea
 	return nmemb*size;
 };
 
-void GetHTTP::getSingleCURL(string url, string file)
+void GetHTTP::getSingleCURL(ustring url, ustring file)
 {
-	string argv[2];
-	argv[0]=string();
+	ustring argv[2];
+	argv[0]=ustring();
 	argv[0].assign(url);
-	argv[1]=string();
+	argv[1]=ustring();
 	argv[1].assign(file);
 
 	pull_one_url((void *)argv);

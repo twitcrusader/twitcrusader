@@ -22,7 +22,7 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true),table_into(10, 2, true), char_count("140")
+MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count("140")
 {
 	// This Is Fuckin Sequential Programming
 
@@ -35,15 +35,18 @@ MainWindow::MainWindow(): table(9, 3, true),table_into(10, 2, true), char_count(
 	layout.pack_start(menu_bar,PACK_SHRINK);
 
 	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
-	this->scrolled_window.add(table_into);
+	//this->scrolled_window.add(table_into);
+	tweets.set_editable(false);
+	scrolled_window.add(tweets);
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
-	this->table.attach(this->scroll_text,0, 3, 8, 9);
-	this->layout.pack_start(this->table);
+	//this->table.attach(this->scroll_text,0, 3, 8, 9);
+
 
 	layout.pack_end(status_bar,PACK_SHRINK);
+	layout.pack_end(scroll_text,PACK_SHRINK);
 	layout.pack_end(tool_bar,PACK_SHRINK);
 	layout.pack_end(charbar,PACK_SHRINK);
-
+	this->layout.pack_end(this->table);
 
 	add(layout);
 
@@ -73,25 +76,31 @@ void MainWindow::declare(){
 void MainWindow::is_connected(){
 	this->connected=!twitter.getLocalUser().getScreenName().empty();
 }
+
 void MainWindow::init_scrolled_window(){
 
-	Label *tweet;
-	int i=0;
-	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); ++it){
-		tweet=new Gtk::Label();
+	ustring tw=ustring();
+	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); it++){
+
+		tw.append("@");
+		tw.append(it.base()->user.screen_name);
+		tw.append("\n\t");
+		tw.append(it.base()->text);
+		tw.append("\n");
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
 		//nick.set_label(it.base()->user.screen_name);
-		if(it.operator *().user.screen_name!=NULL && it.operator *().text!=NULL){
-			tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
-			cout<<tweet->get_label()<<endl;
+
+			//tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
+			//cout<<tweet->get_label()<<endl;
 
 			//table_into.attach(avatar,0, 1, i, i+4);
 			//table_into.attach(nick,1, 2,i, i+1);
-			table_into.attach(*tweet, 1,2, i, i+1);
-			i++;
-		}
-	}
+		//	table_into.attach(*tweet, 1,2, i, i+1);
 
+
+	}
+	cout<<tw<<endl;
+	tweets.get_buffer().operator ->()->set_text(tw);
 
 }
 
@@ -405,7 +414,7 @@ void MainWindow::on_submit_text()
 	status_bar.push(SENDING_MSG);
 	this->queue_draw();
 
-	string msg=tweet_buffer.operator ->()->get_text(false);
+	ustring msg=tweet_buffer.operator ->()->get_text(false);
 
 	if(twitter.SendTweet(msg)){
 		Functions::notifySystem(MSG_SENT);
@@ -423,11 +432,11 @@ void MainWindow::on_submit_text()
 void MainWindow::on_writing()
 {
 	cout<<"on_writing()"<<endl;
-	string buffer=tweet_buffer.operator ->()->get_text(true);
+	ustring buffer=tweet_buffer.operator ->()->get_text(true);
 	int count=tweet_buffer.operator ->()->get_char_count();
 
 	if(count<140 && count>0){
-		string ch=buffer.substr(count-1,count);
+		ustring ch=buffer.substr(count-1,count);
 		if(strstr(ch.c_str(),"\n")!=NULL){ //can't see endLine
 			on_submit_text();
 			this->tweet_buffer.operator ->()->set_text("");
@@ -470,6 +479,7 @@ void MainWindow::refresh(){
 	init_menu();
 	init_statusbar();
 	init_scrolled_window();
+	show_all();
 	this->queue_draw();
 }
 }

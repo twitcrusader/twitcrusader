@@ -26,12 +26,12 @@
 /*
  *
  */
-#include <stdio.h>
+#include <glibmm.h>
 #include <curl/curl.h>
-#include <string>
 #include <pthread.h>
 
 using  namespace std;
+using  namespace Glib;
 
 namespace TwitCrusader {
 
@@ -40,7 +40,7 @@ class GetHTTP {
 public:
 
 	static size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
-	static void getSingleCURL(string url, string file);
+	static void getSingleCURL(ustring url, ustring file);
 	int getMultiCURL(char **url, char **file, int max_num_tid);
 	static void pull_one_url(void *argv);
 

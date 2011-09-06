@@ -27,7 +27,6 @@
  *
  */
 #include <iostream>
-#include <string>
 #include <glibmm.h>
 #include <cstdlib>
 
@@ -49,25 +48,26 @@
 #define RM_CMD "rm "
 
 using  namespace std;
+using namespace Glib;
 
 namespace TwitCrusader {
 
 class Config {
 private:
-	string avatarDir;
-	string configDir;
-	string configFile;
-	string timelineDir;
-	string homeDir;
+	ustring avatarDir;
+	ustring configDir;
+	ustring configFile;
+	ustring timelineDir;
+	ustring homeDir;
 
 public:
 	Config();
 	virtual ~Config();
 
-	string getAvatarDir();
-	string getConfigDir();
-	string getConfigFile();
-	string getTimeLineDir();
+	ustring getAvatarDir();
+	ustring getConfigDir();
+	ustring getConfigFile();
+	ustring getTimeLineDir();
 
 	void setAvatarDir();
 	void setConfigFile();

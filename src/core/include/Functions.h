@@ -23,10 +23,7 @@
 #ifndef FUNCTIONS_H_
 #define FUNCTIONS_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
-#include <string.h>
+#include <iostream>
 #include <fstream>
 #include <gtkmm.h>
 #include <libnotify/notify.h>
@@ -36,6 +33,7 @@
 #include "../../gui/include/Icons.h"
 
 using  namespace std;
+using  namespace Glib;
 
 namespace TwitCrusader {
 
@@ -43,12 +41,12 @@ class Functions {
 
 public:
 
-	static string readRawTextFile(string fileName);
-	static bool writeRawTextFile(string fileName, string text);
-	static vector<Glib::ustring> readTextFileLinebyLine(string fileName);
+	static ustring readRawTextFile(ustring fileName);
+	static bool writeRawTextFile(ustring fileName, ustring text);
+	static vector<Glib::ustring> readTextFileLinebyLine(ustring fileName);
 	static bool shellParameters (int argc, char **argv);
-	static string DownloadVersion();
-	static void notifySystem(string Message);
+	static ustring DownloadVersion();
+	static void notifySystem(ustring Message);
 
 };
 }

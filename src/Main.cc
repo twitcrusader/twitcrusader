@@ -38,6 +38,8 @@ int main(int argc, char *argv[]){
 
 	if(Functions::shellParameters(argc,argv))return 0;
 
+	Glib::thread_init() ;
+
 	Gtk::Main kit(argc, argv);
 
 	if(!twitter.getConfig().is_registered()){
@@ -55,7 +57,6 @@ int main(int argc, char *argv[]){
 	notify_uninit();
 	window.timeout.operator ->()->quit();
 	window.~MainWindow();
-
 	kit.quit();
 
 	return 0;

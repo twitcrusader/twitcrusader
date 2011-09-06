@@ -28,8 +28,7 @@
  */
 #include <iostream>
 #include <vector>
-#include <string.h>
-
+#include <glibmm.h>
 extern "C"{
 #include <oauth.h>
 }
@@ -50,7 +49,7 @@ private:
 	Config config;
 
 public:
-	string tmp_token;
+	ustring tmp_token;
 
 	Twitter();
 	virtual ~Twitter();
@@ -71,11 +70,11 @@ public:
 
 	bool tokenTemp();
 	bool tokenTempBrowser();
-	bool tokenAccess(const string pin);
-	string tokenRequest(const string consumerKey, const string consumerKeySecret);
+	bool tokenAccess(const ustring pin);
+	ustring tokenRequest(const ustring consumerKey, const ustring consumerKeySecret);
 	char *getParameters(char **argv,int argc,const char *param);
-	string getParameters2(vector<string> rv, string param);
-	bool SendTweet(string msg);
+	ustring getParameters2(vector<string> rv, ustring param);
+	bool SendTweet(ustring msg);
 
 };
 }

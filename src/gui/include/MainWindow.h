@@ -93,6 +93,7 @@ private:
 
 
 	Table table;
+	Gtk::TextView tweets;
 	Table table_into;
 	ScrolledWindow scrolled_window;
 	ScrolledWindow scroll_text;
@@ -105,8 +106,8 @@ private:
 	Statusbar charbar;
 	Toolbar tool_bar;
 
-	string status_label;
-	string char_count;
+	ustring status_label;
+	ustring char_count;
 
 	int selected_timeline;
 	int timeline_mode;

@@ -79,7 +79,7 @@ void RegWindow::browser_authorization(){
 
 void RegWindow::get_access_token(){
 	pin_buffer=this->pin.get_buffer();
-	string str=pin_buffer->get_text();
+	ustring str=pin_buffer->get_text();
 	if(!twitter.tokenAccess(str)){
 		MessageDialog error(REG_ERROR_LABEL,false,MESSAGE_ERROR ,BUTTONS_OK,false);
 		error.run();

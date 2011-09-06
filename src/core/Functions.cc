@@ -24,9 +24,9 @@
 
 namespace TwitCrusader {
 
-string Functions::readRawTextFile(string fileName)
+ustring Functions::readRawTextFile(ustring fileName)
 {
-	string buffer=string();
+	ustring buffer=ustring();
 	ifstream infile;
 
 	infile.open (fileName.c_str(), ifstream::in);
@@ -45,7 +45,7 @@ string Functions::readRawTextFile(string fileName)
 	return buffer;
 }
 
-vector<Glib::ustring> Functions::readTextFileLinebyLine(string fileName)
+vector<Glib::ustring> Functions::readTextFileLinebyLine(ustring fileName)
 {
 
 	vector<Glib::ustring> lines;
@@ -86,9 +86,9 @@ bool Functions::shellParameters (int argc, char **argv)
 	return false;
 }
 
-string Functions::DownloadVersion(){
+ustring Functions::DownloadVersion(){
 
-	string LatestVersion=string();
+	ustring LatestVersion=ustring();
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
 
@@ -102,7 +102,7 @@ string Functions::DownloadVersion(){
 	return LatestVersion;
 }
 
-bool Functions::writeRawTextFile(string fileName, string text)
+bool Functions::writeRawTextFile(ustring fileName, ustring text)
 {
 	ofstream myfile;
 	myfile.open (fileName.c_str());
@@ -112,7 +112,7 @@ bool Functions::writeRawTextFile(string fileName, string text)
 
 }
 
-void Functions::notifySystem(string Message)
+void Functions::notifySystem(ustring Message)
 {
 	NotifyNotification *notify=notify_notification_new(PROG_NAME,Message.c_str(),ICON_FAVICON);
 

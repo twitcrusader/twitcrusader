@@ -25,6 +25,7 @@
 
 #include<iostream>
 #include<vector>
+#include <glibmm.h>
 #include <libxml++/libxml++.h>
 
 #include "Tweet.h"
@@ -33,6 +34,7 @@
 
 using  namespace std;
 using  namespace xmlpp;
+using  namespace Glib;
 
 namespace TwitCrusader {
 
@@ -40,8 +42,8 @@ class TimeLine {
 public:
 
 	vector<Tweet> timeline;
-	string timelineURL;
-	string timelineFile;
+	ustring timelineURL;
+	ustring timelineFile;
 
 	bool readTimeLine(ustring);
 };

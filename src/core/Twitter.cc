@@ -27,7 +27,7 @@ Twitter::Twitter()
 	localUser = LocalUser();
 	timeLine = TimeLine();
 	config = Config();
-	tmp_token=string();
+	tmp_token=ustring();
 }
 
 Twitter::~Twitter()
@@ -82,7 +82,7 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 {
 	this->config.createTimelineDir();
 
-	string path(config.getTimeLineDir());
+	ustring path(config.getTimeLineDir());
 
 	switch(xmlSwitch){
 
@@ -157,9 +157,9 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 
 bool Twitter::downloadTimeLine()
 {
-	string postarg=string();
+	ustring postarg=ustring();
 	char* tml_rt;
-	string tml(oauth_sign_url2(timeLine.timelineURL.c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
+	ustring tml(oauth_sign_url2(timeLine.timelineURL.c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
 	tml_rt=oauth_http_get(tml.c_str(), postarg.c_str());
 if(tml_rt!=NULL){
 	tml.assign(tml_rt);
@@ -180,11 +180,11 @@ if(tml_rt!=NULL){
 	return false;
 }
 
-bool Twitter::SendTweet(string msg)
+bool Twitter::SendTweet(ustring msg)
 {
 
-	string twitterStatusURL=string();
-	string sendTweet=string();
+	ustring twitterStatusURL=ustring();
+	ustring sendTweet=ustring();
 	char* error;
 
 	char* postarg = NULL;
@@ -216,8 +216,8 @@ bool Twitter::tokenTemp()
 {
 
 	int rc;
-	string tempKeyURL=string();
-	string tempKey=string();
+	ustring tempKeyURL=ustring();
+	ustring tempKey=ustring();
 	char **rv=NULL;
 
 	/*
@@ -248,9 +248,9 @@ bool Twitter::tokenTemp()
 bool Twitter::tokenTempBrowser()
 {
 	int rc;
-	string cmd=string();
-	string tempKeyURL=string();
-	string tempKey=string();
+	ustring cmd=ustring();
+	ustring tempKeyURL=ustring();
+	ustring tempKey=ustring();
 	char **rv=NULL;
 
 	/*
@@ -288,17 +288,17 @@ bool Twitter::tokenTempBrowser()
 
 }
 
-bool Twitter::tokenAccess(const string pin)
+bool Twitter::tokenAccess(const ustring pin)
 {
 	int rc;
-	string buffer=string();
-	string verifyPIN=string();
+	ustring buffer=ustring();
+	ustring verifyPIN=ustring();
 
-	string twitterUserKey=string();
+	ustring twitterUserKey=ustring();
 
-	string tempKey=string();
-	string tempKeySecret=string();
-	string accessURL=string();
+	ustring tempKey=ustring();
+	ustring tempKeySecret=ustring();
+	ustring accessURL=ustring();
 
 	accessURL.assign(TOKENACCESS_URL);
 	char *postarg;
@@ -349,12 +349,12 @@ bool Twitter::tokenAccess(const string pin)
 	return writeUserFile();
 }
 
-string Twitter::tokenRequest(const string consumerKey, const string consumerKeySecret)
+ustring Twitter::tokenRequest(const ustring consumerKey, const ustring consumerKeySecret)
 {
 
 	char *postarg = NULL;
-	string tempKeyParameters=string();
-	string twitterRequestURL=string();
+	ustring tempKeyParameters=ustring();
+	ustring twitterRequestURL=ustring();
 	twitterRequestURL.assign(REQUEST_URL);
 
 	/* Generate a request url, this url have Temp-Key */

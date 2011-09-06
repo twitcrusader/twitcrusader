@@ -26,12 +26,12 @@ namespace TwitCrusader {
 
 LocalUser::LocalUser()
 {
-	id=string();
-	screenName=string();
-	token=string();
-	secretToken=string();
-	consumerKey=string();
-	consumerSecretKey=string();
+	id=ustring();
+	screenName=ustring();
+	token=ustring();
+	secretToken=ustring();
+	consumerKey=ustring();
+	consumerSecretKey=ustring();
 }
 
 LocalUser::~LocalUser()
@@ -39,62 +39,62 @@ LocalUser::~LocalUser()
 
 }
 
-void  LocalUser::setId(string id)
+void  LocalUser::setId(ustring id)
 {
 	this->id.append(id);
 }
 
-void  LocalUser::setScreenName(string secretName)
+void  LocalUser::setScreenName(ustring secretName)
 {
 	this->screenName.append(secretName);
 }
 
-void  LocalUser::setToken(string Token)
+void  LocalUser::setToken(ustring Token)
 {
 	this->token.append(Token);
 }
 
-void  LocalUser::setSecretToken(string secretToken)
+void  LocalUser::setSecretToken(ustring secretToken)
 {
 	this->secretToken.append(secretToken);
 }
 
-void  LocalUser::setConsumerKey(string consumerKey)
+void  LocalUser::setConsumerKey(ustring consumerKey)
 {
 	this->consumerKey.append(consumerKey);
 }
 
-void  LocalUser::setConsumerSecretKey(string secretConsumerKey)
+void  LocalUser::setConsumerSecretKey(ustring secretConsumerKey)
 {
 	this->consumerSecretKey.assign(secretConsumerKey);
 }
 
-string LocalUser::getId()
+ustring LocalUser::getId()
 {
 	return id;
 }
 
-string LocalUser::getScreenName()
+ustring LocalUser::getScreenName()
 {
 	return screenName;
 }
 
-string LocalUser::getToken()
+ustring LocalUser::getToken()
 {
 	return token;
 }
 
-string LocalUser::getSecretToken()
+ustring LocalUser::getSecretToken()
 {
 	return secretToken;
 }
 
-string LocalUser::getConsumerKey()
+ustring LocalUser::getConsumerKey()
 {
 	return consumerKey;
 }
 
-    bool LocalUser::writeUserFile(string filename)
+    bool LocalUser::writeUserFile(ustring filename)
     {
     	//config.createConfigDir();
 
@@ -121,12 +121,12 @@ string LocalUser::getConsumerKey()
     	return true;
     }
 
-string LocalUser::getConsumerSecretKey()
+ustring LocalUser::getConsumerSecretKey()
 {
 	return consumerSecretKey;
 }
 
-bool LocalUser::readUserFile(string filename)
+bool LocalUser::readUserFile(ustring filename)
 {
 
 	DomParser parser;
