@@ -22,11 +22,11 @@ You must have libcurl >= 7.21.7
 AC_SUBST(libcurl_CFLAGS)
 AC_SUBST(libcurl_LIBS)
 
-PKG_CHECK_MODULES(gtkmm, [gtkmm-3.0 >= 3.0.1], , [
+PKG_CHECK_MODULES(gtkmm, [gtkmm-2.4 >= 2.24.0], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have gtkmm-3.0 >= 3.0.1
+You must have gtkmm-2.4 >= 2.24.0
 ])])
 
 AC_SUBST(gtkmm_CFLAGS)
