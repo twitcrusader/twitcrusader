@@ -22,7 +22,7 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true),table_into(1000, 2, true), char_count("140")
+MainWindow::MainWindow(): table(9, 3, true),table_into(10, 2, true), char_count("140")
 {
 	// This Is Fuckin Sequential Programming
 
@@ -51,7 +51,7 @@ MainWindow::MainWindow(): table(9, 3, true),table_into(1000, 2, true), char_coun
 
 	this->show_all();
 
-	init_timer();
+	//	init_timer();
 }
 
 MainWindow::~MainWindow()
@@ -81,13 +81,15 @@ void MainWindow::init_scrolled_window(){
 		tweet=new Gtk::Label();
 		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
 		//nick.set_label(it.base()->user.screen_name);
-		tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
-		cout<<tweet->get_label()<<endl;
+		if(it.operator *().user.screen_name!=NULL && it.operator *().text!=NULL){
+			tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
+			cout<<tweet->get_label()<<endl;
 
-		//table_into.attach(avatar,0, 1, i, i+4);
-		//table_into.attach(nick,1, 2,i, i+1);
-		table_into.attach(*tweet, 1,2, i, i+1);
-		i++;
+			//table_into.attach(avatar,0, 1, i, i+4);
+			//table_into.attach(nick,1, 2,i, i+1);
+			table_into.attach(*tweet, 1,2, i, i+1);
+			i++;
+		}
 	}
 
 
@@ -273,7 +275,7 @@ void MainWindow::gtkConnect()
 	this->is_connected();
 	this->timeline_mode=2;
 
-	refresh();
+	refresh_timeline();
 
 }
 

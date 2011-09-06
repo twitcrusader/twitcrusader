@@ -1,6 +1,11 @@
 // TO DO
 
-* Show Timeline into the scrollbar
+* void MainWindow::init_scrolled_window() must be rewrited!
+
+	|
+	|
+	--> Show Timeline into the scrollbar
+
 
 * Download Timeline avatar with threads
 
