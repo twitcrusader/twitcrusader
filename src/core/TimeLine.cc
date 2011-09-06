@@ -27,7 +27,7 @@ namespace TwitCrusader {
 bool TimeLine::readTimeLine(ustring docname){
 
 	DomParser parser;
-	Tweet tweet;
+	Tweet *tweet;
 
 	parser.set_substitute_entities();
 	parser.parse_file(docname);
@@ -44,7 +44,7 @@ bool TimeLine::readTimeLine(ustring docname){
 		{
 			cout<<state.operator *()->get_name()<<endl;
 
-			tweet=Tweet();
+			tweet=new Tweet();
 
 			xmlpp::Node::NodeList values = state.operator *()->get_children();
 			for(xmlpp::Node::NodeList::iterator iter = values.begin(); iter != values.end(); ++iter){
@@ -61,42 +61,42 @@ bool TimeLine::readTimeLine(ustring docname){
 					name=nodeElement->get_name();
 					if(nodeElement->get_child_text()!=NULL)content=nodeElement->get_child_text()->get_content();
 
-					cout<<name.c_str()<<":\t";
-					cout<<content.c_str()<<endl;
+					cout<<"\t"<<name.c_str()<<":\t";
+					cout<<"\t"<<content.c_str()<<endl;
 
 					if(name.compare("created_at")==0){
-						tweet.created_at.assign(content);
+						tweet->created_at.assign(content);
 					}
 					else if(name.compare("id")==0){
-						tweet.id.assign(content);
+						tweet->id.assign(content);
 
 					}
 					else if(name.compare("text")==0){
-						tweet.text.assign(content);
+						tweet->text.assign(content);
 
 					}else if(name.compare("source")==0){
-						tweet.source.assign(content);
+						tweet->source.assign(content);
 
 					}else if(name.compare("truncated")==0){
-						tweet.truncated.assign(content);
+						tweet->truncated.assign(content);
 
 					}else if(name.compare("favorited")==0){
-						tweet.favorited.assign(content);
+						tweet->favorited.assign(content);
 
 					}else if(name.compare("in_reply_to_status_id")==0){
-						tweet.in_reply_to_status_id.assign(content);
+						tweet->in_reply_to_status_id.assign(content);
 
 					}else if(name.compare("in_reply_to_user_id")==0){
-						tweet.in_reply_to_user_id.assign(content);
+						tweet->in_reply_to_user_id.assign(content);
 
 					}else if(name.compare("in_reply_to_screen_name")==0){
-						tweet.in_reply_to_screen_name.assign(content);
+						tweet->in_reply_to_screen_name.assign(content);
 
 					}else if(name.compare("retweet_count")==0){
-						tweet.retweet_count.assign(content);
+						tweet->retweet_count.assign(content);
 
 					}else if(name.compare("retweeted")==0){
-						tweet.retweeted.assign(content);
+						tweet->retweeted.assign(content);
 
 					}else if(name.compare("user")==0){
 						xmlpp::Node::NodeList users = iter.operator *()->get_children();
@@ -111,173 +111,173 @@ bool TimeLine::readTimeLine(ustring docname){
 
 								username=userElement->get_name();
 								if(userElement->get_child_text()!=NULL)usercontent=userElement->get_child_text()->get_content();
-								cout<<"\t"<<username.c_str()<<":\t";
-								cout<<"\t"<<usercontent.c_str()<<endl;
+								cout<<"\t\t"<<username.c_str()<<":\t";
+								cout<<"\t\t"<<usercontent.c_str()<<endl;
 
 
 								if(username.compare("id")==0){
-									tweet.user.id.assign(usercontent);
+									tweet->user.id.assign(usercontent);
 								}
 								else if(username.compare("name")==0){
-									tweet.user.name.assign(usercontent);
+									tweet->user.name.assign(usercontent);
 
 								}
 								else if(username.compare("screen_name")==0){
-									tweet.user.screen_name.assign(usercontent);
+									tweet->user.screen_name.assign(usercontent);
 
 								}
 								else if(username.compare("location")==0){
-									tweet.user.location.assign(usercontent);
+									tweet->user.location.assign(usercontent);
 
 								}
 								else if(username.compare("description")==0){
-									tweet.user.description.assign(usercontent);
+									tweet->user.description.assign(usercontent);
 
 								}
 								else if(username.compare("profile_image_url")==0){
-									tweet.user.profile_image_url.assign(usercontent);
+									tweet->user.profile_image_url.assign(usercontent);
 
 								}
 								else if(username.compare("url")==0){
-									tweet.user.url.assign(usercontent);
+									tweet->user.url.assign(usercontent);
 
 								}
 								else if(username.compare("protectedtw")==0){
-									tweet.user.protectedtw.assign(usercontent);
+									tweet->user.protectedtw.assign(usercontent);
 
 								}
 								else if(username.compare("profile_background_color")==0){
-									tweet.user.profile_background_color.assign(usercontent);
+									tweet->user.profile_background_color.assign(usercontent);
 
 								}
 								else if(username.compare("profile_text_color")==0){
-									tweet.user.profile_text_color.assign(usercontent);
+									tweet->user.profile_text_color.assign(usercontent);
 
 								}
 								else if(username.compare("profile_link_color")==0){
-									tweet.user.profile_link_color.assign(usercontent);
+									tweet->user.profile_link_color.assign(usercontent);
 
 								}
 								else if(username.compare("profile_sidebar_fill_color")==0){
-									tweet.user.profile_sidebar_fill_color.assign(usercontent);
+									tweet->user.profile_sidebar_fill_color.assign(usercontent);
 
 								}
 								else if(username.compare("profile_sidebar_border_color")==0){
-									tweet.user.profile_sidebar_border_color.assign(usercontent);
+									tweet->user.profile_sidebar_border_color.assign(usercontent);
 
 								}
 								else if(username.compare("created_at")==0){
-									tweet.user.created_at.assign(usercontent);
+									tweet->user.created_at.assign(usercontent);
 
 								}
 								else if(username.compare("utc_offset")==0){
-									tweet.user.utc_offset.assign(usercontent);
+									tweet->user.utc_offset.assign(usercontent);
 
 								}
 								else if(username.compare("time_zone")==0){
-									tweet.user.time_zone.assign(usercontent);
+									tweet->user.time_zone.assign(usercontent);
 
 								}
 								else if(username.compare("profile_background_image_url")==0){
-									tweet.user.profile_background_image_url.assign(usercontent);
+									tweet->user.profile_background_image_url.assign(usercontent);
 
 								}
 								else if(username.compare("profile_background_tile")==0){
-									tweet.user.profile_background_tile.assign(usercontent);
+									tweet->user.profile_background_tile.assign(usercontent);
 
 								}
 								else if(username.compare("profile_use_background_image")==0){
-									tweet.user.profile_use_background_image.assign(usercontent);
+									tweet->user.profile_use_background_image.assign(usercontent);
 
 								}
 								else if(username.compare("notifications")==0){
-									tweet.user.notifications.assign(usercontent);
+									tweet->user.notifications.assign(usercontent);
 
 								}
 								else if(username.compare("geo_enabled")==0){
-									tweet.user.geo_enabled.assign(usercontent);
+									tweet->user.geo_enabled.assign(usercontent);
 
 								}
 								else if(username.compare("verified")==0){
-									tweet.user.verified.assign(usercontent);
+									tweet->user.verified.assign(usercontent);
 
 								}
 								else if(username.compare("following")==0){
-									tweet.user.following.assign(usercontent);
+									tweet->user.following.assign(usercontent);
 
 								}
 								else if(username.compare("lang")==0){
-									tweet.user.lang.assign(usercontent);
+									tweet->user.lang.assign(usercontent);
 
 								}
 								else if(username.compare("contributors_enabled")==0){
-									tweet.user.contributors_enabled.assign(usercontent);
+									tweet->user.contributors_enabled.assign(usercontent);
 
 								}
 								else if(username.compare("follow_request_sent")==0){
-									tweet.user.follow_request_sent.assign(usercontent);
+									tweet->user.follow_request_sent.assign(usercontent);
 
 								}
 								else if(username.compare("show_all_inline_media")==0){
-									tweet.user.show_all_inline_media.assign(usercontent);
+									tweet->user.show_all_inline_media.assign(usercontent);
 
 								}
 								else if(username.compare("default_profile")==0){
-									tweet.user.default_profile.assign(usercontent);
+									tweet->user.default_profile.assign(usercontent);
 
 								}
 								else if(username.compare("default_profile_image")==0){
-									tweet.user.default_profile_image.assign(usercontent);
+									tweet->user.default_profile_image.assign(usercontent);
 
 								}
 								else if(username.compare("is_translator")==0){
-									tweet.user.is_translator.assign(usercontent);
+									tweet->user.is_translator.assign(usercontent);
 
 								}
 								else if(username.compare("followers_count")==0){
-									tweet.user.followers_count.assign(usercontent);
+									tweet->user.followers_count.assign(usercontent);
 
 								}
 								else if(username.compare("friends_count")==0){
-									tweet.user.friends_count.assign(usercontent);
+									tweet->user.friends_count.assign(usercontent);
 
 								}
 								else if(username.compare("favourites_count")==0){
-									tweet.user.favourites_count.assign(usercontent);
+									tweet->user.favourites_count.assign(usercontent);
 
 								}
 								else if(username.compare("statuses_count")==0){
-									tweet.user.statuses_count.assign(usercontent);
+									tweet->user.statuses_count.assign(usercontent);
 
 								}
 								else if(username.compare("listed_count")==0){
-									tweet.user.listed_count.assign(usercontent);
+									tweet->user.listed_count.assign(usercontent);
 
 								}
 							}
 						}
 					}
 					else if(name.compare("geo")==0){
-						tweet.geo.assign(content);
+						tweet->geo.assign(content);
 
 					}
 					else if(name.compare("coordinates")==0){
-						tweet.coordinates.assign(content);
+						tweet->coordinates.assign(content);
 
 					}
 					else if(name.compare("place")==0){
-						tweet.place.assign(content);
+						tweet->place.assign(content);
 
 					}
 					else if(name.compare("contributors")==0){
-						tweet.contributors.assign(content);
+						tweet->contributors.assign(content);
 
 					}
 
 				}
 
 			}
-			timeline.push_back(tweet);
+			timeline.push_back(*tweet);
 		}
 	}
 

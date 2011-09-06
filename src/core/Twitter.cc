@@ -158,9 +158,11 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 bool Twitter::downloadTimeLine()
 {
 	string postarg=string();
+	char* tml_rt;
 	string tml(oauth_sign_url2(timeLine.timelineURL.c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
-	tml.assign(oauth_http_get(tml.c_str(), postarg.c_str()));
-
+	tml_rt=oauth_http_get(tml.c_str(), postarg.c_str());
+if(tml_rt!=NULL){
+	tml.assign(tml_rt);
 	if(!timeLine.timelineFile.empty()){
 
 			if(!tml.empty()){
@@ -174,6 +176,7 @@ bool Twitter::downloadTimeLine()
 			}
 
 	}
+}
 	return false;
 }
 
@@ -182,7 +185,7 @@ bool Twitter::SendTweet(string msg)
 
 	string twitterStatusURL=string();
 	string sendTweet=string();
-	string error=string();
+	char* error;
 
 	char* postarg = NULL;
 
@@ -200,7 +203,7 @@ bool Twitter::SendTweet(string msg)
 		sendTweet = oauth_sign_url2(twitterStatusURL.c_str(), &postarg, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str());
 		error = oauth_http_post(sendTweet.c_str(), postarg);
 
-		if(!error.empty())
+		if(error!=NULL)
 			return true;
 
 		return false;

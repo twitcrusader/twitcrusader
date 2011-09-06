@@ -22,7 +22,7 @@
 
 #include "include/MainWindow.h"
 namespace TwitCrusader {
-MainWindow::MainWindow(): table(9, 3, true),table_into(150, 2, true), char_count("140")
+MainWindow::MainWindow(): table(9, 3, true),table_into(1000, 2, true), char_count("140")
 {
 	// This Is Fuckin Sequential Programming
 
