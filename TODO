@@ -4,6 +4,8 @@
 
 * Download Timeline avatar with threads
 
+* TwitCrusader++ crash on timeline refresh
+
 * Dialog aren't deallocated after hide()
 
 * Fix MakeFile
