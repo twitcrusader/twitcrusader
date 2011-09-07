@@ -24,8 +24,8 @@
 namespace TwitCrusader {
 RegWindow::RegWindow() : table(7, 10, TRUE)
 {
-	this->set_default_size(70, 80);
-	this->set_size_request(70,80);
+	this->set_default_size(200, 210);
+	this->set_size_request(200,210);
 	this->set_title(REG_TITLE);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);

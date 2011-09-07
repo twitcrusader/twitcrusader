@@ -30,18 +30,18 @@ ustring Functions::readRawTextFile(ustring fileName)
 	ifstream infile;
 
 	infile.open (fileName.c_str(), ifstream::in);
+	if(infile.is_open()){
+		while (infile.good()){
+			char ch=infile.get();
 
-	while (infile.good()){
-		char ch=infile.get();
-
-		if(ch!=EOF){
-			buffer.push_back(ch);
+			if(ch!=EOF){
+				buffer.push_back(ch);
+			}
 		}
+
+
+		infile.close();
 	}
-
-
-	infile.close();
-
 	return buffer;
 }
 
@@ -123,4 +123,17 @@ void Functions::notifySystem(ustring Message)
 	notify_notification_show(notify, &error);
 
 }
+
+bool Functions::fileExist(ustring fileName){
+	ifstream inFile;
+
+	inFile.open(fileName.c_str(), ifstream::in);
+	if(inFile.is_open()){
+		inFile.close();
+		return true;
+	}
+	return false;
+
+}
+
 }

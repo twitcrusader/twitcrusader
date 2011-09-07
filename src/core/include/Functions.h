@@ -47,6 +47,7 @@ public:
 	static bool shellParameters (int argc, char **argv);
 	static ustring DownloadVersion();
 	static void notifySystem(ustring Message);
+	static bool fileExist(ustring fileName);
 
 };
 }

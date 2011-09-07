@@ -29,8 +29,8 @@ PropertiesDialog::PropertiesDialog() : table(7, 10, TRUE)
 	label.set_label("");
 	twitter.readUserFile();
 
-	this->set_default_size(210, 200);
-	this->set_size_request(210, 200);
+	this->set_default_size(260, 200);
+	this->set_size_request(260, 200);
 	this->set_title(PROPERTIES_TITLE);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);

@@ -3,19 +3,24 @@
 
 ##Required
 
-* g++ >= 4.6.1
-* gtkmm-3.0 >= 3.0.1
+* g++ or c++
+* gtkmm-2.4 >= 2.24.0
+* libcurl >= 7.21.7
 * oauth >= 0.9.4
 * libxml++-2.6 >= 2.10.0
 * libnotify >= 0.7.3
 
-## How to Install - Archlinux
+## Archlinux - required
     
 ### Dependencies:
     $ su
     # pacman -Syu
     # pacman -S gtkmm3 liboauth libxml++ libnotify
 
+
+##  Ubuntu - required
+	$ sudo apt-get install libtool libgtkmm-2.4-dev liboauth-dev libxml++2.6-dev \
+						   libnotify-dev libcurl4-gnutls-dev
 
 ### Compile - Makefile
     $ ./autogen.sh
