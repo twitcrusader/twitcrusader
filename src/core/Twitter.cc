@@ -161,22 +161,24 @@ bool Twitter::downloadTimeLine()
 	char* tml_rt;
 	ustring tml(oauth_sign_url2(timeLine.timelineURL.c_str(), NULL, OA_HMAC, NULL, localUser.getConsumerKey().c_str(), localUser.getConsumerSecretKey().c_str(), localUser.getToken().c_str(), localUser.getSecretToken().c_str()));
 	tml_rt=oauth_http_get(tml.c_str(), postarg.c_str());
-if(tml_rt!=NULL){
-	tml.assign(tml_rt);
-	if(!timeLine.timelineFile.empty()){
+	if(tml_rt!=NULL){
+		tml.assign(tml_rt);
+		if(!timeLine.timelineFile.empty()){
 
 			if(!tml.empty()){
+				/*
 				Functions::writeRawTextFile(timeLine.timelineFile, tml);
 				cout<<"timeLine.timelineFile.c_str()="+timeLine.timelineFile<<endl;
-				timeLine.readTimeLine(timeLine.timelineFile);
+				timeLine.readTimeLineFromFile(timeLine.timelineFile);
 
 				remove(timeLine.timelineFile.c_str());
-
+				 */
+				timeLine.readTimeLineFromString(tml);
 				return true;
 			}
 
+		}
 	}
-}
 	return false;
 }
 

@@ -45,7 +45,8 @@ public:
 	ustring timelineURL;
 	ustring timelineFile;
 
-	bool readTimeLine(ustring);
+	bool readTimeLineFromFile(ustring);
+	bool readTimeLineFromString(ustring);
 };
 
 } /* namespace TwitCrusader */
