@@ -45,7 +45,6 @@ public:
 	ustring timelineURL;
 	ustring timelineFile;
 
-	bool readTimeLineFromFile(ustring);
 	bool readTimeLineFromString(ustring);
 };
 

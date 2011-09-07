@@ -42,7 +42,6 @@
 
 #define AVATAR_SUBDIR SUB_DIR"avatar/"
 #define CONFIG_SUBDIR SUB_DIR"config/"
-#define TIMELINE_SUBDIR SUB_DIR"timeline/"
 
 #define MKDIR_CMD "mkdir -p "
 #define RM_CMD "rm "
@@ -57,7 +56,6 @@ private:
 	ustring avatarDir;
 	ustring configDir;
 	ustring configFile;
-	ustring timelineDir;
 	ustring homeDir;
 
 public:
@@ -67,16 +65,13 @@ public:
 	ustring getAvatarDir();
 	ustring getConfigDir();
 	ustring getConfigFile();
-	ustring getTimeLineDir();
 
 	void setAvatarDir();
 	void setConfigFile();
 	void setConfigDir();
-	void setTimelineDir();
 
 	bool createAvatarDir();
 	bool createConfigDir();
-	bool createTimelineDir();
 	bool deleteConfigFile();
 	bool is_registered();
 };

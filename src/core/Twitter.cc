@@ -80,71 +80,49 @@ bool Twitter::readUserFile()
 
 bool Twitter::switchTimeLine(int xmlSwitch)
 {
-	this->config.createTimelineDir();
-
-	ustring path(config.getTimeLineDir());
-
 	switch(xmlSwitch){
 
 	case 1:
-		path.append(path+"public_timeline.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(PUBLIC_TIMELINE_URL);
 		break;
 
 
 	case 2:
-		path.append("home_timeline.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(HOME_TIMELINE_URL);
 		break;
 
 
 	case 3:
-		path.append("mentions.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(MENTIONS_TIMELINE_URL);
 		break;
 
 
 	case 4:
-		path.append("friends_timeline.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(FRIENDS_TIMELINE_URL);
 		break;
 
 
 	case 5:
-		path.append("user_timeline.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(USER_TIMELINE_URL);
 		break;
 
 
 	case 6:
-		path.append("retweeted_by_me.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(RT_BY_ME_TIMELINE_URL);
 		break;
 
 
 	case 7:
-		path.append("retweeted_to_me.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(RT_TO_ME_TIMELINE_URL);
 		break;
 
 
 	case 8:
-		path.append("retweeted_of_me.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(RT_OF_ME_TIMELINE_URL);
 		break;
 
 
 	default:
-		path.append("public_timeline.xml");
-		this->timeLine.timelineFile.assign(path);
 		this->timeLine.timelineURL.assign(PUBLIC_TIMELINE_URL);
 		break;
 

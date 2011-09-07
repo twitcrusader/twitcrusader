@@ -29,24 +29,15 @@ Config::Config()
 	avatarDir=ustring();
 	configDir=ustring();
 	configFile=ustring();
-	timelineDir=ustring();
 	homeDir=ustring();
 
 	homeDir.assign(Glib::get_home_dir());
 	setAvatarDir();
 	setConfigDir();
 	setConfigFile();
-	setTimelineDir();
-/*
-	cout<<"config: \n";
-	cout<<getAvatarDir()<<"\n";
-	cout<<getConfigDir()<<"\n";
-	cout<<getConfigFile()<<"\n";
-	cout<<getTimeLineDir()<<"\n";
-*/
+
 	this->createAvatarDir();
 	this->createConfigDir();
-	this->createTimelineDir();
 
 }
 
@@ -107,29 +98,6 @@ bool Config::createConfigDir()
 
 }
 
-void Config::setTimelineDir()
-{
-	timelineDir.assign(homeDir);
-	timelineDir.append(TIMELINE_SUBDIR);
-
-}
-
-bool Config::createTimelineDir()
-{
-
-	if(!timelineDir.empty()){
-		//mkdir(timelineDir.c_str(), 0777);
-		ustring cmd=ustring();
-		cmd.assign(MKDIR_CMD);
-		cmd.append(timelineDir);
-		system(cmd.c_str());
-		return true;
-	}
-
-	return false;
-
-}
-
 void Config::setConfigFile()
 {
 	configFile.assign(configDir);
@@ -151,13 +119,6 @@ ustring Config::getConfigFile()
 {
 	return configFile;
 }
-
-
-ustring Config::getTimeLineDir()
-{
-	return timelineDir;
-}
-
 
 bool Config::deleteConfigFile()
 {
