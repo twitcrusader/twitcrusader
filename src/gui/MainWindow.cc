@@ -196,7 +196,7 @@ void MainWindow::init_menu(){
 	}
 
 	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, VERSION, 0, 0);
-	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowVersion) );
+	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadVersionDialog) );
 
 	helps_menu_items[1].add_pixlabel(ICON_STAR, ABOUT, 0, 0);
 	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
@@ -347,12 +347,12 @@ void MainWindow::loadWindowCredits()
  * Load The Version Dialog
  */
 
-void MainWindow::loadWindowVersion()
+void MainWindow::loadVersionDialog()
 {
-	cout<<"loadWindowVersion()"<<endl;
+	cout<<"loadVersionDialog()"<<endl;
 
-	WindowVersion windowVersion;
-	windowVersion.~WindowVersion();
+	VersionDialog versionDialog;
+	versionDialog.~VersionDialog();
 
 }
 

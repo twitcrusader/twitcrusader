@@ -20,29 +20,29 @@
  *
  */
 
-#include "include/WindowVersion.h"
+#ifndef VERSIONDIALOG_H_
+#define VERSIONDIALOG_H_
+
+#include <gtkmm.h>
+#include <gtkmm/stock.h>
+
+#include "Icons.h"
+#include "../../core/include/Functions.h"
+#include "../../core/include/Version.h"
+
+#define CURRENT_VERSION_MSG "Current Version:\t"
+#define LAST_VERSION_MSG "Last Version:\t"
+
+using namespace std;
+using namespace Gtk;
+using namespace Glib;
+
 namespace TwitCrusader {
-WindowVersion::WindowVersion() {
 
-	ustring last_Version_Check;
-	last_Version_Check.assign(Functions::DownloadVersion());
-	ustring current_Version_Check;
-	current_Version_Check.assign(Functions::readRawTextFile(TWC_VERSION_PATH) );
-
-	ustring info(CURRENT_VERSION_MSG+current_Version_Check+"\n"+LAST_VERSION_MSG+last_Version_Check);
-
-	MessageDialog version(info);
-	version.set_title("Check Updates");
-	version.set_border_width(0);
-	version.set_position(WIN_POS_CENTER);
-	version.set_default_icon_from_file(ICON_UPGRADE);
-
-	version.run();
-
-
+class VersionDialog {
+public:
+	VersionDialog();
+	virtual ~VersionDialog();
+};
 }
-
-WindowVersion::~WindowVersion() {
-	// TODO Auto-generated destructor stub
-}
-}
+#endif /* WINDOWVERSION_H_ */

@@ -32,7 +32,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "Icons.h"
-#include "WindowVersion.h"
+#include "VersionDialog.h"
 #include "AboutDialog.h"
 #include "PropertiesDialog.h"
 #include "RegDialog.h"
@@ -136,7 +136,7 @@ protected:
 	bool on_timeout();
 
 	void loadWindowCredits();
-	void loadWindowVersion();
+	void loadVersionDialog();
 	void loadWindowProperties();
 	void loadRegDialog();
 

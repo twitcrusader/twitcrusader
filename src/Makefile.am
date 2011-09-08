@@ -1,6 +1,6 @@
 bin_PROGRAMS = twcpp
 twcpp_SOURCES = gui/PropertiesDialog.cc \
-gui/WindowVersion.cc \
+gui/VersionDialog.cc \
 gui/AboutDialog.cc \
 gui/MainWindow.cc \
 gui/RegDialog.cc \
