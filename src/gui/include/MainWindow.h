@@ -63,7 +63,7 @@ using namespace Glib;
 #define MSG_NOT_SENT "Message not sent"
 #define QUIT_MESSAGE "Do you want really quit?"
 
-#define FILE_MENU_ITEMS 3
+#define FILE_MENU_ITEMS 5
 #define HELP_MENU_ITEMS 2
 #define NUM_BUTTON 7
 
@@ -135,7 +135,7 @@ protected:
 	void on_writing();
 	bool on_timeout();
 
-	void loadWindowCredits();
+	void loadAboutDialog();
 	void loadVersionDialog();
 	void loadWindowProperties();
 	void loadRegDialog();
@@ -153,6 +153,7 @@ public:
 
 	void foo();
 	void gtkConnect();
+	void gtkDisconnect();
 	void refresh_timeline();
 	void refresh();
 

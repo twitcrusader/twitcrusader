@@ -26,12 +26,12 @@ namespace TwitCrusader {
 
 LocalUser::LocalUser()
 {
-	id=ustring();
-	screenName=ustring();
-	token=ustring();
-	secretToken=ustring();
-	consumerKey=ustring();
-	consumerSecretKey=ustring();
+	id=new ustring();
+	screenName=new ustring();
+	token=new ustring();
+	secretToken=new ustring();
+	consumerKey=new ustring();
+	consumerSecretKey=new ustring();
 }
 
 LocalUser::~LocalUser()
@@ -41,57 +41,57 @@ LocalUser::~LocalUser()
 
 void  LocalUser::setId(ustring id)
 {
-	this->id.append(id);
+	this->id->append(id);
 }
 
 void  LocalUser::setScreenName(ustring secretName)
 {
-	this->screenName.append(secretName);
+	this->screenName->append(secretName);
 }
 
 void  LocalUser::setToken(ustring Token)
 {
-	this->token.append(Token);
+	this->token->append(Token);
 }
 
 void  LocalUser::setSecretToken(ustring secretToken)
 {
-	this->secretToken.append(secretToken);
+	this->secretToken->append(secretToken);
 }
 
 void  LocalUser::setConsumerKey(ustring consumerKey)
 {
-	this->consumerKey.append(consumerKey);
+	this->consumerKey->append(consumerKey);
 }
 
 void  LocalUser::setConsumerSecretKey(ustring secretConsumerKey)
 {
-	this->consumerSecretKey.assign(secretConsumerKey);
+	this->consumerSecretKey->assign(secretConsumerKey);
 }
 
 ustring LocalUser::getId()
 {
-	return id;
+	return *id;
 }
 
 ustring LocalUser::getScreenName()
 {
-	return screenName;
+	return *screenName;
 }
 
 ustring LocalUser::getToken()
 {
-	return token;
+	return *token;
 }
 
 ustring LocalUser::getSecretToken()
 {
-	return secretToken;
+	return *secretToken;
 }
 
 ustring LocalUser::getConsumerKey()
 {
-	return consumerKey;
+	return *consumerKey;
 }
 
 void LocalUser::writeUserFile(ustring filename)
@@ -99,12 +99,12 @@ void LocalUser::writeUserFile(ustring filename)
 	Document doc;
 	xmlpp::Node* rootNode=doc.create_root_node("CONFIG");
 	Element *node =rootNode->add_child("USER");
-	node->add_child("screen_name")->set_child_text(screenName);
-	node->add_child("id")->set_child_text(this->id);
-	node->add_child("consumerKey")->set_child_text(this->consumerKey);
-	node->add_child("consumerSecretKey")->set_child_text(this->consumerSecretKey);
-	node->add_child("token")->set_child_text(this->getToken());
-	node->add_child("secretToken")->set_child_text(this->secretToken);
+	node->add_child("screen_name")->set_child_text(*screenName);
+	node->add_child("id")->set_child_text(*id);
+	node->add_child("consumerKey")->set_child_text(*consumerKey);
+	node->add_child("consumerSecretKey")->set_child_text(*consumerSecretKey);
+	node->add_child("token")->set_child_text(*token);
+	node->add_child("secretToken")->set_child_text(*secretToken);
 
 	doc.write_to_file(filename,"ISO-8859-1");
 
@@ -112,7 +112,7 @@ void LocalUser::writeUserFile(ustring filename)
 
 ustring LocalUser::getConsumerSecretKey()
 {
-	return consumerSecretKey;
+	return *consumerSecretKey;
 }
 
 bool LocalUser::readUserFile(ustring filename)
@@ -144,25 +144,25 @@ bool LocalUser::readUserFile(ustring filename)
 					if(nodeElement){
 
 						if(nodeElement->get_name().compare("id")==0){
-							id.assign(nodeElement->get_child_text()->get_content());
+							id->assign(nodeElement->get_child_text()->get_content());
 						}
 						else if(nodeElement->get_name().compare("screen_name")==0){
-							screenName.assign(nodeElement->get_child_text()->get_content());
+							screenName->assign(nodeElement->get_child_text()->get_content());
 						}
 						else if(nodeElement->get_name().compare("token")==0){
-							token.assign(nodeElement->get_child_text()->get_content());
+							token->assign(nodeElement->get_child_text()->get_content());
 
 						}
 						else if(nodeElement->get_name().compare("secretToken")==0){
-							secretToken.assign(nodeElement->get_child_text()->get_content());
+							secretToken->assign(nodeElement->get_child_text()->get_content());
 
 						}
 						else if(nodeElement->get_name().compare("consumerKey")==0){
-							consumerKey.assign(nodeElement->get_child_text()->get_content());
+							consumerKey->assign(nodeElement->get_child_text()->get_content());
 
 						}
 						else if(nodeElement->get_name().compare("consumerSecretKey")==0){
-							consumerSecretKey.assign(nodeElement->get_child_text()->get_content());
+							consumerSecretKey->assign(nodeElement->get_child_text()->get_content());
 
 						}
 					}
@@ -176,11 +176,11 @@ bool LocalUser::readUserFile(ustring filename)
 	return false;
 }
 void LocalUser::clear(){
-	this->setId("");
-	this->setScreenName("");
-	this->setToken("");
-	this->setSecretToken("");
-	this->setConsumerKey("");
-	this->setConsumerSecretKey("");
+	id=new ustring();
+	screenName=new ustring();
+	token=new ustring();
+	secretToken=new ustring();
+	consumerKey=new ustring();
+	consumerSecretKey=new ustring();
 }
 }

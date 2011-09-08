@@ -44,23 +44,17 @@ namespace TwitCrusader {
 class Twitter {
 
 private:
+
+
+public:
 	LocalUser localUser;
 	TimeLine timeLine;
 	Config config;
 
-public:
 	ustring tmp_token;
 
 	Twitter();
 	virtual ~Twitter();
-
-	LocalUser getLocalUser();
-	TimeLine getTimeLine();
-	Config getConfig();
-
-	void setlocalUser(LocalUser localUser);
-	void setTimeLine(TimeLine timeLine);
-	void setConfig(Config config);
 
 	bool readUserFile();
 	bool writeUserFile();

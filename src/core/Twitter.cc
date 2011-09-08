@@ -35,36 +35,6 @@ Twitter::~Twitter()
 
 }
 
-LocalUser Twitter::getLocalUser()
-{
-	return this->localUser;
-}
-
-TimeLine Twitter::getTimeLine()
-{
-	return this->timeLine;
-}
-
-Config Twitter::getConfig()
-{
-	return this->config;
-}
-
-void Twitter::setlocalUser(LocalUser localUser)
-{
-	this->localUser=localUser;
-}
-
-void Twitter::setTimeLine(TimeLine timeLine)
-{
-	this->timeLine=timeLine;
-}
-
-void Twitter::setConfig(Config config)
-{
-	this->config=config;
-}
-
 bool Twitter::writeUserFile()
 {
 	localUser.writeUserFile(config.getConfigFile());

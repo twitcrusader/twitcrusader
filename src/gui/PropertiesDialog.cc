@@ -39,7 +39,7 @@ PropertiesDialog::PropertiesDialog() : table(7, 10, TRUE)
 	label.set_label(PROPERTIES_LABEL);
 	table.attach(label, 1, 9, 1, 2 );
 
-	account.set_label(twitter.getLocalUser().getScreenName());
+	account.set_label(twitter.localUser.getScreenName());
 	table.attach(account, 1, 9, 3, 4);
 
 	this->get_vbox()->add(table);

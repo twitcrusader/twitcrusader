@@ -87,7 +87,7 @@ void MainWindow::declare(){
  */
 
 void MainWindow::is_connected(){
-	this->connected=!twitter.getLocalUser().getScreenName().empty();
+	this->connected=!twitter.localUser.getScreenName().empty();
 }
 
 /*
@@ -97,7 +97,8 @@ void MainWindow::is_connected(){
 void MainWindow::init_scrolled_window(){
 
 	ustring tw=ustring();
-	for(vector<Tweet>::iterator it =  twitter.getTimeLine().timeline.begin(); it!=twitter.getTimeLine().timeline.end(); it++){
+	tw.assign("");
+	for(vector<Tweet>::iterator it =  twitter.timeLine.timeline.begin(); it!=twitter.timeLine.timeline.end(); it++){
 
 		tw.append("@");
 		tw.append(it.base()->user.screen_name);
@@ -107,6 +108,7 @@ void MainWindow::init_scrolled_window(){
 	}
 
 	//cout<<tw<<endl;
+	tweets.set_buffer(Gtk::TextBuffer::create());
 	tweets.get_buffer().operator ->()->set_text(tw);
 
 }
@@ -159,33 +161,54 @@ void MainWindow::init_menu(){
 		this->file_menu_items[i].remove();
 	}
 
+	file_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
+	file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegDialog) );
+
+	file_menu_items[1].add_pixlabel(ICON_ADDUSER, LOGIN, 0, 0);
+	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
+
+
+	file_menu_items[2].add_pixlabel(ICON_ADDUSER, LOGOUT, 0, 0);
+	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkDisconnect) );
+
+
+	file_menu_items[3].add_pixlabel(ICON_SETTINGS, PROPERTIES, 0, 0);
+	file_menu_items[3].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
+
+	file_menu_items[4].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
+	file_menu_items[4].signal_activate().connect(sigc::mem_fun(*this,&Window::hide) );
+
+
+
 	if(this->connected){
 
-		file_menu_items[0].add_pixlabel(ICON_ADDUSER, LOGOUT, 0, 0);
-		file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
-
+		file_menu_items[0].set_sensitive(false);
+		file_menu_items[1].set_sensitive(false);
+		file_menu_items[2].set_sensitive(true);
+		file_menu_items[3].set_sensitive(true);
+		file_menu_items[4].set_sensitive(true);
 
 
 	}else{
-		if(twitter.getConfig().is_registered()){
-
-			file_menu_items[0].add_pixlabel(ICON_ADDUSER, LOGIN, 0, 0);
-			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
+		if(twitter.config.is_registered()){
+			file_menu_items[0].set_sensitive(false);
+			file_menu_items[1].set_sensitive(true);
+			file_menu_items[2].set_sensitive(false);
+			file_menu_items[3].set_sensitive(true);
+			file_menu_items[4].set_sensitive(true);
 
 		}else{
+			file_menu_items[0].set_sensitive(true);
+			file_menu_items[1].set_sensitive(false);
+			file_menu_items[2].set_sensitive(false);
+			file_menu_items[3].set_sensitive(true);
+			file_menu_items[4].set_sensitive(true);
 
-			file_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
-			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegDialog) );
 		}
 
 
 	}
 
-	file_menu_items[1].add_pixlabel(ICON_SETTINGS, PROPERTIES, 0, 0);
-	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
-
-	file_menu_items[2].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
-	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&Window::hide) );
 
 
 
@@ -199,7 +222,7 @@ void MainWindow::init_menu(){
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadVersionDialog) );
 
 	helps_menu_items[1].add_pixlabel(ICON_STAR, ABOUT, 0, 0);
-	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowCredits) );
+	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadAboutDialog) );
 
 }
 
@@ -335,9 +358,9 @@ void MainWindow::gtkConnect()
  * Load the About Dialog
  */
 
-void MainWindow::loadWindowCredits()
+void MainWindow::loadAboutDialog()
 {
-	cout<<"loadWindowCredits()"<<endl;
+	cout<<"loadAboutDialog()"<<endl;
 
 	AboutDialog aboutDialog;
 	aboutDialog.~AboutDialog();
@@ -378,7 +401,7 @@ void MainWindow::loadWindowProperties()
 			confirm.show_all_children();
 			if(confirm.run()==Gtk::RESPONSE_OK){
 
-				if(twitter.getConfig().deleteConfigFile()){
+				if(twitter.config.deleteConfigFile()){
 					confirm.hide();
 					propertiesDialog.hide();
 					propertiesDialog.run();
@@ -439,6 +462,18 @@ bool MainWindow::on_timeout()
 	return true;
 }
 
+void MainWindow::gtkDisconnect()
+{
+	cout<<"gtkDisconnect()"<<endl;
+	twitter.localUser.clear();
+	this->is_connected();
+	this->timeline_mode=1;
+
+	refresh_timeline();
+
+
+}
+
 
 /*
  * Quiting function
@@ -459,6 +494,7 @@ void MainWindow::on_quit()
 		Main::quit();
 	}else{
 		show_all();
+		Main::run();
 	}
 }
 

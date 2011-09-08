@@ -30,6 +30,7 @@
 #include <glibmm.h>
 
 #include <libxml++/libxml++.h>
+
 #include "Config.h"
 #include "Functions.h"
 
@@ -45,12 +46,12 @@ namespace TwitCrusader {
 
 class LocalUser {
 private:
-	ustring id;
-	ustring screenName;
-	ustring token;
-	ustring secretToken;
-	ustring consumerKey;
-	ustring consumerSecretKey;
+	ustring *id;
+	ustring *screenName;
+	ustring *token;
+	ustring *secretToken;
+	ustring *consumerKey;
+	ustring *consumerSecretKey;
 
 protected:
 
