@@ -28,9 +28,6 @@
  */
 #include <iostream>
 #include <glibmm.h>
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
 
 #include <libxml++/libxml++.h>
 #include "Config.h"
@@ -71,7 +68,7 @@ public:
 	void setConsumerSecretKey(ustring secretConsumerKey);
 
 	bool readUserFile(ustring filename);
-	bool writeUserFile(ustring filename);
+	void writeUserFile(ustring filename);
 	void clear();
 
 	ustring getId();

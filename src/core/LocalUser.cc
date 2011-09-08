@@ -94,31 +94,20 @@ ustring LocalUser::getConsumerKey()
 	return consumerKey;
 }
 
-bool LocalUser::writeUserFile(ustring filename)
+void LocalUser::writeUserFile(ustring filename)
 {
-	//config.createConfigDir();
+	Document doc;
+	xmlpp::Node* rootNode=doc.create_root_node("CONFIG");
+	Element *node =rootNode->add_child("USER");
+	node->add_child("screen_name")->set_child_text(screenName);
+	node->add_child("id")->set_child_text(this->id);
+	node->add_child("consumerKey")->set_child_text(this->consumerKey);
+	node->add_child("consumerSecretKey")->set_child_text(this->consumerSecretKey);
+	node->add_child("token")->set_child_text(this->getToken());
+	node->add_child("secretToken")->set_child_text(this->secretToken);
 
-	xmlTextWriterPtr writer;
-	xmlDocPtr doc;
-	xmlNodePtr node;
-	doc = xmlNewDoc((xmlChar*)(XML_DEFAULT_VERSION));
-	node = xmlNewDocNode(doc, NULL, (xmlChar*) "CONFIG", NULL);
-	xmlDocSetRootElement(doc, node);
-	writer = xmlNewTextWriterTree(doc, node, 0);
-	xmlTextWriterStartDocument(writer, NULL, MY_ENCODING, NULL);
-	xmlTextWriterStartElement(writer, (xmlChar*)("USER"));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("screen_name"), (xmlChar*)(getScreenName().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("id"), (xmlChar*)(getId().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerKey"), (xmlChar*)(getConsumerKey().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("consumerSecretKey"), (xmlChar*)(getConsumerSecretKey().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("token"), (xmlChar*)(getToken().c_str()));
-	xmlTextWriterWriteElement(writer, (xmlChar*)("secretToken"), (xmlChar*)(getSecretToken().c_str()));
-	xmlTextWriterEndElement(writer);
-	xmlTextWriterEndElement(writer);
-	xmlFreeTextWriter(writer);
-	xmlSaveFileEnc(filename.c_str(), doc, MY_ENCODING);
-	xmlFreeDoc(doc);
-	return true;
+	doc.write_to_file(filename,"ISO-8859-1");
+
 }
 
 ustring LocalUser::getConsumerSecretKey()

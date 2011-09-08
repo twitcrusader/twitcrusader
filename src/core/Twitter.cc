@@ -141,22 +141,15 @@ bool Twitter::downloadTimeLine()
 	tml_rt=oauth_http_get(tml.c_str(), postarg.c_str());
 	if(tml_rt!=NULL){
 		tml.assign(tml_rt);
-		if(!timeLine.timelineFile.empty()){
 
-			if(!tml.empty()){
-				/*
-				Functions::writeRawTextFile(timeLine.timelineFile, tml);
-				cout<<"timeLine.timelineFile.c_str()="+timeLine.timelineFile<<endl;
-				timeLine.readTimeLineFromFile(timeLine.timelineFile);
+		if(!tml.empty()){
 
-				remove(timeLine.timelineFile.c_str());
-				 */
-				timeLine.readTimeLineFromString(tml);
-				return true;
-			}
-
+			timeLine.readTimeLineFromString(tml);
+			return true;
 		}
+
 	}
+
 	return false;
 }
 
