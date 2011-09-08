@@ -52,12 +52,9 @@ int main(int argc, char *argv[]){
 	//;
 
 	//Shows the window and returns when it is closed.
-	Gtk::Main::run(window);
+	kit.run(window);
 
 	notify_uninit();
-	window.timeout.operator ->()->quit();
-	window.~MainWindow();
-	kit.quit();
 
 	return 0;
 }

@@ -43,7 +43,6 @@ public:
 
 	vector<Tweet> timeline;
 	ustring timelineURL;
-	ustring timelineFile;
 
 	bool readTimeLineFromString(ustring);
 };

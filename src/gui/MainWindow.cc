@@ -21,7 +21,13 @@
  */
 
 #include "include/MainWindow.h"
+
 namespace TwitCrusader {
+
+/*
+ * Create The Principal Window
+ */
+
 MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count("140")
 {
 	// This Is Fuckin Sequential Programming
@@ -35,11 +41,9 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 	layout.pack_start(menu_bar,PACK_SHRINK);
 
 	this->scrolled_window.set_policy(POLICY_NEVER, POLICY_ALWAYS);
-	//this->scrolled_window.add(table_into);
 	tweets.set_editable(false);
 	scrolled_window.add(tweets);
 	this->table.attach(this->scrolled_window, 0, 3, 0, 8);
-	//this->table.attach(this->scroll_text,0, 3, 8, 9);
 
 
 	layout.pack_end(status_bar,PACK_SHRINK);
@@ -63,6 +67,10 @@ MainWindow::~MainWindow()
 
 }
 
+/*
+ * Starting Declaration of all menu into the MainWindow (used only in Costructor)
+ */
+
 void MainWindow::declare(){
 	counter=0;
 	init_menu();
@@ -74,9 +82,17 @@ void MainWindow::declare(){
 	init_text_area();
 }
 
+/*
+ * To verify if the Profile is loaded
+ */
+
 void MainWindow::is_connected(){
 	this->connected=!twitter.getLocalUser().getScreenName().empty();
 }
+
+/*
+ * initialize the scrool window
+ */
 
 void MainWindow::init_scrolled_window(){
 
@@ -88,33 +104,30 @@ void MainWindow::init_scrolled_window(){
 		tw.append("\n\t");
 		tw.append(it.base()->text);
 		tw.append("\n");
-		//avatar.set(twitter.getConfig().getAvatarDir()+it.base()->user.screen_name);
-		//nick.set_label(it.base()->user.screen_name);
-
-			//tweet->set_label("@"+it.base()->user.screen_name+"\n\t"+it.base()->text);
-			//cout<<tweet->get_label()<<endl;
-
-			//table_into.attach(avatar,0, 1, i, i+4);
-			//table_into.attach(nick,1, 2,i, i+1);
-		//	table_into.attach(*tweet, 1,2, i, i+1);
-
-
 	}
-	cout<<tw<<endl;
+
+	//cout<<tw<<endl;
 	tweets.get_buffer().operator ->()->set_text(tw);
 
 }
 
+/*
+ * initialize the MainWindow Parameters
+ */
 
 void MainWindow::init_window(){
 	this->set_title(PROG_NAME);
 	this->set_icon_from_file(ICON_FAVICON);
 	this->set_default_size(320, 650);
 	this->set_size_request(320, 400);
-	this->set_border_width(0);
+	this->set_border_width(1);
 	this->set_position(WIN_POS_CENTER);
 
 }
+
+/*
+ * Append Menu into the Menu bar.
+ */
 
 void MainWindow::init_menu_bar(){
 
@@ -137,6 +150,9 @@ void MainWindow::init_menu_bar(){
 
 }
 
+/*
+ * Initialize Menus
+ */
 
 void MainWindow::init_menu(){
 	for(int i=0; i<FILE_MENU_ITEMS;i++){
@@ -187,6 +203,10 @@ void MainWindow::init_menu(){
 
 }
 
+/*
+ * Initialize the statusbar
+ */
+
 void MainWindow::init_statusbar()
 {
 
@@ -204,6 +224,10 @@ void MainWindow::init_statusbar()
 
 }
 
+/*
+ * Clear the status into statusbar
+ */
+
 void MainWindow::clear_statusbar(){
 
 	status_bar.pop(status_bar.get_context_id(CONNECTED));
@@ -212,6 +236,9 @@ void MainWindow::clear_statusbar(){
 
 }
 
+/*
+ * Initialize the toolbar
+ */
 
 void MainWindow::init_toolbar(){
 
@@ -255,11 +282,18 @@ void MainWindow::init_toolbar(){
 
 }
 
+/*
+ * initialize the chars number that you are writing
+ */
+
 void MainWindow::init_charbar(){
 
 	charbar.push(char_count);
 
 }
+/*
+ * Initialize the text_area when u can write your tweet
+ */
 
 void MainWindow::init_text_area(){
 	this->text.set_editable(true);
@@ -271,12 +305,19 @@ void MainWindow::init_text_area(){
 
 }
 
+/*
+ * Simple foo function
+ */
+
 void MainWindow::foo()
 {
 	cout<<"foo()"<<endl;
 
 }
 
+/*
+ * Load the User Profile
+ */
 
 void MainWindow::gtkConnect()
 {
@@ -290,6 +331,9 @@ void MainWindow::gtkConnect()
 }
 
 
+/*
+ * Load the About Dialog
+ */
 
 void MainWindow::loadWindowCredits()
 {
@@ -299,7 +343,9 @@ void MainWindow::loadWindowCredits()
 	aboutDialog.~AboutDialog();
 }
 
-
+/*
+ * Load The Version Dialog
+ */
 
 void MainWindow::loadWindowVersion()
 {
@@ -310,7 +356,9 @@ void MainWindow::loadWindowVersion()
 
 }
 
-
+/*
+ * Load the Properties Dialog and implement the deleting function of Config file
+ */
 
 void MainWindow::loadWindowProperties()
 {
@@ -348,6 +396,10 @@ void MainWindow::loadWindowProperties()
 	}
 }
 
+/*
+ * Load the Registration Dialog
+ */
+
 void MainWindow::loadRegWindow()
 {
 	cout<<"loadWindowAdduser()"<<endl;
@@ -358,6 +410,10 @@ void MainWindow::loadRegWindow()
 	refresh();
 }
 
+/*
+ * Initialize the timer for loop event
+ */
+
 void MainWindow::init_timer()
 {
 	sigc::slot<bool> tslot = sigc::mem_fun(*this, &MainWindow::on_timeout);
@@ -365,6 +421,10 @@ void MainWindow::init_timer()
 	this->timeout=Glib::MainLoop::create(false);
 	this->timeout.operator ->()->run();
 }
+
+/*
+ * What to do when the loop is on timeout
+ */
 
 bool MainWindow::on_timeout()
 {
@@ -379,20 +439,32 @@ bool MainWindow::on_timeout()
 	return true;
 }
 
+
+/*
+ * Quiting function
+ */
+
 void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
 
 	if(Quit_Dialog()){
-		timeout->quit();
+		if(timeout.operator ->()->is_running()){
+			timeout->quit();
+		}
 
 
-		this->hide();
+
 		Functions::notifySystem(QUIT);
+		Main::quit();
 	}else{
 		show_all();
 	}
 }
+
+/*
+ * Quiting Dialog
+ */
 
 bool MainWindow::Quit_Dialog()
 {
@@ -407,6 +479,9 @@ bool MainWindow::Quit_Dialog()
 	return true;
 }
 
+/*
+ * What to do when you press enter key
+ */
 void MainWindow::on_submit_text()
 {
 	cout<<"on_submit_text()"<<endl;
@@ -430,6 +505,9 @@ void MainWindow::on_submit_text()
 
 }
 
+/*
+ * What to do when you press key (Count chars, ecc..)
+ */
 void MainWindow::on_writing()
 {
 	cout<<"on_writing()"<<endl;
@@ -457,6 +535,9 @@ void MainWindow::on_writing()
 	this->queue_draw();
 }
 
+/*
+ * To refresh the timeline
+ */
 
 void MainWindow::refresh_timeline(){
 	bool error;
@@ -472,6 +553,10 @@ void MainWindow::refresh_timeline(){
 	refresh();
 }
 
+/*
+ * To refresh the window
+ */
+
 void MainWindow::refresh(){
 
 	while ( Gtk::Main::events_pending() )
@@ -483,4 +568,5 @@ void MainWindow::refresh(){
 	show_all();
 	this->queue_draw();
 }
+
 }
