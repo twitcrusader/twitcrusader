@@ -35,6 +35,10 @@ Twitter::~Twitter()
 
 }
 
+/*
+ * Casting of the Function writeUserFile into the Class LocalUser
+ */
+
 bool Twitter::writeUserFile()
 {
 	localUser.writeUserFile(config.getConfigFile());
@@ -42,11 +46,19 @@ bool Twitter::writeUserFile()
 
 }
 
+/*
+ * Casting of the Function readUserFile into the Class LocalUser
+ */
+
 bool Twitter::readUserFile()
 {
 	localUser.readUserFile(config.getConfigFile());
 	return true;
 }
+
+/*
+ *  Switch the timelineURL and download the corrispondent timeline - XML
+ */
 
 bool Twitter::switchTimeLine(int xmlSwitch)
 {
@@ -103,6 +115,10 @@ bool Twitter::switchTimeLine(int xmlSwitch)
 	return true;
 }
 
+/*
+ * Download and Read the timeline - XML
+ */
+
 bool Twitter::downloadTimeLine()
 {
 	ustring postarg=ustring();
@@ -122,6 +138,29 @@ bool Twitter::downloadTimeLine()
 
 	return false;
 }
+
+/*
+ * To Download the avatars of Tweets that you show
+ */
+
+void Twitter::downloadAvatars()
+{
+
+	Glib::Thread *thread;
+	this->config.createAvatarDir();
+	ustring path=ustring();
+
+	for(vector<Tweet>::iterator it =  timeLine.timeline.begin(); it!=timeLine.timeline.end(); it++){
+		path.assign(this->config.getAvatarDir()+"/"+it.operator *().user.screen_name);
+		GetHTTP::getSingleCURL(it.operator *().user.profile_image_url, path);
+	}
+
+
+}
+
+/*
+ * Send your Tweet
+ */
 
 bool Twitter::SendTweet(ustring msg)
 {
@@ -155,6 +194,10 @@ bool Twitter::SendTweet(ustring msg)
 	return false;
 }
 
+/*
+ * Generate the temporary Token
+ */
+
 bool Twitter::tokenTemp()
 {
 
@@ -187,6 +230,10 @@ bool Twitter::tokenTemp()
 	return true;
 
 }
+
+/*
+ * Generate the Token to grant access from Browser
+ */
 
 bool Twitter::tokenTempBrowser()
 {
@@ -230,6 +277,10 @@ bool Twitter::tokenTempBrowser()
 	return true;
 
 }
+
+/*
+ * Generate the Access Token
+ */
 
 bool Twitter::tokenAccess(const ustring pin)
 {
@@ -292,6 +343,10 @@ bool Twitter::tokenAccess(const ustring pin)
 	return writeUserFile();
 }
 
+/*
+ * Generate the Request Token
+ */
+
 ustring Twitter::tokenRequest(const ustring consumerKey, const ustring consumerKeySecret)
 {
 
@@ -308,6 +363,10 @@ ustring Twitter::tokenRequest(const ustring consumerKey, const ustring consumerK
 	return tempKeyParameters;
 
 }
+
+/*
+ * Get the http parameters
+ */
 
 char* Twitter::getParameters(char **argv,int argc,const char *param)
 {

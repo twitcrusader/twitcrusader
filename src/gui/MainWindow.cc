@@ -349,7 +349,7 @@ void MainWindow::gtkConnect()
 	this->is_connected();
 	this->timeline_mode=2;
 
-	refresh_timeline();
+	refresh_timeline_thread();
 
 }
 
@@ -415,7 +415,7 @@ void MainWindow::loadWindowProperties()
 		this->is_connected();
 		this->init_menu();
 		init_statusbar();
-		refresh_timeline();
+		refresh_timeline_thread();
 	}
 }
 
@@ -456,7 +456,7 @@ bool MainWindow::on_timeout()
 	if(counter>=delayInMin*60000){
 		cout<<"Timeout"<<endl;
 		counter=0;
-		refresh_timeline();
+		refresh_timeline_thread();
 	}
 
 	return true;
@@ -469,10 +469,18 @@ void MainWindow::gtkDisconnect()
 	this->is_connected();
 	this->timeline_mode=1;
 
-	refresh_timeline();
+	refresh_timeline_thread();
 
 
 }
+
+    void MainWindow::refresh_timeline_thread()
+    {
+
+    	this->thread=Glib::Thread::create( sigc::mem_fun( *this, &MainWindow::refresh_timeline), true );
+
+    	this->thread->join();
+    }
 
 
 /*
@@ -484,6 +492,7 @@ void MainWindow::on_quit()
 	cout<<"on_quit()"<<endl;
 
 	if(Quit_Dialog()){
+		twitter.config.createAvatarDir();
 		if(timeout.operator ->()->is_running()){
 			timeout->quit();
 		}
@@ -576,13 +585,10 @@ void MainWindow::on_writing()
  */
 
 void MainWindow::refresh_timeline(){
-	bool error;
 
-	error=twitter.switchTimeLine(this->timeline_mode);
+	if(twitter.switchTimeLine(this->timeline_mode)){
 
-	if(error){
-
-		//downloadsAvatars();
+		twitter.downloadAvatars();
 
 	}
 

@@ -60,10 +60,14 @@ bool Config::createAvatarDir()
 
 	//Avatar Dir
 	if(!avatarDir.empty()){
-		remove(avatarDir.c_str());
+		ustring cmd=ustring();
+		cmd.assign(RM_CMD);
+		cmd.append(" -r ");
+		cmd.append(avatarDir);
+		system(cmd.c_str());
+		//remove(avatarDir.c_str());
 		//mkdir( avatarDir.c_str(), 0777);
 
-		ustring cmd=ustring();
 		cmd.assign(MKDIR_CMD);
 		cmd.append(avatarDir);
 		cout<<cmd;

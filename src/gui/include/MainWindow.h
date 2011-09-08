@@ -154,6 +154,7 @@ public:
 	void foo();
 	void gtkConnect();
 	void gtkDisconnect();
+	void refresh_timeline_thread();
 	void refresh_timeline();
 	void refresh();
 

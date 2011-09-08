@@ -24,8 +24,6 @@
 
 int main(int argc, char *argv[]){
 
-	//pthread_t tid[2];
-
 	notify_init(PROG_NAME);
 	Functions::notifySystem("Started..");
 
@@ -38,18 +36,17 @@ int main(int argc, char *argv[]){
 
 	if(Functions::shellParameters(argc,argv))return 0;
 
+	//initialize to use threads
 	Glib::thread_init() ;
 
+	//initialize Gtk
 	Gtk::Main kit(argc, argv);
 
 	if(!twitter.config.is_registered()){
 		RegDialog regDialog;
 	}
+
 	MainWindow window;
-
-	//pthread_create(&tid[0], NULL, window.refresh_timeline(), (void *)argv);
-
-	//;
 
 	//Shows the window and returns when it is closed.
 	kit.run(window);

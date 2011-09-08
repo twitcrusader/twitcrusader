@@ -29,6 +29,7 @@
 #include <iostream>
 #include <vector>
 #include <glibmm.h>
+
 extern "C"{
 #include <oauth.h>
 }
@@ -61,6 +62,7 @@ public:
 
 	bool switchTimeLine(int xmlSwitch);
 	bool downloadTimeLine();
+	void downloadAvatars();
 
 	bool tokenTemp();
 	bool tokenTempBrowser();
