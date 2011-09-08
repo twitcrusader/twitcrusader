@@ -1,5 +1,8 @@
 // TO DO
 
+
+* Download avatars with Glib::Threads
+
 * Show Timeline into the scrollbar with image and rigth layer
 
 * New Tweets don't rewrite older but are append at older 

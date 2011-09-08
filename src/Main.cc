@@ -24,15 +24,13 @@
 
 int main(int argc, char *argv[]){
 
+	//Print Program Header
+	cout<<HEADER;
+
 	notify_init(PROG_NAME);
 	Functions::notifySystem("Started..");
 
-	cout<<"\n\n";
-	cout<<"TwitCrusader - Twitter Client For Linux Desktop\n";
-	cout<<"Copyright (C) 2011  TwitCrusader Team\n\n";
-
 	twitter=Twitter();
-
 
 	if(Functions::shellParameters(argc,argv))return 0;
 

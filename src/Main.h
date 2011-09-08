@@ -32,6 +32,8 @@
 #include "core/include/Functions.h"
 
 
+#define HEADER "\n\nTwitCrusader++ - Gtkmm Twitter Client For Linux Desktop\nCopyright \u00A9 2011  Dott. Orazio Briante\n\n";
+
 using namespace std;
 using namespace TwitCrusader;
 
