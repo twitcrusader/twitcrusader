@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 	Gtk::Main kit(argc, argv);
 
 	if(!twitter.getConfig().is_registered()){
-		RegWindow regWindow;
+		RegDialog regDialog;
 	}
 	MainWindow window;
 

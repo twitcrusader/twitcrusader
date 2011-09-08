@@ -35,7 +35,7 @@
 #include "WindowVersion.h"
 #include "AboutDialog.h"
 #include "PropertiesDialog.h"
-#include "RegWindow.h"
+#include "RegDialog.h"
 
 #include "../../core/include/Functions.h"
 #include "../../core/include/TwitterObject.h"
@@ -138,7 +138,7 @@ protected:
 	void loadWindowCredits();
 	void loadWindowVersion();
 	void loadWindowProperties();
-	void loadRegWindow();
+	void loadRegDialog();
 
 	void clear_statusbar();
 

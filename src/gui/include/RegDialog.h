@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef REGWINDOW_H_
-#define REGWINDOW_H_
+#ifndef REGDIALOG_H_
+#define REGDIALOG_H_
 
 #include <iostream>
 #include <gtkmm.h>
@@ -42,7 +42,7 @@ using namespace Glib;
 
 namespace TwitCrusader {
 
-class RegWindow : public Dialog{
+class RegDialog : public Dialog{
 
 private:
 	Table table;
@@ -62,8 +62,8 @@ protected:
 
 
 public:
-	RegWindow();
-	virtual ~RegWindow();
+	RegDialog();
+	virtual ~RegDialog();
 };
 }
-#endif /* REGWINDOW_H_ */
+#endif /* REGDIALOG_H_ */

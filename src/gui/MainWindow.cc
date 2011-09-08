@@ -175,7 +175,7 @@ void MainWindow::init_menu(){
 		}else{
 
 			file_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
-			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegWindow) );
+			file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegDialog) );
 		}
 
 
@@ -400,12 +400,12 @@ void MainWindow::loadWindowProperties()
  * Load the Registration Dialog
  */
 
-void MainWindow::loadRegWindow()
+void MainWindow::loadRegDialog()
 {
 	cout<<"loadWindowAdduser()"<<endl;
 
-	RegWindow regWindow;
-	regWindow.~RegWindow();
+	RegDialog regDialog;
+	regDialog.~RegDialog();
 	this->is_connected();
 	refresh();
 }

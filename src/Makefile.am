@@ -3,7 +3,7 @@ twcpp_SOURCES = gui/PropertiesDialog.cc \
 gui/WindowVersion.cc \
 gui/AboutDialog.cc \
 gui/MainWindow.cc \
-gui/RegWindow.cc \
+gui/RegDialog.cc \
 core/GetHTTP.cc \
 core/Tweet.cc \
 core/User.cc \

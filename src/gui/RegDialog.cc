@@ -20,9 +20,9 @@
  *
  */
 
-#include "include/RegWindow.h"
+#include "include/RegDialog.h"
 namespace TwitCrusader {
-RegWindow::RegWindow() : table(7, 10, TRUE)
+RegDialog::RegDialog() : table(7, 10, TRUE)
 {
 	this->set_default_size(200, 210);
 	this->set_size_request(200,210);
@@ -36,7 +36,7 @@ RegWindow::RegWindow() : table(7, 10, TRUE)
 
 	tw_login_img.set(ICON_SIGNIN);
 	this->tw_login_event.set_image(tw_login_img);
-	tw_login_event.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::browser_authorization) );
+	tw_login_event.signal_clicked().connect(sigc::mem_fun(*this, &RegDialog::browser_authorization) );
 	table.attach(tw_login_event, 1, 9, 1, 2);
 
 	label.set_text(LABEL_PIN);
@@ -46,7 +46,7 @@ RegWindow::RegWindow() : table(7, 10, TRUE)
 	table.attach(pin, 1, 9, 3, 4);
 
 	button.set_label(SUBMIT_REG_BUTTON);
-	button.signal_clicked().connect(sigc::mem_fun(*this, &RegWindow::get_access_token));
+	button.signal_clicked().connect(sigc::mem_fun(*this, &RegDialog::get_access_token));
 
 	table.attach(button, 1, 9, 5, 6);
 
@@ -59,25 +59,25 @@ RegWindow::RegWindow() : table(7, 10, TRUE)
 
 }
 
-RegWindow::~RegWindow() {
+RegDialog::~RegDialog() {
 	// TODO Auto-generated destructor stub
 }
 
-void RegWindow::foo(){
-	cout<<"RegWindow::foo()"<<endl;
+void RegDialog::foo(){
+	cout<<"RegDialog::foo()"<<endl;
 }
 
-void RegWindow::quit(){
-	cout<<"RegWindow::quit()"<<endl;
+void RegDialog::quit(){
+	cout<<"RegDialog::quit()"<<endl;
 	hide();
 
 }
 
-void RegWindow::browser_authorization(){
+void RegDialog::browser_authorization(){
 	twitter.tokenTempBrowser();
 }
 
-void RegWindow::get_access_token(){
+void RegDialog::get_access_token(){
 	pin_buffer=this->pin.get_buffer();
 	ustring str=pin_buffer->get_text();
 	if(!twitter.tokenAccess(str)){
