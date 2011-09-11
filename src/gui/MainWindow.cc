@@ -76,6 +76,7 @@ void MainWindow::declare(){
 	init_menu();
 	init_menu_bar();
 	init_statusbar();
+	init_toolbar_items();
 	init_toolbar();
 	init_charbar();
 	init_scrolled_window();
@@ -220,10 +221,12 @@ void MainWindow::init_menu(){
 
 	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, VERSION, 0, 0);
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadVersionDialog) );
+	helps_menu_items[0].set_sensitive(true);
+
 
 	helps_menu_items[1].add_pixlabel(ICON_STAR, ABOUT, 0, 0);
 	helps_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadAboutDialog) );
-
+	helps_menu_items[1].set_sensitive(true);
 }
 
 /*
@@ -256,8 +259,70 @@ void MainWindow::clear_statusbar(){
 	status_bar.pop(status_bar.get_context_id(CONNECTED));
 	status_bar.pop(status_bar.get_context_id(DISCONNECTED));
 	status_bar.pop(status_bar.get_context_id(NO_ONLINE));
+	status_bar.pop(status_bar.get_context_id( MSG_SENT));
+	status_bar.pop(status_bar.get_context_id(MSG_NOT_SENT));
 
 }
+
+void MainWindow::init_toolbar_items(){
+
+	icon_menu[0].set(ICON_UPDATE);
+	button[0].set_icon_widget(icon_menu[0]);
+	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::refresh_timeline) );
+
+	icon_menu[1].set(ICON_HOME);
+	button[1].set_icon_widget(icon_menu[1]);
+	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	icon_menu[2].set(ICON_MENTION);
+	button[2].set_icon_widget(icon_menu[2]);
+	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	icon_menu[3].set(ICON_DM);
+	button[3].set_icon_widget(icon_menu[3]);
+	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	icon_menu[4].set(ICON_FAVORITES);
+	button[4].set_icon_widget(icon_menu[4]);
+	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	icon_menu[5].set(ICON_LINK);
+	button[5].set_icon_widget(icon_menu[5]);
+	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	icon_menu[6].set(ICON_PHOTO);
+	button[6].set_icon_widget(icon_menu[6]);
+	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+
+	if(this->connected){
+
+		icon_menu[0].set_sensitive(true);
+		icon_menu[1].set_sensitive(true);
+		icon_menu[2].set_sensitive(true);
+		icon_menu[3].set_sensitive(true);
+		icon_menu[4].set_sensitive(true);
+		icon_menu[5].set_sensitive(true);
+		icon_menu[6].set_sensitive(true);
+
+
+
+	}else{
+
+		icon_menu[0].set_sensitive(true);
+		icon_menu[1].set_sensitive(false);
+		icon_menu[2].set_sensitive(false);
+		icon_menu[3].set_sensitive(false);
+		icon_menu[4].set_sensitive(false);
+		icon_menu[5].set_sensitive(false);
+		icon_menu[6].set_sensitive(false);
+
+
+
+	}
+
+}
+
+
 
 /*
  * Initialize the toolbar
@@ -268,41 +333,14 @@ void MainWindow::init_toolbar(){
 	tool_bar.set_toolbar_style(TOOLBAR_ICONS);
 	tool_bar.set_icon_size(ICON_SIZE_SMALL_TOOLBAR);
 
-	icon_menu[0].set(ICON_UPDATE);
-	button[0].set_icon_widget(icon_menu[0]);
-	button[0].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::refresh_timeline) );
+
 	tool_bar.append(button[0]);
-
-	icon_menu[1].set(ICON_HOME);
-	button[1].set_icon_widget(icon_menu[1]);
-	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[1]);
-
-	icon_menu[2].set(ICON_MENTION);
-	button[2].set_icon_widget(icon_menu[2]);
-	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[2]);
-
-	icon_menu[3].set(ICON_DM);
-	button[3].set_icon_widget(icon_menu[3]);
-	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[3]);
-
-	icon_menu[4].set(ICON_FAVORITES);
-	button[4].set_icon_widget(icon_menu[4]);
-	button[4].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[4]);
-
-	icon_menu[5].set(ICON_LINK);
-	button[5].set_icon_widget(icon_menu[5]);
-	button[5].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[5]);
-
-	icon_menu[6].set(ICON_PHOTO);
-	button[6].set_icon_widget(icon_menu[6]);
-	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 	tool_bar.append(button[6]);
-
 }
 
 /*
@@ -474,13 +512,13 @@ void MainWindow::gtkDisconnect()
 
 }
 
-    void MainWindow::refresh_timeline_thread()
-    {
+void MainWindow::refresh_timeline_thread()
+{
 
-    	this->thread=Glib::Thread::create( sigc::mem_fun( *this, &MainWindow::refresh_timeline), true );
+	this->thread=Glib::Thread::create( sigc::mem_fun( *this, &MainWindow::refresh_timeline), true );
 
-    	this->thread->join();
-    }
+	this->thread->join();
+}
 
 
 /*
@@ -607,6 +645,7 @@ void MainWindow::refresh(){
 	init_menu();
 	init_statusbar();
 	init_scrolled_window();
+	init_toolbar_items();
 	show_all();
 	this->queue_draw();
 }

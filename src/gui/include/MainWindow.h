@@ -84,8 +84,8 @@ private:
 	MenuItem helps_menu_root;
 	Menu helps_menu;
 
-	ToolButton button[NUM_BUTTON];
-	Image icon_menu[NUM_BUTTON];
+	ToolButton button[6];
+	Image icon_menu[6];
 
 	Image avatar;
 	Label nick;
@@ -124,6 +124,8 @@ protected:
 	void init_statusbar();
 
 	void init_toolbar();
+	void init_toolbar_items();
+
 	void init_charbar();
 	void init_text_area();
 	void init_menu_bar();
