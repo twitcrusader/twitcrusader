@@ -2,9 +2,10 @@
 
 * Label when focus toolbar button
 
+*************** Avatar Download Now are disabled *************
 * Show Timeline into the scrollbar with image and rigth layer
-
 * Threads to download avatars are slows
+**************************************************************
 
 * Dialog aren't deallocated after hide()
 

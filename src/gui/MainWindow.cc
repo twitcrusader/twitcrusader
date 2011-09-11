@@ -687,11 +687,14 @@ void MainWindow::on_writing()
 
 void MainWindow::refresh_timeline(){
 
-	if(twitter.switchTimeLine(this->timeline_mode)){
+
+	twitter.switchTimeLine(this->timeline_mode);
+
+	/*if(twitter.switchTimeLine(this->timeline_mode)){
 
 		twitter.downloadAvatars();
 
-	}
+	}*/
 
 	refresh();
 }
