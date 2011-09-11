@@ -4,6 +4,7 @@
 ##Required
 
 * g++ or c++
+* pkg-config
 * gtkmm-2.4 >= 2.24.0
 * libcurl >= 7.21.7
 * oauth >= 0.9.4
@@ -15,7 +16,7 @@
 ### Dependencies:
     $ su
     # pacman -Syu
-    # pacman -S gtkmm3 liboauth libxml++ libnotify
+    # pacman -S gtkmm3 liboauth libxml++ libnotify pkg-config
 
 
 ##  Ubuntu - required
