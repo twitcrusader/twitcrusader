@@ -150,11 +150,23 @@ void Twitter::downloadAvatars()
 	this->config.createAvatarDir();
 	ustring path=ustring();
 
-	for(vector<Tweet>::iterator it =  timeLine.timeline.begin(); it!=timeLine.timeline.end(); it++){
-		path.assign(this->config.getAvatarDir()+"/"+it.operator *().user.screen_name);
-		GetHTTP::getSingleCURL(it.operator *().user.profile_image_url, path);
+	for(vector<Tweet>::iterator it =  timeLine.timeline->begin(); it!=timeLine.timeline->end(); it++){
+		sigc::slot<void> my_slot=sigc::bind<0>(sigc::mem_fun(*this, &Twitter::downloadAvatar),*it);
+		thread=Glib::Thread::create(my_slot,true);
+		thread->join();
+		//Twitter::downloadAvata(*it);
+
 	}
 
+
+}
+
+void Twitter::downloadAvatar(Tweet &it)
+{
+	ustring path=ustring();
+
+	path.assign(this->config.getAvatarDir()+"/"+it.user.screen_name);
+	GetHTTP::getSingleCURL(it.user.profile_image_url, path);
 
 }
 

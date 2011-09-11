@@ -26,6 +26,7 @@ namespace TwitCrusader {
 
 bool TimeLine::readTimeLineFromString(ustring tmline)
 {
+	this->timeline=new vector<Tweet>();
 
 	DomParser parser;
 	Tweet *tweet;
@@ -278,7 +279,7 @@ bool TimeLine::readTimeLineFromString(ustring tmline)
 				}
 
 			}
-			timeline.push_back(*tweet);
+			timeline->push_back(*tweet);
 		}
 	}
 

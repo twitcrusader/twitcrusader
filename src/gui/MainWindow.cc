@@ -104,13 +104,15 @@ void MainWindow::init_scrolled_window(){
 
 	ustring tw=ustring();
 	tw.assign("");
-	for(vector<Tweet>::iterator it =  twitter.timeLine.timeline.begin(); it!=twitter.timeLine.timeline.end(); it++){
+	if(twitter.timeLine.timeline!=NULL){
+		for(vector<Tweet>::iterator it =  twitter.timeLine.timeline->begin(); it!=twitter.timeLine.timeline->end(); it++){
 
-		tw.append("@");
-		tw.append(it.base()->user.screen_name);
-		tw.append("\n\t");
-		tw.append(it.base()->text);
-		tw.append("\n");
+			tw.append("@");
+			tw.append(it.base()->user.screen_name);
+			tw.append("\n\t");
+			tw.append(it.base()->text);
+			tw.append("\n");
+		}
 	}
 
 	//cout<<tw<<endl;
@@ -505,6 +507,10 @@ bool MainWindow::on_timeout()
 	return true;
 }
 
+/*
+ * To Disconnect Profile
+ */
+
 void MainWindow::gtkDisconnect()
 {
 	cout<<"gtkDisconnect()"<<endl;
@@ -516,6 +522,10 @@ void MainWindow::gtkDisconnect()
 
 
 }
+
+/*
+ * Refresh Timeline With Thread
+ */
 
 void MainWindow::refresh_timeline_thread()
 {
@@ -540,8 +550,6 @@ void MainWindow::on_quit()
 			timeout->quit();
 		}
 
-
-
 		Functions::notifySystem(QUIT);
 		Main::quit();
 	}else{
@@ -549,6 +557,7 @@ void MainWindow::on_quit()
 		Main::run();
 	}
 }
+
 
 /*
  * Quiting Dialog

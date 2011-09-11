@@ -41,7 +41,7 @@ namespace TwitCrusader {
 class TimeLine {
 public:
 
-	vector<Tweet> timeline;
+	vector<Tweet> *timeline;
 	ustring timelineURL;
 
 	bool readTimeLineFromString(ustring);

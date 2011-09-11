@@ -63,6 +63,8 @@ public:
 	bool switchTimeLine(int xmlSwitch);
 	bool downloadTimeLine();
 	void downloadAvatars();
+	void downloadAvatar(Tweet &);
+
 
 	bool tokenTemp();
 	bool tokenTempBrowser();
