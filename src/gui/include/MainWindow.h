@@ -146,8 +146,9 @@ protected:
 
 	void is_connected();
 
-
+	void show_home_timeline();
 	void mentions_timeline();
+	void show_private_message();
 
 	bool Quit_Dialog();
 

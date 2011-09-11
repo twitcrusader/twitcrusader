@@ -287,7 +287,7 @@ void MainWindow::init_toolbar_items(){
 
 	icon_menu[3].set(ICON_DM);
 	button[3].set_icon_widget(icon_menu[3]);
-	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	button[3].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::show_home_timeline) );
 
 	icon_menu[4].set(ICON_FAVORITES);
 	button[4].set_icon_widget(icon_menu[4]);
@@ -317,7 +317,7 @@ void MainWindow::init_toolbar_items(){
 		if(twitter.config.is_registered()){
 
 			button[0].set_sensitive(true);
-			button[1].set_sensitive(true);
+			button[1].set_sensitive(false);
 			button[2].set_sensitive(false);
 			button[3].set_sensitive(false);
 			button[4].set_sensitive(false);
@@ -561,6 +561,29 @@ void MainWindow::refresh_timeline_thread()
 
 	this->thread->join();
 }
+
+    void MainWindow::show_private_message()
+    {
+    	this->is_connected();
+    	if(this->connected){
+    		this->timeline_mode=3;
+    	}
+
+    	this->refresh_timeline_thread();
+
+    }
+
+    void MainWindow::show_home_timeline()
+    {
+     	this->is_connected();
+        	if(this->connected){
+        		this->timeline_mode=5;
+        	}
+
+        	this->refresh_timeline_thread();
+
+
+    }
 
 /*
  * Quiting function
