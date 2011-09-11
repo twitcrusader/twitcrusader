@@ -31,6 +31,7 @@
 #include <cstdlib>
 
 //for mkdir
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 

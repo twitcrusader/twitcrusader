@@ -84,8 +84,8 @@ private:
 	MenuItem helps_menu_root;
 	Menu helps_menu;
 
-	ToolButton button[6];
-	Image icon_menu[6];
+	ToolButton button[7];
+	Image icon_menu[7];
 
 	Image avatar;
 	Label nick;

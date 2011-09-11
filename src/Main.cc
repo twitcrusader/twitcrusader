@@ -40,10 +40,6 @@ int main(int argc, char *argv[]){
 	//initialize Gtk
 	Gtk::Main kit(argc, argv);
 
-	if(!twitter.config.is_registered()){
-		RegDialog regDialog;
-	}
-
 	MainWindow window;
 
 	//Shows the window and returns when it is closed.

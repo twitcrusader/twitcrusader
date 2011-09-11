@@ -70,7 +70,7 @@ bool Config::createAvatarDir()
 
 		cmd.assign(MKDIR_CMD);
 		cmd.append(avatarDir);
-		cout<<cmd;
+		//cout<<cmd;
 		system(cmd.c_str());
 
 		return true;

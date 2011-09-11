@@ -57,6 +57,11 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 
 	this->signal_hide().connect(sigc::mem_fun(*this, &MainWindow::on_quit));
 
+	if(!twitter.config.is_registered()){
+
+		RegDialog regDialog;
+	}
+
 	this->show_all();
 
 	//init_timer();
@@ -296,25 +301,25 @@ void MainWindow::init_toolbar_items(){
 
 	if(this->connected){
 
-		icon_menu[0].set_sensitive(true);
-		icon_menu[1].set_sensitive(true);
-		icon_menu[2].set_sensitive(true);
-		icon_menu[3].set_sensitive(true);
-		icon_menu[4].set_sensitive(true);
-		icon_menu[5].set_sensitive(true);
-		icon_menu[6].set_sensitive(true);
+		button[0].set_sensitive(true);
+		button[1].set_sensitive(true);
+		button[2].set_sensitive(true);
+		button[3].set_sensitive(true);
+		button[4].set_sensitive(true);
+		button[5].set_sensitive(true);
+		button[6].set_sensitive(true);
 
 
 
 	}else{
 
-		icon_menu[0].set_sensitive(true);
-		icon_menu[1].set_sensitive(false);
-		icon_menu[2].set_sensitive(false);
-		icon_menu[3].set_sensitive(false);
-		icon_menu[4].set_sensitive(false);
-		icon_menu[5].set_sensitive(false);
-		icon_menu[6].set_sensitive(false);
+		button[0].set_sensitive(true);
+		button[1].set_sensitive(false);
+		button[2].set_sensitive(false);
+		button[3].set_sensitive(false);
+		button[4].set_sensitive(false);
+		button[5].set_sensitive(false);
+		button[6].set_sensitive(false);
 
 
 
