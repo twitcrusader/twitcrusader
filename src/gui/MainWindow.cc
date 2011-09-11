@@ -266,7 +266,7 @@ void MainWindow::clear_statusbar(){
 	status_bar.pop(status_bar.get_context_id(CONNECTED));
 	status_bar.pop(status_bar.get_context_id(DISCONNECTED));
 	status_bar.pop(status_bar.get_context_id(NO_ONLINE));
-	status_bar.pop(status_bar.get_context_id( MSG_SENT));
+	status_bar.pop(status_bar.get_context_id(MSG_SENT));
 	status_bar.pop(status_bar.get_context_id(MSG_NOT_SENT));
 
 }
@@ -279,11 +279,11 @@ void MainWindow::init_toolbar_items(){
 
 	icon_menu[1].set(ICON_HOME);
 	button[1].set_icon_widget(icon_menu[1]);
-	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	button[1].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::gtkConnect) );
 
 	icon_menu[2].set(ICON_MENTION);
 	button[2].set_icon_widget(icon_menu[2]);
-	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
+	button[2].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::mentions_timeline) );
 
 	icon_menu[3].set(ICON_DM);
 	button[3].set_icon_widget(icon_menu[3]);
@@ -301,6 +301,7 @@ void MainWindow::init_toolbar_items(){
 	button[6].set_icon_widget(icon_menu[6]);
 	button[6].signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::foo) );
 
+
 	if(this->connected){
 
 		button[0].set_sensitive(true);
@@ -312,21 +313,32 @@ void MainWindow::init_toolbar_items(){
 		button[6].set_sensitive(true);
 
 
-
 	}else{
+		if(twitter.config.is_registered()){
 
-		button[0].set_sensitive(true);
-		button[1].set_sensitive(false);
-		button[2].set_sensitive(false);
-		button[3].set_sensitive(false);
-		button[4].set_sensitive(false);
-		button[5].set_sensitive(false);
-		button[6].set_sensitive(false);
+			button[0].set_sensitive(true);
+			button[1].set_sensitive(true);
+			button[2].set_sensitive(false);
+			button[3].set_sensitive(false);
+			button[4].set_sensitive(false);
+			button[5].set_sensitive(false);
+			button[6].set_sensitive(false);
+
+		}else{
+
+			button[0].set_sensitive(true);
+			button[1].set_sensitive(false);
+			button[2].set_sensitive(false);
+			button[3].set_sensitive(false);
+			button[4].set_sensitive(false);
+			button[5].set_sensitive(false);
+			button[6].set_sensitive(false);
+
+		}
 
 
 
 	}
-
 }
 
 
@@ -364,7 +376,7 @@ void MainWindow::init_charbar(){
  */
 
 void MainWindow::init_text_area(){
-	this->text.set_editable(true);
+	this->text.set_editable(connected);
 	this->text.set_wrap_mode(WRAP_CHAR);
 	tweet_buffer=this->text.get_buffer();
 	tweet_buffer.operator ->()->signal_changed().connect(sigc::mem_fun(*this, &MainWindow::on_writing));
@@ -524,6 +536,21 @@ void MainWindow::gtkDisconnect()
 }
 
 /*
+ * To show mentions
+ */
+
+void MainWindow::mentions_timeline(){
+
+	this->is_connected();
+	if(this->connected){
+		this->timeline_mode=3;
+	}
+
+	this->refresh_timeline_thread();
+
+}
+
+/*
  * Refresh Timeline With Thread
  */
 
@@ -534,7 +561,6 @@ void MainWindow::refresh_timeline_thread()
 
 	this->thread->join();
 }
-
 
 /*
  * Quiting function
@@ -659,6 +685,7 @@ void MainWindow::refresh(){
 	init_menu();
 	init_statusbar();
 	init_scrolled_window();
+	this->text.set_editable(this->connected);
 	init_toolbar_items();
 	show_all();
 	this->queue_draw();
