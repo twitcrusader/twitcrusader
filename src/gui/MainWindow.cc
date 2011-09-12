@@ -107,11 +107,12 @@ void MainWindow::init_scrolled_window(){
 	if(twitter.timeLine.timeline!=NULL){
 		for(vector<Tweet>::iterator it =  twitter.timeLine.timeline->begin(); it!=twitter.timeLine.timeline->end(); it++){
 
-			tw.append("@");
+
+			tw.append("\n@");
 			tw.append(it.base()->user.screen_name);
-			tw.append("\n\t");
-			tw.append(it.base()->text);
 			tw.append("\n");
+			tw.append(it.base()->text+"\n");
+			tw.append("["+it.base()->created_at+"]\n");
 		}
 	}
 
