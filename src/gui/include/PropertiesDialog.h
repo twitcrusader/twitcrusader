@@ -27,11 +27,8 @@
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
+#include "lang.h"
 #include "../../core/include/TwitterObject.h"
-
-#define PROPERTIES_TITLE "Properties"
-#define PROPERTIES_LABEL "Twitter's Account:"
-#define DELETE_ACCOUT_BUTTON "Delete Account"
 
 using namespace std;
 using namespace Gtk;

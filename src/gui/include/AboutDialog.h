@@ -27,6 +27,7 @@
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
+#include "lang.h"
 #include "../../core/include/Functions.h"
 #include "../../core/include/Version.h"
 
@@ -34,7 +35,6 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
-#define COMMENT "Basato su Gtkmm e semplicità!\n\nVersion: "
 
 namespace TwitCrusader {
 

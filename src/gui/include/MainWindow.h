@@ -32,6 +32,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #include "Icons.h"
+#include "lang.h"
 #include "VersionDialog.h"
 #include "AboutDialog.h"
 #include "PropertiesDialog.h"
@@ -45,23 +46,6 @@
 using namespace std;
 using namespace Gtk;
 using namespace Glib;
-
-#define CONNECTED "Profile: Loaded.."
-#define DISCONNECTED "Profile: Not Loaded.."
-#define NO_ONLINE "Off-Line"
-
-#define LOGOUT "Logout"
-#define LOGIN "Login"
-#define REGISTER "Register"
-#define PROPERTIES "Properties"
-#define QUIT "Quit"
-#define VERSION "Version"
-#define ABOUT "About"
-#define DELETE_CONFIRM "Do you want delete the Profile?"
-#define SENDING_MSG "Sending Message.."
-#define MSG_SENT "Message sent"
-#define MSG_NOT_SENT "Message not sent"
-#define QUIT_MESSAGE "Do you want really quit?"
 
 #define FILE_MENU_ITEMS 5
 #define HELP_MENU_ITEMS 2

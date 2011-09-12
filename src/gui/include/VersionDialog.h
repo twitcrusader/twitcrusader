@@ -27,11 +27,9 @@
 #include <gtkmm/stock.h>
 
 #include "Icons.h"
+#include "lang.h"
 #include "../../core/include/Functions.h"
 #include "../../core/include/Version.h"
-
-#define CURRENT_VERSION_MSG "Current Version:\t"
-#define LAST_VERSION_MSG "Last Version:\t"
 
 using namespace std;
 using namespace Gtk;
