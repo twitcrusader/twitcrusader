@@ -146,16 +146,24 @@ void MainWindow::init_menu_bar(){
 		file_menu.append(file_menu_items[i]);
 	}
 
-	file_menu_root.set_label("File");
+	file_menu_root.set_label(FILE_MENU);
 	file_menu_root.set_submenu(file_menu);
 	menu_bar.append(file_menu_root);
+
+	for(int i=0;i<PROP_MENU_ITEMS;i++){
+		prop_menu.append(prop_menu_items[i]);
+	}
+
+	prop_menu_root.set_label(PROP_MENU);
+	prop_menu_root.set_submenu(prop_menu);
+	menu_bar.append(prop_menu_root);
 
 
 	for(int i=0;i<HELP_MENU_ITEMS;i++){
 		helps_menu.append(helps_menu_items[i]);
 	}
 
-	helps_menu_root.set_label("Help");
+	helps_menu_root.set_label(HELP_MENU);
 	helps_menu_root.set_submenu(helps_menu);
 	menu_bar.append(helps_menu_root);
 
@@ -170,55 +178,76 @@ void MainWindow::init_menu(){
 		this->file_menu_items[i].remove();
 	}
 
-	file_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
-	file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegDialog) );
-
-	file_menu_items[1].add_pixlabel(ICON_ADDUSER, LOGIN, 0, 0);
-	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
+	file_menu_items[0].add_pixlabel(ICON_ADDUSER, LOGIN, 0, 0);
+	file_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkConnect) );
 
 
-	file_menu_items[2].add_pixlabel(ICON_ADDUSER, LOGOUT, 0, 0);
-	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkDisconnect) );
+	file_menu_items[1].add_pixlabel(ICON_ADDUSER, LOGOUT, 0, 0);
+	file_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::gtkDisconnect) );
 
-
-	file_menu_items[3].add_pixlabel(ICON_SETTINGS, PROPERTIES, 0, 0);
-	file_menu_items[3].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
-
-	file_menu_items[4].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
-	file_menu_items[4].signal_activate().connect(sigc::mem_fun(*this,&Window::hide) );
+	file_menu_items[2].add_pixlabel(ICON_CLOSE, QUIT, 0, 0);
+	file_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&Window::hide) );
 
 
 
 	if(this->connected){
 
 		file_menu_items[0].set_sensitive(false);
-		file_menu_items[1].set_sensitive(false);
+		file_menu_items[1].set_sensitive(true);
 		file_menu_items[2].set_sensitive(true);
-		file_menu_items[3].set_sensitive(true);
-		file_menu_items[4].set_sensitive(true);
 
 
 	}else{
 		if(twitter.config.is_registered()){
-			file_menu_items[0].set_sensitive(false);
-			file_menu_items[1].set_sensitive(true);
-			file_menu_items[2].set_sensitive(false);
-			file_menu_items[3].set_sensitive(true);
-			file_menu_items[4].set_sensitive(true);
-
-		}else{
 			file_menu_items[0].set_sensitive(true);
 			file_menu_items[1].set_sensitive(false);
-			file_menu_items[2].set_sensitive(false);
-			file_menu_items[3].set_sensitive(true);
-			file_menu_items[4].set_sensitive(true);
+			file_menu_items[2].set_sensitive(true);
 
+		}else{
+			file_menu_items[0].set_sensitive(false);
+			file_menu_items[1].set_sensitive(false);
+			file_menu_items[2].set_sensitive(true);
 		}
 
 
 	}
 
 
+	//prop_menu
+
+	for(int i=0; i<PROP_MENU_ITEMS;i++){
+		this->prop_menu_items[i].remove();
+	}
+
+	prop_menu_items[0].add_pixlabel(ICON_ADDUSER, REGISTER, 0, 0);
+	prop_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadRegDialog) );
+
+	prop_menu_items[1].add_pixlabel(ICON_SETTINGS, PROFILE, 0, 0);
+	prop_menu_items[1].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadWindowProperties) );
+
+	prop_menu_items[2].add_pixlabel(ICON_SETTINGS, PREFERENCE, 0, 0);
+	prop_menu_items[2].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::foo) );
+
+
+	if(this->connected){
+
+		prop_menu_items[0].set_sensitive(false);
+		prop_menu_items[1].set_sensitive(true);
+		prop_menu_items[2].set_sensitive(true);
+
+	}else{
+		if(twitter.config.is_registered()){
+			prop_menu_items[0].set_sensitive(false);
+			prop_menu_items[1].set_sensitive(true);
+			prop_menu_items[2].set_sensitive(true);
+		}else{
+			prop_menu_items[0].set_sensitive(true);
+			prop_menu_items[1].set_sensitive(false);
+			prop_menu_items[2].set_sensitive(true);
+		}
+
+
+	}
 
 
 	//menu_helps
@@ -563,34 +592,34 @@ void MainWindow::refresh_timeline_thread()
 	this->thread->join();
 }
 
-    void MainWindow::show_private_message()
-    {
-    	this->is_connected();
-    	if(this->connected){
-    		this->timeline_mode=3;
-    	}
+void MainWindow::show_private_message()
+{
+	this->is_connected();
+	if(this->connected){
+		this->timeline_mode=3;
+	}
 
-    	this->refresh_timeline_thread();
+	this->refresh_timeline_thread();
 
-    }
+}
 
-    void MainWindow::show_home_timeline()
-    {
-     	this->is_connected();
-        	if(this->connected){
-        		this->timeline_mode=5;
-        	}
+void MainWindow::show_home_timeline()
+{
+	this->is_connected();
+	if(this->connected){
+		this->timeline_mode=5;
+	}
 
-        	this->refresh_timeline_thread();
+	this->refresh_timeline_thread();
 
 
-    }
+}
 
 /*
  * Quiting function
  */
 
-void MainWindow::on_quit()
+ void MainWindow::on_quit()
 {
 	cout<<"on_quit()"<<endl;
 
@@ -609,113 +638,113 @@ void MainWindow::on_quit()
 }
 
 
-/*
- * Quiting Dialog
- */
+ /*
+  * Quiting Dialog
+  */
 
-bool MainWindow::Quit_Dialog()
-{
-	Gtk::MessageDialog quitDialog( *this, QUIT_MESSAGE, false, Gtk::MESSAGE_QUESTION,  Gtk::BUTTONS_NONE,true );
-
-
-	quitDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
-	quitDialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL );
-
-	if (quitDialog.run() == Gtk::RESPONSE_CANCEL ) return false;
-
-	return true;
-}
-
-/*
- * What to do when you press enter key
- */
-void MainWindow::on_submit_text()
-{
-	cout<<"on_submit_text()"<<endl;
-
-	clear_statusbar();
-	status_bar.push(SENDING_MSG);
-	this->queue_draw();
-
-	ustring msg=tweet_buffer.operator ->()->get_text(false);
-
-	if(twitter.SendTweet(msg)){
-		Functions::notifySystem(MSG_SENT);
-		status_bar.pop(status_bar.get_context_id(SENDING_MSG));
-		status_bar.push(MSG_SENT);
-	}else{
-		Functions::notifySystem(MSG_NOT_SENT);
-		status_bar.pop(status_bar.get_context_id(SENDING_MSG));
-		status_bar.push(MSG_NOT_SENT);
-	}
+ bool MainWindow::Quit_Dialog()
+ {
+	 Gtk::MessageDialog quitDialog( *this, QUIT_MESSAGE, false, Gtk::MESSAGE_QUESTION,  Gtk::BUTTONS_NONE,true );
 
 
-}
+	 quitDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+	 quitDialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL );
 
-/*
- * What to do when you press key (Count chars, ecc..)
- */
-void MainWindow::on_writing()
-{
-	cout<<"on_writing()"<<endl;
-	ustring buffer=tweet_buffer.operator ->()->get_text(true);
-	int count=tweet_buffer.operator ->()->get_char_count();
+	 if (quitDialog.run() == Gtk::RESPONSE_CANCEL ) return false;
 
-	if(count<140 && count>0){
-		ustring ch=buffer.substr(count-1,count);
-		if(strstr(ch.c_str(),"\n")!=NULL){ //can't see endLine
-			on_submit_text();
-			this->tweet_buffer.operator ->()->set_text("");
-			count=tweet_buffer.operator ->()->get_char_count();
-		}
-		cout<<"ch:\t"<<ch<<endl;
-	}
+	 return true;
+ }
 
+ /*
+  * What to do when you press enter key
+  */
+ void MainWindow::on_submit_text()
+ {
+	 cout<<"on_submit_text()"<<endl;
 
-	this->charbar.pop(this->charbar.get_context_id(char_count));
+	 clear_statusbar();
+	 status_bar.push(SENDING_MSG);
+	 this->queue_draw();
 
-	count=140-count;
-	std::stringstream out;
-	out << count;
-	char_count=out.str();
-	init_charbar();
-	this->queue_draw();
-}
+	 ustring msg=tweet_buffer.operator ->()->get_text(false);
 
-/*
- * To refresh the timeline
- */
-
-void MainWindow::refresh_timeline(){
+	 if(twitter.SendTweet(msg)){
+		 Functions::notifySystem(MSG_SENT);
+		 status_bar.pop(status_bar.get_context_id(SENDING_MSG));
+		 status_bar.push(MSG_SENT);
+	 }else{
+		 Functions::notifySystem(MSG_NOT_SENT);
+		 status_bar.pop(status_bar.get_context_id(SENDING_MSG));
+		 status_bar.push(MSG_NOT_SENT);
+	 }
 
 
-	twitter.switchTimeLine(this->timeline_mode);
+ }
 
-	/*if(twitter.switchTimeLine(this->timeline_mode)){
+ /*
+  * What to do when you press key (Count chars, ecc..)
+  */
+ void MainWindow::on_writing()
+ {
+	 cout<<"on_writing()"<<endl;
+	 ustring buffer=tweet_buffer.operator ->()->get_text(true);
+	 int count=tweet_buffer.operator ->()->get_char_count();
+
+	 if(count<140 && count>0){
+		 ustring ch=buffer.substr(count-1,count);
+		 if(strstr(ch.c_str(),"\n")!=NULL){ //can't see endLine
+			 on_submit_text();
+			 this->tweet_buffer.operator ->()->set_text("");
+			 count=tweet_buffer.operator ->()->get_char_count();
+		 }
+		 cout<<"ch:\t"<<ch<<endl;
+	 }
+
+
+	 this->charbar.pop(this->charbar.get_context_id(char_count));
+
+	 count=140-count;
+	 std::stringstream out;
+	 out << count;
+	 char_count=out.str();
+	 init_charbar();
+	 this->queue_draw();
+ }
+
+ /*
+  * To refresh the timeline
+  */
+
+ void MainWindow::refresh_timeline(){
+
+
+	 twitter.switchTimeLine(this->timeline_mode);
+
+	 /*if(twitter.switchTimeLine(this->timeline_mode)){
 
 		twitter.downloadAvatars();
 
 	}*/
 
-	refresh();
-}
+	 refresh();
+ }
 
-/*
- * To refresh the window
- */
+ /*
+  * To refresh the window
+  */
 
-void MainWindow::refresh(){
+ void MainWindow::refresh(){
 
-	while ( Gtk::Main::events_pending() )
-		Gtk::Main::iteration() ;
+	 while ( Gtk::Main::events_pending() )
+		 Gtk::Main::iteration() ;
 
-	init_menu();
-	init_statusbar();
-	init_scrolled_window();
-	this->text.set_editable(this->connected);
-	init_toolbar_items();
-	show_all();
-	this->queue_draw();
-}
+	 init_menu();
+	 init_statusbar();
+	 init_scrolled_window();
+	 this->text.set_editable(this->connected);
+	 init_toolbar_items();
+	 show_all();
+	 this->queue_draw();
+ }
 
 }

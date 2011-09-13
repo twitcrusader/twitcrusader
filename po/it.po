@@ -1,0 +1,134 @@
+ # Italian Translation of TwitCrusader ++
+ # Copyright (C) Orazio Briante 2011 <orazio.1985@hotmail.com>
+ # 
+ # TwitCrusaderpp is free software: you can redistribute it and/or modify it
+ # under the terms of the GNU General Public License as published by the
+ # Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version.
+ # 
+ # TwitCrusaderpp is distributed in the hope that it will be useful, but
+ # WITHOUT ANY WARRANTY; without even the implied warranty of
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ # See the GNU General Public License for more details.
+ # 
+ # You should have received a copy of the GNU General Public License along
+ # with this program.  If not, see <http://www.gnu.org/licenses/>.
+ #
+
+#: lang.h:26
+msgid "\n\nTwitCrusader++ - Gtkmm Twitter Client For Linux Desktop\nCopyright"
+msgstr "\n\nTwitCrusader++ - Gtkmm Twitter Client per Desktop Linux \nCopyright"
+
+#: lang.h:28
+msgid "Based on Gtkmm and simplicity!\n\nVersion: "
+msgstr "Basato su Gtkmm e semplicità!\n\nVersione: "
+
+#: lang.h:29
+msgid "Started"
+msgstr "Avviato"
+
+#: lang.h:30
+msgid "Profile: Loaded.."
+msgstr "Profilo: Caricato"
+
+#: lang.h:31
+msgid "Profile: Not Loaded.."
+msgstr "Profilo: Non Caricato"
+
+#: lang.h:32
+msgid "Off-Line"
+msgstr "Fuori Rete"
+
+#: lang.h:33
+msgid "Logout"
+msgstr "Disconnetti"
+
+#: lang.h:34
+msgid "Login"
+msgstr "Connetti"
+
+#: lang.h:35
+#: lang.h:51
+msgid "Register"
+msgstr "Registrati"
+
+#: lang.h:36
+msgid "Profile"
+msgstr "Profilo"
+
+#: lang.h:37
+msgid "Preference"
+msgstr "Preferenze"
+
+#: lang.h:38
+#: lang.h:49
+msgid "Properties"
+msgstr "Proprietà"
+
+#: lang.h:39
+msgid "File"
+msgstr "File"
+
+#: lang.h:40
+msgid "Help"
+msgstr "Aiuto"
+
+#: lang.h:41
+msgid "Quit"
+msgstr "Esci"
+
+#: lang.h:42
+msgid "Version"
+msgstr "Versione"
+
+#: lang.h:43
+msgid "About"
+msgstr "Informazioni"
+
+#: lang.h:44
+msgid "Do you want delete your Profile?"
+msgstr "Vuoi Cancellare il tuo Profilo?"
+
+#: lang.h:45
+msgid "Sending Message.."
+msgstr "invio messaggio in corso.."
+
+#: lang.h:46
+msgid "Message sent"
+msgstr "Messaggio inviato"
+
+#: lang.h:47
+msgid "Message not sent"
+msgstr "Messaggio non inviato"
+
+#: lang.h:48
+msgid "Do you want really quit?"
+msgstr "Vuoi veramente uscire?"
+
+#: lang.h:50
+msgid "Twitter's Account:"
+msgstr "Account Twitter:"
+
+#: lang.h:51
+msgid "Delete Account"
+msgstr "Cancella Account"
+
+#: lang.h:53
+msgid "Insert PIN"
+msgstr "Inserisci il PIN"
+
+#: lang.h:54
+msgid "Register Account"
+msgstr "Registra Account"
+
+#: lang.h:55
+msgid "Bad PIN"
+msgstr "PIN non valido"
+
+#: lang.h:56
+msgid "Current Version:\t"
+msgstr "Versione Corrente:\t"
+
+#: lang.h:57
+msgid "Last Version:\t"
+msgstr "Ultima Versione:\t"

@@ -1,22 +1,30 @@
-AC_INIT([TwitCrusaderpp], [1.0], [BUG: orazio.1985@hotmail.com])
+AC_INIT(twitcrusaderpp, 0.3)
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-AC_PREREQ(2.59)
-
-AC_CANONICAL_SYSTEM
-
-
-AM_INIT_AUTOMAKE([-Wall ])
-AC_PROG_CC
-AC_PROG_CPP
-AC_PROG_CXX([c++ g++])
-
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
+AM_MAINTAINER_MODE
 
-PKG_CHECK_MODULES(libcurl, [libcurl >= 7.21.7], , [
+AC_PROG_CXX
+
+
+
+
+dnl ***************************************************************************
+dnl Internatinalization
+dnl ***************************************************************************
+GETTEXT_PACKAGE=twitcrusaderpp
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
+
+
+PKG_CHECK_MODULES(libcurl, [libcurl >= 7.21.3], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have libcurl >= 7.21.7
+You must have libcurl >= 7.21.3
 ])])
 
 AC_SUBST(libcurl_CFLAGS)
@@ -62,10 +70,14 @@ You must have libnotify >= 0.7.3
 AC_SUBST(libnotify_CFLAGS)
 AC_SUBST(libnotify_LIBS)
 
-AC_CONFIG_FILES([
+
+
+
+
+AC_OUTPUT([
 Makefile
 src/Makefile
 src/share/icons/Makefile
 src/share/applications/Makefile
+po/Makefile.in
 ])
-AC_OUTPUT

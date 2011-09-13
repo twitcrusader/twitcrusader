@@ -25,10 +25,10 @@
 int main(int argc, char *argv[]){
 
 	//Print Program Header
-	cout<<HEADER;
+	cout<<HEADER1<<COPYRIGHT_SIMBOL<<HEADER2;
 
 	notify_init(PROG_NAME);
-	Functions::notifySystem("Started..");
+	Functions::notifySystem(APP_STARTED);
 
 	twitter=Twitter();
 

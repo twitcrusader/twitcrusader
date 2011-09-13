@@ -264,30 +264,35 @@ bool Twitter::tokenTempBrowser()
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL.c_str(), &rv);
-	tempKey.assign(getParameters(rv, rc, "oauth_token"));
+	char *tmpKey=getParameters(rv, rc, "oauth_token");
+	if(tmpKey!=NULL){
+		tempKey.assign(tmpKey);
 
-	/*
-	 * Save all Twitter-Key at /tmp folder
-	 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
-	 */
-	tmp_token.assign(tempKeyURL);
-	tmp_token.append("&c_key=");
-	tmp_token.append(CONSUMER_KEY);
-	tmp_token.append("&c_key_secret=");
-	tmp_token.append(CONSUMER_SECRET_KEY);
-	cout<<"\n"<<tmp_token;
+		/*
+		 * Save all Twitter-Key at /tmp folder
+		 * Temp-Key + Temp-Key-Secret + TwitCrusader Key + TwitCrusader Key Secret
+		 */
 
-	/* Generate a Twitter-URL for get user-PIN */
+		tmp_token.assign(tempKeyURL);
+		tmp_token.append("&c_key=");
+		tmp_token.append(CONSUMER_KEY);
+		tmp_token.append("&c_key_secret=");
+		tmp_token.append(CONSUMER_SECRET_KEY);
+		cout<<"\n"<<tmp_token;
 
-	cmd.assign(AUTHORIZE_URL);
-	cmd.append("?oauth_token=");
-	cmd.append(tempKey);
+		/* Generate a Twitter-URL for get user-PIN */
 
-	/* Open URL and user get PIN */
-	gtk_show_uri(NULL,cmd.c_str(),GDK_CURRENT_TIME,NULL);
+		cmd.assign(AUTHORIZE_URL);
+		cmd.append("?oauth_token=");
+		cmd.append(tempKey);
 
-	return true;
+		/* Open URL and user get PIN */
+		gtk_show_uri(NULL,cmd.c_str(),GDK_CURRENT_TIME,NULL);
 
+		return true;
+	}
+
+	return false;
 }
 
 /*
@@ -370,7 +375,9 @@ ustring Twitter::tokenRequest(const ustring consumerKey, const ustring consumerK
 	/* Generate a request url, this url have Temp-Key */
 	twitterRequestURL.assign(oauth_sign_url2(twitterRequestURL.c_str(), NULL, OA_HMAC, NULL, consumerKey.c_str(), consumerKeySecret.c_str(), NULL, NULL) );
 
-	tempKeyParameters.assign(oauth_http_get(twitterRequestURL.c_str(), postarg));
+	char *tmpPar=oauth_http_get(twitterRequestURL.c_str(), postarg);
+	if(tmpPar!=NULL)tempKeyParameters.assign(tmpPar);
+	else tempKeyParameters.assign("");
 
 	return tempKeyParameters;
 

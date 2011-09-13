@@ -17,6 +17,7 @@ Main.cc
 twcpp_LDADD = @gtkmm_LIBS@ @oauth_LIBS@ @libxmlpp_LIBS@ @libnotify_LIBS@ @libcurl_LIBS@
 
 AM_CPPFLAGS = \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@"\" \
 	@gtkmm_CFLAGS@ \

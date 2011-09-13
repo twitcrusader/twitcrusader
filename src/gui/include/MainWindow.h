@@ -47,7 +47,8 @@ using namespace std;
 using namespace Gtk;
 using namespace Glib;
 
-#define FILE_MENU_ITEMS 5
+#define FILE_MENU_ITEMS 3
+#define PROP_MENU_ITEMS 3
 #define HELP_MENU_ITEMS 2
 #define NUM_BUTTON 7
 
@@ -62,6 +63,10 @@ private:
 	MenuItem file_menu_items[FILE_MENU_ITEMS];
 	MenuItem file_menu_root;
 	Menu file_menu;
+
+	MenuItem prop_menu_items[PROP_MENU_ITEMS];
+	MenuItem prop_menu_root;
+	Menu prop_menu;
 
 
 	MenuItem helps_menu_items[HELP_MENU_ITEMS];
