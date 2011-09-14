@@ -10,6 +10,6 @@
 
 **************************************************************
 
-* Dialog aren't deallocated after hide() and create loop on refresh
-
 * Fix MakeFile
+
+* Add referense to intltool into the code

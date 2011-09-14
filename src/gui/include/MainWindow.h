@@ -110,10 +110,12 @@ private:
 protected:
 	void init_window();
 	void init_menu();
+	void refresh_menu();
 	void init_statusbar();
 
 	void init_toolbar();
 	void init_toolbar_items();
+	void refresh_toolbar_items();
 
 	void init_charbar();
 	void init_text_area();
