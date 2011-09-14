@@ -53,13 +53,14 @@ protected:
 	void foo();
 	void quit();
 	void browser_authorization();
-	void get_access_token();
 
 
 
 public:
 	RegDialog();
 	virtual ~RegDialog();
+
+	void get_access_token();
 };
 }
 #endif /* REGDIALOG_H_ */

@@ -59,7 +59,7 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 
 	if(!twitter.config.is_registered()){
 
-		RegDialog regDialog;
+		loadRegDialog();
 	}
 
 	this->show_all();
@@ -515,9 +515,11 @@ void MainWindow::loadRegDialog()
 	cout<<"loadWindowAdduser()"<<endl;
 
 	RegDialog regDialog;
-	regDialog.~RegDialog();
-	this->is_connected();
+	regDialog.set_transient_for(*this);
+	if(regDialog.run()==Gtk::RESPONSE_OK){
+		regDialog.get_access_token();
 	refresh();
+	}
 }
 
 /*

@@ -24,8 +24,8 @@
 namespace TwitCrusader {
 RegDialog::RegDialog() : table(7, 10, TRUE)
 {
-	this->set_default_size(200, 210);
-	this->set_size_request(200,210);
+	this->set_default_size(300, 210);
+	this->set_size_request(300,210);
 	this->set_title(REG_TITLE);
 	this->set_border_width(0);
 	this->set_position(WIN_POS_CENTER);
@@ -45,17 +45,16 @@ RegDialog::RegDialog() : table(7, 10, TRUE)
 	pin.set_editable(true);
 	table.attach(pin, 1, 9, 3, 4);
 
-	button.set_label(SUBMIT_REG_BUTTON);
-	button.signal_clicked().connect(sigc::mem_fun(*this, &RegDialog::get_access_token));
+	//button.set_label(SUBMIT_REG_BUTTON);
+	//button.signal_clicked().connect(sigc::mem_fun(*this, &RegDialog::get_access_token));
 
-	table.attach(button, 1, 9, 5, 6);
+	//table.attach(button, 1, 9, 5, 6);
 
-
+	this->add_button(SUBMIT_REG_BUTTON, Gtk::RESPONSE_OK);
 	this->add_button(Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	this->get_vbox()->add(table);
 	this ->set_default_response( Gtk::RESPONSE_CANCEL ) ;
 	show_all();
-	run();
 
 }
 
@@ -83,8 +82,6 @@ void RegDialog::get_access_token(){
 	if(!twitter.tokenAccess(str)){
 		MessageDialog error(REG_ERROR_LABEL,false,MESSAGE_ERROR ,BUTTONS_OK,false);
 		error.run();
-	}else{
-		quit();
 	}
 }
 }
