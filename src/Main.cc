@@ -41,6 +41,7 @@ int main(int argc, char *argv[]){
 	Gtk::Main kit(argc, argv);
 
 	MainWindow window;
+	window.refresh();
 
 	//Shows the window and returns when it is closed.
 	kit.run(window);

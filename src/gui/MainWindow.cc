@@ -60,6 +60,8 @@ MainWindow::MainWindow(): table(8, 3, true),table_into(50, 2, true), char_count(
 	if(!twitter.config.is_registered()){
 
 		loadRegDialog();
+	}else{
+		this->refresh_timeline_thread();
 	}
 
 	this->show_all();
@@ -518,7 +520,7 @@ void MainWindow::loadRegDialog()
 	regDialog.set_transient_for(*this);
 	if(regDialog.run()==Gtk::RESPONSE_OK){
 		regDialog.get_access_token();
-	refresh();
+	this->refresh_timeline();
 	}
 }
 
