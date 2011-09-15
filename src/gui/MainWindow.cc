@@ -509,8 +509,9 @@ void MainWindow::loadRegDialog()
 	regDialog.set_transient_for(*this);
 	if(regDialog.run()==Gtk::RESPONSE_OK){
 		regDialog.get_access_token();
-		this->refresh_timeline();
 	}
+
+	this->refresh_timeline();
 }
 
 /*
