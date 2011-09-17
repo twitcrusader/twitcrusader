@@ -85,7 +85,6 @@ void gtk_window_main(){
 }
 
 void gtk_init_window(){
-
 	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
