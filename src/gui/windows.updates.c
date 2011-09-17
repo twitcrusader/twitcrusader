@@ -28,7 +28,7 @@
 /* Headers */ 
 #include "inc/windows.updates.h"
 #include "inc/icons.h"
-#include "../core/inc/sys.h"
+#include "../core/inc/lang.h"
 
 /* GtkUpdatesDialogCreate() Function 
  *

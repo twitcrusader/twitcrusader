@@ -42,7 +42,7 @@
 
 #include "tools/inc/debugger.h"
 #include "gui/inc/windows.main.h"
-#include "core/inc/sys.h"
+#include "core/inc/lang.h"
 #include "libs/libnotify/inc/notify.h"
 
 /* Initialize Debugger */ 

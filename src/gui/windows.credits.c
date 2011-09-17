@@ -28,7 +28,7 @@
 /* Headers */ 
 #include "inc/windows.credits.h"
 #include "inc/icons.h"
-#include "../core/inc/sys.h"
+#include "../core/inc/lang.h"
 
 /* gtk_credits_dialog_create() Function 
  *

@@ -16,6 +16,7 @@ RM := rm -rf
 -include src/libs/libnotify/subdir.mk
 -include src/libs/curl/subdir.mk
 -include src/gui/subdir.mk
+-include src/core/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

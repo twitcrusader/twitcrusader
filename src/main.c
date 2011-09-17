@@ -40,7 +40,7 @@ int main(int argc, char **argv){
 
 	notify_init(TWC);
 
-	notifySystem("Start");
+	notifySystem(START);
 
 	if(debugger(argc, argv) == 1){ 
 		return 0;

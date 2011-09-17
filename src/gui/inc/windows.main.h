@@ -24,12 +24,11 @@
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
- 
+
 /* Define */
 #ifndef WINDOWMAIN_H
-
-/* Default Define */ 
 #define WINDOWMAIN_H
+
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
 
@@ -38,22 +37,127 @@
 
 /* Headers */
 #include <gtk/gtk.h>
-#include <glib.h>
 #include <pthread.h>
 #include <gdk/gdkkeysyms.h>
 
-/* Define Function */
-int gtk_window_main();
-GtkWidget* gtk_window_main_create();
-GtkWidget* gtk_menu_item_create(GtkWidget* menu, const gchar const* title, const gchar const* image_path);
-GtkWidget* gtk_menu_create(GtkWidget* menu_bar, const gchar const* name);
-GtkWidget* gtk_menu_bar_create();
-GtkWidget* gtk_status_bar_create();
-GtkWidget* gtk_scrolling_create();
-GtkWidget* gtk_count_tweet_create();
-GtkWidget* gtk_text_area_create();
-GtkWidget* gtk_timeline_toolbar_create();
-GtkWidget* gtk_timeline_tool_itembar_create(gchar *image);
+#include "windows.credits.h"
+#include "windows.updates.h"
+#include "icons.h"
 
-/* Default End of WINDOWMAIN_H */ 
+#include "../../core/inc/lang.h"
+#include "../../core/inc/functions.h"
+#include "../../core/inc/twitter.h"
+#include "../../core/inc/gethttp.h"
+
+
+
+/* Define Structure */
+
+struct main_window{
+	char *statusLabel;
+
+	GError *error;
+	GtkWidget *window,
+	*table,
+	*scroll,
+	*icon_menu,
+	*table_into,
+	*scrolled_window,
+	*menu_bar,
+	*layout,
+	*toolbar,
+	*statusbar,
+	*char_bar,
+	*new_button,
+	*text,
+	*file_menu_obj,
+	*file_menu_root,
+	*file_menu_items,
+	*aiuto_menu_obj,
+	*aiuto_menu_root,
+	*aiuto_menu_items,
+	*nick,
+	*tweet,
+	*avatar,
+	*align;
+
+	GtkTextBuffer *tweetBuffer;
+
+}mainWindow;
+
+struct menu{
+	char *name;
+	char *icon;
+	void *function;
+
+};
+
+typedef struct
+{
+	GtkWidget *pin;
+	GtkWidget *window;
+
+} AuthWidget;
+
+struct StatusBars
+{
+	GtkStatusbar *message;
+
+} StatusBar;
+
+
+/* VARIABLES*/
+struct menu menu1[4];
+struct menu menuAiuto[3];
+
+typedef struct configuration {
+	char* default_user;
+}config;
+
+/* Define Function */
+
+/* Main Window */
+void gtk_window_main();
+
+/* Init */
+void gtk_init_window();
+void gtk_init_menu();
+void gtk_refresh_menu();
+void gtk_init_statusbar();
+void gtk_init_toolbar();
+void gtk_init_toolbar_items();
+void gtk_init_charbar();
+void gtk_init_text_area();
+void gtk_init_menu_bar();
+void gtk_init_scrolled_window();
+void gtk_init_timer();
+
+/* Refresh */
+void gtk_refresh_toolbar_items();
+void gtk_refresh_timeline();
+//void refresh_timeline_thread();
+void gtk_refresh();
+void gtk_clear_statusbar();
+
+/* Load Dialog */
+void loadAboutDialog();
+void loadVersionDialog();
+void loadWindowProperties();
+void loadRegDialog();
+
+/* Actions */
+void foo();
+void gtkConnect();
+void gtkDisconnect();
+void show_home_timeline();
+void mentions_timeline();
+void show_private_message();
+
+void on_submit_text();
+void on_writing();
+
+/* Quit */
+void on_quit();
+int Quit_Dialog();
+
 #endif

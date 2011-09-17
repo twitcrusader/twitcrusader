@@ -30,7 +30,7 @@
 #include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
-#include "../../../core/inc/sys.h"
+#include "../../../core/inc/lang.h"
 #include "../../../gui/inc/icons.h"
 
 void notifySystem(char *message);
