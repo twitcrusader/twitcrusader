@@ -203,8 +203,12 @@ int readUserFile(){
 
 void disconnect(){
 
-	freeSizeUsers();
-	mallocUsers();
+	user.id="";
+	user.screenName="";
+	user.token="";
+	user.secretToken="";
+	user.consumerKey="";
+	user.consumerSecretKey="";
 
 }
 

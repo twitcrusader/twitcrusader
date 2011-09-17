@@ -40,6 +40,7 @@
 #include <pthread.h>
 #include <gdk/gdkkeysyms.h>
 
+#include "windows.properties.h"
 #include "windows.credits.h"
 #include "windows.updates.h"
 #include "windows.register.h"

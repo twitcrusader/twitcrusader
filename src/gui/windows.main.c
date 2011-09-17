@@ -309,7 +309,7 @@ void loadVersionDialog(){
 
 }
 void loadWindowProperties(){
-
+	gtk_window_properties();
 }
 void loadRegDialog(){
 	gtk_window_register();
