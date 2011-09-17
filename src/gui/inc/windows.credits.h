@@ -27,8 +27,6 @@
  
 /* Define */
 #ifndef WINDOWCREDITS_H
-
-/* Default Define */ 
 #define WINDOWCREDITS_H
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"

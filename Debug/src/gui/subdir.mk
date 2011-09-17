@@ -5,17 +5,23 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/gui/windows.credits.c \
+../src/gui/windows.error.c \
 ../src/gui/windows.main.c \
+../src/gui/windows.register.c \
 ../src/gui/windows.updates.c 
 
 OBJS += \
 ./src/gui/windows.credits.o \
+./src/gui/windows.error.o \
 ./src/gui/windows.main.o \
+./src/gui/windows.register.o \
 ./src/gui/windows.updates.o 
 
 C_DEPS += \
 ./src/gui/windows.credits.d \
+./src/gui/windows.error.d \
 ./src/gui/windows.main.d \
+./src/gui/windows.register.d \
 ./src/gui/windows.updates.d 
 
 

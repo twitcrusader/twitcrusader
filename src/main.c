@@ -38,9 +38,6 @@
  */
 int main(int argc, char *argv[]){
 
-	pthread_t tid[2];
-	int error;
-
 	notify_init(TWC);
 
 	gtk_init (&argc, &argv);
@@ -54,12 +51,9 @@ int main(int argc, char *argv[]){
 	if(debugger(argc, argv) == 1){ 
 		return 0;
 	}
-	error = pthread_create(&tid[0], NULL, gtk_refresh_timeline, (void *)argv);
 
-	error = pthread_create(&tid[1], NULL, gtk_window_main, (void *)argv);
 
-	error = pthread_join(tid[0], NULL);
-	error = pthread_join(tid[1], NULL);
+	gtk_window_main();
 
 	freeSizeUsers();
 

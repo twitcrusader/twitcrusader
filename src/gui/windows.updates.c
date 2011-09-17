@@ -27,8 +27,6 @@
  
 /* Headers */ 
 #include "inc/windows.updates.h"
-#include "inc/icons.h"
-#include "../core/inc/lang.h"
 
 /* GtkUpdatesDialogCreate() Function 
  *
@@ -77,10 +75,4 @@ void gtk_window_update()
 	/* Exit event and Widget Show */
 	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (window);
-}
-
-void CloseWindow(GtkButton *button, gpointer widget)
-{
-	/* Destroy the widget */
-	gtk_widget_destroy (GTK_WIDGET (widget));
 }

@@ -42,6 +42,7 @@
 
 #include "windows.credits.h"
 #include "windows.updates.h"
+#include "windows.register.h"
 #include "icons.h"
 
 #include "../../core/inc/lang.h"
@@ -93,13 +94,6 @@ struct menu{
 	void *function;
 
 };
-
-typedef struct
-{
-	GtkWidget *pin;
-	GtkWidget *window;
-
-} AuthWidget;
 
 struct StatusBars
 {

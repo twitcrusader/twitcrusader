@@ -445,8 +445,9 @@ src/gui/windows.main.d: ../src/gui/windows.main.c \
  /usr/include/gtk-2.0/gdk/gdkkeysyms.h \
  /usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h \
  ../src/gui/inc/windows.credits.h ../src/gui/inc/windows.updates.h \
- ../src/gui/inc/icons.h ../src/gui/inc/../../core/inc/lang.h \
- ../src/gui/inc/../../core/inc/functions.h \
+ ../src/gui/inc/icons.h ../src/gui/inc/windows.main.h \
+ ../src/gui/inc/../../core/inc/lang.h ../src/gui/inc/windows.register.h \
+ ../src/gui/inc/windows.error.h ../src/gui/inc/../../core/inc/functions.h \
  ../src/gui/inc/../../core/inc/config.h \
  /usr/include/libxml2/libxml/xmlreader.h \
  /usr/include/libxml2/libxml/xmlversion.h \
@@ -1488,7 +1489,13 @@ src/gui/windows.main.d: ../src/gui/windows.main.c \
 
 ../src/gui/inc/icons.h:
 
+../src/gui/inc/windows.main.h:
+
 ../src/gui/inc/../../core/inc/lang.h:
+
+../src/gui/inc/windows.register.h:
+
+../src/gui/inc/windows.error.h:
 
 ../src/gui/inc/../../core/inc/functions.h:
 

@@ -27,8 +27,6 @@
  
 /* Define */
 #ifndef WINDOWUPDATES_H
-
-/* Default Define */ 
 #define WINDOWUPDATES_H
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
@@ -42,10 +40,13 @@
 #include <pthread.h>
 #include <gdk/gdkkeysyms.h>
 
+#include "icons.h"
+#include "windows.main.h"
+#include "../../core/inc/lang.h"
+
+
 /* Define Function */
 void gtk_window_update();
-void CloseWindow(GtkButton *button, gpointer widget);
-
 
 /* Default End of WINDOWUPDATES_H */ 
 #endif

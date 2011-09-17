@@ -59,8 +59,17 @@ void gtk_window_main(){
 
 	gtk_container_add(GTK_CONTAINER(mainWindow.window), mainWindow.layout);
 
+	/* CALLBACK: exit event */
+	g_signal_connect (mainWindow.window, "delete_event", G_CALLBACK (on_quit), NULL);
+	g_signal_connect (mainWindow.window, "destroy", G_CALLBACK (on_quit), NULL);
+
+
+	// Widget Show
+	gtk_widget_show_all (mainWindow.window);
+
+
 	//Exist Config File?
-	if(fopen (progPath.configFile, "r")==NULL){
+	if(fopen(progPath.configFile, "r")==NULL){
 
 		loadRegDialog();
 
@@ -69,14 +78,6 @@ void gtk_window_main(){
 		gtk_refresh_timeline();
 
 	}
-
-	/* CALLBACK: exit event */
-	g_signal_connect (mainWindow.window, "delete_event", G_CALLBACK (on_quit), NULL);
-	g_signal_connect (mainWindow.window, "destroy", G_CALLBACK (on_quit), NULL);
-
-
-	// Widget Show
-	gtk_widget_show_all (mainWindow.window);
 
 	//Show GTK Main
 	gtk_main ();
@@ -205,22 +206,22 @@ void gtk_init_toolbar_items(){
 	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline);
 
 	tool_button[1].icon=ICON_HOME;
-	tool_button[1].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[1].function=GTK_SIGNAL_FUNC(show_home_timeline);
 
 	tool_button[2].icon=ICON_MENTION;
-	tool_button[2].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[2].function=GTK_SIGNAL_FUNC(mentions_timeline);
 
 	tool_button[3].icon=ICON_DM;
-	tool_button[3].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[3].function=GTK_SIGNAL_FUNC(foo);
 
 	tool_button[4].icon=ICON_FAVORITES;
-	tool_button[4].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[4].function=GTK_SIGNAL_FUNC(foo);
 
 	tool_button[5].icon=ICON_LINK;
-	tool_button[5].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[5].function=GTK_SIGNAL_FUNC(foo);
 
 	tool_button[6].icon=ICON_PHOTO;
-	tool_button[6].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[6].function=GTK_SIGNAL_FUNC(foo);
 
 	int i;
 	for(i=0; i<7;i++){
@@ -312,7 +313,7 @@ void loadWindowProperties(){
 
 }
 void loadRegDialog(){
-
+	gtk_window_register();
 }
 
 void clear_statusbar(){
@@ -320,13 +321,23 @@ void clear_statusbar(){
 }
 
 void show_home_timeline(){
+	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
+		selected_timeline=1;
+		gtk_refresh_timeline();
+	}
 
 }
 void mentions_timeline(){
+	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
+		selected_timeline=2;
+		gtk_refresh_timeline();
+	}
 
 }
 void show_private_message(){
+	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 
+	}
 }
 
 void gtk_refresh_timeline(){
@@ -334,13 +345,13 @@ void gtk_refresh_timeline(){
 	int error;
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *, gpointer window)");
 
-		error=switchTimeLine(selected_timeline);
+	error=switchTimeLine(selected_timeline);
 
-		if(error==0){
-			downloadsAvatars();
-		}
+	if(error==0){
+		downloadsAvatars();
+	}
 
-		gtk_refresh();
+	gtk_refresh();
 }
 
 void gtk_refresh(){
@@ -357,9 +368,19 @@ void foo(){
 }
 
 void gtk_connect(){
-
+	if(readUserFile()==0){
+		logged=1;
+		selected_timeline=1;
+		gtk_refresh_timeline();
+	}
 }
 void gtk_disconnect(){
+	disconnect();
+
+	logged=0;
+	selected_timeline=0;
+
+	gtk_refresh_timeline();
 
 }
 

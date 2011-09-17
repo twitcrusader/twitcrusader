@@ -444,7 +444,46 @@ src/gui/windows.updates.d: ../src/gui/windows.updates.c \
  /usr/include/gtk-2.0/gtk/gtktipsquery.h \
  /usr/include/gtk-2.0/gdk/gdkkeysyms.h \
  /usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h ../src/gui/inc/icons.h \
- ../src/gui/../core/inc/lang.h
+ ../src/gui/inc/windows.main.h ../src/gui/inc/windows.credits.h \
+ ../src/gui/inc/windows.updates.h ../src/gui/inc/windows.register.h \
+ ../src/gui/inc/windows.error.h ../src/gui/inc/../../core/inc/lang.h \
+ ../src/gui/inc/../../core/inc/functions.h \
+ ../src/gui/inc/../../core/inc/config.h \
+ /usr/include/libxml2/libxml/xmlreader.h \
+ /usr/include/libxml2/libxml/xmlversion.h \
+ /usr/include/libxml2/libxml/xmlexports.h \
+ /usr/include/libxml2/libxml/tree.h \
+ /usr/include/libxml2/libxml/xmlstring.h \
+ /usr/include/libxml2/libxml/xmlregexp.h \
+ /usr/include/libxml2/libxml/dict.h \
+ /usr/include/libxml2/libxml/xmlmemory.h \
+ /usr/include/libxml2/libxml/threads.h \
+ /usr/include/libxml2/libxml/globals.h \
+ /usr/include/libxml2/libxml/parser.h /usr/include/libxml2/libxml/hash.h \
+ /usr/include/libxml2/libxml/valid.h \
+ /usr/include/libxml2/libxml/xmlerror.h \
+ /usr/include/libxml2/libxml/list.h \
+ /usr/include/libxml2/libxml/xmlautomata.h \
+ /usr/include/libxml2/libxml/entities.h \
+ /usr/include/libxml2/libxml/encoding.h \
+ /usr/include/libxml2/libxml/xmlIO.h /usr/include/libxml2/libxml/SAX.h \
+ /usr/include/libxml2/libxml/xlink.h /usr/include/libxml2/libxml/SAX2.h \
+ /usr/include/libxml2/libxml/relaxng.h \
+ /usr/include/libxml2/libxml/xmlschemas.h \
+ /usr/include/libxml2/libxml/xmlwriter.h \
+ ../src/gui/inc/../../core/inc/../../main.h \
+ ../src/gui/inc/../../core/inc/../../tools/inc/debugger.h \
+ ../src/gui/inc/../../core/inc/../../gui/inc/windows.main.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/lang.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/notify.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/lang.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/../../gui/inc/icons.h \
+ ../src/gui/inc/../../core/inc/twitter.h \
+ ../src/gui/inc/../../core/inc/functions.h \
+ ../src/gui/inc/../../core/inc/timeline.h \
+ ../src/gui/inc/../../core/inc/twitter.h \
+ ../src/gui/inc/../../core/inc/gethttp.h \
+ ../src/gui/inc/../../core/inc/gethttp.h
 
 ../src/gui/inc/windows.updates.h:
 
@@ -1446,4 +1485,94 @@ src/gui/windows.updates.d: ../src/gui/windows.updates.c \
 
 ../src/gui/inc/icons.h:
 
-../src/gui/../core/inc/lang.h:
+../src/gui/inc/windows.main.h:
+
+../src/gui/inc/windows.credits.h:
+
+../src/gui/inc/windows.updates.h:
+
+../src/gui/inc/windows.register.h:
+
+../src/gui/inc/windows.error.h:
+
+../src/gui/inc/../../core/inc/lang.h:
+
+../src/gui/inc/../../core/inc/functions.h:
+
+../src/gui/inc/../../core/inc/config.h:
+
+/usr/include/libxml2/libxml/xmlreader.h:
+
+/usr/include/libxml2/libxml/xmlversion.h:
+
+/usr/include/libxml2/libxml/xmlexports.h:
+
+/usr/include/libxml2/libxml/tree.h:
+
+/usr/include/libxml2/libxml/xmlstring.h:
+
+/usr/include/libxml2/libxml/xmlregexp.h:
+
+/usr/include/libxml2/libxml/dict.h:
+
+/usr/include/libxml2/libxml/xmlmemory.h:
+
+/usr/include/libxml2/libxml/threads.h:
+
+/usr/include/libxml2/libxml/globals.h:
+
+/usr/include/libxml2/libxml/parser.h:
+
+/usr/include/libxml2/libxml/hash.h:
+
+/usr/include/libxml2/libxml/valid.h:
+
+/usr/include/libxml2/libxml/xmlerror.h:
+
+/usr/include/libxml2/libxml/list.h:
+
+/usr/include/libxml2/libxml/xmlautomata.h:
+
+/usr/include/libxml2/libxml/entities.h:
+
+/usr/include/libxml2/libxml/encoding.h:
+
+/usr/include/libxml2/libxml/xmlIO.h:
+
+/usr/include/libxml2/libxml/SAX.h:
+
+/usr/include/libxml2/libxml/xlink.h:
+
+/usr/include/libxml2/libxml/SAX2.h:
+
+/usr/include/libxml2/libxml/relaxng.h:
+
+/usr/include/libxml2/libxml/xmlschemas.h:
+
+/usr/include/libxml2/libxml/xmlwriter.h:
+
+../src/gui/inc/../../core/inc/../../main.h:
+
+../src/gui/inc/../../core/inc/../../tools/inc/debugger.h:
+
+../src/gui/inc/../../core/inc/../../gui/inc/windows.main.h:
+
+../src/gui/inc/../../core/inc/../../core/inc/lang.h:
+
+../src/gui/inc/../../core/inc/../../core/inc/notify.h:
+
+../src/gui/inc/../../core/inc/../../core/inc/lang.h:
+
+../src/gui/inc/../../core/inc/../../core/inc/../../gui/inc/icons.h:
+
+../src/gui/inc/../../core/inc/twitter.h:
+
+../src/gui/inc/../../core/inc/functions.h:
+
+../src/gui/inc/../../core/inc/timeline.h:
+
+../src/gui/inc/../../core/inc/twitter.h:
+
+../src/gui/inc/../../core/inc/gethttp.h:
+
+../src/gui/inc/../../core/inc/gethttp.h:
