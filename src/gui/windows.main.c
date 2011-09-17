@@ -313,6 +313,7 @@ void loadWindowProperties(){
 }
 void loadRegDialog(){
 	gtk_window_register();
+
 }
 
 void clear_statusbar(){

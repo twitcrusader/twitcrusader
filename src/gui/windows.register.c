@@ -93,6 +93,9 @@ void gtkAccessToken(){
 	if(correctVerify == 1) gtk_window_error("Error: bad Input!");
 
 
-	if(correctVerify == 0)gtk_widget_destroy(GTK_WIDGET (DataInput->window));
+	if(correctVerify == 0){
+		gtk_widget_destroy(GTK_WIDGET (DataInput->window));
+		gtk_refresh_timeline();
+	}
 
 }
