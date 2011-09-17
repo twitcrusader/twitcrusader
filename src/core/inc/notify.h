@@ -1,5 +1,5 @@
 /*
- *	TwitCrusader - Twitter Client For Linux Desktop
+ *	 TwitCrusader - Twitter Client For Linux Desktop
  *		Copyright (C) 2011  TwitCrusader Team
  *
  *		This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,21 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
- 
-/* Headers */
-#include "inc/getfile.h"
+
+#ifndef NOTIFY_H_
+#define NOTIFY_H_
+
+#include <gtk/gtk.h>
+#include <libnotify/notify.h>
+
+#include "lang.h"
+#include "../../gui/inc/icons.h"
+
+void notifySystem(char *message);
+
+#endif /* NOTIFY_H_ */

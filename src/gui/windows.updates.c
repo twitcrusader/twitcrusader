@@ -35,30 +35,52 @@
  * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_updates_window_create-function/
  * 
  */
-void gtk_updates_window_create()
+void gtk_window_update()
 {
 	
+	//FILE* checkLatesVersion = NULL;
+	char bufferLatesVersion[10];
 	GtkWidget *window,
-			  *last_version_msg = gtk_label_new ("Last Version: "),
-			  *current_version_msg = gtk_label_new ("Current Version: "),
-			  *last_version_check,
-			  *current_version_check = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS);
-			  
+	*lastVersionMSG = gtk_label_new ("Last Version: "),
+	*lastVersionCheck,
+	*currentVersionMSG = gtk_label_new ("Current Version: "),
+	*currentVersionCheck = gtk_label_new (TWC_VERSION""TWC_VERSION_STATUS),
+	*table = gtk_table_new (8, 10, TRUE),
+	*button = gtk_button_new_with_label ("Close");
 	GError *error = NULL;
-			  
+
+	/* Check version with downloaded file */
+	strcpy(bufferLatesVersion, downloadVersion());
+
+
+	/* Set all window options (color, size, position, etc) */
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(window), 300, 200);
 	gtk_widget_set_size_request (window, 300, 200);
-	gtk_window_set_title (GTK_WINDOW(window), TWC" Updates");
+	gtk_window_set_title (GTK_WINDOW(window), "Check Updates");
 	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_UPGRADE, &error);
-			  	
-	g_signal_connect (G_OBJECT (window), 
-						"delete_event",  
-						G_CALLBACK (gtk_widget_destroy), 
-						NULL);
-	
+
+	/* Attach All Widget */
+	lastVersionCheck = gtk_label_new (bufferLatesVersion);
+	gtk_table_attach (GTK_TABLE (table), currentVersionMSG, 0, 6, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), currentVersionCheck, 6, 9, 1, 2, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), lastVersionMSG, 0, 5, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), lastVersionCheck, 6, 9, 3, 4, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	gtk_table_attach (GTK_TABLE (table), button, 1, 9, 5, 7, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+	g_signal_connect (G_OBJECT (button), "clicked",  G_CALLBACK (CloseWindow), G_OBJECT (window));
+
+	/* Attach tabke at window container */
+	gtk_container_add (GTK_CONTAINER (window), table);
+
+	/* Exit event and Widget Show */
+	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_widget_show_all (window);
-	
+}
+
+void CloseWindow(GtkButton *button, gpointer widget)
+{
+	/* Destroy the widget */
+	gtk_widget_destroy (GTK_WIDGET (widget));
 }

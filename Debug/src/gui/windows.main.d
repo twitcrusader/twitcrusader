@@ -474,9 +474,9 @@ src/gui/windows.main.d: ../src/gui/windows.main.c \
  ../src/gui/inc/../../core/inc/../../tools/inc/debugger.h \
  ../src/gui/inc/../../core/inc/../../gui/inc/windows.main.h \
  ../src/gui/inc/../../core/inc/../../core/inc/lang.h \
- ../src/gui/inc/../../core/inc/../../libs/libnotify/inc/notify.h \
- ../src/gui/inc/../../core/inc/../../libs/libnotify/inc/../../../core/inc/lang.h \
- ../src/gui/inc/../../core/inc/../../libs/libnotify/inc/../../../gui/inc/icons.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/notify.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/lang.h \
+ ../src/gui/inc/../../core/inc/../../core/inc/../../gui/inc/icons.h \
  ../src/gui/inc/../../core/inc/twitter.h \
  ../src/gui/inc/../../core/inc/functions.h \
  ../src/gui/inc/../../core/inc/timeline.h \
@@ -1552,11 +1552,11 @@ src/gui/windows.main.d: ../src/gui/windows.main.c \
 
 ../src/gui/inc/../../core/inc/../../core/inc/lang.h:
 
-../src/gui/inc/../../core/inc/../../libs/libnotify/inc/notify.h:
+../src/gui/inc/../../core/inc/../../core/inc/notify.h:
 
-../src/gui/inc/../../core/inc/../../libs/libnotify/inc/../../../core/inc/lang.h:
+../src/gui/inc/../../core/inc/../../core/inc/lang.h:
 
-../src/gui/inc/../../core/inc/../../libs/libnotify/inc/../../../gui/inc/icons.h:
+../src/gui/inc/../../core/inc/../../core/inc/../../gui/inc/icons.h:
 
 ../src/gui/inc/../../core/inc/twitter.h:
 

@@ -43,7 +43,9 @@
 #include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-void gtk_updates_window_create();
+void gtk_window_update();
+void CloseWindow(GtkButton *button, gpointer widget);
+
 
 /* Default End of WINDOWUPDATES_H */ 
 #endif

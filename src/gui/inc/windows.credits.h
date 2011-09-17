@@ -38,12 +38,10 @@
 
 /* Headers */
 #include <gtk/gtk.h>
-#include <glib.h>
 #include <pthread.h>
-#include <gdk/gdkkeysyms.h>
 
 /* Define Function */
-void gtk_credits_dialog_create();
+void gtk_credits_dialog();
 
 /* Default End of WINDOWMAIN_H */ 
 #endif

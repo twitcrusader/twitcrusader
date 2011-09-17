@@ -476,9 +476,8 @@ src/main.d: ../src/main.c ../src/main.h /usr/include/gtk-2.0/gtk/gtk.h \
  ../src/gui/inc/../../core/inc/twitter.h \
  ../src/gui/inc/../../core/inc/gethttp.h \
  ../src/gui/inc/../../core/inc/gethttp.h ../src/core/inc/lang.h \
- ../src/libs/libnotify/inc/notify.h \
- ../src/libs/libnotify/inc/../../../core/inc/lang.h \
- ../src/libs/libnotify/inc/../../../gui/inc/icons.h
+ ../src/core/inc/notify.h ../src/core/inc/lang.h \
+ ../src/core/inc/../../gui/inc/icons.h
 
 ../src/main.h:
 
@@ -1560,8 +1559,8 @@ src/main.d: ../src/main.c ../src/main.h /usr/include/gtk-2.0/gtk/gtk.h \
 
 ../src/core/inc/lang.h:
 
-../src/libs/libnotify/inc/notify.h:
+../src/core/inc/notify.h:
 
-../src/libs/libnotify/inc/../../../core/inc/lang.h:
+../src/core/inc/lang.h:
 
-../src/libs/libnotify/inc/../../../gui/inc/icons.h:
+../src/core/inc/../../gui/inc/icons.h:

@@ -61,14 +61,14 @@ struct main_window{
 	*table,
 	*scroll,
 	*table_into,
-	*icon_menu,
 	*scrolled_window,
 	*menu_bar,
 	*layout,
 	*toolbar,
 	*statusbar,
 	*char_bar,
-	*new_button,
+	*tool_bar[7],
+	*tool_icon_menu[7],
 	*text,
 	*file_menu_obj,
 	*file_menu_root,
@@ -111,6 +111,7 @@ struct StatusBars
 /* VARIABLES*/
 struct menu menu1[4];
 struct menu menuAiuto[3];
+struct menu tool_button[7];
 
 int selected_timeline;
 int logged;

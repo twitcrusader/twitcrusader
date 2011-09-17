@@ -49,4 +49,6 @@
 #define UPDATES "Updates"
 #define ABOUT "About"
 
+#define PROFILE_DISCONNECTED "Disconnected!";
+#define PROFILE_CONNECTED "Connected!";
 #endif

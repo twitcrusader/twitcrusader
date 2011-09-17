@@ -94,6 +94,7 @@ void gtk_init_window(){
 	mainWindow.char_bar = gtk_statusbar_new ();
 	mainWindow.toolbar = gtk_toolbar_new ();
 	mainWindow.table = gtk_table_new (9, 3, TRUE);
+	mainWindow.text = gtk_text_view_new();
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	mainWindow.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -178,12 +179,10 @@ void gtk_init_statusbar(){
 	StatusBar.message = GTK_STATUSBAR(mainWindow.statusbar);
 	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
 
-
-
 	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
-		mainWindow.statusLabel="Disconnect..";
+		mainWindow.statusLabel=PROFILE_DISCONNECTED;
 	}else{
-		mainWindow.statusLabel="Connect..";
+		mainWindow.statusLabel=PROFILE_CONNECTED;
 	}
 
 	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
@@ -200,43 +199,37 @@ void gtk_init_toolbar(){
 void gtk_init_toolbar_items(){
 
 	/* Twitter Menu: Buttons */
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_UPDATE);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
-	gdk_threads_enter ();
-	gtk_signal_connect_object (GTK_OBJECT (mainWindow.new_button), "clicked", GTK_SIGNAL_FUNC(gtk_refresh), NULL);
-	gdk_threads_leave ();
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_HOME);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button), mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_MENTION);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
+	tool_button[0].icon=ICON_UPDATE;
+	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh);
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_DM);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
+	tool_button[1].icon=ICON_HOME;
+	tool_button[1].function=GTK_SIGNAL_FUNC(gtk_refresh);
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_FAVORITES);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
+	tool_button[2].icon=ICON_MENTION;
+	tool_button[2].function=GTK_SIGNAL_FUNC(gtk_refresh);
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_LINK);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
+	tool_button[3].icon=ICON_DM;
+	tool_button[3].function=GTK_SIGNAL_FUNC(gtk_refresh);
 
-	mainWindow.new_button = gtk_button_new();
-	mainWindow.icon_menu = gtk_image_new_from_file(ICON_PHOTO);
-	gtk_button_set_image(GTK_BUTTON(mainWindow.new_button),mainWindow.icon_menu);
-	gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.new_button);
+	tool_button[4].icon=ICON_FAVORITES;
+	tool_button[4].function=GTK_SIGNAL_FUNC(gtk_refresh);
+
+	tool_button[5].icon=ICON_LINK;
+	tool_button[5].function=GTK_SIGNAL_FUNC(gtk_refresh);
+
+	tool_button[6].icon=ICON_PHOTO;
+	tool_button[6].function=GTK_SIGNAL_FUNC(gtk_refresh);
+
+	int i;
+	for(i=0; i<7;i++){
+		mainWindow.tool_bar[i] = gtk_button_new();
+		mainWindow.tool_icon_menu[i] = gtk_image_new_from_file(tool_button[i].icon);
+		gtk_button_set_image(GTK_BUTTON(mainWindow.tool_bar[i]),mainWindow.tool_icon_menu[i]);
+		gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.tool_bar[i]);
+		gtk_signal_connect_object (GTK_OBJECT (mainWindow.tool_bar[i]), "clicked", tool_button[i].function, NULL);
+	}
 
 }
 
@@ -254,17 +247,18 @@ void gtk_init_charbar(){
 void gtk_init_text_area(){
 	// TextArea + Scrollbar
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(mainWindow.scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
-	mainWindow.text = gtk_text_view_new();
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.text), TRUE);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.text), TRUE);
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(mainWindow.text), GTK_WRAP_WORD_CHAR);
 	mainWindow.tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.text));
 	gtk_text_buffer_set_text (mainWindow.tweetBuffer, "", -1);
+
 	g_signal_connect(mainWindow.tweetBuffer, "changed", G_CALLBACK(gtk_refresh_timeline), mainWindow.char_bar);
 	g_signal_connect(mainWindow.text, "key-press-event", G_CALLBACK(on_submit_text), mainWindow.tweetBuffer);
 
 
 }
+
 void gtk_init_menu_bar(){
 
 	gtk_menu_bar_append(GTK_MENU_BAR (mainWindow.menu_bar), mainWindow.file_menu_root);
@@ -307,8 +301,11 @@ void on_writing(){
 
 void loadAboutDialog(){
 
+	gtk_credits_dialog();
 }
 void loadVersionDialog(){
+
+	gtk_window_update();
 
 }
 void loadWindowProperties(){

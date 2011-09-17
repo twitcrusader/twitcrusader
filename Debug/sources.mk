@@ -13,10 +13,6 @@ EXECUTABLES :=
 SUBDIRS := \
 src/tools \
 src \
-src/libs/oauth \
-src/libs/libxml \
-src/libs/libnotify \
-src/libs/curl \
 src/gui \
 src/core \
 
