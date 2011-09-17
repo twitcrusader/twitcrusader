@@ -47,7 +47,6 @@
 #define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
 #define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
 
-
 #define HTTP_API_URL "http://api.twitter.com"
 #define HTTPS_API_URL "https://api.twitter.com"
 
