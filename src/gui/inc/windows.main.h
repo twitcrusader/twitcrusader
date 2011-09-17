@@ -158,6 +158,7 @@ void gtk_disconnect();
 void show_home_timeline();
 void mentions_timeline();
 void show_private_message();
+void downloadsAvatars();
 
 void on_submit_text();
 void on_writing();

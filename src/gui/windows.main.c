@@ -202,7 +202,7 @@ void gtk_init_toolbar_items(){
 
 
 	tool_button[0].icon=ICON_UPDATE;
-	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh);
+	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline);
 
 	tool_button[1].icon=ICON_HOME;
 	tool_button[1].function=GTK_SIGNAL_FUNC(gtk_refresh);
@@ -268,7 +268,7 @@ void gtk_init_menu_bar(){
 
 void gtk_init_scrolled_window(){
 
-	int cols, rows;
+	int cols=0, rows=0;
 
 	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
@@ -331,7 +331,16 @@ void show_private_message(){
 
 void gtk_refresh_timeline(){
 
+	int error;
+	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *, gpointer window)");
 
+		error=switchTimeLine(selected_timeline);
+
+		if(error==0){
+			downloadsAvatars();
+		}
+
+		gtk_refresh();
 }
 
 void gtk_refresh(){
@@ -339,7 +348,7 @@ void gtk_refresh(){
 	gtk_init_statusbar();
 	gtk_init_scrolled_window();
 	gtk_refresh_toolbar_items();
-	gtk_widget_show_all (mainWindow.window);
+	gtk_widget_show_all(mainWindow.window);
 	gtk_widget_queue_draw(mainWindow.window);
 }
 
@@ -352,6 +361,30 @@ void gtk_connect(){
 }
 void gtk_disconnect(){
 
+}
+
+void downloadsAvatars(){
+	pthread_t tid;
+	int i, error=0;
+
+	for(i=0; i<MAX_NUM_TWEETS; i++){
+		char *argv[2];
+		argv[0]=timeline[i].user.profile_image_url;
+		argv[1]=timeline[i].user.profile_image;
+
+		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
+
+		if(debug==1){
+			if(0 != error)
+				fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
+			else
+				fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
+		}
+
+		error = pthread_join(tid, NULL);
+		if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
+
+	}
 }
 
 
