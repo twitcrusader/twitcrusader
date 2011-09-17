@@ -18,36 +18,52 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
+#ifndef USER_H_
+#define USER_H_
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#define _GNU_SOURCE
+#include <stdio.h>
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+#include <string.h>
 
-/* CharSet */ 
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+
+#include "../../main.h"
+
 #define MY_ENCODING "ISO-8859-1"
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+#define CONFIG_FILENAME "config.xml"
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
 
-#include "tools/inc/debugger.h"
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "libs/libnotify/inc/notify.h"
+struct users{
+	char* id;
+	char* screenName;
+	char* token;
+	char* secretToken;
+	char* consumerKey;
+	char* consumerSecretKey;
+} user;
 
-/* Initialize Debugger */ 
-int debug;
+struct programPath{
+	char *avatarDir;
+	char *configDir;
+	char *configFile;
+	char *timelineDir;
+} progPath;
 
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+int writeUserFile();
+int readUserFile();
+void disconnect();
+int deleteAccount();
+void mallocUsers();
+void freeSizeUsers();
+
+
+#endif /* USER_H_ */

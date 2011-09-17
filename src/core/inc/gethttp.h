@@ -18,36 +18,27 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
+#ifndef GETHTTP_H_
+#define GETHTTP_H_
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#define _GNU_SOURCE
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+#include <stdio.h>
+#include <curl/curl.h>
+#include <pthread.h>
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
+#include "functions.h"
+#include "timeline.h"
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
+void getSingleCURL(char *url, char *file);
+int getMultiCURL(char **url, char **file, int max_num_tid);
+void *pull_one_url(void *argv);
+int getWGET(char *url, char *file);
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
-
-#include "tools/inc/debugger.h"
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "libs/libnotify/inc/notify.h"
-
-/* Initialize Debugger */ 
-int debug;
-
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+#endif /* GETHTTP_H_ */

@@ -36,17 +36,26 @@
  * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h core/inc/sys.h core/inc/file.h core/inc/url.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h gui/windows.updates.c gui/inc/windows.updates.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
  * 
  */
-int main(int argc, char **argv){
+int main(int argc, char *argv[]){
 
 	notify_init(TWC);
 
+	gtk_init (&argc, &argv);
 	notifySystem(START);
+
+	/* Fix Struct Size */
+	mallocUsers();
+
+	createDir();
 
 	if(debugger(argc, argv) == 1){ 
 		return 0;
 	}
 	
 	gtk_window_main();
+
+	//Show GTK Main
+	gtk_main ();
 	
 	notify_uninit();
 

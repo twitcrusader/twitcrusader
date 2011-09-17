@@ -18,36 +18,34 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#ifndef FUNCTION_H_
+#define FUNCTION_H_
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+#define _GNU_SOURCE
+#include <stdio.h>
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
+#include <stdlib.h>
+#include <string.h>
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+#include "config.h"
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+#define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
-#include "tools/inc/debugger.h"
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "libs/libnotify/inc/notify.h"
-
-/* Initialize Debugger */ 
 int debug;
+void mallocSizeOF();
+void freeSizeOF(void);
+char *sumStrings(char *parm1, char *parm2 );
+char* getParameters(char** argv, int argc, const char* param);
+int shellParameters (int argc, char **argv);
+void createDir();
+char* downloadVersion();
+char* readRawTextFile(char* fileName);
+char** readRawMultilineTextFile(char* fileName);
 
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+#endif /* FUNCTION_H_ */

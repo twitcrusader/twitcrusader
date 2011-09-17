@@ -147,8 +147,8 @@ void loadRegDialog();
 
 /* Actions */
 void foo();
-void gtkConnect();
-void gtkDisconnect();
+void gtk_connect();
+void gtk_disconnect();
 void show_home_timeline();
 void mentions_timeline();
 void show_private_message();

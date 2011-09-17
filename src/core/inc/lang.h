@@ -24,30 +24,29 @@
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
-
+ 
 /* Define */
-#ifndef _TWITCRUSADER_H
+#ifndef SYS_H
 
 /* Default Define */ 
-#define _TWITCRUSADER_H
-
+#define SYS_H
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
 
 /* Fix: GCC Linux Compiler */ 
 #define _GNU_SOURCE	
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+/* System Variables */
+#define TWC "TwitCrusader"
+#define TWC_VERSION "2011"
+#define TWC_VERSION_STATUS "Nightly"
 
-#include "tools/inc/debugger.h"
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "libs/libnotify/inc/notify.h"
+#define START "Start"
+#define CONNECT "Connetti"
+#define DISCONNECT "Disconnetti"
+#define OPTIONS "Opzioni"
+#define QUIT "Esci"
+#define UPDATES "Updates"
+#define ABOUT "About"
 
-/* Initialize Debugger */ 
-int debug;
-
-/* Default End of _TWITCRUSADER_H */ 
 #endif

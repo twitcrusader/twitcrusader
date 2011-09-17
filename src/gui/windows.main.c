@@ -29,17 +29,6 @@
 
 void gtk_window_main(){
 
-	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
-	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
-	mainWindow.menu_bar = gtk_menu_bar_new();
-	mainWindow.layout = gtk_vbox_new(0, 1);
-	mainWindow.statusbar = gtk_statusbar_new ();
-	mainWindow.char_bar = gtk_statusbar_new ();
-	mainWindow.toolbar = gtk_toolbar_new ();
-	mainWindow.table = gtk_table_new (9, 3, TRUE);
-
-
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -87,14 +76,19 @@ void gtk_window_main(){
 	// Widget Show
 	gtk_widget_show_all (mainWindow.window);
 
-
-	//Show GTK Main
-
-	gtk_main ();
-
 }
 
 void gtk_init_window(){
+
+	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
+	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
+	mainWindow.menu_bar = gtk_menu_bar_new();
+	mainWindow.layout = gtk_vbox_new(0, 1);
+	mainWindow.statusbar = gtk_statusbar_new ();
+	mainWindow.char_bar = gtk_statusbar_new ();
+	mainWindow.toolbar = gtk_toolbar_new ();
+	mainWindow.table = gtk_table_new (9, 3, TRUE);
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	mainWindow.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -111,11 +105,11 @@ void gtk_init_menu(){
 
 	menu1[0].name=CONNECT;
 	menu1[0].icon=ICON_ADDUSER;
-	menu1[0].function=G_CALLBACK (gtkConnect);
+	menu1[0].function=G_CALLBACK (gtk_connect);
 
 	menu1[1].name=DISCONNECT;
 	menu1[1].icon=ICON_ADDUSER;
-	menu1[1].function=G_CALLBACK (gtkDisconnect);
+	menu1[1].function=G_CALLBACK (gtk_disconnect);
 
 	menu1[2].name=OPTIONS;
 	menu1[2].icon=ICON_SETTINGS;
@@ -170,7 +164,9 @@ void gtk_init_menu(){
 
 }
 
-void gtk_refresh_menu();
+void gtk_refresh_menu(){
+
+}
 void gtk_init_statusbar(){
 	/* Status Bar */
 
@@ -239,7 +235,9 @@ void gtk_init_toolbar_items(){
 
 }
 
-void gtk_refresh_toolbar_items();
+void gtk_refresh_toolbar_items(){
+
+}
 
 void gtk_init_charbar(){
 	/* Status Bar: Twitter 140char */
@@ -295,20 +293,68 @@ void gtk_init_scrolled_window(){
 
 }
 
-void on_submit_text();
-void on_writing();
-int on_timeout();
+void on_submit_text(){
 
-void loadAboutDialog();
-void loadVersionDialog();
-void loadWindowProperties();
-void loadRegDialog();
+}
+void on_writing(){
 
-void clear_statusbar();
+}
 
-void show_home_timeline();
-void mentions_timeline();
-void show_private_message();
+void loadAboutDialog(){
 
-int Quit_Dialog();
+}
+void loadVersionDialog(){
+
+}
+void loadWindowProperties(){
+
+}
+void loadRegDialog(){
+
+}
+
+void clear_statusbar(){
+
+}
+
+void show_home_timeline(){
+
+}
+void mentions_timeline(){
+
+}
+void show_private_message(){
+
+}
+
+void gtk_refresh_timeline(){
+
+
+}
+
+void gtk_refresh(){
+	gtk_refresh_menu();
+	gtk_init_statusbar();
+	gtk_init_scrolled_window();
+	gtk_refresh_toolbar_items();
+	gtk_widget_show_all (mainWindow.window);
+	gtk_widget_queue_draw(mainWindow.window);
+}
+
+void foo(){
+puts("foo()\n");
+}
+
+void gtk_connect(){
+
+}
+void gtk_disconnect(){
+
+}
+
+
+void on_quit(){
+	notifySystem(QUIT);
+	gtk_widget_destroy (GTK_WIDGET (mainWindow.window));
+}
 
