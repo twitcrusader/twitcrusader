@@ -71,26 +71,6 @@
 									<listOptionValue builtIn="false" value="notify"/>
 									<listOptionValue builtIn="false" value="xml2"/>
 									<listOptionValue builtIn="false" value="oauth"/>
-									<listOptionValue builtIn="false" value="gtk-x11-2.0"/>
-									<listOptionValue builtIn="false" value="gdk-x11-2.0"/>
-									<listOptionValue builtIn="false" value="atk-1.0"/>
-									<listOptionValue builtIn="false" value="gio-2.0"/>
-									<listOptionValue builtIn="false" value="pangoft2-1.0"/>
-									<listOptionValue builtIn="false" value="pangocairo-1.0"/>
-									<listOptionValue builtIn="false" value="gdk_pixbuf-2.0"/>
-									<listOptionValue builtIn="false" value="cairo"/>
-									<listOptionValue builtIn="false" value="pango-1.0"/>
-									<listOptionValue builtIn="false" value="freetype"/>
-									<listOptionValue builtIn="false" value="fontconfig"/>
-									<listOptionValue builtIn="false" value="gobject-2.0"/>
-									<listOptionValue builtIn="false" value="gmodule-2.0"/>
-									<listOptionValue builtIn="false" value="gthread-2.0"/>
-									<listOptionValue builtIn="false" value="rt"/>
-									<listOptionValue builtIn="false" value="glib-2.0"/>
-									<listOptionValue builtIn="false" value="curl"/>
-									<listOptionValue builtIn="false" value="notify"/>
-									<listOptionValue builtIn="false" value="xml2"/>
-									<listOptionValue builtIn="false" value="oauth"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.295452310" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

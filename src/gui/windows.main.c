@@ -62,10 +62,12 @@ void gtk_window_main(){
 	//Exist Config File?
 	if(fopen (progPath.configFile, "r")==NULL){
 
-
 		loadRegDialog();
+
 	}else{
+
 		gtk_refresh_timeline();
+
 	}
 
 	/* CALLBACK: exit event */
@@ -75,6 +77,9 @@ void gtk_window_main(){
 
 	// Widget Show
 	gtk_widget_show_all (mainWindow.window);
+
+	//Show GTK Main
+	gtk_main ();
 
 }
 
@@ -94,7 +99,7 @@ void gtk_init_window(){
 	mainWindow.window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size (GTK_WINDOW(mainWindow.window), 315, 650);
 	gtk_widget_set_size_request (mainWindow.window, 315, 400);
-	gtk_window_set_title (GTK_WINDOW(mainWindow.window), "TwitCrusader");
+	gtk_window_set_title (GTK_WINDOW(mainWindow.window), TWC);
 	gtk_container_set_border_width (GTK_CONTAINER (mainWindow.window), 0);
 	gtk_window_set_position(GTK_WINDOW(mainWindow.window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(mainWindow.window), ICON_FAVICON, &mainWindow.error);
@@ -136,24 +141,24 @@ void gtk_init_menu(){
 	int i;
 
 	for(i=0;i<4;i++){
-		mainWindow.file_menu_items = gtk_image_menu_item_new_with_label(menu1[i].name);
-		mainWindow.icon_menu = gtk_image_new_from_file(menu1[i].icon);
-		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.file_menu_items), mainWindow.icon_menu);
-		g_signal_connect (G_OBJECT (mainWindow.file_menu_items), "activate", menu1[i].function, NULL);
-		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items);
-		if(i==2){
-			mainWindow.file_menu_items = gtk_separator_menu_item_new();
+		mainWindow.file_menu_items[i] = gtk_image_menu_item_new_with_label(menu1[i].name);
+		mainWindow.file_icon_menu[i] = gtk_image_new_from_file(menu1[i].icon);
+		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.file_menu_items[i]), mainWindow.file_icon_menu[i]);
+		g_signal_connect (G_OBJECT (mainWindow.file_menu_items[i]), "activate", menu1[i].function, NULL);
+		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items[i]);
+		/*if(i==2){
+			mainWindow.file_menu_items[] = gtk_separator_menu_item_new();
 			gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items);
-		}
+		}*/
 	}
 
 	/* SubMenu: Help */
 	for(i=0;i<2;i++){
-		mainWindow.aiuto_menu_items = gtk_image_menu_item_new_with_label(menuAiuto[i].name);
-		mainWindow.icon_menu = gtk_image_new_from_file(menuAiuto[i].icon);
-		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.aiuto_menu_items), mainWindow.icon_menu);
-		g_signal_connect (G_OBJECT (mainWindow.aiuto_menu_items), "activate", menuAiuto[i].function, NULL);
-		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.aiuto_menu_obj), mainWindow.aiuto_menu_items);
+		mainWindow.aiuto_menu_items[i] = gtk_image_menu_item_new_with_label(menuAiuto[i].name);
+		mainWindow.aiuto_icon_menu[i] = gtk_image_new_from_file(menuAiuto[i].icon);
+		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.aiuto_menu_items[i]), mainWindow.aiuto_icon_menu[i]);
+		g_signal_connect (G_OBJECT (mainWindow.aiuto_menu_items[i]), "activate", menuAiuto[i].function, NULL);
+		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.aiuto_menu_obj), mainWindow.aiuto_menu_items[i]);
 
 	}
 
@@ -342,7 +347,7 @@ void gtk_refresh(){
 }
 
 void foo(){
-puts("foo()\n");
+	puts("foo()\n");
 }
 
 void gtk_connect(){
@@ -355,6 +360,6 @@ void gtk_disconnect(){
 
 void on_quit(){
 	notifySystem(QUIT);
-	gtk_widget_destroy (GTK_WIDGET (mainWindow.window));
+	gtk_main_quit();
 }
 

@@ -53,10 +53,9 @@ int main(int argc, char *argv[]){
 	}
 	
 	gtk_window_main();
-
-	//Show GTK Main
-	gtk_main ();
 	
+	freeSizeUsers();
+
 	notify_uninit();
 
 return 0;

@@ -60,8 +60,8 @@ struct main_window{
 	GtkWidget *window,
 	*table,
 	*scroll,
-	*icon_menu,
 	*table_into,
+	*icon_menu,
 	*scrolled_window,
 	*menu_bar,
 	*layout,
@@ -72,10 +72,12 @@ struct main_window{
 	*text,
 	*file_menu_obj,
 	*file_menu_root,
-	*file_menu_items,
+	*file_menu_items[4],
+	*file_icon_menu[4],
 	*aiuto_menu_obj,
 	*aiuto_menu_root,
-	*aiuto_menu_items,
+	*aiuto_menu_items[3],
+	*aiuto_icon_menu[3],
 	*nick,
 	*tweet,
 	*avatar,
@@ -109,6 +111,9 @@ struct StatusBars
 /* VARIABLES*/
 struct menu menu1[4];
 struct menu menuAiuto[3];
+
+int selected_timeline;
+int logged;
 
 typedef struct configuration {
 	char* default_user;
