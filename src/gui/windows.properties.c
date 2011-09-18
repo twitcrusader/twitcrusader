@@ -28,26 +28,16 @@
 
 void gtk_window_properties(){
 
-	GtkWidget *window,
-	*notebook = gtk_notebook_new (),
-	*settingMenu = NULL,
-	*table = gtk_table_new (7, 10, TRUE),
-	*label = NULL,
-	*combo = NULL,
-	*button = NULL;
-	GList *itemsAccount = NULL;
-	GError *error = NULL;
-
 	readUserFile();
 
-	/* Set all window options (color, size, position, etc) */
-	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_default_size (GTK_WINDOW(window), 310, 300);
-	gtk_widget_set_size_request (window, 310, 300);
-	gtk_window_set_title (GTK_WINDOW(window), "Opzioni");
-	gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_icon_from_file (GTK_WINDOW(window), ICON_SETTINGS, &error);
+	table = gtk_table_new (7, 10, TRUE);
+	notebook = gtk_notebook_new ();
+
+	dialog=gtk_dialog_new();
+	gtk_window_set_title (GTK_WINDOW(dialog), "Opzioni");
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_SETTINGS, &error);
 	gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_BOTTOM);
 
 	/* Set all functions of Account TAB */
@@ -58,7 +48,7 @@ void gtk_window_properties(){
 
 	label = gtk_label_new ("Twitter's Account:");
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non  stampa il nome!
+	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non stampa il nome!
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
 
 	/* Attach all gtk-widget at table */
@@ -66,36 +56,43 @@ void gtk_window_properties(){
 	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
 	if(readUserFile()==0){
-		button = gtk_button_new_with_label ("Elimina");
-		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtkDeleteAccount), G_OBJECT (window));
+	button = gtk_button_new_with_label ("Elimina");
+	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_delete_account), NULL);
 	}else{
-		button = gtk_button_new_with_label ("Nuovo");
-		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_window_register), G_OBJECT (window));
+	button = gtk_button_new_with_label ("Nuovo");
+	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_register), NULL);
 	}
 
 	/* Set switch-TAB signal */
-	//g_signal_connect (G_OBJECT (table), "clicked", G_CALLBACK (gtkSwitchPage), notebook);
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
 
 
 	/* Attach tab-notebook at window container */
-	gtk_container_add (GTK_CONTAINER (window), notebook);
+	gtk_dialog_add_action_widget(GTK_DIALOG(dialog ), notebook, GTK_RESPONSE_APPLY);
 
-	/* CALLBACK: exit event and Widget Show */
-	g_signal_connect (G_OBJECT (window), "delete_event",  G_CALLBACK (gtk_widget_destroy), NULL);
-	gtk_widget_show_all (window);
+	g_signal_connect_swapped (dialog , "response",G_CALLBACK (gtk_widget_destroy),dialog );
+
+	gtk_widget_show_all (dialog);
+
+	gtk_dialog_run(GTK_DIALOG(dialog));
 
 }
 
-void gtkDeleteAccount(GtkWidget *window){
+void gtk_delete_account(){
 
 	deleteAccount();
 
 	disconnect();
-
-	gtk_widget_destroy(window);
+	gtk_widget_destroy(dialog);
 
 	gtk_window_properties();
+}
+
+void gtk_register(){
+
+	gtk_widget_destroy(dialog);
+gtk_window_register();
+
 }

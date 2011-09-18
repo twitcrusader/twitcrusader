@@ -42,8 +42,19 @@
 #include "../../core/inc/lang.h"
 
 
+GtkWidget *dialog,
+*notebook,
+*settingMenu,
+*table,
+*label,
+*combo,
+*button;
+GList *itemsAccount;
+GError *error;
+
 /* Define Function */
-void gtkDeleteAccount(GtkWidget *window);
+void gtk_register();
+void gtk_delete_account();
 void gtk_window_properties();
 
 #endif /* WINDOWS_PROPERTIES_H_ */

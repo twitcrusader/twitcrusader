@@ -43,8 +43,8 @@
 
 typedef struct
 {
-	GtkWidget *pin;
-	GtkWidget *window;
+GtkWidget *pin;
+GtkWidget *window;
 
 } AuthWidget;
 
