@@ -81,6 +81,7 @@ void gtk_window_main(){
 }
 
 void gtk_init_window(){
+
 	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
 	mainWindow.menu_bar = gtk_menu_bar_new();
 	mainWindow.layout = gtk_vbox_new(0, 1);
@@ -141,10 +142,6 @@ void gtk_init_menu(){
 		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.file_menu_items[i]), mainWindow.file_icon_menu[i]);
 		g_signal_connect (G_OBJECT (mainWindow.file_menu_items[i]), "activate", menu1[i].function, NULL);
 		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items[i]);
-		/*if(i==2){
-			mainWindow.file_menu_items[] = gtk_separator_menu_item_new();
-			gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items);
-		}*/
 	}
 
 	/* SubMenu: Help */
@@ -264,7 +261,7 @@ void gtk_init_menu_bar(){
 void gtk_init_scrolled_window(){
 
 	int cols=0, rows=0;
-	mainWindow.table_into = gtk_table_new (50, 3, TRUE);
+	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 
 	/* Scrolled */
@@ -288,9 +285,9 @@ void gtk_init_scrolled_window(){
 	}
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
 
 	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
 
 
 }
@@ -390,14 +387,14 @@ void clear_statusbar(){
 
 void show_home_timeline(){
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		selected_timeline=1;
+		mainWindow.selected_timeline=1;
 		gtk_refresh_timeline();
 	}
 
 }
 void mentions_timeline(){
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
-		selected_timeline=2;
+		mainWindow.selected_timeline=2;
 		gtk_refresh_timeline();
 	}
 
@@ -413,10 +410,10 @@ void gtk_refresh_timeline(){
 	int error;
 	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *, gpointer window)");
 
-	error=switchTimeLine(selected_timeline);
+	error=switchTimeLine(mainWindow.selected_timeline);
 
 	if(error==0){
-		downloadsAvatars();
+		//downloadsAvatars();
 	}
 
 	gtk_refresh();
@@ -437,16 +434,16 @@ void foo(){
 
 void gtk_connect(){
 	if(readUserFile()==0){
-		logged=1;
-		selected_timeline=1;
+		mainWindow.logged=1;
+		mainWindow.selected_timeline=1;
 		gtk_refresh_timeline();
 	}
 }
 void gtk_disconnect(){
 	disconnect();
 
-	logged=0;
-	selected_timeline=0;
+	mainWindow.logged=0;
+	mainWindow.selected_timeline=0;
 
 	gtk_refresh_timeline();
 

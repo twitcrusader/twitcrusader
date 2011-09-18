@@ -48,9 +48,7 @@ int main(int argc, char *argv[]){
 
 	createDir();
 
-	if(debugger(argc, argv) == 1){ 
-		return 0;
-	}
+	if(shellParameters (argc, argv)==1) return 0;
 
 
 	gtk_window_main();

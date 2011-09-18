@@ -472,7 +472,6 @@ src/gui/windows.properties.d: ../src/gui/windows.properties.c \
  /usr/include/libxml2/libxml/xmlschemas.h \
  /usr/include/libxml2/libxml/xmlwriter.h \
  ../src/gui/inc/../../core/inc/../../main.h \
- ../src/gui/inc/../../core/inc/../../tools/inc/debugger.h \
  ../src/gui/inc/../../core/inc/../../gui/inc/windows.main.h \
  ../src/gui/inc/../../core/inc/../../core/inc/lang.h \
  ../src/gui/inc/../../core/inc/../../core/inc/notify.h \
@@ -1552,8 +1551,6 @@ src/gui/windows.properties.d: ../src/gui/windows.properties.c \
 /usr/include/libxml2/libxml/xmlwriter.h:
 
 ../src/gui/inc/../../core/inc/../../main.h:
-
-../src/gui/inc/../../core/inc/../../tools/inc/debugger.h:
 
 ../src/gui/inc/../../core/inc/../../gui/inc/windows.main.h:
 

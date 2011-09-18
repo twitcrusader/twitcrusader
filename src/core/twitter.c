@@ -277,45 +277,46 @@ int switchTimeLine(int xmlSwitch){
 	case 0:
 			asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
 			timelineURL=PUBLIC_TIMELINE_URL;
-
+			break;
 	case 1:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
 		timelineURL=HOME_TIMELINE_URL;
-
+		break;
 
 	case 2:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
 		timelineURL=MENTIONS_TIMELINE_URL;
-
+		break;
 
 	case 3:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
 		timelineURL=FRIENDS_TIMELINE_URL;
-
+		break;
 
 	case 4:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
 		timelineURL=USER_TIMELINE_URL;
-
+		break;
 
 	case 5:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
 		timelineURL=RT_BY_ME_TIMELINE_URL;
-
+		break;
 
 	case 6:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
 		timelineURL=RT_TO_ME_TIMELINE_URL;
-
+		break;
 
 	case 7:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
 		timelineURL=RT_OF_ME_TIMELINE_URL;
-
+		break;
 
 	default:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
 		timelineURL=PUBLIC_TIMELINE_URL;
+		break;
 	}
 
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.token, user.secretToken);

@@ -11,7 +11,6 @@ EXECUTABLES :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-src/tools \
 src \
 src/gui \
 src/core \

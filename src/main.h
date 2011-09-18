@@ -41,7 +41,6 @@
 #include <gtk/gtk.h>
 #include <libnotify/notify.h>
 
-#include "tools/inc/debugger.h"
 #include "gui/inc/windows.main.h"
 #include "core/inc/lang.h"
 #include "core/inc/notify.h"

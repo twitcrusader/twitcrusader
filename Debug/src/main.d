@@ -440,8 +440,8 @@ src/main.d: ../src/main.c ../src/main.h /usr/include/gtk-2.0/gtk/gtk.h \
  /usr/include/gtk-2.0/gtk/gtkoldeditable.h \
  /usr/include/gtk-2.0/gtk/gtkoptionmenu.h \
  /usr/include/gtk-2.0/gtk/gtkpreview.h \
- /usr/include/gtk-2.0/gtk/gtktipsquery.h ../src/tools/inc/debugger.h \
- ../src/gui/inc/windows.main.h /usr/include/gtk-2.0/gdk/gdkkeysyms.h \
+ /usr/include/gtk-2.0/gtk/gtktipsquery.h ../src/gui/inc/windows.main.h \
+ /usr/include/gtk-2.0/gdk/gdkkeysyms.h \
  /usr/include/gtk-2.0/gdk/gdkkeysyms-compat.h \
  ../src/gui/inc/windows.properties.h ../src/gui/inc/icons.h \
  ../src/gui/inc/windows.register.h ../src/gui/inc/windows.main.h \
@@ -1474,8 +1474,6 @@ src/main.d: ../src/main.c ../src/main.h /usr/include/gtk-2.0/gtk/gtk.h \
 /usr/include/gtk-2.0/gtk/gtkpreview.h:
 
 /usr/include/gtk-2.0/gtk/gtktipsquery.h:
-
-../src/tools/inc/debugger.h:
 
 ../src/gui/inc/windows.main.h:
 

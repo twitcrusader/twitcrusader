@@ -87,6 +87,10 @@ struct main_window{
 
 	GtkTextBuffer *tweetBuffer;
 
+	int selected_timeline;
+	int logged;
+
+
 }mainWindow;
 
 struct menu{
@@ -107,9 +111,6 @@ struct StatusBars
 struct menu menu1[4];
 struct menu menuAiuto[3];
 struct menu tool_button[7];
-
-int selected_timeline;
-int logged;
 
 typedef struct configuration {
 	char* default_user;
