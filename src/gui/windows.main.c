@@ -413,7 +413,7 @@ void gtk_refresh_timeline(){
 	error=switchTimeLine(mainWindow.selected_timeline);
 
 	if(error==0){
-		//downloadsAvatars();
+		downloadsAvatars();
 	}
 
 	gtk_refresh();
