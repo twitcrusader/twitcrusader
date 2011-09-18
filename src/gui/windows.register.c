@@ -27,25 +27,19 @@
 #include "inc/windows.register.h"
 
 void gtk_window_register(){
-
-	/* Variables */
-	GtkWidget *table,
+	GtkWidget *table = gtk_table_new (10, 10, TRUE),
 	*label,
 	*button,
 	*twitterLogin,
 	*tw_login_imgevent;
-	GError *error;
-
-
+	GError *error = NULL;
 
 
 	/* allocate space for struct */
 	DataInput = g_slice_new (AuthWidget);
 
-	table = gtk_table_new (10, 10, TRUE);
-
-	/* Set all dialog options (color, size, position, logo, icon, etc) */
-	DataInput->window = gtk_dialog_new ();
+	/* Set all window options (color, size, position, logo, icon, etc) */
+	DataInput->window = gtk_dialog_new();
 	gtk_window_set_title (GTK_WINDOW(DataInput->window), "Nuovo Utente");
 	gtk_container_set_border_width (GTK_CONTAINER (DataInput->window), 0);
 	gtk_window_set_position(GTK_WINDOW(DataInput->window), GTK_WIN_POS_CENTER);
@@ -71,15 +65,13 @@ void gtk_window_register(){
 	/* Press Button and call function for verify PIN */
 	button = gtk_button_new_with_label ("Crea Account");
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_dialog_add_action_widget(GTK_DIALOG(DataInput->window ), table, GTK_RESPONSE_APPLY);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), DataInput);
+	gtk_dialog_add_action_widget (GTK_DIALOG (DataInput->window), table, GTK_RESPONSE_CLOSE);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), NULL);
 
 	/* Exit event and Widget Show */
-	g_signal_connect_swapped (DataInput->window , "response",G_CALLBACK (gtk_widget_destroy),DataInput->window );
-
-
+	g_signal_connect (G_OBJECT (DataInput->window), "delete_event", G_CALLBACK (gtk_widget_destroy), DataInput->window);
 	gtk_widget_show_all (DataInput->window);
-	gtk_dialog_run(GTK_DIALOG(DataInput->window ));
+	gtk_dialog_run(DataInput->window);
 
 }
 
@@ -89,21 +81,29 @@ void gtk_window_register(){
  *
  */
 
-void gtkAccessToken(AuthWidget *DataInput){
+void gtkAccessToken(){
 
-	int correctVerify;
+	int correctVerify=1;
 
 	/* Get text from GTK_Entry*/
-	const char *pin = gtk_entry_get_text (GTK_ENTRY (DataInput->pin));
+	const gchar *pin = gtk_entry_get_text (GTK_ENTRY(DataInput->pin));
 
+	if(pin!=NULL){
 	//Validate PIN
 	correctVerify = tokenAccess(pin);
 
 	printf("\ncorrectVerify= %i",correctVerify);
+	}
+
 	if(correctVerify == 1) gtk_window_error("Error: bad Input!");
 
 
-	if(correctVerify == 0)gtk_widget_destroy(DataInput->window);
+	if(correctVerify == 0){
+
+		gtk_widget_destroy(DataInput->window);
+		readUserFile();
+		gtk_refresh_timeline();
+	}
 
 }
 

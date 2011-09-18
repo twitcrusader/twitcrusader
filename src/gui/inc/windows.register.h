@@ -50,6 +50,7 @@ GtkWidget *window;
 
 AuthWidget *DataInput;
 
+
 /* Define Function */
 void gtk_window_register();
 void gtkAccessToken();

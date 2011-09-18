@@ -22,6 +22,5 @@
 /* Define Function */
 
 void gtk_window_error(char* error_msg);
-void CloseWindow(gpointer *widget);
 
 #endif /* WINDOWS_ERROR_H_ */

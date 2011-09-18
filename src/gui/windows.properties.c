@@ -28,8 +28,7 @@
 
 void gtk_window_properties(){
 
-	readUserFile();
-
+	g_list_free (itemsAccount);
 	table = gtk_table_new (7, 10, TRUE);
 	notebook = gtk_notebook_new ();
 
@@ -48,22 +47,25 @@ void gtk_window_properties(){
 
 	label = gtk_label_new ("Twitter's Account:");
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	itemsAccount = g_list_append (itemsAccount, user.screenName); //Non stampa il nome!
-	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
-
-	/* Attach all gtk-widget at table */
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+
 
 	if(readUserFile()==0){
-	button = gtk_button_new_with_label ("Elimina");
-	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_delete_account), NULL);
+		itemsAccount = g_list_append (itemsAccount, user.screenName);
+		button = gtk_button_new_with_label ("Elimina");
+		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_delete_account), NULL);
+
 	}else{
-	button = gtk_button_new_with_label ("Nuovo");
-	gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_register), NULL);
+		itemsAccount=g_list_alloc ();
+		button = gtk_button_new_with_label ("Nuovo");
+		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_register), NULL);
+
 	}
+
+	gtk_combo_set_popdown_strings (GTK_COMBO (combo), itemsAccount);
+	gtk_table_attach (GTK_TABLE (table), combo, 1, 9, 1, 2, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Set switch-TAB signal */
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, settingMenu);
@@ -85,6 +87,7 @@ void gtk_delete_account(){
 	deleteAccount();
 
 	disconnect();
+
 	gtk_widget_destroy(dialog);
 
 	gtk_window_properties();
@@ -93,6 +96,6 @@ void gtk_delete_account(){
 void gtk_register(){
 
 	gtk_widget_destroy(dialog);
-gtk_window_register();
+	gtk_window_register();
 
 }
