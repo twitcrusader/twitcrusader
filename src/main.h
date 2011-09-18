@@ -18,28 +18,35 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
+ * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
 
+/* Define */
 #ifndef _TWITCRUSADER_H
+
+/* Default Define */ 
 #define _TWITCRUSADER_H
 
-#define _GNU_SOURCE
+/* CharSet */ 
+#define MY_ENCODING "ISO-8859-1"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <pthread.h>
+/* Fix: GCC Linux Compiler */ 
+#define _GNU_SOURCE	
 
+/* Headers */
+#include <gtk/gtk.h>
+#include <libnotify/notify.h>
 
-#include "gui/include/windows.h"
-#include "core/include/functions.h"
-#include "core/include/twitter.h"
-#include "core/include/functions.h"
+#include "gui/inc/windows.main.h"
+#include "core/inc/lang.h"
+#include "core/inc/notify.h"
 
+/* Initialize Debugger */ 
 int debug;
 
+/* Default End of _TWITCRUSADER_H */ 
 #endif

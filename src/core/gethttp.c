@@ -24,7 +24,7 @@
  * 
  */
 
-#include "include/gethttp.h"
+#include "inc/gethttp.h"
 
 
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){

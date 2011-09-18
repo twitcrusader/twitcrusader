@@ -18,39 +18,45 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
+ * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
 
+/* Headers */
 #include "main.h"
-/*
- * Main function and debug function
+
+/* Main() Function 
+ *
+ * Developer Guide: http://dev.it.twitcrusader.org/sourcecode-guide-main-function/
+ * 
+ * Compile This Software With:
+ * $ gcc -Wall -DICONS_DIR=\""../img"\" -o twc main.c main.h core/inc/sys.h core/inc/file.h core/inc/url.h gui/windows.main.c gui/inc/windows.main.h gui/windows.credits.c gui/inc/windows.credits.h gui/windows.updates.c gui/inc/windows.updates.h tools/debugger.c tools/inc/debugger.h gui/inc/icons.h `pkg-config --cflags --libs gtk+-2.0 oauth libxml-2.0`
  * 
  */
-int main(int argc, char **argv){
+int main(int argc, char *argv[]){
 
-	pthread_t tid[2];
-	int error;
+	notify_init(TWC);
 
-	/* debug */
-	if(shellParameters (argc, argv)==1) return 0;
-	
+	gtk_init (&argc, &argv);
+	notifySystem(START);
+
 	/* Fix Struct Size */
 	mallocUsers();
 
 	createDir();
 
-	/* Main*/
-	error = pthread_create(&tid[0], NULL, updateGtk, (void *)argv);
+	if(shellParameters (argc, argv)==1) return 0;
 
-	error = pthread_create(&tid[1], NULL, windowMain, (void *)argv);
 
-	error = pthread_join(tid[0], NULL);
-	error = pthread_join(tid[1], NULL);
-	
+	gtk_window_main();
+
 	freeSizeUsers();
-	
+
+	notify_uninit();
+
 	return 0;
+
 }

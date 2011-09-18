@@ -1,10 +1,11 @@
-SUBDIRS = src src/img
+SUBDIRS = src share/icons share/applications
 
 progdir = $(datadir)/@PACKAGE@
 
 prog_DATA= \
 	AUTHORS \
-	GPL3
+	COPYING \
+	GPL
 
 uninstall-local:
 	rm -rf $(prefix)/share/@PACKAGE@/icons

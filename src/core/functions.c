@@ -24,7 +24,7 @@
  * 
  */
 
-#include "include/functions.h"
+#include "inc/functions.h"
 
 /*  
  * This function add string1 + string2 = string3

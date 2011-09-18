@@ -24,8 +24,8 @@
  * 
  */
 
-#include "include/timeline.h"
-#include "include/config.h"
+#include "inc/timeline.h"
+#include "inc/config.h"
 
 char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 
