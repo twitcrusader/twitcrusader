@@ -241,14 +241,15 @@ void gtk_init_charbar(){
 void gtk_init_text_area(){
 	// TextArea + Scrollbar
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(mainWindow.scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.text), TRUE);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.text), TRUE);
+
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW(mainWindow.text), GTK_WRAP_WORD_CHAR);
 	mainWindow.tweetBuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.text));
 	gtk_text_buffer_set_text (mainWindow.tweetBuffer, "", -1);
 
-	g_signal_connect(mainWindow.tweetBuffer, "changed", G_CALLBACK(gtk_refresh_timeline), mainWindow.char_bar);
-	g_signal_connect(mainWindow.text, "key-press-event", G_CALLBACK(on_submit_text), mainWindow.tweetBuffer);
+	g_signal_connect(mainWindow.tweetBuffer, "changed", G_CALLBACK(updateStatusBar), mainWindow.char_bar);
+	g_signal_connect(mainWindow.text, "key-press-event", G_CALLBACK(gtkSendTweet), mainWindow.tweetBuffer);
 
 
 }
@@ -294,10 +295,75 @@ void gtk_init_scrolled_window(){
 
 }
 
-void on_submit_text(){
+/*
+ * Get Buffer from TextArea and send tweet if user press ENTER on keyboard
+ *
+ */
+gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
+
+	GtkTextIter start,
+	end;
+	char *msg = NULL;
+	int send = 1;
+
+	/* Get start position of cursor and final position */
+	gtk_text_buffer_get_start_iter (tweetBuffer, &start);
+	gtk_text_buffer_get_end_iter (tweetBuffer, &end);
+
+	/* Casting buffer to char */
+	msg = gtk_text_buffer_get_text(tweetBuffer, &start, &end, TRUE);
+
+	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
+	if(pKey->keyval == GDK_Return){
+
+		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
+
+		//SendTweet
+		send = SendTweet(msg);
+
+		if(send == 0 || send == 1){
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
+		} else {
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato!");
+			gtk_text_buffer_delete(tweetBuffer, &start, &end);
+		}
+
+		//Clean TextArea
+
+
+		return 1; // fix cursor (return to previous line)
+	}
+
+	return 0;
 
 }
-void on_writing(){
+
+/*
+ * Count char from TextArea
+ * Tweet have 140 to 0 char
+ *
+ */
+void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
+	gchar *msg;
+	gint tot_char;
+	GtkTextIter iter;
+
+	/* Get message from statusbar and position */
+	gtk_statusbar_pop(statusbar, 0);
+	gtk_text_buffer_get_iter_at_mark(buffer,&iter, gtk_text_buffer_get_insert(buffer));
+
+	/*Count input char */
+	tot_char = 139 - gtk_text_iter_get_line_offset(&iter);
+	tot_char = tot_char - gtk_text_iter_get_line(&iter);
+	msg = g_strdup_printf("%d", tot_char+1);
+	if(tot_char <= 0){
+		msg = g_strdup_printf("%d", 0);
+		gtk_text_buffer_backspace(buffer, &iter, TRUE, TRUE);
+	}
+
+	/* Push numer of char to statusbar */
+	gtk_statusbar_push(statusbar, 0, msg);
+	g_free(msg);
 
 }
 

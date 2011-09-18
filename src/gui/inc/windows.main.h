@@ -155,8 +155,8 @@ void mentions_timeline();
 void show_private_message();
 void downloadsAvatars();
 
-void on_submit_text();
-void on_writing();
+void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar);
+gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
 
 /* Quit */
 void on_quit();
