@@ -40,10 +40,6 @@ void gtk_window_main(){
 	gtk_init_text_area();
 
 	gtk_box_pack_start(GTK_BOX(mainWindow.layout), mainWindow.menu_bar, FALSE, FALSE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-
-	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
 
 	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scroll, 0, 3,8, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
@@ -85,8 +81,6 @@ void gtk_window_main(){
 }
 
 void gtk_init_window(){
-	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
-	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
 	mainWindow.menu_bar = gtk_menu_bar_new();
 	mainWindow.layout = gtk_vbox_new(0, 1);
@@ -269,6 +263,8 @@ void gtk_init_menu_bar(){
 void gtk_init_scrolled_window(){
 
 	int cols=0, rows=0;
+	mainWindow.table_into = gtk_table_new (50, 3, TRUE);
+	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 
 	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
@@ -289,6 +285,12 @@ void gtk_init_scrolled_window(){
 		gtk_container_add(GTK_CONTAINER(mainWindow.align), mainWindow.tweet);
 		gtk_table_attach (GTK_TABLE (mainWindow.table_into ), mainWindow.align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 	}
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+
+	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
+	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
+
 
 }
 
