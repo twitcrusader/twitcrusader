@@ -205,7 +205,7 @@ void MainWindow::init_menu(){
 
 	//menu_helps
 
-	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, VERSION, 0, 0);
+	helps_menu_items[0].add_pixlabel(ICON_UPGRADE, PROG_VERSION, 0, 0);
 	helps_menu_items[0].signal_activate().connect(sigc::mem_fun(*this,&MainWindow::loadVersionDialog) );
 	helps_menu_items[0].set_sensitive(true);
 

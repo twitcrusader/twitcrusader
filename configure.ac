@@ -16,6 +16,8 @@ dnl ***************************************************************************
 GETTEXT_PACKAGE=twitcrusaderpp
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+PACKAGE_LOCALE_DIR=[${datadir}/locale]
+AC_SUBST(PACKAGE_LOCALE_DIR)
 AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.35.0])
 

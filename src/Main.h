@@ -23,14 +23,24 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include <gtkmm.h>
 #include <iostream>
-#include <string.h>
 #include <pthread.h>
 #include <libnotify/notify.h>
 
 #include "gui/include/MainWindow.h"
 #include "gui/include/lang.h"
 #include "core/include/Functions.h"
+
+
+#include "config.h"
+
+
+#ifdef ENABLE_NLS
+#  include <libintl.h>
+#endif
+
+
 
 
 

@@ -22,38 +22,41 @@
 
 #ifndef LANG_H_
 #define LANG_H_
+
+#include<glibmm/i18n.h>
+
 #define COPYRIGHT_SIMBOL " \u00A9 "
-#define HEADER1 "\n\nTwitCrusader++ - Gtkmm Twitter Client For Linux Desktop\nCopyright"
+#define HEADER1 _("\n\nTwitCrusader++ - Gtkmm Twitter Client For Linux Desktop\nCopyright")
 #define HEADER2 "2011 Orazio Briante\n\n";
-#define COMMENT "Based on Gtkmm and simplicity!\n\nVersion: "
-#define APP_STARTED "Started"
-#define CONNECTED "Profile: Loaded.."
-#define DISCONNECTED "Profile: Not Loaded.."
-#define NO_ONLINE "Off-Line"
-#define LOGOUT "Logout"
-#define LOGIN "Login"
-#define REGISTER "Register"
-#define PROFILE "Profile"
-#define PREFERENCE "Preference"
-#define PROP_MENU "Properties"
-#define FILE_MENU "File"
-#define HELP_MENU "Help"
-#define QUIT "Quit"
-#define VERSION "Version"
-#define ABOUT "Informations"
-#define DELETE_CONFIRM "Do you want delete your Profile?"
-#define SENDING_MSG "Sending Message.."
-#define MSG_SENT "Message sent"
-#define MSG_NOT_SENT "Message not sent"
-#define QUIT_MESSAGE "Do you want really quit?"
-#define PROPERTIES_TITLE "Properties"
-#define PROPERTIES_LABEL "Twitter's Account:"
-#define DELETE_ACCOUT_BUTTON "Delete Account"
-#define REG_TITLE "Register"
-#define LABEL_PIN "Insert PIN"
-#define SUBMIT_REG_BUTTON "Register Account"
-#define REG_ERROR_LABEL "Bad PIN"
-#define CURRENT_VERSION_MSG "Current Version:\t"
-#define LAST_VERSION_MSG "Last Version:\t"
+#define COMMENT _("Based on Gtkmm and simplicity!\n\nVersion: ")
+#define APP_STARTED _("Started")
+#define CONNECTED _("Profile: Loaded..")
+#define DISCONNECTED _("Profile: Not Loaded..")
+#define NO_ONLINE _("Off-Line")
+#define LOGOUT _("Logout")
+#define LOGIN _("Login")
+#define REGISTER _("Register")
+#define PROFILE _("Profile")
+#define PREFERENCE _("Preference")
+#define PROP_MENU _("Properties")
+#define FILE_MENU _("File")
+#define HELP_MENU _("Help")
+#define QUIT _("Quit")
+#define PROG_VERSION _("Version")
+#define ABOUT _("Informations")
+#define DELETE_CONFIRM _("Do you want delete your Profile?")
+#define SENDING_MSG _("Sending Message..")
+#define MSG_SENT _("Message sent")
+#define MSG_NOT_SENT _("Message not sent")
+#define QUIT_MESSAGE _("Do you want really quit?")
+#define PROPERTIES_TITLE _("Properties")
+#define PROPERTIES_LABEL _("Twitter's Account:")
+#define DELETE_ACCOUT_BUTTON _("Delete Account")
+#define REG_TITLE _("Register")
+#define LABEL_PIN _("Insert PIN")
+#define SUBMIT_REG_BUTTON _("Register Account")
+#define REG_ERROR_LABEL _("Bad PIN")
+#define CURRENT_VERSION_MSG _("Current Version:\t")
+#define LAST_VERSION_MSG _("Last Version:\t")
 
 #endif /* LANG_H_ */
