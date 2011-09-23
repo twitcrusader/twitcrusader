@@ -25,19 +25,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: TwitCrusader-C
+all: TwitCrusader-C_old
 
 # Tool invocations
-TwitCrusader-C: $(OBJS) $(USER_OBJS)
+TwitCrusader-C_old: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc  -o "TwitCrusader-C" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "TwitCrusader-C_old" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) TwitCrusader-C
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) TwitCrusader-C_old
 	-@echo ' '
 
 .PHONY: all clean dependents

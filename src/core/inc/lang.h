@@ -27,9 +27,10 @@
  
 /* Define */
 #ifndef SYS_H
-
-/* Default Define */ 
 #define SYS_H
+
+#include <glib/gi18n.h>
+
 /* CharSet */ 
 #define MY_ENCODING "ISO-8859-1"
 
