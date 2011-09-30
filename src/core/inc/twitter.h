@@ -44,8 +44,8 @@
 #include "gethttp.h"
 #include "config.h"
 
-#define TWITTER_KEY "3Y0iGu8KBpyNFaiWsIZPw"
-#define TWITTER_KEY_SECRET "nNTvX1wvaEaHqz7Am4DYFFpkBN4vTFSWv3CYGOFk"
+#define TWITTER_KEY "0xdBqXjFX4LBTLyoc5Dg"
+#define TWITTER_KEY_SECRET "VIr57NPcgxxpJ2esI7brKGhth06EslbH0UDD3ImFB8"
 
 #define HTTP_API_URL "http://api.twitter.com"
 #define HTTPS_API_URL "https://api.twitter.com"
