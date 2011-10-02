@@ -27,6 +27,8 @@
 #include "inc/config.h"
 
 void mallocUsers(){
+	debug_f_start("mallocUsers");
+
 	user.id =  (char*) malloc(sizeof(char) * 15);
 	user.screenName =  (char*) malloc(sizeof(char) * 140);
 	user.token =  (char*) malloc(sizeof(char) * 160);
@@ -44,8 +46,9 @@ void mallocUsers(){
 }
 
 /* Free Allocated Structs */
-void freeSizeUsers()
-{
+void freeSizeUsers(){
+	debug_f_start("freeSizeUsers");
+
 	free(user.id);
 	free(user.screenName);
 	free(user.token);
@@ -55,21 +58,19 @@ void freeSizeUsers()
 }
 
 int writeUserFile(){
+	debug_f_start("writeUserFile");
 
 	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
 	xmlNodePtr node;
 
-
-	if(debug==1){
-		printf("\nwriteUserFile()");
-		printf("\nuser.screenName= %s",user.screenName);
-		printf("\nuser.id= %s", user.id);
-		printf("\nuser.consumerKey= %s", user.consumerKey);
-		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-		printf("\nuser.Token= %s", user.token);
-		printf("\nuser.secretToken= %s", user.secretToken);
-	}
+	/*DEBUG*/
+	debug_var_char("user.screenName",user.screenName);
+	debug_var_char("user.id",user.id);
+	debug_var_char("user.consumerKey",user.consumerKey);
+	debug_var_char("user.consumerSecretKey",user.consumerSecretKey);
+	debug_var_char("user.token",user.token);
+	debug_var_char("user.secretToken",user.secretToken);
 
 	doc = xmlNewDoc((xmlChar*) XML_DEFAULT_VERSION);
 	node = xmlNewDocNode(doc, NULL, (xmlChar*) "CONFIG", NULL);
@@ -95,12 +96,11 @@ int writeUserFile(){
 
 	xmlFreeDoc(doc);
 
-	printf("\nreturn;");
-
 	return 0;
 }
 
 char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
+	debug_f_start("getElement");
 
 	xmlChar *key = NULL;
 	char *empty = "error";
@@ -117,6 +117,7 @@ char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 }
 
 int readUserFile(){
+	debug_f_start("readUserFile");
 
 	int debug=1;
 	char *keys;
@@ -125,24 +126,23 @@ int readUserFile(){
 	xmlNodePtr cur;
 
 
-	if(debug==1) puts("\nreadUserFile()");
-
 	doc=xmlParseFile(progPath.configFile);
 	if (doc == NULL ){
-		printf("\n no file!");
+		debug_var_char("progPath.configFile", "NULL");
 		return 1;
 	}
 
 	cur = xmlDocGetRootElement(doc);
 
 	if (cur == NULL) {
-		puts("\n no RootElement");
+		debug_var_char("cur (ROOT-ELEMENT)", "NULL");
+
 		xmlFreeDoc(doc);
 		return 1;
 	}
 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "CONFIG")) {
-		puts("\n no CONFIG");
+		debug_var_char("cur->name (CONFIG)", "NULL");
 		xmlFreeDoc(doc);
 		return 1;
 	}
@@ -189,19 +189,20 @@ int readUserFile(){
 
 	xmlFreeDoc(doc);
 
-	if(debug==1){
-		printf("\nuser.screenName= %s",user.screenName);
-		printf("\nuser.id= %s", user.id);
-		printf("\nuser.consumerKey= %s", user.consumerKey);
-		printf("\nuser.consumerSecretKey= %s", user.consumerSecretKey);
-		printf("\nuser.Token= %s", user.token);
-		printf("\nuser.secretToken= %s", user.secretToken);
-	}
+	/*DEBUG*/
+	debug_var_char("user.screenName",user.screenName);
+	debug_var_char("user.id",user.id);
+	debug_var_char("user.consumerKey",user.consumerKey);
+	debug_var_char("user.consumerSecretKey",user.consumerSecretKey);
+	debug_var_char("user.token",user.token);
+	debug_var_char("user.secretToken",user.secretToken);
+
 
 	return 0;
 }
 
 void disconnect(){
+	debug_f_start("disconnect");
 
 	user.id="";
 	user.screenName="";
@@ -213,9 +214,11 @@ void disconnect(){
 }
 
 int deleteAccount(){
+	debug_f_start("deleteAccount");
 
 	char *cmd;
 
+	debug_var_char("cmd",cmd);
 	asprintf(&cmd, "%s %s", "rm -f ", progPath.configFile);
 
 	if(system(cmd)==0){

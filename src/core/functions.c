@@ -76,12 +76,8 @@ char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
  * 
  */
 int shellParameters (int argc, char **argv){
+
 	int count;
-
-	system("clear");
-
-	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
-	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
 
 	if (argc > 1){
 		for (count = 1; count < argc; count++){
@@ -92,8 +88,8 @@ int shellParameters (int argc, char **argv){
 
 				return 1;
 			}else if(strcmp(argv[count], "--debug")==0){
-				printf ("This program was called with \"%s\".\n",argv[0]);
-				debug=1;
+				debug_var_char("Program_name", argv[0]);
+				set_debug(1);
 			}else{
 				printf("\ntry \"%s\" --help for help\n",argv[0]);
 				return 1;
@@ -138,15 +134,11 @@ void createDir(){
 
 char* downloadVersion(){
 
-#define FILE_VERSION "/tmp/version.twc"
-#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
-
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
 
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	//system ("wget -O  "TWC_UPDATES_URL"?current="TWC_VERSION);
 	getSingleCURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */

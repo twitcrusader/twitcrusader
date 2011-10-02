@@ -3,8 +3,8 @@
 
 <cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
-		<cconfiguration id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1179936700">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1179936700" moduleId="org.eclipse.cdt.core.settings" name="Build (GNU)">
+		<cconfiguration id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1529792179">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1529792179" moduleId="org.eclipse.cdt.core.settings" name="Build (GNU)">
 				<externalSettings/>
 				<extensions>
 					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
@@ -13,83 +13,21 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" description="" id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1179936700" name="Build (GNU)" parent="org.eclipse.cdt.build.core.emptycfg">
-					<folderInfo id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1179936700.332394051" name="/" resourcePath="">
-						<toolChain id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.2028676397" name="org.eclipse.linuxtools.cdt.autotools.core.toolChain" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolChain">
-							<targetPlatform id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform.1469158302" isAbstract="false" name="GNU Autotools Target Platform" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform"/>
-							<builder id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.177374125" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder"/>
-							<tool id="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure.111952493" name="configure" superClass="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure">
-								<option id="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name.894031444" name="Name" superClass="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name" value="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1179936700" valueType="string"/>
-							</tool>
-							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen.633903405" name="autogen.sh" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen"/>
-							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc.802095899" name="GCC C Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc">
-								<option id="gnu.c.compiler.option.misc.other.13726060" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.1632189483" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="/usr/include/gtk-2.0"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gtk-2.0/include"/>
-									<listOptionValue builtIn="false" value="/usr/include/atk-1.0"/>
-									<listOptionValue builtIn="false" value="/usr/include/cairo"/>
-									<listOptionValue builtIn="false" value="/usr/include/gdk-pixbuf-2.0"/>
-									<listOptionValue builtIn="false" value="/usr/include/pango-1.0"/>
-									<listOptionValue builtIn="false" value="/usr/include/glib-2.0"/>
-									<listOptionValue builtIn="false" value="/usr/lib/glib-2.0/include"/>
-									<listOptionValue builtIn="false" value="/usr/include/pixman-1"/>
-									<listOptionValue builtIn="false" value="/usr/include/freetype2"/>
-									<listOptionValue builtIn="false" value="/usr/include/libpng14"/>
-									<listOptionValue builtIn="false" value="/usr/include/libxml2"/>
-								</option>
-								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1368944602" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
-							</tool>
-							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp.457944749" name="GCC C++ Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp"/>
+				<configuration buildProperties="" id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1529792179" name="Build (GNU)" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1529792179.1478049003" name="/" resourcePath="">
+						<toolChain id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1556471058" name="org.eclipse.linuxtools.cdt.autotools.core.toolChain" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolChain">
+							<targetPlatform id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform.1568422844" isAbstract="false" name="GNU Autotools Target Platform" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform"/>
+							<builder id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.43921108" managedBuildOn="false" name="null.Build (GNU)" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder"/>
+							<tool id="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure.642656304" name="configure" superClass="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure"/>
+							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen.1731985994" name="autogen.sh" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen"/>
+							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc.1398903854" name="GCC C Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc"/>
+							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp.1456091864" name="GCC C++ Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp"/>
 						</toolChain>
 					</folderInfo>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
-				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
-					<externalSetting contentTypes="org.eclipse.cdt.managedbuilder.core.compiledObjectFile">
-						<entry flags="" kind="libraryFile" name="gtk-x11-2.0"/>
-						<entry flags="" kind="libraryFile" name="gdk-x11-2.0"/>
-						<entry flags="" kind="libraryFile" name="atk-1.0"/>
-						<entry flags="" kind="libraryFile" name="gio-2.0"/>
-						<entry flags="" kind="libraryFile" name="pangoft2-1.0"/>
-						<entry flags="" kind="libraryFile" name="pangocairo-1.0"/>
-						<entry flags="" kind="libraryFile" name="gdk_pixbuf-2.0"/>
-						<entry flags="" kind="libraryFile" name="cairo"/>
-						<entry flags="" kind="libraryFile" name="pango-1.0"/>
-						<entry flags="" kind="libraryFile" name="freetype"/>
-						<entry flags="" kind="libraryFile" name="fontconfig"/>
-						<entry flags="" kind="libraryFile" name="gobject-2.0"/>
-						<entry flags="" kind="libraryFile" name="gmodule-2.0"/>
-						<entry flags="" kind="libraryFile" name="gthread-2.0"/>
-						<entry flags="" kind="libraryFile" name="rt"/>
-						<entry flags="" kind="libraryFile" name="glib-2.0"/>
-						<entry flags="" kind="libraryFile" name="curl"/>
-						<entry flags="" kind="libraryFile" name="notify"/>
-						<entry flags="" kind="libraryFile" name="xml2"/>
-						<entry flags="" kind="libraryFile" name="oauth"/>
-					</externalSetting>
-					<externalSetting contentTypes="org.eclipse.cdt.core.cSource">
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gtk-2.0"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/lib/gtk-2.0/include"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/atk-1.0"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/cairo"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gdk-pixbuf-2.0"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/pango-1.0"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/glib-2.0"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/lib/glib-2.0/include"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/pixman-1"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/freetype2"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/libpng14"/>
-						<entry flags="BUILTIN" kind="includePath" name="/usr/include/libxml2"/>
-					</externalSetting>
-				</externalSettings>
-			</storageModule>
-			<storageModule IlmBase="false" ImageMagick="false" ImageMagickplusplus="false" MagickCore="false" MagickWand="false" Magickplusplus="false" NetworkManager="false" ORBit-2.0="false" ORBit-CosNaming-2.0="false" ORBit-idl-2.0="false" ORBit-imodule-2.0="false" OpenEXR="false" Qt3Support="false" QtCLucene="false" QtCore="false" QtDBus="false" QtDeclarative="false" QtDesigner="false" QtDesignerComponents="false" QtGui="false" QtHelp="false" QtMultimedia="false" QtNetwork="false" QtOpenGL="false" QtScript="false" QtScriptTools="false" QtSql="false" QtSvg="false" QtTest="false" QtUiTools="false" QtWebKit="false" QtXml="false" QtXmlPatterns="false" QtZeitgeist="false" Wand="false" accountsservice="false" alsa="false" ao="false" apr-1="false" apr-util-1="false" art-sharp-2.0="false" atk="false" atkmm-1.6="false" atspi-2="false" autoopts="false" avahi-client="false" avahi-compat-howl="false" avahi-compat-libdns_sd="false" avahi-core="false" avahi-glib="false" avahi-gobject="false" avahi-qt3="false" avahi-qt4="false" avahi-sharp="false" avahi-ui="false" avahi-ui-gtk3="false" avahi-ui-sharp="false" awn="false" babl="false" bcop="false" blkid="false" bluez="false" bonobo-activation-2.0="false" caca="false" cairo="false" cairo-fc="false" cairo-ft="false" cairo-gobject="false" cairo-pdf="false" cairo-png="false" cairo-ps="false" cairo-svg="false" cairo-tee="false" cairo-xlib="false" cairo-xlib-xrender="false" cairomm-1.0="false" cairomm-ft-1.0="false" cairomm-pdf-1.0="false" cairomm-png-1.0="false" cairomm-ps-1.0="false" cairomm-svg-1.0="false" cairomm-xlib-1.0="false" cairomm-xlib-xrender-1.0="false" cally-1.0="false" camel-1.2="false" camel-provider-1.2="false" cecil="false" cheese="false" cheese-gtk="false" ck-connector="false" cloog-isl="false" clutter-1.0="false" clutter-glx-1.0="false" clutter-gst-1.0="false" clutter-gtk-1.0="false" clutter-x11-1.0="false" cogl-1.0="false" cogl-gl-1.0="false" com_err="false" compiz="false" compiz-animation="false" compiz-animationaddon="false" compiz-cube="false" compiz-mousepoll="false" compiz-scale="false" compiz-text="false" compizconfig-python="false" compositeproto="false" cryptui-0.0="false" cspi-1.0="false" cucul="false" damageproto="false" datrie-0.2="false" dbus-1="false" dbus-glib-1="false" dbus-python="false" dbusmenu-qt="false" dconf="false" dconf-dbus-1="false" ddjvuapi="false" desktop-agnostic="false" devmapper="false" devmapper-event="false" dmx="false" dmxproto="false" dotnet="false" dotnet35="false" dri="false" dri2proto="false" dvdnav="false" dvdnavmini="false" dvdread="false" e2p="false" emeraldengine="false" enca="false" enchant="false" eog="false" epiphany-3.0="false" eventlog="false" evince-document-3.0="false" evince-view-3.0="false" evolution-calendar-3.0="false" evolution-data-server-1.2="false" evolution-mail-3.0="false" evolution-plugin-3.0="false" evolution-shell-3.0="false" exempi-2.0="false" exiv2="false" ext2fs="false" farsight2-0.10="false" fftw3="false" fftw3f="false" fftw3l="false" fixesproto="false" flac="false" flacplusplus="false" folks="false" folks-telepathy="false" fontconfig="false" fontenc="false" fontsproto="false" fontutil="false" freetype2="false" fuse="false" gail="false" gail-3.0="false" gapi-2.0="false" gck-0="false" gconf-2.0="false" gconf-sharp-2.0="false" gconf-sharp-peditors-2.0="false" gcr-3="false" gdict-1.0="false" gdk-2.0="false" gdk-3.0="false" gdk-pixbuf-2.0="false" gdk-pixbuf-xlib-2.0="false" gdk-x11-2.0="false" gdk-x11-3.0="false" gdkmm-2.4="false" gdkmm-3.0="false" gdl-3.0="false" gdu="false" gdu-gtk="false" gedit="false" gee-1.0="false" gegl="false" gimp-2.0="false" gimpthumb-2.0="false" gimpui-2.0="false" gio-2.0="false" gio-unix-2.0="false" giomm-2.4="false" gjs-1.0="false" gjs-dbus-1.0="false" gjs-gi-1.0="false" gjs-internals-1.0="false" gl="false" glade-sharp-2.0="false" gladeui-2.0="false" glew="false" glewmx="false" glib-2.0="false" glib-sharp-2.0="false" glibmm-2.4="false" glproto="false" glu="false" glw="false" gmime-2.4="false" gmime-sharp-2.4="false" gmodule-2.0="false" gmodule-export-2.0="false" gmodule-no-export-2.0="false" gnome-bluetooth-1.0="false" gnome-desktop-3.0="false" gnome-icon-theme="false" gnome-js-common="false" gnome-keybindings="false" gnome-keyring-1="false" gnome-mag-1.0="false" gnome-mime-data-2.0="false" gnome-screensaver="false" gnome-settings-daemon="false" gnome-sharp-2.0="false" gnome-speech-1.0="false" gnome-vfs-2.0="false" gnome-vfs-module-2.0="false" gnome-vfs-sharp-2.0="false" gnome-video-effects="false" gnutls="false" gnutls-extra="false" gobject-2.0="false" gobject-introspection-1.0="false" gobject-introspection-no-export-1.0="false" gok-1.0="false" gsettings-desktop-schemas="false" gsl="false" gst-python-0.10="false" gstreamer-0.10="false" gstreamer-app-0.10="false" gstreamer-audio-0.10="false" gstreamer-base-0.10="false" gstreamer-cdda-0.10="false" gstreamer-check-0.10="false" gstreamer-controller-0.10="false" gstreamer-dataprotocol-0.10="false" gstreamer-fft-0.10="false" gstreamer-floatcast-0.10="false" gstreamer-interfaces-0.10="false" gstreamer-net-0.10="false" gstreamer-netbuffer-0.10="false" gstreamer-pbutils-0.10="false" gstreamer-plugins-bad-0.10="false" gstreamer-plugins-base-0.10="false" gstreamer-riff-0.10="false" gstreamer-rtp-0.10="false" gstreamer-rtsp-0.10="false" gstreamer-sdp-0.10="false" gstreamer-tag-0.10="false" gstreamer-video-0.10="false" gthread-2.0="false" gtk-dotnet-2.0="false" gtk-engines-2="false" gtk-sharp-2.0="false" gtk-vnc-1.0="false" gtk-vnc-2.0="false" gtkhtml-editor-4.0="false" gtkmm-2.4="false" gtkmm-3.0="false" gtkplus-2.0="true" gtkplus-3.0="false" gtkplus-unix-print-2.0="false" gtkplus-unix-print-3.0="false" gtkplus-x11-2.0="false" gtkplus-x11-3.0="false" gtksourceview-2.0="false" gtksourceview-3.0="false" gtkspell-2.0="false" gucharmap-2.90="false" gudev-1.0="false" guile-1.8="false" gutenprint="false" gutenprintui2="false" gvnc-1.0="false" gweather-3.0="false" howl="false" hunspell="false" ice="false" icon-naming-utils="false" icu-i18n="false" icu-io="false" icu-le="false" icu-lx="false" icu-uc="false" id3tag="false" ijs="false" imlib2="false" inputproto="false" isl="false" iso-codes="false" jack="false" json-glib-1.0="false" kbproto="false" keybinder="false" lcms="false" lcms2="false" libIDL-2.0="false" libR="false" libanjuta-3.0="false" libarchive="false" libart-2.0="false" libass="false" libasyncns="false" libatasmart="false" libattica="false" libavc1394="false" libavcodec="false" libavdevice="false" libavfilter="false" libavformat="false" libavutil="false" libbonobo-2.0="false" libbonoboui-2.0="false" libbrasero-burn3="false" libbrasero-media3="false" libcanberra="false" libcanberra-gtk="false" libcanberra-gtk3="false" libcdaudio="false" libcddb="false" libcdio="false" libcdio_cdda="false" libcdio_paranoia="false" libcdioplusplus="false" libcdt="false" libcgraph="false" libcompizconfig="false" libcroco-0.6="false" libcrypto="false" libcryptsetup="false" libcurl="true" libdaemon="false" libdc1394-2="false" libdca="false" libdecoration="false" libdevhelp-3.0="false" libdiscid="false" libdmapsharing-3.0="false" libdrm="false" libdrm_intel="false" libdrm_nouveau="false" libdrm_radeon="false" libdts="false" libdv="false" libebackend-1.2="false" libebook-1.2="false" libecal-1.2="false" libedata-book-1.2="false" libedata-cal-1.2="false" libedataserver-1.2="false" libedataserverui-3.0="false" libedit="false" libegroupwise-1.2="false" libevent="false" libevent_openssl="false" libevent_pthreads="false" libexif="false" libexslt="false" libffi="false" libftdi="false" libftdipp="false" libgda-4.0="false" libgda-bdb-4.0="false" libgda-ldap-4.0="false" libgda-mysql-4.0="false" libgda-postgres-4.0="false" libgda-report-4.0="false" libgda-sqlcipher-4.0="false" libgda-sqlite-4.0="false" libgda-ui-4.0="false" libgda-web-4.0="false" libgda-xslt-4.0="false" libgdata="false" libgdiplus="false" libggadget-1.0="false" libggadget-dbus-1.0="false" libggadget-gtk-1.0="false" libggadget-js-1.0="false" libggadget-npapi-1.0="false" libggadget-qt-1.0="false" libggadget-xdg-1.0="false" libgitg-1.0="false" libgksu2="false" libglade-2.0="false" libgme="false" libgnome-2.0="false" libgnome-control-center="false" libgnome-media-profiles-3.0="false" libgnome-menu="false" libgnomecanvas-2.0="false" libgnomekbd="false" libgnomekbdui="false" libgnomeui-2.0="false" libgpod-1.0="false" libgpod-sharp="false" libgraph="false" libgssglue="false" libgtkhtml-4.0="false" libgtop-2.0="false" libgvc="false" libgvpr="false" libical="false" libidn="false" libiec61883="false" libimobiledevice-1.0="false" libiodbc="false" libiso9660="false" libiso9660plusplus="false" libkms="false" libloginhelper-1.0="false" liblzma="false" libmetacity-private="false" libmms="false" libmodplug="false" libmpeg2="false" libmpeg2convert="false" libmtp="false" libmusicbrainz="false" libmusicbrainz3="false" libmutter="false" libnautilus-extension="false" libnl-1="false" libnm-glib="false" libnm-glib-vpn="false" libnm-util="false" libnotify="true" libntfs-3g="false" libntrack="false" libntrack-glib="false" libntrack-gobject="false" libntrack-qt4="false" libofa="false" libopenjpeg="false" libopenjpeg1="false" libpanelapplet-4.0="false" libparted="false" libpathplan="false" libpci="false" libpcre="false" libpcrecpp="false" libpcreposix="false" libpeas-1.0="false" libpeas-gtk-1.0="false" libpipeline="false" libplist="false" libplistplusplus="false" libpng="false" libpng14="false" libpostproc="false" libproxy-1.0="false" libpst="false" libpulse="false" libpulse-browse="false" libpulse-mainloop-glib="false" libpulse-simple="false" libraw1394="false" librsvg-2.0="false" librtmp="false" libsexy="false" libsoup-2.4="false" libsoup-gnome-2.4="false" libspectre="false" libspi-1.0="false" libssh="false" libssh2="false" libssh_threads="false" libssl="false" libstartup-notification-1.0="false" libstreamanalyzer="false" libstreams="false" libswscale="false" libtasn1="false" libthai="false" libtirpc="false" libudev="false" libudf="false" libusb="false" libusb-1.0="false" libusbmuxd="false" libv4l1="false" libv4l2="false" libv4lconvert="false" libva="false" libva-egl="false" libva-glx="false" libva-tpi="false" libva-x11="false" libvala-0.12="false" libvisual-0.4="false" libvncclient="false" libvncserver="false" libwnck-1.0="false" libwnck-3.0="false" libxdot="false" libxine="false" libxklavier="false" libxml-2.0="true" libxmlplusplus-2.6="false" libxslt="false" libxul="false" libxul-embedding="false" libzip="false" lrdf="false" lua="false" lvm2app="false" mad="false" mission-control-plugins="false" mjpegtools="false" mobile-broadband-provider-info="false" moduleId="packages" mono="false" mono-2="false" mono-addins="false" mono-addins-gui="false" mono-addins-msbuild="false" mono-addins-setup="false" mono-cairo="false" mono-lineeditor="false" mono-nunit="false" mono-options="false" mono.web="false" monodoc="false" monosgen-2="false" mount="false" mozilla-gtkmozembed="false" mozilla-gtkmozembed-embedding="false" mozilla-js="false" mozilla-nspr="false" mozilla-nss="false" mozilla-plugin="false" mozjs185="false" mutter-plugins="false" mx-1.0="false" mx-gtk-1.0="false" mythes="false" nautilus-sendto="false" ndesk-dbus-1.0="false" ndesk-dbus-glib-1.0="false" neon="false" nice="false" notify-python="false" nspr="false" nss="false" oauth="true" ogg="false" opal="false" opencore-amrnb="false" opencore-amrwb="false" opencv="false" openobex="false" openssl="false" orc-0.4="false" p11-kit-1="false" pango="false" pangocairo="false" pangoft2="false" pangomm-1.4="false" pangox="false" pangoxft="false" pciaccess="false" phonon="false" pidgin="false" pixman-1="false" pm-utils="false" polkit-agent-1="false" polkit-backend-1="false" polkit-gobject-1="false" polkit-gtk-1="false" polkit-qt-1="false" polkit-qt-agent-1="false" polkit-qt-core-1="false" polkit-qt-gui-1="false" poppler="false" poppler-cairo="false" poppler-cpp="false" poppler-glib="false" poppler-qt4="false" poppler-splash="false" popt="false" ptlib="false" purple="false" pycairo="false" pygobject-2.0="false" pygtk-2.0="false" pyorbit-2="false" pytalloc-util="false" python-2.7="false" python-3.2="false" python-3.2mu="false" python3="false" pyvte="false" pywebkitgtk-1.0="false" qca2="false" qimageblitz="false" randrproto="false" raptor2="false" rasqal="false" recordproto="false" redland="false" renderproto="false" rhythmbox="false" samplerate="false" schroedinger-1.0="false" scrnsaverproto="false" sdl="false" seed="false" shared-desktop-ontologies="false" shared-mime-info="false" shout="false" sigcplusplus-2.0="false" silc="false" silcclient="false" silgraphite="false" sm="false" sndfile="false" soprano="false" sopranoclient="false" sopranoindex="false" sopranoserver="false" soundtouch="false" speex="false" speexdsp="false" sqlite3="false" ss="false" system.web.extensions.design_1.0="false" system.web.extensions_1.0="false" system.web.mvc="false" system.web.mvc2="false" taglib="false" taglib_c="false" talloc="false" tdb="false" telepathy-farsight="false" telepathy-glib="false" telepathy-logger-0.2="false" theora="false" theoradec="false" theoraenc="false" tomboy-addins="false" totem="false" totem-plparser="false" totem-plparser-mini="false" udev="false" udisks="false" unique-1.0="false" unique-3.0="false" upower-glib="false" usbutils="false" uuid="false" valgrind="false" vdehist="false" vdemgmt="false" vdeplug="false" vdesnmp="false" vdpau="false" videoproto="false" vinagre-3.0="false" vorbis="false" vorbisenc="false" vorbisfile="false" vpx="false" vte="false" vte-2.90="false" wavpack="false" wcf="false" webkit-1.0="false" webkitgtk-3.0="false" x11="false" x11-xcb="false" x264="false" xau="false" xaw6="false" xaw7="false" xbitmaps="false" xcb="false" xcb-atom="false" xcb-aux="false" xcb-composite="false" xcb-damage="false" xcb-dpms="false" xcb-dri2="false" xcb-event="false" xcb-glx="false" xcb-icccm="false" xcb-image="false" xcb-keysyms="false" xcb-property="false" xcb-proto="false" xcb-randr="false" xcb-record="false" xcb-render="false" xcb-renderutil="false" xcb-reply="false" xcb-res="false" xcb-screensaver="false" xcb-shape="false" xcb-shm="false" xcb-sync="false" xcb-xevie="false" xcb-xf86dri="false" xcb-xfixes="false" xcb-xinerama="false" xcb-xinput="false" xcb-xprint="false" xcb-xtest="false" xcb-xv="false" xcb-xvmc="false" xcomposite="false" xcursor="false" xdamage="false" xdmcp="false" xext="false" xextproto="false" xf86dgaproto="false" xf86vidmodeproto="false" xfixes="false" xfont="false" xft="false" xi="false" xinerama="false" xineramaproto="false" xkbfile="false" xkeyboard-config="false" xmu="false" xmuu="false" xorg-evdev="false" xorg-joystick="false" xorg-synaptics="false" xpm="false" xproto="false" xrandr="false" xrender="false" xres="false" xscrnsaver="false" xt="false" xtst="false" xv="false" xvmc="false" xxf86dga="false" xxf86vm="false" yelp-xsl="false" zlib="false" zzip-zlib-config="false" zzipfseeko="false" zziplib="false" zzipmmapped="false" zzipwrap="false"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
-	</storageModule>
-	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="TwitCrusader.null.1429858314" name="TwitCrusader"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
@@ -97,19 +35,7 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/TwitCrusader"/>
-	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
-		<buildTargets>
-			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildArguments/>
-				<buildTarget>all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-		</buildTargets>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="ClientTwitter-TwitCrusader.null.198938771" name="ClientTwitter-TwitCrusader"/>
 	</storageModule>
 </cproject>

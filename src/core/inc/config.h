@@ -23,6 +23,7 @@
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
+
 #ifndef USER_H_
 #define USER_H_
 
@@ -35,6 +36,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include "debug.h"
 #include "../../main.h"
 
 #define MY_ENCODING "ISO-8859-1"

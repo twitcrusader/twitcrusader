@@ -18,36 +18,34 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#include "inc/debug.h"
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+void set_debug(int value){
+	debug=value;
+}
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
+void debug_f_start(char* functionName){
+	gettimeofday(&tv,NULL);
+	fprintf(stderr,"\n\n[%i.%i] - %s()",tv.tv_sec, tv.tv_usec, functionName);
+}
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+void debug_var_char(char* varName, char* varValue){
+	gettimeofday(&tv,NULL);
+	fprintf(stderr,"\n[%i.%i] - %s: %s",tv.tv_sec, tv.tv_usec, varName, varValue);
+}
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+void debug_var_int(char* varName, int varValue){
+	gettimeofday(&tv,NULL);
+	fprintf(stderr,"\n[%i.%i] - %s: %i",tv.tv_sec, tv.tv_usec, varName, varValue);
+}
 
-#include "config.h" //from the making process!
 
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "core/inc/notify.h"
 
-#include "core/inc/debug.h"
 
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+

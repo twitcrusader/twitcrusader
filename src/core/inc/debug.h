@@ -18,36 +18,26 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#ifndef DEBUG_H_
+#define DEBUG_H_
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+#include <stdio.h>
+#include <sys/time.h>
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+/* Initialize Debugger */
+static int debug;
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+void set_debug(int value); // to intialize debug value
+void debug_f_start(char* functionName); //to print the Function Name
+void debug_var_char(char* varName, char* varValue); //to print String variable
+void debug_var_int(char* varName, int varValue); //to print Integer variable
+struct timeval tv;
 
-#include "config.h" //from the making process!
-
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "core/inc/notify.h"
-
-#include "core/inc/debug.h"
-
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+#endif /* DEBUG_H_ */

@@ -38,6 +38,15 @@
  */
 int main(int argc, char *argv[]){
 
+	system("clear");
+
+	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
+	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
+
+	if(shellParameters (argc, argv)==1) return 0;
+
+	debug_f_start("main");
+
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain(GETTEXT_PACKAGE);
@@ -51,9 +60,6 @@ int main(int argc, char *argv[]){
 	mallocUsers();
 
 	createDir();
-
-	if(shellParameters (argc, argv)==1) return 0;
-
 
 	gtk_window_main();
 
