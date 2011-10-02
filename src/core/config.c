@@ -82,7 +82,7 @@ int writeUserFile(){
 
 	xmlTextWriterWriteElement(writer, (xmlChar*)"screen_name", (xmlChar*)user.screenName);
 	xmlTextWriterWriteElement(writer, (xmlChar*)"id", (xmlChar*)user.id);
-	xmlTextWriterWriteElement(writer, (xmlChar*)"ConsumerKey", (xmlChar*)user.consumerKey);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"consumerKey", (xmlChar*)user.consumerKey);
 	xmlTextWriterWriteElement(writer, (xmlChar*)"consumerSecretKey", (xmlChar*)user.consumerSecretKey);
 	xmlTextWriterWriteElement(writer, (xmlChar*)"token", (xmlChar*)user.token);
 	xmlTextWriterWriteElement(writer, (xmlChar*)"secretToken", (xmlChar*)user.secretToken);
