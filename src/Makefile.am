@@ -6,6 +6,7 @@ gui/windows.main.c \
 gui/windows.register.c \
 gui/windows.updates.c \
 gui/windows.credits.c \
+core/debug.c \
 core/notify.c \
 core/functions.c \
 core/twitter.c \

@@ -33,8 +33,11 @@
 #include <libxml/xmlreader.h>
 #include <pthread.h>
 
-#include "twitter.h"
+#include "debug.h"
+#include "config.h"
 #include "functions.h"
+#include "twitter.h"
+
 
 #define MAX_NUM_TWEETS 20
 
