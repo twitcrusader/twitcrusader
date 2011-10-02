@@ -102,8 +102,6 @@ int getMultiCURL(char **urls, char **files, int max_num_tid){
 	argv[0]=(char *)malloc(sizeof(char)*2038);
 	argv[1]=(char *)malloc(sizeof(char)*255);
 
-	if(debug==1) fprintf(stderr,"\ngetMultiCURL(char *url, char *file)");
-
 	/* Must initialize libcurl before any threads are started */
 	curl_global_init(CURL_GLOBAL_ALL);
 

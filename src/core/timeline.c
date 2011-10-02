@@ -36,7 +36,8 @@ char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword))) {
 		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		//if(debug==1) printf("\n%s: %s", keyword, key);
+
+		debug_var_char(keyword, key);
 
 		return (char *)key;
 	}
@@ -376,21 +377,25 @@ int readTimeLine(char *docname) {
 
 	doc = xmlParseFile(docname);
 
+	debug_var_char("doc", docname);
+
 	if (doc == NULL ) {
-		if(debug==1) printf("Document not parsed successfully. \n");
+		debug_var_char("doc", NULL);
 		return 1;
 	}
 
 	cur = xmlDocGetRootElement(doc);
 
 	if (cur == NULL) {
-		if(debug==1) printf("empty document\n");
+		debug_var_char("cur", "NULL");
 		xmlFreeDoc(doc);
 		return 1;
 	}
 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "statuses")) {
-		if(debug==1) printf("root node != statuses");
+
+		debug_var_char("cur->name (statuses)", "NULL");
+
 		xmlFreeDoc(doc);
 		return 1;
 	}
@@ -401,6 +406,8 @@ int readTimeLine(char *docname) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"status"))){
 			getStatus (doc, cur, i);
 			i++;
+		}else{
+			debug_var_char("cur->name (status)", "NULL");
 		}
 
 		cur = cur->next;

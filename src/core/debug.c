@@ -51,7 +51,7 @@ void debug_var_char(char* varName, char* varValue){
 
 void debug_var_int(char* varName, int varValue){
 	gettimeofday(&tv,NULL);
-	if(debug==1) fprintf(stderr,"\n[%i.%i] - %s: %i",tv.tv_sec, tv.tv_usec, varName, varValue);
+	if(debug==1) fprintf(stderr,"\n[%i.%i] - %s= %i",tv.tv_sec, tv.tv_usec, varName, varValue);
 }
 
 
