@@ -25,8 +25,10 @@
  */
 #include "inc/notify.h"
 
-    void notifySystem(char *message)
-    {
+    void notifySystem(char *message){
+
+    	debug_f_start("notifySystem");
+
     	NotifyNotification *notify= NULL;
     	notify=notify_notification_new(TWC,message,ICON_FAVICON);
 

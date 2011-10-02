@@ -34,10 +34,12 @@
 #include <string.h>
 
 #include "config.h"
+#include "debug.h"
 
+#define FILE_VERSION "/tmp/version.twc"
+#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
-int debug;
 void mallocSizeOF();
 void freeSizeOF(void);
 char *sumStrings(char *parm1, char *parm2 );
