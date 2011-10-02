@@ -28,11 +28,18 @@
 
 
 size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){
+
+	debug_f_start("writeFunction");
+
 	fwrite(ptr, size, nmemb, (FILE *)stream);
 	return nmemb*size;
 };
 
 void getSingleCURL(char *url, char *file){
+
+	debug_f_start("getSingleCURL");
+
+
 	char *argv[2];
 	argv[0]=(char *)malloc(sizeof(char)*255);
 	strcpy(argv[0],url);
@@ -44,6 +51,9 @@ void getSingleCURL(char *url, char *file){
 
 
 void *pull_one_url(void *argv){
+
+	debug_f_start("pull_one_url");
+
 	CURL *curl;
 	FILE *destFile;
 
@@ -51,12 +61,10 @@ void *pull_one_url(void *argv){
 	char *url=(char *)argv2[0];
 	char *file=(char *)argv2[1];
 
-	if(debug==1) fprintf(stderr,"\npull_one_url(void *argv)");
-	if(debug==1) fprintf(stderr,"\nurl= %s",url);
-	if(debug==1) fprintf(stderr,"\nfile= %s",file);
+	debug_var_char("url",url);
+	debug_var_char("file",file);
 
 	if(url!=NULL && file!=NULL){
-
 
 		curl = curl_easy_init();
 
@@ -84,6 +92,8 @@ void *pull_one_url(void *argv){
 
 int getMultiCURL(char **urls, char **files, int max_num_tid){
 
+	debug_f_start("getMultiCURL");
+
 	pthread_t tid[max_num_tid+1];
 	int i;
 	int error;
@@ -102,26 +112,25 @@ int getMultiCURL(char **urls, char **files, int max_num_tid){
 
 		strcpy(argv[0],urls[i]);
 		strcpy(argv[1],files[i]);
-		if(debug==1) fprintf(stderr,"\nurl= %s", argv[0]);
-		if(debug==1) fprintf(stderr,"\nfile= %s", argv[1]);
 
+		debug_var_char("argv[0]", argv[0]);
+		debug_var_char("argv[1]", argv[1]);
 
 		error = pthread_create(&tid[i],
 				NULL, /* default attributes please */
 				pull_one_url,
 				(void *)argv);
-		if(debug==1){
-			if(0 != error)
-				fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
-			else
-				fprintf(stderr, "\nThread %d, gets %s\n", i, urls[i]);
-		}
+
+
+		debug_var_int("Start Thread Number:",  i);
+		debug_var_char("urls[i]", urls[i]);
+
 	}
 
 	/* now wait for all threads to terminate */
 	for(i=0; i< max_num_tid+1; i++) {
 		error = pthread_join(tid[i], NULL);
-		if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
+		debug_var_int("Stop Thread Number:", i);
 	}
 
 	return 0;
@@ -130,11 +139,15 @@ int getMultiCURL(char **urls, char **files, int max_num_tid){
 //Alternative at cURL
 int getWGET(char *url, char *file){
 
+	debug_f_start("getWGET");
+
 	char* wget = NULL;
 
 	// Tell wget where to write the file
 	asprintf(&wget, "%s %s %s", "wget -O", file, url);
-	if(debug==1) fprintf(stderr, "wget -> %s\n", wget);
+
+	debug_var_char(" wget",  wget);
+
 	system (wget);
 
 	return 0;

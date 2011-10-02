@@ -32,7 +32,7 @@
  * 
  */
 char *sumStrings(char *parm1, char *parm2 ){
-
+	debug_f_start("sumStrings");
 	/* molloc function return a number of bytes of parm1 + parm2 */
 	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
 	if (parm != NULL )
@@ -60,6 +60,8 @@ char *sumStrings(char *parm1, char *parm2 ){
  */
 char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
 {
+	debug_f_start("getParameters");
+
 	int i;
 	for(i = 0;i < argc;i++)
 	{
@@ -68,6 +70,7 @@ char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
 			return argv[i] + strcspn(argv[i],"=") + 1;
 		}
 	}
+
 	return NULL;
 }
 
@@ -76,7 +79,7 @@ char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
  * 
  */
 int shellParameters (int argc, char **argv){
-
+	debug_f_start("shellParameters");
 	int count;
 
 	if (argc > 1){
@@ -101,6 +104,8 @@ int shellParameters (int argc, char **argv){
 
 void createDir(){
 
+	debug_f_start("getParameters");
+
 	char *cmd;
 
 	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
@@ -110,29 +115,43 @@ void createDir(){
 
 	//Avatar Dir
 	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+	debug_var_char("progPath.avatarDir",progPath.avatarDir);
 
 	asprintf(&cmd, "%s %s", "rm -rf ", progPath.avatarDir);
+	debug_var_char("cmd",cmd);
 	system(cmd);
+
+
 
 	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+	debug_var_char("cmd",cmd);
 	system(cmd);
 
 	//Configuration File
 	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	debug_var_char("progPath.configDir",progPath.configDir);
+
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	debug_var_char("cmd",cmd);
 	system(cmd);
 
 	// Timeline File
 	asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
+	debug_var_char("progPath.timelineDir",progPath.timelineDir);
+
 	asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
+	debug_var_char("cmd",cmd);
 	system(cmd);
 
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
+	debug_var_char("progPath.configFile",progPath.configFile);
 
 }
 
 char* downloadVersion(){
+
+	debug_f_start("downloadVersion");
 
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
@@ -147,12 +166,16 @@ char* downloadVersion(){
 	/* Remove tmp file */
 	remove(FILE_VERSION);
 
-	if(debug==1) printf("\nversion: %s", bufferLatesVersion);
+	debug_var_char("bufferLatesVersion",bufferLatesVersion);
+
 	return bufferLatesVersion;
 }
 
 
 char* readRawTextFile(char* fileName){
+
+	debug_f_start("downloadVersion");
+
 	FILE *fp;
 	char ch, *b1, *b2 ;
 

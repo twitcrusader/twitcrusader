@@ -25,9 +25,11 @@
  */
 
 #include "inc/timeline.h"
-#include "inc/config.h"
+
 
 char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
+
+	debug_f_start("getTimeLineElement");
 
 	xmlChar *key = NULL;
 	char *empty = "error";
@@ -44,6 +46,8 @@ char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 }
 
 void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
+
+	debug_f_start("getStatus");
 
 	char *keys;
 
@@ -363,6 +367,8 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 }
 
 int readTimeLine(char *docname) {
+
+	debug_f_start("readTimeLine");
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;

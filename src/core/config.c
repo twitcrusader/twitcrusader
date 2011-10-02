@@ -125,10 +125,12 @@ int readUserFile(){
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 
+	debug_var_char("progPath.configFile", progPath.configFile);
 
 	doc=xmlParseFile(progPath.configFile);
+
 	if (doc == NULL ){
-		debug_var_char("progPath.configFile", "NULL");
+
 		return 1;
 	}
 
@@ -143,6 +145,7 @@ int readUserFile(){
 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "CONFIG")) {
 		debug_var_char("cur->name (CONFIG)", "NULL");
+
 		xmlFreeDoc(doc);
 		return 1;
 	}
