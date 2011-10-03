@@ -29,6 +29,8 @@
 
 void gtk_window_main(){
 
+	debug_f_start("gtk_window_main");
+
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -82,6 +84,8 @@ void gtk_window_main(){
 
 void gtk_init_window(){
 
+	debug_f_start("gtk_init_window");
+
 	mainWindow.scroll = gtk_scrolled_window_new(NULL,NULL);
 	mainWindow.menu_bar = gtk_menu_bar_new();
 	mainWindow.layout = gtk_vbox_new(0, 1);
@@ -103,6 +107,8 @@ void gtk_init_window(){
 }
 
 void gtk_init_menu(){
+
+	debug_f_start("gtk_init_menu");
 
 	menu1[0].name=CONNECT;
 	menu1[0].icon=ICON_ADDUSER;
@@ -162,9 +168,14 @@ void gtk_init_menu(){
 }
 
 void gtk_refresh_menu(){
+	debug_f_start("gtk_refresh_menu");
 
 }
 void gtk_init_statusbar(){
+
+	debug_f_start("gtk_init_statusbar");
+
+
 	/* Status Bar */
 
 	StatusBar.message = GTK_STATUSBAR(mainWindow.statusbar);
@@ -181,6 +192,9 @@ void gtk_init_statusbar(){
 }
 
 void gtk_init_toolbar(){
+
+	debug_f_start("gtk_init_toolbar");
+
 	/* GTK Widget: Twitter Menu */
 	gtk_toolbar_set_style (GTK_TOOLBAR (mainWindow.toolbar), GTK_TOOLBAR_ICONS);
 	gtk_toolbar_get_icon_size (GTK_TOOLBAR (mainWindow.toolbar));
@@ -188,6 +202,8 @@ void gtk_init_toolbar(){
 }
 
 void gtk_init_toolbar_items(){
+
+	debug_f_start("gtk_init_toolbar_items");
 
 	/* Twitter Menu: Buttons */
 
@@ -226,9 +242,14 @@ void gtk_init_toolbar_items(){
 
 void gtk_refresh_toolbar_items(){
 
+	debug_f_start("gtk_refresh_toolbar_items");
+
 }
 
 void gtk_init_charbar(){
+
+	debug_f_start("gtk_init_charbar");
+
 	/* Status Bar: Twitter 140char */
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(mainWindow.char_bar), FALSE);
 	gtk_statusbar_push (GTK_STATUSBAR(mainWindow.char_bar), 0, "140");
@@ -236,6 +257,9 @@ void gtk_init_charbar(){
 }
 
 void gtk_init_text_area(){
+
+	debug_f_start("gtk_init_text_area");
+
 	// TextArea + Scrollbar
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(mainWindow.scroll),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 
@@ -253,12 +277,17 @@ void gtk_init_text_area(){
 
 void gtk_init_menu_bar(){
 
+	debug_f_start("gtk_init_menu_bar");
+
 	gtk_menu_bar_append(GTK_MENU_BAR (mainWindow.menu_bar), mainWindow.file_menu_root);
 	gtk_menu_bar_append(GTK_MENU_BAR (mainWindow.menu_bar), mainWindow.aiuto_menu_root);
 
 }
 
 void gtk_init_scrolled_window(){
+
+	debug_f_start("gtk_init_scrolled_window");
+
 
 	int cols=0, rows=0;
 	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
@@ -297,6 +326,9 @@ void gtk_init_scrolled_window(){
  *
  */
 gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer){
+
+	debug_f_start("gtkSendTweet");
+
 
 	GtkTextIter start,
 	end;
@@ -341,6 +373,10 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
  *
  */
 void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
+
+	debug_f_start("updateStatusBar");
+
+
 	gchar *msg;
 	gint tot_char;
 	GtkTextIter iter;
@@ -366,26 +402,42 @@ void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar){
 
 void loadAboutDialog(){
 
+	debug_f_start("loadAboutDialog");
+
 	gtk_credits_dialog();
 }
 void loadVersionDialog(){
+
+	debug_f_start("loadVersionDialog");
 
 	gtk_window_update();
 
 }
 void loadWindowProperties(){
+
+	debug_f_start("loadWindowProperties");
+
 	gtk_window_properties();
 }
 void loadRegDialog(){
+
+	debug_f_start("loadRegDialog");
+
 	gtk_window_register();
 
 }
 
 void clear_statusbar(){
 
+	debug_f_start("clear_statusbar");
+
+
 }
 
 void show_home_timeline(){
+
+	debug_f_start("show_home_timeline");
+
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		mainWindow.selected_timeline=1;
 		gtk_refresh_timeline();
@@ -393,6 +445,9 @@ void show_home_timeline(){
 
 }
 void mentions_timeline(){
+
+	debug_f_start("mentions_timeline");
+
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		mainWindow.selected_timeline=2;
 		gtk_refresh_timeline();
@@ -400,6 +455,9 @@ void mentions_timeline(){
 
 }
 void show_private_message(){
+
+	debug_f_start("show_private_message");
+
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 
 	}
@@ -407,8 +465,10 @@ void show_private_message(){
 
 void gtk_refresh_timeline(){
 
+	debug_f_start("gtk_refresh_timeline");
+
+
 	int error;
-	if(debug==1) puts("gtkRefreshswitchTimeLine(GtkWidget *, gpointer window)");
 
 	error=switchTimeLine(mainWindow.selected_timeline);
 
@@ -420,6 +480,9 @@ void gtk_refresh_timeline(){
 }
 
 void gtk_refresh(){
+
+	debug_f_start("gtk_refresh");
+
 	gtk_refresh_menu();
 	gtk_init_statusbar();
 	gtk_init_scrolled_window();
@@ -429,10 +492,15 @@ void gtk_refresh(){
 }
 
 void foo(){
-	puts("foo()\n");
+
+	debug_f_start("foo");
+
 }
 
 void gtk_connect(){
+
+	debug_f_start("gtk_connect");
+
 	if(readUserFile()==0){
 		mainWindow.logged=1;
 		mainWindow.selected_timeline=1;
@@ -440,6 +508,9 @@ void gtk_connect(){
 	}
 }
 void gtk_disconnect(){
+
+	debug_f_start("gtk_disconnect");
+
 	disconnect();
 
 	mainWindow.logged=0;
@@ -450,6 +521,10 @@ void gtk_disconnect(){
 }
 
 void downloadsAvatars(){
+
+	debug_f_start("downloadsAvatars");
+
+
 	pthread_t tid;
 	int i, error=0;
 
@@ -460,21 +535,26 @@ void downloadsAvatars(){
 
 		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
 
-		if(debug==1){
-			if(0 != error)
-				fprintf(stderr, "\nCouldn't run thread number %d, errno %d\n", i, error);
-			else
-				fprintf(stderr, "\nThread %d, gets %s\n", i, argv[0]);
+
+			if(0 != error){
+				debug_var_int("Can't Start Thread Number",i);
+			}
+			else{
+				debug_var_int("Start Thread Number",i);
+				debug_var_char("Thread argument",argv[0]);
 		}
 
 		error = pthread_join(tid, NULL);
-		if(debug==1) fprintf(stderr, "\nThread %d terminated\n", i);
+		debug_var_int("Stop Thread Number",i);
 
 	}
 }
 
 
 void on_quit(){
+
+	debug_f_start("on_quit");
+
 	notifySystem(QUIT);
 	gtk_main_quit();
 }

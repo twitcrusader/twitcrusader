@@ -41,6 +41,9 @@
 #include "windows.main.h"
 #include "windows.error.h"
 
+#include "../../core/inc/debug.h"
+
+
 typedef struct
 {
 GtkWidget *pin;

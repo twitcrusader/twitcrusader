@@ -35,8 +35,10 @@
  * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_credits_dialog_create-function/
  * 
  */
-void gtk_credits_dialog()
-{
+void gtk_credits_dialog(){
+
+	debug_f_start("gtk_credits_dialog");
+
 	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file (ICON_ABOUT, NULL);
 	GtkWidget* dialog = gtk_about_dialog_new();
 

@@ -32,6 +32,7 @@
 #include <curl/curl.h>
 #include <pthread.h>
 
+#include "debug.h"
 #include "functions.h"
 #include "timeline.h"
 
