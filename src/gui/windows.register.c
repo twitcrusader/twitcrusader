@@ -27,6 +27,9 @@
 #include "inc/windows.register.h"
 
 void gtk_window_register(){
+
+	debug_f_start("gtk_window_register");
+
 	GtkWidget *table = gtk_table_new (10, 10, TRUE),
 	*label,
 	*button,
@@ -83,6 +86,8 @@ void gtk_window_register(){
 
 void gtkAccessToken(){
 
+	debug_f_start("gtkAccessToken");
+
 	int correctVerify=1;
 
 	/* Get text from GTK_Entry*/
@@ -92,7 +97,8 @@ void gtkAccessToken(){
 	//Validate PIN
 	correctVerify = tokenAccess(pin);
 
-	printf("\ncorrectVerify= %i",correctVerify);
+	debug_var_int("correctVerify",correctVerify);
+
 	}
 
 	if(correctVerify == 1) gtk_window_error("Error: bad Input!");

@@ -46,6 +46,8 @@
 #include "windows.register.h"
 #include "icons.h"
 
+#include "../../core/inc/debug.h"
+
 #include "../../core/inc/lang.h"
 #include "../../core/inc/functions.h"
 #include "../../core/inc/twitter.h"
