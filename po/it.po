@@ -25,7 +25,135 @@
  # 
  #
 
-#: lang.h:<num of line>
-msgid ""
+#: src/core/inc/lang.h:35
+msgid "ISO-8859-1"
 msgstr ""
+
+#: src/core/inc/lang.h:41
+msgid " (c) "
+msgstr ""
+
+#: src/core/inc/lang.h:42
+msgid "TwitCrusader"
+msgstr ""
+
+#: src/core/inc/lang.h:43
+msgid "TwitCrusader Team"
+msgstr ""
+
+#: src/core/inc/lang.h:44
+msgid "2011"
+msgstr ""
+
+#: src/core/inc/lang.h:45
+msgid "Nightly"
+msgstr ""
+
+#: src/core/inc/lang.h:46
+msgid "http://www.twitcrusader.org/"
+msgstr ""
+
+#: src/core/inc/lang.h:48
+msgid "Version"
+msgstr "Versione"
+
+#: src/core/inc/lang.h:49
+msgid "Twitter Client For Linux Desktop"
+msgstr "Client Twitter per Desktop Linux"
+
+#: src/core/inc/lang.h:50
+msgid "Start"
+msgstr "Avvio"
+
+#: src/core/inc/lang.h:51
+msgid "Connect"
+msgstr "Connetti"
+
+#: src/core/inc/lang.h:52
+msgid "Disconnect"
+msgstr "Disconnetti"
+
+#: src/core/inc/lang.h:53
+msgid "Options"
+msgstr "Opzioni"
+
+#: src/core/inc/lang.h:54
+msgid "Exit"
+msgstr "Uscita"
+
+#: src/core/inc/lang.h:55
+msgid "Updates"
+msgstr "Aggiornamenti"
+
+#: src/core/inc/lang.h:56
+msgid "About"
+msgstr "Info"
+
+#: src/core/inc/lang.h:57
+msgid "Account"
+msgstr "Profilo"
+
+#: src/core/inc/lang.h:58
+msgid "Twitter's Account:"
+msgstr "Profilo Twitter:"
+
+#: src/core/inc/lang.h:59
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/core/inc/lang.h:60
+msgid "New"
+msgstr "Nuovo"
+
+#: src/core/inc/lang.h:61
+msgid "New User"
+msgstr "Nuovo Utente"
+
+#: src/core/inc/lang.h:62
+msgid "Insert PIN"
+msgstr "Inserisci PIN"
+
+#: src/core/inc/lang.h:63
+msgid "Create Account"
+msgstr "Crea Profilo"
+
+#: src/core/inc/lang.h:64
+msgid "ERROR: Bad Input"
+msgstr "ERRORE: INSERIMENTO ERRATO"
+
+#: src/core/inc/lang.h:65
+msgid "Last Version"
+msgstr "Ultima Versione"
+
+#: src/core/inc/lang.h:66
+msgid "Current Version"
+msgstr "Versione Corrente"
+
+#: src/core/inc/lang.h:67
+msgid "File"
+msgstr ""
+
+#: src/core/inc/lang.h:68
+msgid "Help"
+msgstr "Aiuto"
+
+#: src/core/inc/lang.h:69
+msgid "Sending..."
+msgstr "Invio..."
+
+#: src/core/inc/lang.h:70
+msgid "Tweet Not Sent"
+msgstr "Tweet Non Inviato"
+
+#: src/core/inc/lang.h:71
+msgid "Tweet Sent"
+msgstr "Tweet Inviato"
+
+#: src/core/inc/lang.h:72
+msgid "Disconnected"
+msgstr "Disconnesso"
+
+#: src/core/inc/lang.h:73
+msgid "Connected"
+msgstr "Connesso"
 
