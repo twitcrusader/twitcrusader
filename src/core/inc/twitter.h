@@ -48,22 +48,22 @@
 #define TWITTER_KEY "0xdBqXjFX4LBTLyoc5Dg"
 #define TWITTER_KEY_SECRET "VIr57NPcgxxpJ2esI7brKGhth06EslbH0UDD3ImFB8"
 
-#define HTTP_API_URL "http://api.twitter.com"
-#define HTTPS_API_URL "https://api.twitter.com"
+#define OAUTH_API_URL "https://api.twitter.com/oauth/"
+#define HTTPS_API_URL "https://api.twitter.com/1/"
 
-#define AUTHORIZE_URL HTTP_API_URL"/oauth/authorize"
-#define REQUEST_URL HTTP_API_URL"/oauth/request_token"
-#define TOKENACCESS_URL HTTP_API_URL"/oauth/access_token"
-#define STATUS_URL HTTP_API_URL"/1/statuses/update.xml?status="
+#define AUTHORIZE_URL OAUTH_API_URL"authorize"
+#define REQUEST_URL OAUTH_API_URL"request_token"
+#define TOKENACCESS_URL OAUTH_API_URL"access_token"
 
-#define HOME_TIMELINE_URL HTTP_API_URL"/1/statuses/home_timeline.xml"
-#define PUBLIC_TIMELINE_URL HTTP_API_URL"/1/statuses/public_timeline.xml"
-#define MENTIONS_TIMELINE_URL HTTP_API_URL"/1/statuses/mentions.xml"
-#define FRIENDS_TIMELINE_URL HTTP_API_URL"/1/statuses/friends_timeline.xml"
-#define USER_TIMELINE_URL HTTP_API_URL"/1/statuses/user_timeline.xml"
-#define RT_BY_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_by_me.xml"
-#define RT_TO_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_to_me.xml"
-#define RT_OF_ME_TIMELINE_URL HTTP_API_URL"/1/statuses/retweeted_of_me.xml"
+#define STATUS_URL HTTPS_API_URL"statuses/update.xml?status="
+#define HOME_TIMELINE_URL HTTPS_API_URL"statuses/home_timeline.xml"
+#define PUBLIC_TIMELINE_URL HTTPS_API_URL"statuses/public_timeline.xml"
+#define MENTIONS_TIMELINE_URL HTTPS_API_URL"statuses/mentions.xml"
+#define FRIENDS_TIMELINE_URL HTTPS_API_URL"statuses/friends_timeline.xml"
+#define USER_TIMELINE_URL HTTPS_API_URL"statuses/user_timeline.xml"
+#define RT_BY_ME_TIMELINE_URL HTTPS_API_URL"statuses/retweeted_by_me.xml"
+#define RT_TO_ME_TIMELINE_URL HTTPS_API_URL"statuses/retweeted_to_me.xml"
+#define RT_OF_ME_TIMELINE_URL HTTPS_API_URL"statuses/retweeted_of_me.xml"
 
 char *tmp_token;
 

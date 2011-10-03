@@ -296,7 +296,9 @@ void gtk_init_scrolled_window(){
 	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
 		mainWindow.avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
-		mainWindow.nick = gtk_label_new (timeline[cols].user.screen_name);
+		char* nick;
+		asprintf(&nick,"%s%s","@",timeline[cols].user.screen_name);
+		mainWindow.nick = gtk_label_new (nick);
 		mainWindow.tweet = gtk_label_new (timeline[cols].text);
 
 		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
