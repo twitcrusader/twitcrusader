@@ -28,6 +28,7 @@
 /* Headers */ 
 #include "inc/windows.credits.h"
 #include "inc/icons.h"
+
 #include "../core/inc/lang.h"
 
 /* gtk_credits_dialog_create() Function 
@@ -46,11 +47,13 @@ void gtk_credits_dialog(){
 
 	gtk_window_set_icon_from_file (GTK_WINDOW (dialog), ICON_FAVICON, &error);
 
-	//gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC); deprecated gtk+-2.0
+	//gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC); //deprecated gtk+-2.0
 	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
-	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), "(c) "TWC" Team\nVersion: "TWC_VERSION_STATUS);
-	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), "Twitter Client For Linux Desktop");
-	gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "http://www.twitcrusader.org/");
+	char* msg;
+	asprintf(&msg,"%s%s\n%s: %s", COPYRIGHT_SIMBOL, TWC_TEAM, VERSION_MSG, TWC_VERSION_STATUS);
+	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), msg);
+	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), ABOUT_COMMENT);
+	gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), TWC_URL);
 
 	gtk_about_dialog_set_logo (GTK_ABOUT_DIALOG (dialog), pixbuf);
 	g_object_unref (pixbuf), pixbuf = NULL;

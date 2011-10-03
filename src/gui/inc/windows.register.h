@@ -41,6 +41,7 @@
 #include "windows.main.h"
 #include "windows.error.h"
 
+#include "../../core/inc/lang.h"
 #include "../../core/inc/debug.h"
 
 
