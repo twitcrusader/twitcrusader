@@ -43,7 +43,7 @@ void gtk_window_register(){
 
 	/* Set all window options (color, size, position, logo, icon, etc) */
 	DataInput->window = gtk_dialog_new();
-	gtk_window_set_title (GTK_WINDOW(DataInput->window), "Nuovo Utente");
+	gtk_window_set_title (GTK_WINDOW(DataInput->window), NEW_USER);
 	gtk_container_set_border_width (GTK_CONTAINER (DataInput->window), 0);
 	gtk_window_set_position(GTK_WINDOW(DataInput->window), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(DataInput->window), ICON_ADDUSER, &error);
@@ -58,7 +58,7 @@ void gtk_window_register(){
 	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(tokenTempBrowser), NULL);
 
 	/* Attach Box for PIN */
-	label = gtk_label_new ("Inserisci PIN");
+	label = gtk_label_new (INSERT_PIN);
 	DataInput->pin = gtk_entry_new ();
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	gtk_entry_set_text (GTK_ENTRY (DataInput->pin), "");
@@ -66,7 +66,7 @@ void gtk_window_register(){
 	gtk_table_attach (GTK_TABLE (table), DataInput->pin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Press Button and call function for verify PIN */
-	button = gtk_button_new_with_label ("Crea Account");
+	button = gtk_button_new_with_label (MAKE_ACCOUNT);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_dialog_add_action_widget (GTK_DIALOG (DataInput->window), table, GTK_RESPONSE_CLOSE);
 	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), NULL);
@@ -101,7 +101,7 @@ void gtkAccessToken(){
 
 	}
 
-	if(correctVerify == 1) gtk_window_error("Error: bad Input!");
+	if(correctVerify == 1) gtk_window_error(BAD_INPUT);
 
 
 	if(correctVerify == 0){

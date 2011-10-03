@@ -18,8 +18,9 @@
 #include <gtk/gtk.h>
 
 #include "icons.h"
-#include "../../core/inc/debug.h"
 
+#include "../../core/inc/debug.h"
+#include "../../core/inc/lang.h"
 
 /* Define Function */
 

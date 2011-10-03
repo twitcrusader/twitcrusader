@@ -160,9 +160,9 @@ void gtk_init_menu(){
 
 	}
 
-	mainWindow.file_menu_root = gtk_menu_item_new_with_label("File");
+	mainWindow.file_menu_root = gtk_menu_item_new_with_label(FILE_MENU);
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (mainWindow.file_menu_root), mainWindow.file_menu_obj);
-	mainWindow.aiuto_menu_root = gtk_menu_item_new_with_label("Aiuto");
+	mainWindow.aiuto_menu_root = gtk_menu_item_new_with_label(HELP_MENU);
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM (mainWindow.aiuto_menu_root), mainWindow.aiuto_menu_obj);
 
 }
@@ -345,15 +345,15 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
 	if(pKey->keyval == GDK_Return){
 
-		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Invio In Corso...");
+		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, STBR_MSG);
 
 		//SendTweet
 		send = SendTweet(msg);
 
 		if(send == 0 || send == 1){
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Non Inviato!");
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, NOT_SENT);
 		} else {
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, "Tweet Inviato!");
+			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, SENT);
 			gtk_text_buffer_delete(tweetBuffer, &start, &end);
 		}
 

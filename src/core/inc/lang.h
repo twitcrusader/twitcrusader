@@ -24,7 +24,12 @@
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
- 
+
+
+/*
+ * To generate po layout: xgettext -a -o po/layout.txt --omit-header src/core/inc/lang.h
+ */
+
 /* Define */
 #ifndef SYS_H
 #define SYS_H
@@ -38,18 +43,38 @@
 #define _GNU_SOURCE	
 
 /* System Variables */
+#define COPYRIGHT_SIMBOL " (c) "
 #define TWC "TwitCrusader"
+#define TWC_TEAM "TwitCrusader Team"
 #define TWC_VERSION "2011"
 #define TWC_VERSION_STATUS "Nightly"
+#define TWC_URL "http://www.twitcrusader.org/"
 
-#define START "Start"
-#define CONNECT "Connetti"
-#define DISCONNECT "Disconnetti"
-#define OPTIONS "Opzioni"
-#define QUIT "Esci"
-#define UPDATES "Updates"
-#define ABOUT "About"
+#define VERSION_MSG _("Version")
+#define ABOUT_COMMENT _("Twitter Client For Linux Desktop")
+#define START _("Start")
+#define CONNECT _("Connect")
+#define DISCONNECT _("Disconnect")
+#define OPTIONS _("Options")
+#define QUIT _("Exit")
+#define UPDATES _("Updates")
+#define ABOUT _("About")
+#define ACCOUNT _("Account")
+#define TWC_ACCOUNT_LABEL _("Twitter's Account:")
+#define DELETE _("Delete")
+#define NEW _("New")
+#define NEW_USER _("New User")
+#define INSERT_PIN _("Insert PIN")
+#define MAKE_ACCOUNT _("Create Account")
+#define BAD_INPUT _("ERROR: Bad Input")
+#define LAST_VERSION _("Last Version")
+#define CURRENT_VERSION _("Current Version")
+#define FILE_MENU _("File")
+#define HELP_MENU _("Help")
+#define STBR_MSG _("Sending...")
+#define NOT_SENT _("Tweet Not Sent")
+#define SENT _("Tweet Sent")
+#define PROFILE_DISCONNECTED _("Disconnected");
+#define PROFILE_CONNECTED _("Connected");
 
-#define PROFILE_DISCONNECTED "Disconnected!";
-#define PROFILE_CONNECTED "Connected!";
 #endif
