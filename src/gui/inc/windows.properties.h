@@ -40,6 +40,7 @@
 #include "windows.register.h"
 #include "windows.main.h"
 #include "../../core/inc/lang.h"
+#include "../../core/inc/debug.h"
 
 
 GtkWidget *dialog,

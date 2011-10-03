@@ -28,6 +28,8 @@
 
 void gtk_window_properties(){
 
+	debug_f_start("gtk_window_properties");
+
 	g_list_free (itemsAccount);
 	table = gtk_table_new (7, 10, TRUE);
 	notebook = gtk_notebook_new ();
@@ -84,6 +86,8 @@ void gtk_window_properties(){
 
 void gtk_delete_account(){
 
+	debug_f_start("gtk_delete_account");
+
 	deleteAccount();
 
 	disconnect();
@@ -94,6 +98,8 @@ void gtk_delete_account(){
 }
 
 void gtk_register(){
+
+	debug_f_start("gtk_register");
 
 	gtk_widget_destroy(dialog);
 	gtk_window_register();

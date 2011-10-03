@@ -31,6 +31,7 @@
 #include <libnotify/notify.h>
 
 #include "lang.h"
+#include "debug.h"
 #include "../../gui/inc/icons.h"
 
 void notifySystem(char *message);

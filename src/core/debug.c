@@ -32,26 +32,26 @@ void set_debug(int value){
 
 void debug_f_start(char* functionName){
 	gettimeofday(&tv,NULL);
-	if(debug==1) fprintf(stderr,"\n[%i.%i] - Function: %s",tv.tv_sec, tv.tv_usec, functionName);
+	if(debug==1) fprintf(stderr,"[%i.%i] - Function: %s\n",tv.tv_sec, tv.tv_usec, functionName);
 }
 
-void debug_var_char(char* varName, char* varValue){
+void debug_var_char(const char* varName, const char* varValue){
 	gettimeofday(&tv,NULL);
 	if(debug==1){
 		if(varValue!=NULL){
 
-			fprintf(stderr,"\n[%i.%i] - %s: %s",tv.tv_sec, tv.tv_usec, varName, varValue);
+			fprintf(stderr,"[%i.%i] - %s: %s\n",tv.tv_sec, tv.tv_usec, varName, varValue);
 
 		}else{
 
-			fprintf(stderr,"\n[%i.%i] - %s: %s",tv.tv_sec, tv.tv_usec, varName, "NULL");
+			fprintf(stderr,"[%i.%i] - %s: %s\n",tv.tv_sec, tv.tv_usec, varName, "NULL");
 		}
 	}
 }
 
 void debug_var_int(char* varName, int varValue){
 	gettimeofday(&tv,NULL);
-	if(debug==1) fprintf(stderr,"\n[%i.%i] - %s= %i",tv.tv_sec, tv.tv_usec, varName, varValue);
+	if(debug==1) fprintf(stderr,"[%i.%i] - %s= %i\n",tv.tv_sec, tv.tv_usec, varName, varValue);
 }
 
 
