@@ -37,7 +37,9 @@ void gtk_window_update()
 {
 
 	GtkWidget *dialog;
-	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,"Last Version: %s\n Current Version: %s%s", downloadVersion(),TWC_VERSION,TWC_VERSION_STATUS);
+	char* msg;
+	asprintf(&msg,"%s: %s\n%s: %s%s", LAST_VERSION, downloadVersion(), CURRENT_VERSION, TWC_VERSION, TWC_VERSION_STATUS);
+	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,msg);
 	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
 

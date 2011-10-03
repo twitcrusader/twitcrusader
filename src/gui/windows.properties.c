@@ -24,6 +24,7 @@
  * 		E-mail: teamtwc@twitcrusader.org
  *
  */
+
 #include "inc/windows.properties.h"
 
 void gtk_window_properties(){
@@ -35,7 +36,7 @@ void gtk_window_properties(){
 	notebook = gtk_notebook_new ();
 
 	dialog=gtk_dialog_new();
-	gtk_window_set_title (GTK_WINDOW(dialog), "Opzioni");
+	gtk_window_set_title (GTK_WINDOW(dialog), OPTIONS);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICON_SETTINGS, &error);
@@ -44,23 +45,23 @@ void gtk_window_properties(){
 	/* Set all functions of Account TAB */
 	table = gtk_table_new (7, 10, TRUE);
 	combo = gtk_combo_new ();
-	settingMenu = gtk_label_new ("Account");
+	settingMenu = gtk_label_new (ACCOUNT);
 
 
-	label = gtk_label_new ("Twitter's Account:");
+	label = gtk_label_new (TWC_ACCOUNT_LABEL);
 	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
 
 	if(readUserFile()==0){
 		itemsAccount = g_list_append (itemsAccount, user.screenName);
-		button = gtk_button_new_with_label ("Elimina");
+		button = gtk_button_new_with_label (DELETE);
 		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_delete_account), NULL);
 
 	}else{
 		itemsAccount=g_list_alloc ();
-		button = gtk_button_new_with_label ("Nuovo");
+		button = gtk_button_new_with_label (NEW);
 		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 		g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (gtk_register), NULL);
 

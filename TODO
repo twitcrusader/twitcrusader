@@ -1,9 +1,7 @@
 // TO DO
 
-* Threads per sbloccare lu gui in fase di loading delle informazioni da internet
+* Threads per sbloccare la gui in fase di loading delle informazioni da internet
 
 * Private Message
 
 * Migliorare la visualizzazione della Timeline.
-
-* Inserire tutte le stringhe nel file /src/core/lang.h per poter compeltare l'intenazionalizzazione del Codice
