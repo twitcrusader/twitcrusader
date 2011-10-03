@@ -38,6 +38,7 @@ void set_debug(int value); // to intialize debug value
 void debug_f_start(char* functionName); //to print the Function Name
 void debug_var_char(const char* varName, const char* varValue); //to print String variable
 void debug_var_int(char* varName, int varValue); //to print Integer variable
-struct timeval tv;
+char* timestamp();
+
 
 #endif /* DEBUG_H_ */
