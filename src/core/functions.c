@@ -110,7 +110,7 @@ void createDir(){
 
 	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
 	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
-
+	progPath.preferenceFile= (char*) malloc(sizeof(char)* 80);
 	/* User-Directory Path */
 
 	//Avatar Dir
@@ -146,6 +146,9 @@ void createDir(){
 
 	asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
 	debug_var_char("progPath.configFile",progPath.configFile);
+
+	asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
+		debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
 
 }
 

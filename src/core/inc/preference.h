@@ -32,9 +32,42 @@
 #include <libxml/xmlwriter.h>
 
 #include "debug.h"
+#include "config.h"
+
+#define OAUTH_API_URL_DEFAULT "https://api.twitter.com/oauth/"
+#define HTTPS_API_URL_DEFAULT "https://api.twitter.com/1/"
+
+#define DEFAULT_PREFERENCE PROG_DIR"/"CONFIG_PREFERENCE_FILENAME
+
+static struct preference{
+	char* aouth_api_url;
+	char* https_api_url;
+
+} prog_preference;
 
 
-char* aouth_api_url;
-char* https_api_url;
+static struct twitter_URLS{
+char authorize_url[1024];
+char request_url[1024];
+char tokenaccess_url[1024];
+
+char status_url[1024];
+char home_timeline_url[1024];
+char public_timeline_url[1024];
+char mentions_timeline_url[1024];
+char friends_timeline_url[1024];
+char user_timeline_url[1024];
+char rt_by_me_timeline_url[1024];
+char rt_to_me_timeline_url[1024];
+char rt_of_me_timeline_url[1024];
+}tw_URLS;
+
+
+int read_preference_file();
+int get_preference(xmlDocPtr doc);
+void write_default_preference_file();
+void write_preference_file();
+void init_URLS();
+void check_URLS();
 
 #endif /* PREFERENCE_H_ */

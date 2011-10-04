@@ -26,12 +26,205 @@
 
 #include "inc/preference.h"
 
-void read_preference(){
+int read_preference_file(){
 	debug_f_start("read_preference");
+
+	xmlTextWriterPtr writer;
+	xmlDocPtr doc;
+
+
+	debug_var_char("progPath.preferenceFile", progPath.preferenceFile);
+
+	doc=xmlParseFile(progPath.preferenceFile);
+
+	if (doc != NULL ){
+		if(get_preference(doc)==1){
+
+			xmlFreeDoc(doc);
+			return 1;
+		}
+
+
+	}else{
+
+		doc=xmlParseFile(DEFAULT_PREFERENCE);
+
+		if(doc!=NULL){
+			if(get_preference(doc)==1){
+
+				xmlFreeDoc(doc);
+				return 1;
+			}
+
+			write_preference_file();
+
+
+		}else{
+
+			write_default_preference_file();
+			return 1;
+		}
+	}
+
+	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
+	debug_var_char("prog_preference.https_api_url", prog_preference.https_api_url);
+
+	xmlFreeDoc(doc);
+
+	init_URLS();
+
+	return 0;
+}
+
+int get_preference(xmlDocPtr doc){
+
+	debug_f_start("get_preference");
+
+	char *keys;
+
+	xmlNodePtr node;
+	node= xmlDocGetRootElement(doc);
+
+	if (node == NULL) {
+
+		debug_var_char("cur (ROOT-ELEMENT)", "NULL");
+		return 1;
+	}
+
+	if (xmlStrcmp(node->name, (const xmlChar *) "preferences")) {
+
+		debug_var_char("cur->name (preference)", "NULL");
+		return 1;
+	}
+
+	node = node->xmlChildrenNode;
+
+	while (node != NULL) {
+
+
+		if ((!xmlStrcmp(node->name, (const xmlChar *) "preference"))){
+
+
+			node = node->xmlChildrenNode;
+
+			keys=getElement(doc, node, "oauth_api_url");
+			debug_var_char("keys", keys);
+			prog_preference.aouth_api_url=keys;
+			node = node->next;
+
+
+			keys=getElement(doc, node, "https_api_url");
+			debug_var_char("keys", keys);
+			prog_preference.https_api_url=keys;
+			node = node->next;
+
+
+		}
+	}
+
+	return 0;
+}
+
+void write_preference_file(){
+	debug_f_start("write_preference_file");
 
 	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
 	xmlNodePtr node;
 
+	doc = xmlNewDoc((xmlChar*) XML_DEFAULT_VERSION);
+	node = xmlNewDocNode(doc, NULL, (xmlChar*) "preferences", NULL);
+
+	xmlDocSetRootElement(doc, node);
+	writer = xmlNewTextWriterTree(doc, node, 0);
+
+	xmlTextWriterStartDocument(writer, NULL, MY_ENCODING, NULL);
+	xmlTextWriterStartElement(writer, (xmlChar*) "preference");
+
+	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"prog_preference.aouth_api_url", (xmlChar*)prog_preference.aouth_api_url);
+
+	debug_var_char("prog_preference.https_api_url", prog_preference.https_api_url);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"https_api_url", (xmlChar*)prog_preference.https_api_url);
+
+	xmlFreeTextWriter(writer);
+
+	debug_var_char("progPath.preferenceFile", progPath.preferenceFile);
+	xmlSaveFileEnc(progPath.preferenceFile, doc, MY_ENCODING);
+
+	xmlFreeDoc(doc);
 }
 
+
+void write_default_preference_file(){
+	debug_f_start("write_default_preference_file");
+
+	prog_preference.aouth_api_url=OAUTH_API_URL_DEFAULT;
+	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
+
+	prog_preference.https_api_url=HTTPS_API_URL_DEFAULT;
+	debug_var_char("prog_preference.https_api_url", prog_preference.https_api_url);
+
+	write_preference_file();
+
+}
+
+
+void check_URLS(){
+	debug_f_start("check_URLS");
+
+	if(prog_preference.aouth_api_url==NULL ||prog_preference.aouth_api_url=="error"){
+		prog_preference.aouth_api_url=OAUTH_API_URL_DEFAULT;
+	}
+
+	if(prog_preference.https_api_url==NULL ||prog_preference.https_api_url=="error"){
+		prog_preference.https_api_url=HTTPS_API_URL_DEFAULT;
+	}
+
+}
+
+void init_URLS(){
+
+	debug_f_start("init_URLS");
+
+
+	//	check_URLS();
+
+	asprintf(&tw_URLS.authorize_url,"%s%s",prog_preference.aouth_api_url,"authorize");
+	debug_var_char("tw_URLS.authorize_url", tw_URLS.authorize_url);
+
+	asprintf(&tw_URLS.request_url,"%s%s",prog_preference.aouth_api_url,"request_token");
+	debug_var_char("tw_URLS.request_url", tw_URLS.request_url);
+
+	asprintf(&tw_URLS.tokenaccess_url,"%s%s",prog_preference.aouth_api_url, "access_token");
+	debug_var_char("tw_URLS.tokenaccess_url", tw_URLS.tokenaccess_url);
+
+
+	asprintf(&tw_URLS.status_url,"%s%s",prog_preference.https_api_url,"statuses/update.xml?status=");
+	debug_var_char("tw_URLS.status_url", tw_URLS.status_url);
+
+	asprintf(&tw_URLS.home_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/home_timeline.xml");
+	debug_var_char("tw_URLS.home_timeline_url", tw_URLS.home_timeline_url);
+
+	asprintf(&tw_URLS.public_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/public_timeline.xml");
+	debug_var_char("tw_URLS.public_timeline_url", tw_URLS.public_timeline_url);
+
+	asprintf(&tw_URLS.mentions_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/mentions.xml");
+	debug_var_char("tw_URLS.mentions_timeline_url", tw_URLS.mentions_timeline_url);
+
+	asprintf(&tw_URLS.friends_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/friends_timeline.xml");
+	debug_var_char("tw_URLS.friends_timeline_url", tw_URLS.friends_timeline_url);
+
+	asprintf(&tw_URLS.user_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/user_timeline.xml");
+	debug_var_char("tw_URLS.user_timeline_url", tw_URLS.user_timeline_url);
+
+	asprintf(&tw_URLS.rt_by_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_by_me.xml");
+	debug_var_char("tw_URLS.rt_by_me_timeline_url", tw_URLS.rt_by_me_timeline_url);
+
+	asprintf(&tw_URLS.rt_to_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_to_me.xml");
+	debug_var_char("tw_URLS.rt_to_me_timeline_url", tw_URLS.rt_to_me_timeline_url);
+
+	asprintf(&tw_URLS.rt_of_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_of_me.xml");
+	debug_var_char("tw_URLS.rt_of_me_timeline_url", tw_URLS.rt_of_me_timeline_url);
+
+}
