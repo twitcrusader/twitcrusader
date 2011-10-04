@@ -119,7 +119,6 @@ char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 int readUserFile(){
 	debug_f_start("readUserFile");
 
-	int debug=1;
 	char *keys;
 
 	xmlDocPtr doc;

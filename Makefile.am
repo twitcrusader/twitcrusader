@@ -5,6 +5,7 @@ progdir = $(datadir)/@PACKAGE@
 prog_DATA= \
 	AUTHORS \
 	COPYING \
+	share/preference/preference.xml \
 	GPL
 
 INTLTOOL_FILES = intltool-extract.in \

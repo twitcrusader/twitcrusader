@@ -42,7 +42,7 @@ char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
 
 	char *postarg = NULL;
 	char *tempKeyParameters = NULL;
-	char *twitterRequestURL=REQUEST_URL;
+	char *twitterRequestURL=tw_URLS.request_url;
 
 	/* Generate a request url, this url have Temp-Key */
 	twitterRequestURL = oauth_sign_url2(twitterRequestURL, NULL, OA_HMAC, NULL, consumerKey, consumerKeySecret, NULL, NULL);
@@ -93,7 +93,7 @@ int tokenTempBrowser(){
 	debug_var_char("tmp_token",tmp_token);
 
 	/* Generate a Twitter-URL for get user-PIN */
-	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", AUTHORIZE_URL, tempKey);
+	asprintf(&cmd, "xdg-open \"%s?oauth_token=%s\"", tw_URLS.authorize_url, tempKey);
 
 	debug_var_char("cmd", cmd);
 
@@ -161,7 +161,7 @@ int tokenAccess(const char *pin){
 	*postarg,
 	*tempKey,
 	*tempKeySecret,
-	*accessURL = TOKENACCESS_URL;
+	*accessURL = tw_URLS.tokenaccess_url;
 
 	char **rv=NULL;
 
@@ -225,7 +225,7 @@ int SendTweet(char *msg){
 
 	debug_f_start("SendTweet");
 
-	char	*twitterStatusURL = STATUS_URL,
+	char	*twitterStatusURL = tw_URLS.status_url,
 			*sendTweet,
 			*error;
 
@@ -270,10 +270,8 @@ int switchTimeLine(int xmlSwitch){
 
 	FILE *fp;
 
-	char *timelineURL=NULL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL,
-			*tmpFile = NULL;
+	char *timelineURL, *timeline, *cmd;
+	char *postarg, *tmpFile;
 
 	debug_var_int("xmlSwitch",xmlSwitch);
 
@@ -281,53 +279,89 @@ int switchTimeLine(int xmlSwitch){
 
 	case 0:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
-		timelineURL=PUBLIC_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.public_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 	case 1:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
-		timelineURL=HOME_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.home_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 2:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
-		timelineURL=MENTIONS_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.mentions_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 3:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
-		timelineURL=FRIENDS_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.friends_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 4:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
-		timelineURL=USER_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.user_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 5:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
-		timelineURL=RT_BY_ME_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_by_me_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 6:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
-		timelineURL=RT_TO_ME_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_to_me_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	case 7:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
-		timelineURL=RT_OF_ME_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_of_me_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 
 	default:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
-		timelineURL=PUBLIC_TIMELINE_URL;
+		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.public_timeline_url;
+		debug_var_char("timelineURL",timelineURL);
+
 		break;
 	}
 
 	debug_var_int("xmlSwitch",xmlSwitch);
 
-
 	timeline= oauth_sign_url2(timelineURL, NULL, OA_HMAC, NULL, user.consumerKey, user.consumerSecretKey, user.token, user.secretToken);
+	debug_var_char("timeline", timeline);
 	timeline= oauth_http_get(timeline, postarg);
 	debug_var_char("timeline",timeline);
 
