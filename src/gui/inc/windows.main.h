@@ -83,7 +83,6 @@ struct main_window{
 	*aiuto_menu_items[3],
 	*aiuto_icon_menu[3],
 	*nick,
-	*tweet,
 	*avatar,
 	*align;
 

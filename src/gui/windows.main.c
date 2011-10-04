@@ -299,7 +299,6 @@ void gtk_init_scrolled_window(){
 		char* nick;
 		asprintf(&nick,"%s%s:\n%s\n[%s]","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
 		mainWindow.nick = gtk_label_new (nick);
-		//mainWindow.tweet = gtk_label_new (timeline[cols].text);
 
 		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		gtk_label_set_justify(GTK_LABEL(mainWindow.nick),GTK_JUSTIFY_LEFT);
@@ -307,12 +306,6 @@ void gtk_init_scrolled_window(){
 		gtk_container_add(GTK_CONTAINER(mainWindow.align), mainWindow.nick);
 		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.align, 1, 10,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
-
-		/*gtk_label_set_justify(GTK_LABEL(mainWindow.tweet),GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(mainWindow.tweet), TRUE);
-		mainWindow.align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(mainWindow.align), mainWindow.tweet);
-		gtk_table_attach (GTK_TABLE (mainWindow.table_into ), mainWindow.align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);*/
 	}
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
