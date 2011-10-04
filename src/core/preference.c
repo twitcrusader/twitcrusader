@@ -193,8 +193,7 @@ void init_URLS(){
 
 	debug_f_start("init_URLS");
 
-
-	//	check_URLS();
+	check_URLS();
 
 	asprintf(&tw_URLS.authorize_url,"%s%s",prog_preference.aouth_api_url,"authorize");
 	debug_var_char("tw_URLS.authorize_url", tw_URLS.authorize_url);
