@@ -65,7 +65,9 @@ int main(int argc, char *argv[]){
 
 	gtk_window_main();
 
+	free_size_preference();
 	freeSizeUsers();
+
 
 	notify_uninit();
 

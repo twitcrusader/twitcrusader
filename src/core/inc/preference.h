@@ -39,27 +39,27 @@
 
 #define DEFAULT_PREFERENCE PROG_DIR"/"CONFIG_PREFERENCE_FILENAME
 
-static struct preference{
+struct preference{
 	char* aouth_api_url;
 	char* https_api_url;
 
 } prog_preference;
 
 
-static struct twitter_URLS{
-char authorize_url[1024];
-char request_url[1024];
-char tokenaccess_url[1024];
+struct twitter_URLS{
+char* authorize_url;
+char* request_url;
+char* tokenaccess_url;
 
-char status_url[1024];
-char home_timeline_url[1024];
-char public_timeline_url[1024];
-char mentions_timeline_url[1024];
-char friends_timeline_url[1024];
-char user_timeline_url[1024];
-char rt_by_me_timeline_url[1024];
-char rt_to_me_timeline_url[1024];
-char rt_of_me_timeline_url[1024];
+char* status_url;
+char* home_timeline_url;
+char* public_timeline_url;
+char* mentions_timeline_url;
+char* friends_timeline_url;
+char* user_timeline_url;
+char* rt_by_me_timeline_url;
+char* rt_to_me_timeline_url;
+char* rt_of_me_timeline_url;
 }tw_URLS;
 
 
@@ -67,7 +67,9 @@ int read_preference_file();
 int get_preference(xmlDocPtr doc);
 void write_default_preference_file();
 void write_preference_file();
-void init_URLS();
 void check_URLS();
+void init_URLS();
+void free_size_preference();
+
 
 #endif /* PREFERENCE_H_ */

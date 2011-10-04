@@ -270,10 +270,8 @@ int switchTimeLine(int xmlSwitch){
 
 	FILE *fp;
 
-	char *timelineURL=NULL,
-			*timeline, *cmd=NULL;
-	char *postarg=NULL,
-			*tmpFile = NULL;
+	char *timelineURL, *timeline, *cmd;
+	char *postarg, *tmpFile;
 
 	debug_var_int("xmlSwitch",xmlSwitch);
 
@@ -281,80 +279,80 @@ int switchTimeLine(int xmlSwitch){
 
 	case 0:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
-		strcpy(timelineURL,tw_URLS.public_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.public_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 	case 1:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "home_timeline.xml");
-		strcpy(timelineURL,tw_URLS.home_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.home_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 2:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "mentions.xml");
-		strcpy(timelineURL,tw_URLS.mentions_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.mentions_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 3:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "friends_timeline.xml");
-		strcpy(timelineURL,tw_URLS.friends_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.friends_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 4:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "user_timeline.xml");
-		strcpy(timelineURL,tw_URLS.user_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.user_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 5:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_by_me.xml");
-		strcpy(timelineURL,tw_URLS.rt_by_me_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_by_me_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 6:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_to_me.xml");
-		strcpy(timelineURL,tw_URLS.rt_to_me_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_to_me_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	case 7:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "retweeted_of_me.xml");
-		strcpy(timelineURL,tw_URLS.rt_of_me_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.rt_of_me_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;
 
 	default:
 		asprintf(&tmpFile , "%s%s", progPath.timelineDir, "public_timeline.xml");
-		strcpy(timelineURL,tw_URLS.public_timeline_url);
-
 		debug_var_char("tmpFile",tmpFile);
+
+		timelineURL=tw_URLS.public_timeline_url;
 		debug_var_char("timelineURL",timelineURL);
 
 		break;

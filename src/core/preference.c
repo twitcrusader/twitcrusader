@@ -56,10 +56,14 @@ int read_preference_file(){
 				return 1;
 			}
 
+			xmlFreeDoc(doc);
+
 			write_preference_file();
 
 
 		}else{
+
+			xmlFreeDoc(doc);
 
 			write_default_preference_file();
 			return 1;
@@ -68,8 +72,6 @@ int read_preference_file(){
 
 	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
 	debug_var_char("prog_preference.https_api_url", prog_preference.https_api_url);
-
-	xmlFreeDoc(doc);
 
 	init_URLS();
 
@@ -83,6 +85,7 @@ int get_preference(xmlDocPtr doc){
 	char *keys;
 
 	xmlNodePtr node;
+
 	node= xmlDocGetRootElement(doc);
 
 	if (node == NULL) {
@@ -142,10 +145,13 @@ void write_preference_file(){
 	xmlTextWriterStartElement(writer, (xmlChar*) "preference");
 
 	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
-	xmlTextWriterWriteElement(writer, (xmlChar*)"prog_preference.aouth_api_url", (xmlChar*)prog_preference.aouth_api_url);
+	xmlTextWriterWriteElement(writer, (xmlChar*)"aouth_api_url", (xmlChar*)prog_preference.aouth_api_url);
 
 	debug_var_char("prog_preference.https_api_url", prog_preference.https_api_url);
 	xmlTextWriterWriteElement(writer, (xmlChar*)"https_api_url", (xmlChar*)prog_preference.https_api_url);
+
+	xmlTextWriterEndElement(writer);
+	xmlTextWriterEndElement(writer);
 
 	xmlFreeTextWriter(writer);
 
@@ -227,4 +233,23 @@ void init_URLS(){
 	asprintf(&tw_URLS.rt_of_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_of_me.xml");
 	debug_var_char("tw_URLS.rt_of_me_timeline_url", tw_URLS.rt_of_me_timeline_url);
 
+}
+
+void free_size_preference(){
+
+	debug_f_start("free_size_preference");
+
+	free(tw_URLS.authorize_url);
+	free(tw_URLS.request_url);
+	free(tw_URLS.tokenaccess_url);
+
+	free(tw_URLS.status_url);
+	free(tw_URLS.home_timeline_url);
+	free(tw_URLS.public_timeline_url);
+	free(tw_URLS.mentions_timeline_url);
+	free(tw_URLS.friends_timeline_url);
+	free(tw_URLS.user_timeline_url);
+	free(tw_URLS.rt_by_me_timeline_url);
+	free(tw_URLS.rt_to_me_timeline_url);
+	free(tw_URLS.rt_of_me_timeline_url);
 }
