@@ -102,7 +102,7 @@ int writeUserFile(){
 char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 	debug_f_start("getElement");
 
-	xmlChar *key = NULL;
+	xmlChar *key;
 	char *empty = "error";
 
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword))) {

@@ -82,7 +82,7 @@ int get_preference(xmlDocPtr doc){
 
 	debug_f_start("get_preference");
 
-	char *keys;
+	char* keys;
 
 	xmlNodePtr node;
 
