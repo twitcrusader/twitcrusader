@@ -42,6 +42,7 @@
 #define MY_ENCODING "ISO-8859-1"
 
 #define CONFIG_FILENAME "config.xml"
+#define CONFIG_PREFERENCE_FILENAME "preference.xml"
 
 
 struct users{
@@ -57,6 +58,7 @@ struct programPath{
 	char *avatarDir;
 	char *configDir;
 	char *configFile;
+	char *preferenceFile;
 	char *timelineDir;
 } progPath;
 
