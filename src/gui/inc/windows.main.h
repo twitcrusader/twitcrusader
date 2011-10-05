@@ -47,7 +47,7 @@
 #include "icons.h"
 
 #include "../../core/inc/debug.h"
-
+#include "../../core/inc/threads.h"
 #include "../../core/inc/lang.h"
 #include "../../core/inc/functions.h"
 #include "../../core/inc/twitter.h"
@@ -91,7 +91,6 @@ struct main_window{
 
 	int selected_timeline;
 	int logged;
-	pthread_t tid[1];
 
 }mainWindow;
 
@@ -121,7 +120,7 @@ typedef struct configuration {
 /* Define Function */
 
 /* Main Window */
-int gtk_window_main();
+void gtk_window_main();
 
 /* Init */
 void gtk_init_window();
@@ -139,6 +138,7 @@ void gtk_init_timer();
 /* Refresh */
 void gtk_refresh_toolbar_items();
 void gtk_refresh_timeline();
+void gtk_refresh_timeline_thread();
 //void refresh_timeline_thread();
 void gtk_refresh();
 void gtk_clear_statusbar();

@@ -29,7 +29,6 @@
 int read_preference_file(){
 	debug_f_start("read_preference");
 
-	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
 
 
@@ -179,11 +178,11 @@ void write_default_preference_file(){
 void check_URLS(){
 	debug_f_start("check_URLS");
 
-	if(prog_preference.aouth_api_url==NULL ||prog_preference.aouth_api_url=="error"){
+	if(prog_preference.aouth_api_url==NULL || strcmp(prog_preference.aouth_api_url,"error")){
 		prog_preference.aouth_api_url=OAUTH_API_URL_DEFAULT;
 	}
 
-	if(prog_preference.https_api_url==NULL ||prog_preference.https_api_url=="error"){
+	if(prog_preference.https_api_url==NULL ||strcmp(prog_preference.https_api_url,"error")){
 		prog_preference.https_api_url=HTTPS_API_URL_DEFAULT;
 	}
 

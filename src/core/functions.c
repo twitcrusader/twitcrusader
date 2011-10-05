@@ -174,9 +174,11 @@ char* read_raw_text_file(char* fileName){
 			b2=b1;
 			b1=malloc(sizeof(b2)+sizeof(char));
 			asprintf(&b1,"%s%c",b2,ch);
+
+			free(b2);
 		}
 	}
-	free(b2);
+
 	fclose (fp) ;
 	return b1;
 }

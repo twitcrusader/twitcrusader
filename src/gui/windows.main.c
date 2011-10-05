@@ -27,7 +27,7 @@
 
 #include "inc/windows.main.h"
 
-int gtk_window_main(){
+void gtk_window_main(){
 
 	debug_f_start("gtk_window_main");
 
@@ -71,16 +71,11 @@ int gtk_window_main(){
 
 		loadRegDialog();
 
-	}else{
-
-		gtk_refresh_timeline();
-
 	}
 
 	//Show GTK Main
 	gtk_main ();
 
-	return 0;
 }
 
 void gtk_init_window(){
@@ -210,7 +205,7 @@ void gtk_init_toolbar_items(){
 
 
 	tool_button[0].icon=ICON_UPDATE;
-	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline);
+	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline_thread);
 
 	tool_button[1].icon=ICON_HOME;
 	tool_button[1].function=GTK_SIGNAL_FUNC(show_home_timeline);
@@ -299,9 +294,10 @@ void gtk_init_scrolled_window(){
 		mainWindow.tweet = gtk_text_view_new();
 		mainWindow.avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
 
-		char* tweet;
-		asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
-
+		char* tweet="";
+		if(timeline[cols].user.screen_name!=NULL && timeline[cols].text!=NULL &&timeline[cols].created_at!=NULL){
+			asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
+		}
 		GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
 		gtk_text_buffer_set_text (tweetBuf, tweet, -1);
 
@@ -440,7 +436,7 @@ void show_home_timeline(){
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		mainWindow.selected_timeline=1;
-		gtk_refresh_timeline();
+		gtk_refresh_timeline_thread();
 	}
 
 }
@@ -450,7 +446,7 @@ void mentions_timeline(){
 
 	if(strcmp(user.screenName, " ") != 0 && strcmp(user.id, " ") != 0 ){
 		mainWindow.selected_timeline=2;
-		gtk_refresh_timeline();
+		gtk_refresh_timeline_thread();
 	}
 
 }
@@ -501,9 +497,20 @@ void gtk_connect(){
 	if(read_user_file()==0){
 		mainWindow.logged=1;
 		mainWindow.selected_timeline=1;
-		gtk_refresh_timeline();
+		gtk_refresh_timeline_thread();
 	}
 }
+
+void gtk_refresh_timeline_thread(){
+
+	debug_f_start("gtk_refresh_timeline_thread");
+
+	pthread_cancel(twc.tid_action);
+
+	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, NULL);
+	pthread_join(twc.tid_action, NULL);
+}
+
 void gtk_disconnect(){
 
 	debug_f_start("gtk_disconnect");
@@ -513,7 +520,7 @@ void gtk_disconnect(){
 	mainWindow.logged=0;
 	mainWindow.selected_timeline=0;
 
-	gtk_refresh_timeline();
+	gtk_refresh_timeline_thread();
 
 }
 

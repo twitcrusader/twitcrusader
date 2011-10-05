@@ -48,6 +48,7 @@
 #include "core/inc/notify.h"
 
 #include "core/inc/debug.h"
+#include "core/inc/threads.h"
 
 /* Default End of _TWITCRUSADER_H */ 
 #endif
