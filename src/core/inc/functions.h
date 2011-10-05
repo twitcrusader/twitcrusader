@@ -40,14 +40,15 @@
 #define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
-void mallocSizeOF();
-void freeSizeOF(void);
-char *sumStrings(char *parm1, char *parm2 );
-char* getParameters(char** argv, int argc, const char* param);
-int shellParameters (int argc, char **argv);
-void createDir();
-char* downloadVersion();
-char* readRawTextFile(char* fileName);
-char** readRawMultilineTextFile(char* fileName);
+void malloc_Size_of();
+void free_size_of(void);
+char* get_parameters(char** argv, int argc, const char* param);
+int shell_parameters (int argc, char **argv);
+void create_dir();
+char* download_version();
+char* read_raw_text_file(char* fileName);
+char** read_raw_multiline_text_file(char* fileName);
+char* get_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
+
 
 #endif /* FUNCTION_H_ */

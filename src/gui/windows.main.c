@@ -27,7 +27,7 @@
 
 #include "inc/windows.main.h"
 
-void gtk_window_main(){
+int gtk_window_main(){
 
 	debug_f_start("gtk_window_main");
 
@@ -80,6 +80,7 @@ void gtk_window_main(){
 	//Show GTK Main
 	gtk_main ();
 
+	return 0;
 }
 
 void gtk_init_window(){
@@ -290,29 +291,26 @@ void gtk_init_scrolled_window(){
 
 
 	int cols=0, rows=0;
-	mainWindow.table_into = gtk_table_new (1, 3, TRUE);
+	mainWindow.table_into = gtk_table_new (1, 5, FALSE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
 
 	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
+		mainWindow.tweet = gtk_text_view_new();
 		mainWindow.avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
-		char* nick;
-		asprintf(&nick,"%s%s","@",timeline[cols].user.screen_name);
-		mainWindow.nick = gtk_label_new (nick);
-		mainWindow.tweet = gtk_label_new (timeline[cols].text);
+
+		char* tweet;
+		asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
+
+		GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
+		gtk_text_buffer_set_text (tweetBuf, tweet, -1);
+
+		gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 
 		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
-		gtk_label_set_justify(GTK_LABEL(mainWindow.nick),GTK_JUSTIFY_LEFT);
-		mainWindow.align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(mainWindow.align), mainWindow.nick);
-		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.align, 1, 10,rows, rows + 1, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
+		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
-		gtk_label_set_justify(GTK_LABEL(mainWindow.tweet),GTK_JUSTIFY_LEFT);
-		gtk_label_set_line_wrap(GTK_LABEL(mainWindow.tweet), TRUE);
-		mainWindow.align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-		gtk_container_add(GTK_CONTAINER(mainWindow.align), mainWindow.tweet);
-		gtk_table_attach (GTK_TABLE (mainWindow.table_into ), mainWindow.align, 1, 10,rows + 1, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 	}
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
@@ -350,7 +348,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, STBR_MSG);
 
 		//SendTweet
-		send = SendTweet(msg);
+		send = send_tweet(msg);
 
 		if(send == 0 || send == 1){
 			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, NOT_SENT);
@@ -469,13 +467,10 @@ void gtk_refresh_timeline(){
 
 	debug_f_start("gtk_refresh_timeline");
 
-
-	int error;
-
-	error=switchTimeLine(mainWindow.selected_timeline);
+	int error=switch_timeline(mainWindow.selected_timeline);
 
 	if(error==0){
-		downloadsAvatars();
+		downloads_avatars();
 	}
 
 	gtk_refresh();
@@ -503,7 +498,7 @@ void gtk_connect(){
 
 	debug_f_start("gtk_connect");
 
-	if(readUserFile()==0){
+	if(read_user_file()==0){
 		mainWindow.logged=1;
 		mainWindow.selected_timeline=1;
 		gtk_refresh_timeline();
@@ -522,42 +517,11 @@ void gtk_disconnect(){
 
 }
 
-void downloadsAvatars(){
-
-	debug_f_start("downloadsAvatars");
-
-
-	pthread_t tid;
-	int i, error=0;
-
-	for(i=0; i<MAX_NUM_TWEETS; i++){
-		char *argv[2];
-		argv[0]=timeline[i].user.profile_image_url;
-		argv[1]=timeline[i].user.profile_image;
-
-		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
-
-
-			if(0 != error){
-				debug_var_int("Can't Start Thread Number",i);
-			}
-			else{
-				debug_var_int("Start Thread Number",i);
-				debug_var_char("Thread argument",argv[0]);
-		}
-
-		error = pthread_join(tid, NULL);
-		debug_var_int("Stop Thread Number",i);
-
-	}
-}
-
-
 void on_quit(){
 
 	debug_f_start("on_quit");
 
-	notifySystem(QUIT);
+	notify_system(QUIT);
 	gtk_main_quit();
 }
 

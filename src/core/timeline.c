@@ -27,9 +27,9 @@
 #include "inc/timeline.h"
 
 
-char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
+char* get_time_line_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 
-	debug_f_start("getTimeLineElement");
+	debug_f_start("get_time_line_element");
 
 	xmlChar *key = NULL;
 	char *empty = "error";
@@ -46,9 +46,9 @@ char* getTimeLineElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 
 }
 
-void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
+void get_status (xmlDocPtr doc, xmlNodePtr cur, int i) {
 
-	debug_f_start("getStatus");
+	debug_f_start("get_status");
 
 	char *keys;
 
@@ -56,67 +56,67 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 	cur = cur->xmlChildrenNode;
 	cur = cur->next;
 
-	keys=getTimeLineElement(doc, cur, "created_at");
+	keys=get_time_line_element(doc, cur, "created_at");
 	timeline[i].created_at=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *id,
-	keys=getTimeLineElement(doc, cur, "id");
+	keys=get_time_line_element(doc, cur, "id");
 	timeline[i].id=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *text,
-	keys=getTimeLineElement(doc, cur, "text");
+	keys=get_time_line_element(doc, cur, "text");
 	timeline[i].text=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *source,
-	keys=getTimeLineElement(doc, cur, "source");
+	keys=get_time_line_element(doc, cur, "source");
 	timeline[i].source=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *truncated,
-	keys=getTimeLineElement(doc, cur, "truncated");
+	keys=get_time_line_element(doc, cur, "truncated");
 	timeline[i].truncated=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *favorited,
-	keys=getTimeLineElement(doc, cur, "favorited");
+	keys=get_time_line_element(doc, cur, "favorited");
 	timeline[i].favorited=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_status_id,
-	keys=getTimeLineElement(doc, cur, "in_reply_to_status_id");
+	keys=get_time_line_element(doc, cur, "in_reply_to_status_id");
 	timeline[i].in_reply_to_status_id=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_user_id,
-	keys=getTimeLineElement(doc, cur, "in_reply_to_user_id");
+	keys=get_time_line_element(doc, cur, "in_reply_to_user_id");
 	timeline[i].in_reply_to_user_id=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *in_reply_to_screen_name,
-	keys=getTimeLineElement(doc, cur, "in_reply_to_screen_name");
+	keys=get_time_line_element(doc, cur, "in_reply_to_screen_name");
 	timeline[i].in_reply_to_screen_name=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *retweet_count,
-	keys=getTimeLineElement(doc, cur, "retweet_count");
+	keys=get_time_line_element(doc, cur, "retweet_count");
 	timeline[i].retweet_count=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *retweeted,
-	keys=getTimeLineElement(doc, cur, "retweeted");
+	keys=get_time_line_element(doc, cur, "retweeted");
 	timeline[i].retweeted=keys;
 	cur = cur->next;
 	cur = cur->next;
@@ -128,37 +128,37 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 		cur2 = cur2->next;
 
 		// char *id,
-		keys=getTimeLineElement(doc, cur2, "id");
+		keys=get_time_line_element(doc, cur2, "id");
 		timeline[i].user.id=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *name,
-		keys=getTimeLineElement(doc, cur2, "name");
+		keys=get_time_line_element(doc, cur2, "name");
 		timeline[i].user.name=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *screen_name,
-		keys=getTimeLineElement(doc, cur2, "screen_name");
+		keys=get_time_line_element(doc, cur2, "screen_name");
 		timeline[i].user.screen_name=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *location,
-		keys=getTimeLineElement(doc, cur2, "location");
+		keys=get_time_line_element(doc, cur2, "location");
 		timeline[i].user.location=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		//		*description,
-		keys=getTimeLineElement(doc, cur2, "description");
+		keys=get_time_line_element(doc, cur2, "description");
 		timeline[i].user.description=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_image_url,
-		keys=getTimeLineElement(doc, cur2, "profile_image_url");
+		keys=get_time_line_element(doc, cur2, "profile_image_url");
 		timeline[i].user.profile_image_url=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
@@ -167,175 +167,175 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
 
 		// *url,
-		keys=getTimeLineElement(doc, cur2, "url");
+		keys=get_time_line_element(doc, cur2, "url");
 		timeline[i].user.url=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *protectedtw,
-		keys=getTimeLineElement(doc, cur2, "protected");
+		keys=get_time_line_element(doc, cur2, "protected");
 		timeline[i].user.protectedtw=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_color,
-		keys=getTimeLineElement(doc, cur2, "profile_background_color");
+		keys=get_time_line_element(doc, cur2, "profile_background_color");
 		timeline[i].user.profile_background_color=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_text_color,
-		keys=getTimeLineElement(doc, cur2, "profile_text_color");
+		keys=get_time_line_element(doc, cur2, "profile_text_color");
 		timeline[i].user.profile_text_color=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_link_color,
-		keys=getTimeLineElement(doc, cur2, "profile_link_color");
+		keys=get_time_line_element(doc, cur2, "profile_link_color");
 		timeline[i].user.profile_link_color=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_sidebar_fill_color,
-		keys=getTimeLineElement(doc, cur2, "profile_sidebar_fill_color");
+		keys=get_time_line_element(doc, cur2, "profile_sidebar_fill_color");
 		timeline[i].user.profile_sidebar_fill_color=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_sidebar_border_color,
-		keys=getTimeLineElement(doc, cur2, "profile_sidebar_border_color");
+		keys=get_time_line_element(doc, cur2, "profile_sidebar_border_color");
 		timeline[i].user.profile_sidebar_border_color=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *created_at,
-		keys=getTimeLineElement(doc, cur2, "created_at");
+		keys=get_time_line_element(doc, cur2, "created_at");
 		timeline[i].user.created_at=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *utc_offset,
-		keys=getTimeLineElement(doc, cur2, "utc_offset");
+		keys=get_time_line_element(doc, cur2, "utc_offset");
 		timeline[i].user.utc_offset=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *time_zone,
-		keys=getTimeLineElement(doc, cur2, "time_zone");
+		keys=get_time_line_element(doc, cur2, "time_zone");
 		timeline[i].user.time_zone=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_image_url,
-		keys=getTimeLineElement(doc, cur2, "profile_background_image_url");
+		keys=get_time_line_element(doc, cur2, "profile_background_image_url");
 		timeline[i].user.profile_background_image_url=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_background_tile,
-		keys=getTimeLineElement(doc, cur2, "profile_background_tile");
+		keys=get_time_line_element(doc, cur2, "profile_background_tile");
 		timeline[i].user.profile_background_tile=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *profile_use_background_image,
-		keys=getTimeLineElement(doc, cur2, "profile_use_background_image");
+		keys=get_time_line_element(doc, cur2, "profile_use_background_image");
 		timeline[i].user.profile_use_background_image=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *notifications,
-		keys=getTimeLineElement(doc, cur2, "notifications");
+		keys=get_time_line_element(doc, cur2, "notifications");
 		timeline[i].user.notifications=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *geo_enabled,
-		keys=getTimeLineElement(doc, cur2, "geo_enabled");
+		keys=get_time_line_element(doc, cur2, "geo_enabled");
 		timeline[i].user.geo_enabled=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *verified,
-		keys=getTimeLineElement(doc, cur2, "verified");
+		keys=get_time_line_element(doc, cur2, "verified");
 		timeline[i].user.verified=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *following,
-		keys=getTimeLineElement(doc, cur2, "following");
+		keys=get_time_line_element(doc, cur2, "following");
 		timeline[i].user.following=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *lang,
-		keys=getTimeLineElement(doc, cur2, "lang");
+		keys=get_time_line_element(doc, cur2, "lang");
 		timeline[i].user.lang=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *contributors_enabled,
-		keys=getTimeLineElement(doc, cur2, "contributors_enabled");
+		keys=get_time_line_element(doc, cur2, "contributors_enabled");
 		timeline[i].user.contributors_enabled=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *follow_request_sent,
-		keys=getTimeLineElement(doc, cur2, "follow_request_sent");
+		keys=get_time_line_element(doc, cur2, "follow_request_sent");
 		timeline[i].user.follow_request_sent=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *show_all_inline_media,
-		keys=getTimeLineElement(doc, cur2, "show_all_inline_media");
+		keys=get_time_line_element(doc, cur2, "show_all_inline_media");
 		timeline[i].user.show_all_inline_media=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *default_profile,
-		keys=getTimeLineElement(doc, cur2, "default_profile");
+		keys=get_time_line_element(doc, cur2, "default_profile");
 		timeline[i].user.default_profile=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *default_profile_image,
-		keys=getTimeLineElement(doc, cur2, "default_profile_image");
+		keys=get_time_line_element(doc, cur2, "default_profile_image");
 		timeline[i].user.default_profile_image=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *is_translator,
-		keys=getTimeLineElement(doc, cur2, "is_translator");
+		keys=get_time_line_element(doc, cur2, "is_translator");
 		timeline[i].user.is_translator=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *followers_count,
-		keys=getTimeLineElement(doc, cur2, "followers_count");
+		keys=get_time_line_element(doc, cur2, "followers_count");
 		timeline[i].user.followers_count=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *friends_count,
-		keys=getTimeLineElement(doc, cur2, "friends_count");
+		keys=get_time_line_element(doc, cur2, "friends_count");
 		timeline[i].user.friends_count=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// *favourites_count,
-		keys=getTimeLineElement(doc, cur2, "favourites_count");
+		keys=get_time_line_element(doc, cur2, "favourites_count");
 		timeline[i].user.favourites_count=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// statuses_count, ;
-		keys=getTimeLineElement(doc, cur2, "statuses_count");
+		keys=get_time_line_element(doc, cur2, "statuses_count");
 		timeline[i].user.statuses_count=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
 
 		// listed_count
-		keys=getTimeLineElement(doc, cur2, "listed_count");
+		keys=get_time_line_element(doc, cur2, "listed_count");
 		timeline[i].user.listed_count=keys;
 		cur2 = cur2->next;
 		cur2 = cur2->next;
@@ -343,33 +343,33 @@ void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i) {
 
 
 	// *geo,
-	keys=getTimeLineElement(doc, cur, "geo");
+	keys=get_time_line_element(doc, cur, "geo");
 	timeline[i].geo=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *coordinates,
-	keys=getTimeLineElement(doc, cur, "coordinates");
+	keys=get_time_line_element(doc, cur, "coordinates");
 	timeline[i].coordinates=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *place,
-	keys=getTimeLineElement(doc, cur, "place");
+	keys=get_time_line_element(doc, cur, "place");
 	timeline[i].place=keys;
 	cur = cur->next;
 	cur = cur->next;
 
 	// *contributors;
-	keys=getTimeLineElement(doc, cur, "contributors");
+	keys=get_time_line_element(doc, cur, "contributors");
 	timeline[i].contributors=keys;
 	cur = cur->next;
 	cur = cur->next;
 }
 
-int readTimeLine(char *docname) {
+int read_time_line(char *docname) {
 
-	debug_f_start("readTimeLine");
+	debug_f_start("read_time_line");
 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -404,7 +404,7 @@ int readTimeLine(char *docname) {
 
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar *)"status"))){
-			getStatus (doc, cur, i);
+			get_status (doc, cur, i);
 			i++;
 		}else{
 			debug_var_char("cur->name (status)", "NULL");

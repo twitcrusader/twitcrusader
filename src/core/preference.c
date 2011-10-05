@@ -82,7 +82,7 @@ int get_preference(xmlDocPtr doc){
 
 	debug_f_start("get_preference");
 
-	char *keys;
+	char* keys;
 
 	xmlNodePtr node;
 
@@ -110,13 +110,13 @@ int get_preference(xmlDocPtr doc){
 
 			node = node->xmlChildrenNode;
 
-			keys=getElement(doc, node, "oauth_api_url");
+			keys=get_element(doc, node, "oauth_api_url");
 			debug_var_char("keys", keys);
 			prog_preference.aouth_api_url=keys;
 			node = node->next;
 
 
-			keys=getElement(doc, node, "https_api_url");
+			keys=get_element(doc, node, "https_api_url");
 			debug_var_char("keys", keys);
 			prog_preference.https_api_url=keys;
 			node = node->next;

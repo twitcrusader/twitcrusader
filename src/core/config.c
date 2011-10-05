@@ -26,8 +26,8 @@
 
 #include "inc/config.h"
 
-void mallocUsers(){
-	debug_f_start("mallocUsers");
+void malloc_users(){
+	debug_f_start("malloc_users");
 
 	user.id =  (char*) malloc(sizeof(char) * 15);
 	user.screenName =  (char*) malloc(sizeof(char) * 140);
@@ -46,8 +46,8 @@ void mallocUsers(){
 }
 
 /* Free Allocated Structs */
-void freeSizeUsers(){
-	debug_f_start("freeSizeUsers");
+void free_size_users(){
+	debug_f_start("free_size_users");
 
 	free(user.id);
 	free(user.screenName);
@@ -57,8 +57,8 @@ void freeSizeUsers(){
 	free(user.consumerSecretKey);
 }
 
-int writeUserFile(){
-	debug_f_start("writeUserFile");
+int write_user_file(){
+	debug_f_start("write_user_file");
 
 	xmlTextWriterPtr writer;
 	xmlDocPtr doc;
@@ -99,25 +99,8 @@ int writeUserFile(){
 	return 0;
 }
 
-char* getElement(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
-	debug_f_start("getElement");
-
-	xmlChar *key = NULL;
-	char *empty = "error";
-
-	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword))) {
-		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		//if(debug==1) printf("\n%s: %s", keyword, key);
-
-		return (char *)key;
-	}
-
-	return empty;
-
-}
-
-int readUserFile(){
-	debug_f_start("readUserFile");
+int read_user_file(){
+	debug_f_start("read_user_file");
 
 	char *keys;
 
@@ -158,32 +141,32 @@ int readUserFile(){
 
 			cur = cur->xmlChildrenNode;
 
-			keys=getElement(doc, cur, "screen_name");
+			keys=get_element(doc, cur, "screen_name");
 			user.screenName=keys;
 			cur = cur->next;
 
 
-			keys=getElement(doc, cur, "id");
+			keys=get_element(doc, cur, "id");
 			user.id=keys;
 			cur = cur->next;
 
 
-			keys=getElement(doc, cur, "consumerKey");
+			keys=get_element(doc, cur, "consumerKey");
 			user.consumerKey=keys;
 			cur = cur->next;
 
 
-			keys=getElement(doc, cur, "consumerSecretKey");
+			keys=get_element(doc, cur, "consumerSecretKey");
 			user.consumerSecretKey=keys;
 			cur = cur->next;
 
 
-			keys=getElement(doc, cur, "token");
+			keys=get_element(doc, cur, "token");
 			user.token=keys;
 			cur = cur->next;
 
 
-			keys=getElement(doc, cur, "secretToken");
+			keys=get_element(doc, cur, "secretToken");
 			user.secretToken=keys;
 			cur = cur->next;
 		}
@@ -215,8 +198,8 @@ void disconnect(){
 
 }
 
-int deleteAccount(){
-	debug_f_start("deleteAccount");
+int delete_account(){
+	debug_f_start("delete_account");
 
 	char *cmd;
 

@@ -36,10 +36,8 @@
 #include "functions.h"
 #include "timeline.h"
 
-size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream);
-void getSingleCURL(char *url, char *file);
-int getMultiCURL(char **url, char **file, int max_num_tid);
+size_t write_function( void *ptr, size_t size, size_t nmemb, void *stream);
+void get_single_CURL(char *url, char *file);
 void *pull_one_url(void *argv);
-int getWGET(char *url, char *file);
 
 #endif /* GETHTTP_H_ */
