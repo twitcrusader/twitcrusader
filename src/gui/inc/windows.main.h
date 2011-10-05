@@ -91,7 +91,6 @@ struct main_window{
 
 	int selected_timeline;
 	int logged;
-	pthread_t tid[1];
 
 }mainWindow;
 

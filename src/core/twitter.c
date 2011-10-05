@@ -271,7 +271,7 @@ int switch_timeline(int xmlSwitch){
 	FILE *fp;
 
 	char *timelineURL, *timeline, *cmd;
-	char *postarg, *tmpFile;
+	char *postarg=NULL, *tmpFile;
 
 	debug_var_int("xmlSwitch",xmlSwitch);
 

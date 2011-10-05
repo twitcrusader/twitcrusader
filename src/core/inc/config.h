@@ -27,6 +27,9 @@
 #ifndef USER_H_
 #define USER_H_
 
+/* Fix: GCC Linux Compiler */
+#define _GNU_SOURCE
+
 #include <stdio.h>
 
 #include <string.h>

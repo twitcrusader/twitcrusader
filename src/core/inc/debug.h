@@ -27,12 +27,15 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
+/* Fix: GCC Linux Compiler */
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <sys/time.h>
 
 
 /* Initialize Debugger */
-static int debug;
+int debug;
 
 void set_debug(int value); // to intialize debug value
 void debug_f_start(char* functionName); //to print the Function Name
