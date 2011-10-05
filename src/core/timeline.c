@@ -37,7 +37,7 @@ char* get_time_line_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
 	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword))) {
 		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
 
-		debug_var_char(keyword, key);
+		debug_var_char(keyword, (char*)key);
 
 		return (char *)key;
 	}

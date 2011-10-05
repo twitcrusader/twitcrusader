@@ -60,8 +60,11 @@ int main(int argc, char *argv[]){
 	create_dir();
 
 	read_preference_file();
+	twc.thread_error=pthread_create(&twc.tid_window, NULL, gtk_window_main, (void *)argv);
+	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, (void *)argv);
 
-	gtk_window_main();
+	pthread_join(twc.tid_window, NULL);
+	pthread_join(twc.tid_action, NULL);
 
 	free_size_preference();
 	free_size_users();

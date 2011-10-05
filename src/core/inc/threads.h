@@ -18,48 +18,23 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
+ *
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  *
  */
 
-#include "inc/debug.h"
+#ifndef THREADS_H_
+#define THREADS_H_
 
-void set_debug(int value){
-	debug=value;
-}
+#include <pthread.h>
 
-void debug_f_start(char* functionName){
-	if(debug==1) fprintf(stderr,"%s - Function: %s\n",timestamp(), functionName);
-}
-
-void debug_var_char(const char* varName, const char* varValue){
-	if(debug==1){
-		if(varValue!=NULL){
-
-			fprintf(stderr,"%s - %s: %s\n",timestamp(), varName, varValue);
-
-		}else{
-
-			fprintf(stderr,"%s - %s: %s\n", timestamp(), varName, "NULL");
-		}
-	}
-}
-
-void debug_var_int(char* varName, int varValue){
-	if(debug==1) fprintf(stderr,"%s - %s= %i\n",timestamp(), varName, varValue);
-}
-
-char* timestamp(){
-
-	char* out;
-	struct timeval tv;
-
-	gettimeofday(&tv,NULL);
-	asprintf(&out,"[\t%i.%i]",(int)tv.tv_sec,(int)tv.tv_usec);
-	return out;
-}
+struct twitcrusader{
+	int thread_error;
+	pthread_t tid_window;
+	pthread_t tid_action;
+}twc;
 
 
-
+#endif /* THREADS_H_ */
