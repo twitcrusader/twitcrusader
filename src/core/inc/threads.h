@@ -18,37 +18,23 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- * 
+ *
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
 
-/* Define */
-#ifndef _TWITCRUSADER_H
+#ifndef THREADS_H_
+#define THREADS_H_
 
-/* Default Define */ 
-#define _TWITCRUSADER_H
+#include <pthread.h>
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
+struct twitcrusader{
+	int thread_error;
+	pthread_t tid_window;
+	pthread_t tid_action;
+}twc;
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
 
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
-
-#include "config.h" //from the making process!
-
-#include "gui/inc/windows.main.h"
-#include "core/inc/lang.h"
-#include "core/inc/notify.h"
-
-#include "core/inc/debug.h"
-#include "core/inc/threads.h"
-
-/* Default End of _TWITCRUSADER_H */ 
-#endif
+#endif /* THREADS_H_ */
