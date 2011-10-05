@@ -27,17 +27,17 @@
 #include "inc/gethttp.h"
 
 
-size_t writeFunction( void *ptr, size_t size, size_t nmemb, void *stream){
+size_t write_function( void *ptr, size_t size, size_t nmemb, void *stream){
 
-	debug_f_start("writeFunction");
+	debug_f_start("write_function");
 
 	fwrite(ptr, size, nmemb, (FILE *)stream);
 	return nmemb*size;
 };
 
-void getSingleCURL(char *url, char *file){
+void get_single_CURL(char *url, char *file){
 
-	debug_f_start("getSingleCURL");
+	debug_f_start("get_single_CURL");
 
 
 	char *argv[2];
@@ -77,7 +77,7 @@ void *pull_one_url(void *argv){
 			destFile = fopen(file,"w+b");
 
 			// Tell libcurl where to write the file
-			curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writeFunction);
+			curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,write_function);
 			curl_easy_setopt(curl,CURLOPT_WRITEDATA,destFile);
 			curl_easy_perform(curl);
 
@@ -86,67 +86,6 @@ void *pull_one_url(void *argv){
 			curl_easy_cleanup(curl);
 		}
 	}
-
-	return 0;
-}
-
-int getMultiCURL(char **urls, char **files, int max_num_tid){
-
-	debug_f_start("getMultiCURL");
-
-	pthread_t tid[max_num_tid+1];
-	int i;
-	int error;
-
-	char *argv[2];
-	argv[0]=(char *)malloc(sizeof(char)*2038);
-	argv[1]=(char *)malloc(sizeof(char)*255);
-
-	/* Must initialize libcurl before any threads are started */
-	curl_global_init(CURL_GLOBAL_ALL);
-
-	for(i=0; i< max_num_tid+1; i++) {
-
-
-		strcpy(argv[0],urls[i]);
-		strcpy(argv[1],files[i]);
-
-		debug_var_char("argv[0]", argv[0]);
-		debug_var_char("argv[1]", argv[1]);
-
-		error = pthread_create(&tid[i],
-				NULL, /* default attributes please */
-				pull_one_url,
-				(void *)argv);
-
-
-		debug_var_int("Start Thread Number:",  i);
-		debug_var_char("urls[i]", urls[i]);
-
-	}
-
-	/* now wait for all threads to terminate */
-	for(i=0; i< max_num_tid+1; i++) {
-		error = pthread_join(tid[i], NULL);
-		debug_var_int("Stop Thread Number:", i);
-	}
-
-	return 0;
-}
-
-//Alternative at cURL
-int getWGET(char *url, char *file){
-
-	debug_f_start("getWGET");
-
-	char* wget = NULL;
-
-	// Tell wget where to write the file
-	asprintf(&wget, "%s %s %s", "wget -O", file, url);
-
-	debug_var_char(" wget",  wget);
-
-	system (wget);
 
 	return 0;
 }

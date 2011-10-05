@@ -36,9 +36,9 @@
  *
  */
 
-char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
+char* token_request(const char *consumerKey, const char *consumerKeySecret){
 
-	debug_f_start("tokenRequest");
+	debug_f_start("token_request");
 
 	char *postarg = NULL;
 	char *tempKeyParameters = NULL;
@@ -60,9 +60,9 @@ char* tokenRequest(const char *consumerKey, const char *consumerKeySecret){
  * Authorize Twitter Account
  *
  */
-int tokenTempBrowser(){
+int token_temp_browser(){
 
-	debug_f_start("tokenRequest");
+	debug_f_start("token_temp_browser");
 
 	int rc;
 	char *cmd,
@@ -75,12 +75,12 @@ int tokenTempBrowser(){
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL = tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET);
+	tempKeyURL = token_request(TWITTER_KEY, TWITTER_KEY_SECRET);
 	debug_var_char("tempKeyURL",tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
-	tempKey = getParameters(rv, rc, "oauth_token"); 
+	tempKey = get_parameters(rv, rc, "oauth_token");
 
 	debug_var_char("tempKey",tempKey);
 
@@ -109,9 +109,9 @@ int tokenTempBrowser(){
  * Authorize Twitter Account
  *
  */
-int tokenTemp(){
+int token_temp(){
 
-	debug_f_start("tokenTemp");
+	debug_f_start("token_temp");
 
 	int rc;
 	char *tempKeyURL, *tempKey;
@@ -122,13 +122,13 @@ int tokenTemp(){
 	 * @Return Url-Parameters with Consumer-Temp-Key and Consumer-Temp-Key-Secret
 	 *
 	 */
-	tempKeyURL = tokenRequest(TWITTER_KEY, TWITTER_KEY_SECRET);
+	tempKeyURL = token_request(TWITTER_KEY, TWITTER_KEY_SECRET);
 
 	debug_var_char("tempKeyURL", tempKeyURL);
 
 	/* split url and get Temp-Key */
 	rc = oauth_split_url_parameters(tempKeyURL, &rv);
-	tempKey = getParameters(rv, rc, "oauth_token");
+	tempKey = get_parameters(rv, rc, "oauth_token");
 
 	debug_var_char("tempKey", tempKey);
 
@@ -150,9 +150,9 @@ int tokenTemp(){
  * All info is saved at ~/.twc/config/user file
  *
  */
-int tokenAccess(const char *pin){
+int token_access(const char *pin){
 
-	debug_f_start("tokenAccess");
+	debug_f_start("token_access");
 
 	int rc;
 	char *verifyPIN;
@@ -171,16 +171,16 @@ int tokenAccess(const char *pin){
 
 	rc = oauth_split_url_parameters(tmp_token, &rv);
 
-	tempKey = getParameters(rv, rc, "oauth_token");
+	tempKey = get_parameters(rv, rc, "oauth_token");
 	debug_var_char("tempKey", tempKey);
 
-	tempKeySecret = getParameters(rv, rc, "oauth_token_secret");
+	tempKeySecret = get_parameters(rv, rc, "oauth_token_secret");
 	debug_var_char("tempKeySecret", tempKeySecret);
 
-	strcpy(user.consumerKey, getParameters(rv, rc, "c_key"));
+	strcpy(user.consumerKey, get_parameters(rv, rc, "c_key"));
 	debug_var_char("user.consumerKey", user.consumerKey);
 
-	strcpy(user.consumerSecretKey, getParameters(rv, rc, "c_key_secret"));
+	strcpy(user.consumerSecretKey, get_parameters(rv, rc, "c_key_secret"));
 	debug_var_char("user.consumerSecretKey", user.consumerSecretKey);
 
 	/* Generate a URL, this verify a PIN
@@ -199,10 +199,10 @@ int tokenAccess(const char *pin){
 
 	/* Split all parameters and get User-ID, Username, and User-Keys */
 	rc = oauth_split_url_parameters(twitterUserKey, &rv);
-	strcpy(user.token, getParameters(rv, rc, "oauth_token"));
-	strcpy(user.secretToken, getParameters(rv, rc, "oauth_token_secret"));
-	strcpy(user.id, getParameters(rv, rc, "user_id"));
-	strcpy(user.screenName, getParameters(rv, rc, "screen_name"));
+	strcpy(user.token, get_parameters(rv, rc, "oauth_token"));
+	strcpy(user.secretToken, get_parameters(rv, rc, "oauth_token_secret"));
+	strcpy(user.id, get_parameters(rv, rc, "user_id"));
+	strcpy(user.screenName, get_parameters(rv, rc, "screen_name"));
 
 
 	/*DEBUG*/
@@ -213,7 +213,7 @@ int tokenAccess(const char *pin){
 	debug_var_char("user.token",user.token);
 	debug_var_char("user.secretToken",user.secretToken);
 
-	return writeUserFile();
+	return write_user_file();
 
 }
 
@@ -221,9 +221,9 @@ int tokenAccess(const char *pin){
  * Send a tweet with User-Keys (token) and TwitCrusader-Keys (token)
  *
  */
-int SendTweet(char *msg){
+int send_tweet(char *msg){
 
-	debug_f_start("SendTweet");
+	debug_f_start("send_tweet");
 
 	char	*twitterStatusURL = tw_URLS.status_url,
 			*sendTweet,
@@ -264,9 +264,9 @@ int SendTweet(char *msg){
 }
 
 
-int switchTimeLine(int xmlSwitch){
+int switch_timeline(int xmlSwitch){
 
-	debug_f_start("switchTimeLine");
+	debug_f_start("switch_timeline");
 
 	FILE *fp;
 
@@ -372,7 +372,7 @@ int switchTimeLine(int xmlSwitch){
 
 			fprintf(fp, "%s",timeline);
 			fclose(fp);
-			readTimeLine(tmpFile);
+			read_time_line(tmpFile);
 
 			asprintf(&cmd,"rm -f %s", tmpFile);
 			debug_var_char("cmd",cmd);
@@ -385,4 +385,34 @@ int switchTimeLine(int xmlSwitch){
 
 	free(timeline);
 	return 1;
+}
+
+void downloads_avatars(){
+
+	debug_f_start("downloadsAvatars");
+
+
+	pthread_t tid;
+	int i, error=0;
+
+	for(i=0; i<MAX_NUM_TWEETS; i++){
+		char *argv[2];
+		argv[0]=timeline[i].user.profile_image_url;
+		argv[1]=timeline[i].user.profile_image;
+
+		error = pthread_create(&tid, NULL, pull_one_url, (void *)argv);
+
+
+			if(0 != error){
+				debug_var_int("Can't Start Thread Number",i);
+			}
+			else{
+				debug_var_int("Start Thread Number",i);
+				debug_var_char("Thread argument",argv[0]);
+		}
+
+		error = pthread_join(tid, NULL);
+		debug_var_int("Stop Thread Number",i);
+
+	}
 }

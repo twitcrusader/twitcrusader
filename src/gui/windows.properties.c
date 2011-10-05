@@ -53,7 +53,7 @@ void gtk_window_properties(){
 	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 0, 1, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
 
-	if(readUserFile()==0){
+	if(read_user_file()==0){
 		itemsAccount = g_list_append (itemsAccount, user.screenName);
 		button = gtk_button_new_with_label (DELETE);
 		gtk_table_attach (GTK_TABLE (table), button, 3, 7, 5, 6, GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
@@ -89,7 +89,7 @@ void gtk_delete_account(){
 
 	debug_f_start("gtk_delete_account");
 
-	deleteAccount();
+	delete_account();
 
 	disconnect();
 

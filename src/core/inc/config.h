@@ -27,7 +27,6 @@
 #ifndef USER_H_
 #define USER_H_
 
-#define _GNU_SOURCE
 #include <stdio.h>
 
 #include <string.h>
@@ -38,6 +37,8 @@
 
 #include "debug.h"
 #include "../../main.h"
+
+#define _GNU_SOURCE
 
 #define MY_ENCODING "ISO-8859-1"
 
@@ -62,12 +63,12 @@ struct programPath{
 	char *timelineDir;
 } progPath;
 
-int writeUserFile();
-int readUserFile();
+int write_user_file();
+int read_user_file();
 void disconnect();
-int deleteAccount();
-void mallocUsers();
-void freeSizeUsers();
+int delete_account();
+void malloc_users();
+void free_size_users();
 
 
 #endif /* USER_H_ */
