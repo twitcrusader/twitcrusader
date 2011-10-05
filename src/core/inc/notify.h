@@ -34,6 +34,6 @@
 #include "debug.h"
 #include "../../gui/inc/icons.h"
 
-void notifySystem(char *message);
+void notify_system(char *message);
 
 #endif /* NOTIFY_H_ */

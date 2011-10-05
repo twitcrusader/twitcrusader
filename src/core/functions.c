@@ -27,27 +27,6 @@
 #include "inc/functions.h"
 
 /*  
- * This function add string1 + string2 = string3
- * Exemple: "AL" + "EX" = "ALEX"
- * 
- */
-char *sumStrings(char *parm1, char *parm2 ){
-	debug_f_start("sumStrings");
-	/* molloc function return a number of bytes of parm1 + parm2 */
-	char *parm = malloc(strlen(parm1) + strlen(parm2) + 1);
-	if (parm != NULL )
-	{
-		/* Add parm1 + parm2 for return sum of 2 variables */
-		strcpy(parm, parm1);
-		strcat(parm, parm2);
-	}
-
-	return parm;
-}
-
-
-
-/*  
  * This function split url-parameters with delimiter char
  * WARINING: use it with oauth_split_url_parameters() for variables rv
  * 
@@ -58,9 +37,9 @@ char *sumStrings(char *parm1, char *parm2 ){
  * Return = XXXXXXXXXX
  * 
  */
-char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
+char *get_parameters(char **argv,int argc,const char *param) //Improved by freddy
 {
-	debug_f_start("getParameters");
+	debug_f_start("get_parameters");
 
 	int i;
 	for(i = 0;i < argc;i++)
@@ -78,8 +57,8 @@ char *getParameters(char **argv,int argc,const char *param) //Improved by freddy
  * Debug Function
  * 
  */
-int shellParameters (int argc, char **argv){
-	debug_f_start("shellParameters");
+int shell_parameters (int argc, char **argv){
+	debug_f_start("shell_parameters");
 	int count;
 
 	if (argc > 1){
@@ -102,9 +81,9 @@ int shellParameters (int argc, char **argv){
 	return 0;
 }
 
-void createDir(){
+void create_dir(){
 
-	debug_f_start("getParameters");
+	debug_f_start("create_dir");
 
 	char *cmd;
 
@@ -152,16 +131,16 @@ void createDir(){
 
 }
 
-char* downloadVersion(){
+char* download_version(){
 
-	debug_f_start("downloadVersion");
+	debug_f_start("download_version");
 
 	FILE* checkLatesVersion;
 	char *bufferLatesVersion=malloc(sizeof(char)*10);
 
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	getSingleCURL(VERSION_URL, FILE_VERSION);
+	get_single_CURL(VERSION_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen (FILE_VERSION, "r");
@@ -175,9 +154,9 @@ char* downloadVersion(){
 }
 
 
-char* readRawTextFile(char* fileName){
+char* read_raw_text_file(char* fileName){
 
-	debug_f_start("downloadVersion");
+	debug_f_start("read_raw_text_file");
 
 	FILE *fp;
 	char ch, *b1, *b2 ;
@@ -200,4 +179,21 @@ char* readRawTextFile(char* fileName){
 	free(b2);
 	fclose (fp) ;
 	return b1;
+}
+
+char* get_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword){
+	debug_f_start("get_element");
+
+	xmlChar *key;
+	char *empty = "error";
+
+	if ((!xmlStrcmp(cur->name, (const xmlChar *)keyword))) {
+		key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
+		//if(debug==1) printf("\n%s: %s", keyword, key);
+
+		return (char *)key;
+	}
+
+	return empty;
+
 }

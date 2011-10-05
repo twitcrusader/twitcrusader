@@ -38,12 +38,10 @@
  */
 int main(int argc, char *argv[]){
 
-	system("clear");
-
-	printf("\nTwitCrusader - Twitter Client For Linux Desktop\n");
+	printf("\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
 	printf("Copyright (C) 2011  TwitCrusader Team\n\n");
 
-	if(shellParameters (argc, argv)==1) return 0;
+	if(shell_parameters (argc, argv)==1) return 0;
 
 	debug_f_start("main");
 
@@ -54,19 +52,19 @@ int main(int argc, char *argv[]){
 	notify_init(TWC);
 
 	gtk_init (&argc, &argv);
-	notifySystem(START);
+	notify_system(START);
 
 	/* Fix Struct Size */
-	mallocUsers();
+	malloc_users();
 
-	createDir();
+	create_dir();
 
 	read_preference_file();
 
 	gtk_window_main();
 
 	free_size_preference();
-	freeSizeUsers();
+	free_size_users();
 
 
 	notify_uninit();

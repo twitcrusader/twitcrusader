@@ -52,6 +52,7 @@
 #include "../../core/inc/functions.h"
 #include "../../core/inc/twitter.h"
 #include "../../core/inc/gethttp.h"
+#include "../../core/inc/twitter.h"
 
 
 
@@ -82,7 +83,7 @@ struct main_window{
 	*aiuto_menu_root,
 	*aiuto_menu_items[3],
 	*aiuto_icon_menu[3],
-	*nick,
+	*tweet,
 	*avatar,
 	*align;
 
@@ -90,7 +91,7 @@ struct main_window{
 
 	int selected_timeline;
 	int logged;
-
+	pthread_t tid[1];
 
 }mainWindow;
 
@@ -120,7 +121,7 @@ typedef struct configuration {
 /* Define Function */
 
 /* Main Window */
-void gtk_window_main();
+int gtk_window_main();
 
 /* Init */
 void gtk_init_window();
@@ -155,7 +156,6 @@ void gtk_disconnect();
 void show_home_timeline();
 void mentions_timeline();
 void show_private_message();
-void downloadsAvatars();
 
 void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar);
 gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);

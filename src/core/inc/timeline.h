@@ -100,8 +100,8 @@ struct timeLine{
 };
 
 struct timeLine timeline[MAX_NUM_TWEETS];
-
-void getStatus (xmlDocPtr doc, xmlNodePtr cur, int i);
-int readTimeLine(char *docname);
+char* get_time_line_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
+void get_status (xmlDocPtr doc, xmlNodePtr cur, int i);
+int read_time_line(char *docname);
 
 #endif /* TIMELINE_H_ */

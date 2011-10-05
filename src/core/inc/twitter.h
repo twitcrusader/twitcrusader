@@ -51,13 +51,13 @@
 
 char *tmp_token;
 
-int tokenTemp();
-int tokenTempBrowser();
-int tokenAccess(const char *pin);
-char* tokenRequest(const char *consumerKey, const char *consumerKeySecret);
-int SendTweet(char*);
-int switchTimeLine(int xmlSwitch);
-int deleteAccount();
-
+int token_temp();
+int token_temp_browser();
+int token_access(const char *pin);
+char* token_request(const char *consumerKey, const char *consumerKeySecret);
+int send_tweet(char*);
+int switch_timeline(int xmlSwitch);
+int delete_account();
+void downloads_avatars();
 
 #endif /* TWITTER_H_ */

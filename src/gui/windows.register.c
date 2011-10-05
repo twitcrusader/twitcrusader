@@ -55,7 +55,7 @@ void gtk_window_register(){
 	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 
 	/* Call oAuth function */
-	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(tokenTempBrowser), NULL);
+	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(token_temp_browser), NULL);
 
 	/* Attach Box for PIN */
 	label = gtk_label_new (INSERT_PIN);
@@ -95,7 +95,7 @@ void gtkAccessToken(){
 
 	if(pin!=NULL){
 	//Validate PIN
-	correctVerify = tokenAccess(pin);
+	correctVerify = token_access(pin);
 
 	debug_var_int("correctVerify",correctVerify);
 
@@ -107,7 +107,7 @@ void gtkAccessToken(){
 	if(correctVerify == 0){
 
 		gtk_widget_destroy(DataInput->window);
-		readUserFile();
+		read_user_file();
 		gtk_refresh_timeline();
 	}
 

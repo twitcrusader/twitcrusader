@@ -20,6 +20,7 @@ main.c
 twc_LDADD = @libcurl_LIBS@ @gtk2_LIBS@ @oauth_LIBS@ @libxml2_LIBS@ @libnotify_LIBS@
 
 AM_CPPFLAGS = \
+	-pthread \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@"\" \
