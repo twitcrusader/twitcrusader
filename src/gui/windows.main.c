@@ -27,7 +27,7 @@
 
 #include "inc/windows.main.h"
 
-void gtk_window_main(){
+void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
@@ -76,6 +76,7 @@ void gtk_window_main(){
 
 	gtk_main();
 
+	return NULL;
 }
 
 void gtk_init_window(){
@@ -288,7 +289,7 @@ void gtk_init_scrolled_window(){
 	int cols=0, rows=0;
 	mainWindow.table_into = gtk_table_new (1, 2, FALSE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
 
 
 	/* Scrolled */
@@ -406,11 +407,15 @@ void loadAboutDialog(){
 
 	debug_f_start("loadAboutDialog");
 
+	pthread_cancel(twc.tid_action);
+
 	gtk_credits_dialog();
 }
 void loadVersionDialog(){
 
 	debug_f_start("loadVersionDialog");
+
+	pthread_cancel(twc.tid_action);
 
 	gtk_window_update();
 
@@ -419,11 +424,15 @@ void loadWindowProperties(){
 
 	debug_f_start("loadWindowProperties");
 
+	pthread_cancel(twc.tid_action);
+
 	gtk_window_properties();
 }
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
+
+	pthread_cancel(twc.tid_action);
 
 	gtk_window_register();
 
@@ -432,7 +441,6 @@ void loadRegDialog(){
 void clear_statusbar(){
 
 	debug_f_start("clear_statusbar");
-
 
 }
 
@@ -465,7 +473,7 @@ void show_private_message(){
 	}
 }
 
-void gtk_refresh_timeline(){
+void* gtk_refresh_timeline(void* arg){
 
 	debug_f_start("gtk_refresh_timeline");
 
@@ -478,6 +486,7 @@ void gtk_refresh_timeline(){
 	gtk_refresh();
 
 	notify_system(TL_DOWNLOADED);
+	return NULL;
 }
 
 void gtk_refresh(){

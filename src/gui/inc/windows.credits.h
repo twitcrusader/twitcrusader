@@ -39,6 +39,7 @@
 #include <pthread.h>
 
 #include "../../core/inc/debug.h"
+#include "../../core/inc/functions.h"
 
 /* Define Function */
 void gtk_credits_dialog();

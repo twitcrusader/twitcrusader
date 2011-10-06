@@ -121,7 +121,7 @@ typedef struct configuration {
 /* Define Function */
 
 /* Main Window */
-void gtk_window_main();
+void* gtk_window_main(void *);
 
 /* Init */
 void gtk_init_window();
@@ -138,7 +138,7 @@ void gtk_init_timer();
 
 /* Refresh */
 void gtk_refresh_toolbar_items();
-void gtk_refresh_timeline();
+void* gtk_refresh_timeline(void*);
 void gtk_refresh_timeline_thread();
 void gtk_refresh();
 void gtk_clear_statusbar();

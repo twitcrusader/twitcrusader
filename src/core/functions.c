@@ -127,7 +127,7 @@ void create_dir(){
 	debug_var_char("progPath.configFile",progPath.configFile);
 
 	asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
-		debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
+	debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
 
 }
 
@@ -140,7 +140,7 @@ char* download_version(){
 
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	get_single_CURL(VERSION_URL, FILE_VERSION);
+	get_single_CURL(TWC_UPDATES_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen (FILE_VERSION, "r");
@@ -159,8 +159,11 @@ char* read_raw_text_file(char* fileName){
 	debug_f_start("read_raw_text_file");
 
 	FILE *fp;
-	char ch, *b1, *b2 ;
+	char ch,
+			*b1="",
+			*b2="" ;
 
+	debug_var_char("fileName", fileName);
 	fp = fopen ( fileName, "r" ) ;
 	if(fp==NULL) return NULL;
 
@@ -171,14 +174,16 @@ char* read_raw_text_file(char* fileName){
 		if (ch==EOF)
 			break ;
 		else{
-			b2=b1;
+			b2=malloc(sizeof(b1));
+			strcpy(b2,b1);
 			b1=malloc(sizeof(b2)+sizeof(char));
 			asprintf(&b1,"%s%c",b2,ch);
 
-			free(b2);
+			debug_var_char("b1",b1);
 		}
 	}
 
+	free(b2);
 	fclose (fp) ;
 	return b1;
 }
