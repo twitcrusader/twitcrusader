@@ -1,0 +1,3 @@
+# List of source files containing translatable strings.
+
+src/gui/include/lang.h
