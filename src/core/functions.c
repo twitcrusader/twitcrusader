@@ -127,7 +127,7 @@ void create_dir(){
 	debug_var_char("progPath.configFile",progPath.configFile);
 
 	asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
-		debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
+	debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
 
 }
 
@@ -159,7 +159,9 @@ char* read_raw_text_file(char* fileName){
 	debug_f_start("read_raw_text_file");
 
 	FILE *fp;
-	char ch="", *b1="", *b2="" ;
+	char ch,
+			*b1="",
+			*b2="" ;
 
 	debug_var_char("fileName", fileName);
 	fp = fopen ( fileName, "r" ) ;

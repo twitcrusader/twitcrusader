@@ -27,7 +27,7 @@
 
 #include "inc/windows.main.h"
 
-void gtk_window_main(){
+void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
@@ -76,6 +76,7 @@ void gtk_window_main(){
 
 	gtk_main();
 
+	return NULL;
 }
 
 void gtk_init_window(){
@@ -472,7 +473,7 @@ void show_private_message(){
 	}
 }
 
-void gtk_refresh_timeline(){
+void* gtk_refresh_timeline(void* arg){
 
 	debug_f_start("gtk_refresh_timeline");
 
@@ -485,6 +486,7 @@ void gtk_refresh_timeline(){
 	gtk_refresh();
 
 	notify_system(TL_DOWNLOADED);
+	return NULL;
 }
 
 void gtk_refresh(){
