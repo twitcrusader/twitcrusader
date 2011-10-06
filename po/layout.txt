@@ -1,158 +1,131 @@
- #
- #	TwitCrusader - Twitter Client For Linux Desktop
- #		Copyright (C) 2011  TwitCrusader Team
- #
- #		This program is free software: you can redistribute it and/or modify
- #		it under the terms of the GNU General Public License as published by
- #		the Free Software Foundation, either version 3 of the License, or
- #		(at your option) any later version.
- #
- #		This program is distributed in the hope that it will be useful,
- #		but WITHOUT ANY WARRANTY; without even the implied warranty of
- #		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- #		GNU General Public License for more details.
- #
- #		You should have received a copy of the GNU General Public License
- #		along with this program.  If not, see <http://www.gnu.org/licenses/>.
- #
- #
- #		WebSite: http://www.twitcrusader.org/
- # 		Development Guidelines: http://dev.twitcrusader.org/
- # 
- #		Follow on Twitter: @teamtwc
- # 		IRC: chat.freenode.net at #teamtwc
- # 		E-mail: teamtwc@twitcrusader.org
- # 
- #
-
-#: src/core/inc/lang.h:35
+#: src/core/inc/lang.h:40
 msgid "ISO-8859-1"
 msgstr ""
 
-#: src/core/inc/lang.h:41
+#: src/core/inc/lang.h:46
 msgid " (c) "
 msgstr ""
 
-#: src/core/inc/lang.h:42
+#: src/core/inc/lang.h:47
 msgid "TwitCrusader"
 msgstr ""
 
-#: src/core/inc/lang.h:43
+#: src/core/inc/lang.h:49
 msgid "TwitCrusader Team"
 msgstr ""
 
-#: src/core/inc/lang.h:44
-msgid "2011"
-msgstr ""
-
-#: src/core/inc/lang.h:45
-msgid "Nightly"
-msgstr ""
-
-#: src/core/inc/lang.h:46
+#: src/core/inc/lang.h:50
 msgid "http://www.twitcrusader.org/"
 msgstr ""
 
-#: src/core/inc/lang.h:48
+#: src/core/inc/lang.h:52
 msgid "Version"
 msgstr ""
 
-#: src/core/inc/lang.h:49
+#: src/core/inc/lang.h:53
 msgid "Twitter Client For Linux Desktop"
 msgstr ""
 
-#: src/core/inc/lang.h:50
+#: src/core/inc/lang.h:54
 msgid "Start"
 msgstr ""
 
-#: src/core/inc/lang.h:51
+#: src/core/inc/lang.h:55
 msgid "Connect"
 msgstr ""
 
-#: src/core/inc/lang.h:52
+#: src/core/inc/lang.h:56
 msgid "Disconnect"
 msgstr ""
 
-#: src/core/inc/lang.h:53
+#: src/core/inc/lang.h:57
 msgid "Options"
 msgstr ""
 
-#: src/core/inc/lang.h:54
+#: src/core/inc/lang.h:58
 msgid "Exit"
 msgstr ""
 
-#: src/core/inc/lang.h:55
+#: src/core/inc/lang.h:59
 msgid "Updates"
 msgstr ""
 
-#: src/core/inc/lang.h:56
+#: src/core/inc/lang.h:60
 msgid "About"
 msgstr ""
 
-#: src/core/inc/lang.h:57
+#: src/core/inc/lang.h:61
 msgid "Account"
 msgstr ""
 
-#: src/core/inc/lang.h:58
+#: src/core/inc/lang.h:62
 msgid "Twitter's Account:"
 msgstr ""
 
-#: src/core/inc/lang.h:59
+#: src/core/inc/lang.h:63
 msgid "Delete"
 msgstr ""
 
-#: src/core/inc/lang.h:60
+#: src/core/inc/lang.h:64
 msgid "New"
 msgstr ""
 
-#: src/core/inc/lang.h:61
+#: src/core/inc/lang.h:65
 msgid "New User"
 msgstr ""
 
-#: src/core/inc/lang.h:62
+#: src/core/inc/lang.h:66
 msgid "Insert PIN"
 msgstr ""
 
-#: src/core/inc/lang.h:63
+#: src/core/inc/lang.h:67
 msgid "Create Account"
 msgstr ""
 
-#: src/core/inc/lang.h:64
+#: src/core/inc/lang.h:68
 msgid "ERROR: Bad Input"
 msgstr ""
 
-#: src/core/inc/lang.h:65
+#: src/core/inc/lang.h:69
 msgid "Last Version"
 msgstr ""
 
-#: src/core/inc/lang.h:66
+#: src/core/inc/lang.h:70
 msgid "Current Version"
 msgstr ""
 
-#: src/core/inc/lang.h:67
+#: src/core/inc/lang.h:71
 msgid "File"
 msgstr ""
 
-#: src/core/inc/lang.h:68
+#: src/core/inc/lang.h:72
 msgid "Help"
 msgstr ""
 
-#: src/core/inc/lang.h:69
+#: src/core/inc/lang.h:73
 msgid "Sending..."
 msgstr ""
 
-#: src/core/inc/lang.h:70
+#: src/core/inc/lang.h:74
 msgid "Tweet Not Sent"
 msgstr ""
 
-#: src/core/inc/lang.h:71
+#: src/core/inc/lang.h:75
 msgid "Tweet Sent"
 msgstr ""
 
-#: src/core/inc/lang.h:72
+#: src/core/inc/lang.h:76
 msgid "Disconnected"
 msgstr ""
 
-#: src/core/inc/lang.h:73
+#: src/core/inc/lang.h:77
 msgid "Connected"
+msgstr ""
+
+#: src/core/inc/lang.h:78
+msgid "Timeline Downloaded!"
+msgstr ""
+
+#: src/core/inc/lang.h:79
+msgid "Loading.."
 msgstr ""

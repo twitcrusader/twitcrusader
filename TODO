@@ -7,3 +7,25 @@
 * Migliorare la visualizzazione della Timeline.
 
 * Dialog per la modifica Visuale del file prefrence.xml
+
+
+
+
+// BUGS
+
+--------------------------------
+
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_get_user_data: assertion `GDK_IS_WINDOW (window)' failed
+(twc:9766): Gtk-CRITICAL **: IA__gtk_style_detach: assertion `style->attach_count > 0' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_drawable_get_colormap: assertion `GDK_IS_DRAWABLE (drawable)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_set_background: assertion `GDK_IS_WINDOW (window)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_drawable_get_colormap: assertion `GDK_IS_DRAWABLE (drawable)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_set_background: assertion `GDK_IS_WINDOW (window)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_get_user_data: assertion `GDK_IS_WINDOW (window)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_drawable_get_colormap: assertion `GDK_IS_DRAWABLE (drawable)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_set_background: assertion `GDK_IS_WINDOW (window)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_drawable_get_colormap: assertion `GDK_IS_DRAWABLE (drawable)' failed
+(twc:9766): Gdk-CRITICAL **: IA__gdk_window_set_background: assertion `GDK_IS_WINDOW (window)' failed
+
+On first loads of image into the Timeline
+-------------------------------

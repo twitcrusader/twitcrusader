@@ -108,7 +108,7 @@ void gtkAccessToken(){
 
 		gtk_widget_destroy(DataInput->window);
 		read_user_file();
-		gtk_refresh_timeline();
+		gtk_refresh_timeline(NULL);
 	}
 
 }
