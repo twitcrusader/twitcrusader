@@ -29,6 +29,15 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 #### Unistalling - Makefile
     $ su
     # make uninstall
+    
+##Branchs
+* [builds] TwitCrusader Linux-PackageBuild (deb, pkgbuild, rpm, and other) 
+
+* [experimental] TwitCrusader unstable code, testing and other. PTKDev test only.
+		
+* [nightly] TwitCrusader unstable code, testing and other. Please commit here.
+	
+* [nightly-cpp]	TwitCrusader++ is fork of TwitCrusader, More information on github.com/RoxShannon/TwitCrusaderpp
 
 ## Support
 
