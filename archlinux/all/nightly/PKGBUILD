@@ -11,7 +11,7 @@
 
 pkgname=twitcrusader-git
 pkgver=20111006
-pkgrel=1
+pkgrel=2
 pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
@@ -38,7 +38,7 @@ build() {
   fi
 
   cd "${srcdir}/${_gitname}"
-  git checkout cc6acbe2c5
+  git checkout 9d61748c16
 
   msg "GIT checkout done or server timeout"
   msg "Starting make..."
