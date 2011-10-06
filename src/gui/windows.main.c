@@ -73,8 +73,8 @@ void gtk_window_main(){
 
 	}
 
-	//Show GTK Main
-	gtk_main ();
+
+	gtk_main();
 
 }
 
@@ -286,30 +286,36 @@ void gtk_init_scrolled_window(){
 
 
 	int cols=0, rows=0;
-	mainWindow.table_into = gtk_table_new (1, 5, FALSE);
+	mainWindow.table_into = gtk_table_new (1, 2, FALSE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
 
 	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
-		mainWindow.tweet = gtk_text_view_new();
-		mainWindow.avatar = gtk_image_new_from_file (timeline[cols].user.profile_image);
+		if(timeline[cols].user.profile_image){
+			GdkPixbuf *image=gdk_pixbuf_new_from_file_at_scale(timeline[cols].user.profile_image,AVATAR_SIZE,AVATAR_SIZE,TRUE,NULL);
+			mainWindow.avatar =  gtk_image_new_from_pixbuf(image);
 
-		char* tweet="";
-		if(timeline[cols].user.screen_name!=NULL && timeline[cols].text!=NULL &&timeline[cols].created_at!=NULL){
-			asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
+			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		}
-		GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
-		gtk_text_buffer_set_text (tweetBuf, tweet, -1);
 
-		gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 
-		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+		if(timeline[cols].user.screen_name!=NULL && timeline[cols].text!=NULL &&timeline[cols].created_at!=NULL){
+			char* tweet="";
+			asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
 
-		gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 4, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			mainWindow.tweet = gtk_text_view_new();
+			gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
+			gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 
+			GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
+			gtk_text_buffer_set_text (tweetBuf, tweet, -1);
+
+			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+		}
 	}
 
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
 
 	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
@@ -470,6 +476,8 @@ void gtk_refresh_timeline(){
 	}
 
 	gtk_refresh();
+
+	notify_system(TL_DOWNLOADED);
 }
 
 void gtk_refresh(){
@@ -481,7 +489,8 @@ void gtk_refresh(){
 	gtk_init_scrolled_window();
 	gtk_refresh_toolbar_items();
 	gtk_widget_show_all(mainWindow.window);
-	gtk_widget_queue_draw(mainWindow.window);
+	gtk_widget_realize(mainWindow.window);
+	//gtk_widget_queue_draw(mainWindow.window);
 }
 
 void foo(){
@@ -504,10 +513,13 @@ void gtk_connect(){
 void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
-
 	pthread_cancel(twc.tid_action);
 
+	mainWindow.statusLabel=LOADING;
+	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
+
 	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, NULL);
+
 	pthread_join(twc.tid_action, NULL);
 }
 
@@ -527,6 +539,8 @@ void gtk_disconnect(){
 void on_quit(){
 
 	debug_f_start("on_quit");
+
+	pthread_cancel(twc.tid_action);
 
 	notify_system(QUIT);
 	gtk_main_quit();
