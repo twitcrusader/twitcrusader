@@ -76,5 +76,7 @@
 #define SENT _("Tweet Sent")
 #define PROFILE_DISCONNECTED _("Disconnected");
 #define PROFILE_CONNECTED _("Connected");
+#define TL_DOWNLOADED "Timeline Downloaded!"
+#define LOADING "Loading.."
 
 #endif

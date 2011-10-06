@@ -49,8 +49,10 @@ int main(int argc, char *argv[]){
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 	textdomain(GETTEXT_PACKAGE);
 
+
 	notify_init(TWC);
 
+	gdk_threads_init();
 	gtk_init (&argc, &argv);
 	notify_system(START);
 
@@ -60,11 +62,15 @@ int main(int argc, char *argv[]){
 	create_dir();
 
 	read_preference_file();
-	twc.thread_error=pthread_create(&twc.tid_window, NULL, gtk_window_main, (void *)argv);
-	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, (void *)argv);
+
+	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, NULL);
+	twc.thread_error=pthread_create(&twc.tid_window, NULL, 	gtk_window_main, NULL);
 
 	pthread_join(twc.tid_window, NULL);
 	pthread_join(twc.tid_action, NULL);
+
+
+
 
 	free_size_preference();
 	free_size_users();
