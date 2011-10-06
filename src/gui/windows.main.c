@@ -406,11 +406,15 @@ void loadAboutDialog(){
 
 	debug_f_start("loadAboutDialog");
 
+	pthread_cancel(twc.tid_action);
+
 	gtk_credits_dialog();
 }
 void loadVersionDialog(){
 
 	debug_f_start("loadVersionDialog");
+
+	pthread_cancel(twc.tid_action);
 
 	gtk_window_update();
 
@@ -419,11 +423,15 @@ void loadWindowProperties(){
 
 	debug_f_start("loadWindowProperties");
 
+	pthread_cancel(twc.tid_action);
+
 	gtk_window_properties();
 }
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
+
+	pthread_cancel(twc.tid_action);
 
 	gtk_window_register();
 
@@ -432,7 +440,6 @@ void loadRegDialog(){
 void clear_statusbar(){
 
 	debug_f_start("clear_statusbar");
-
 
 }
 

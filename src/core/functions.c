@@ -140,7 +140,7 @@ char* download_version(){
 
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
-	get_single_CURL(VERSION_URL, FILE_VERSION);
+	get_single_CURL(TWC_UPDATES_URL, FILE_VERSION);
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen (FILE_VERSION, "r");

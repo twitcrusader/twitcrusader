@@ -37,7 +37,6 @@
 #include "debug.h"
 
 #define FILE_VERSION "/tmp/version.twc"
-#define VERSION_URL TWC_UPDATES_URL"?current="TWC_VERSION
 #define TWC_UPDATES_URL "http://www.twitcrusader.org/version-nightly.php"
 
 void malloc_Size_of();

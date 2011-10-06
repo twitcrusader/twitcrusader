@@ -45,6 +45,7 @@
 /* System Variables */
 #define COPYRIGHT_SIMBOL " (c) "
 #define TWC "TwitCrusader"
+
 #define TWC_TEAM "TwitCrusader Team"
 #define TWC_URL "http://www.twitcrusader.org/"
 
