@@ -6,7 +6,8 @@ prog_DATA= \
 	AUTHORS \
 	COPYING \
 	share/preference/preference.xml \
-	GPL
+	GPL \
+	VERSION
 
 INTLTOOL_FILES = intltool-extract.in \
 	intltool-merge.in \

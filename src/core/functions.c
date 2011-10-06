@@ -159,8 +159,9 @@ char* read_raw_text_file(char* fileName){
 	debug_f_start("read_raw_text_file");
 
 	FILE *fp;
-	char ch, *b1, *b2 ;
+	char ch="", *b1="", *b2="" ;
 
+	debug_var_char("fileName", fileName);
 	fp = fopen ( fileName, "r" ) ;
 	if(fp==NULL) return NULL;
 
@@ -171,14 +172,16 @@ char* read_raw_text_file(char* fileName){
 		if (ch==EOF)
 			break ;
 		else{
-			b2=b1;
+			b2=malloc(sizeof(b1));
+			strcpy(b2,b1);
 			b1=malloc(sizeof(b2)+sizeof(char));
 			asprintf(&b1,"%s%c",b2,ch);
 
-			free(b2);
+			debug_var_char("b1",b1);
 		}
 	}
 
+	free(b2);
 	fclose (fp) ;
 	return b1;
 }

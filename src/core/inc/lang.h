@@ -46,8 +46,6 @@
 #define COPYRIGHT_SIMBOL " (c) "
 #define TWC "TwitCrusader"
 #define TWC_TEAM "TwitCrusader Team"
-#define TWC_VERSION "2011"
-#define TWC_VERSION_STATUS "Nightly"
 #define TWC_URL "http://www.twitcrusader.org/"
 
 #define VERSION_MSG _("Version")
