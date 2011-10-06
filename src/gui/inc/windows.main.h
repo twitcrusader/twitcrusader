@@ -55,6 +55,7 @@
 #include "../../core/inc/twitter.h"
 
 
+#define AVATAR_SIZE 70
 
 /* Define Structure */
 
@@ -139,7 +140,6 @@ void gtk_init_timer();
 void gtk_refresh_toolbar_items();
 void gtk_refresh_timeline();
 void gtk_refresh_timeline_thread();
-//void refresh_timeline_thread();
 void gtk_refresh();
 void gtk_clear_statusbar();
 

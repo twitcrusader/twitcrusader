@@ -34,6 +34,7 @@ struct twitcrusader{
 	int thread_error;
 	pthread_t tid_window;
 	pthread_t tid_action;
+	pthread_t tid_refresh;
 }twc;
 
 
