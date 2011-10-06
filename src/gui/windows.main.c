@@ -288,7 +288,7 @@ void gtk_init_scrolled_window(){
 	int cols=0, rows=0;
 	mainWindow.table_into = gtk_table_new (1, 2, FALSE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
 
 
 	/* Scrolled */
