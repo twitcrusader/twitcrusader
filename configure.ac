@@ -33,7 +33,7 @@ PKG_CHECK_MODULES(gtk2, [gtk+-2.0 >=  2.24], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have gtk+-2.0 >=  2.24.6
+You must have gtk+-2.0 >=  2.24.4
 ])])
 
 AC_SUBST(gtk2_CFLAGS)
