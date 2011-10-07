@@ -2,18 +2,13 @@
 
 Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
-##Release
-* [stable] Stable version
-* [beta] Beta version
-* [nightly] Version released on a daily (unstable)
-
 ##Required
 
 * gcc or cc
 * pkg-config
 * intltool
-* libcurl >= 7.22.0
-* gtk+-2.4 >= 2.24.6
+* libcurl >= 7.21.0
+* gtk+-2.4 >= 2.24.4
 * oauth >= 0.9.1
 * libxml-2.0 >= 2.6.32
 * libnotify >= 0.7.3
