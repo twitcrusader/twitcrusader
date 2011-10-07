@@ -2,16 +2,6 @@
 
 Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
-
-##Folders
-
-First folder have name of a linux distro
-	/debian
-Second folder refers to a family of instruction set architectures (x86 = 32bit / x64 = 64bit)
-	/debian/x86
-Third folder is type of this twc-release (stable/nightly/beta/etc) 
-	/debian/x86/nightly
-
 ##Release
 * [stable] Stable version
 * [beta] Beta version
