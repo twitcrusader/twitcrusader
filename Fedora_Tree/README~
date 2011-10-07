@@ -11,7 +11,7 @@ Or move into your home directory the rpmbuild located into "Fedora_Tree"
 
 3) From the folder "rpmbuild" run:
 
-	$ rpmbuild -v -bb --clean SPECS/twitcrusader.spec
+	$ rpmbuild -v -bb --clean SPECS/TwitCrusader.spec
 
 4) The rpm package are located into "rpmbuild/RPMS"
 
