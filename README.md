@@ -7,6 +7,17 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 * [beta] Beta version
 * [nightly] Version released on a daily (unstable)
 
+##Required
+
+* gcc or cc
+* pkg-config
+* intltool
+* libcurl >= 7.22.0
+* gtk+-2.4 >= 2.24.6
+* oauth >= 0.9.1
+* libxml-2.0 >= 2.6.32
+* libnotify >= 0.7.3
+
 
 ##ArchLinux - Install or Compile Package
 
@@ -28,3 +39,20 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 ##Fedora - Install or Compile Package
 
 	Coming Soon
+
+##Others
+
+### Compile from Source
+    $ ./configure
+    $ make
+    $ su
+    # make install
+
+if "configure" aren't present into the package try:
+
+    $ ./autogen.sh
+
+#### Unistalling from Source
+    $ su
+    # make uninstall
+    
