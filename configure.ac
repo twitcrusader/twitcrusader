@@ -19,21 +19,21 @@ AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.35.0])
 
 
-PKG_CHECK_MODULES(libcurl, [libcurl >= 7.22.0], , [
+PKG_CHECK_MODULES(libcurl, [libcurl >= 7.21.0], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have libcurl >= 7.22.0
+You must have libcurl >= 7.21.0
 ])])
 
 AC_SUBST(libcurl_CFLAGS)
 AC_SUBST(libcurl_LIBS)
 
-PKG_CHECK_MODULES(gtk2, [gtk+-2.0 >=  2.24.6], , [
+PKG_CHECK_MODULES(gtk2, [gtk+-2.0 >=  2.24], , [
 		AC_MSG_RESULT(no)
 		AC_MSG_ERROR([
 
-You must have gtk+-2.0 >=  2.24.6
+You must have gtk+-2.0 >=  2.24.4
 ])])
 
 AC_SUBST(gtk2_CFLAGS)
