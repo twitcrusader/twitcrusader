@@ -2,7 +2,7 @@ To make a new "rpmbuild" into your home directory run:
 
 	$ rpmdev-setuptree
 
-Or move into your home directory the rpmbuild located into "Fedora tree" 
+Or move into your home directory the rpmbuild located into "Fedora_Tree" 
 
 1) Copy compressed source file into rpmbuild/SOURCE
 	( The source may be call "TwitCrusader-<version>.tar.gz" )
