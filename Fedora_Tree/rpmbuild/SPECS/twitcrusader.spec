@@ -1,7 +1,7 @@
-Name:		TwitCrusader
-Version:	1.0_pre_beta
+Name:		twitcrusader
+Version:	1.0prebeta
 Release:	1%{?dist}
-Summary:	TwitCrusader
+Summary:	twitcrusader
 Group:		Internet/Browser
 License:	GPL
 URL:		http://it.twitcrusader.org/
