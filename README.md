@@ -2,20 +2,21 @@
 
 Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
-
-##Folders
-
-First folder have name of a linux distro
-	/debian
-Second folder refers to a family of instruction set architectures (x86 = 32bit / x64 = 64bit)
-	/debian/x86
-Third folder is type of this twc-release (stable/nightly/beta/etc) 
-	/debian/x86/nightly
-
 ##Release
 * [stable] Stable version
 * [beta] Beta version
 * [nightly] Version released on a daily (unstable)
+
+##Required
+
+* gcc or cc
+* pkg-config
+* intltool
+* libcurl >= 7.22.0
+* gtk+-2.4 >= 2.24.6
+* oauth >= 0.9.1
+* libxml-2.0 >= 2.6.32
+* libnotify >= 0.7.3
 
 
 ##ArchLinux - Install or Compile Package
@@ -38,3 +39,20 @@ Third folder is type of this twc-release (stable/nightly/beta/etc)
 ##Fedora - Install or Compile Package
 
 	Coming Soon
+
+##Others
+
+### Compile from Source
+    $ ./configure
+    $ make
+    $ su
+    # make install
+
+if "configure" aren't present into the package try:
+
+    $ ./autogen.sh
+
+#### Unistalling from Source
+    $ su
+    # make uninstall
+    
