@@ -26,9 +26,33 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
     # yaourt -S twitcrusader-git
 
 
-##Debian/Ubuntu - Install or Compile Package
+##Debian/Ubuntu
 
-	Coming Soon
+### Make the deb package
+
+1) uncompress the source file twitcrusader-<version>.tar.gz (or twitcrusader-<version>.tar.bz2)
+
+NOTE the source file may be writed with lower case and may have only one  "-". 
+
+2) Install package:  devscripts dh-make make build-essential dpkg apt
+
+    $ sudo apt-get install devscripts dh-make make build-essential dpkg apt
+
+3) Install program dependences: libcurl-ocaml intltool intltool-debian libcurl-ocaml-dev libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev
+
+    $ sudo apt-get install libcurl-ocaml intltool intltool-debian libcurl-ocaml-dev libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev
+
+4) From the source tree run:
+
+    $ dh_make -s -e <email address> -n –copyright gpl
+
+5) Run:
+
+    $ debuild binary 
+
+### Install from package
+
+    $ sudo dpkg -i <package name>.deb
 
 
 ##Fedora
