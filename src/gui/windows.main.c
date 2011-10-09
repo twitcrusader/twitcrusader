@@ -304,14 +304,15 @@ void gtk_init_scrolled_window(){
 
 		if(timeline[cols].user.screen_name!=NULL && timeline[cols].text!=NULL &&timeline[cols].created_at!=NULL){
 			char* tweet="";
-			asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
+			int error=asprintf(&tweet,"%s%s:\n%s\n[%s]\n","@",timeline[cols].user.screen_name,timeline[cols].text,timeline[cols].created_at);
 
 			mainWindow.tweet = gtk_text_view_new();
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 			gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 
 			GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
-			gtk_text_buffer_set_text (tweetBuf, tweet, -1);
+
+				gtk_text_buffer_set_text (tweetBuf, tweet, -1);
 
 			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		}

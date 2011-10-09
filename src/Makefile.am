@@ -17,15 +17,11 @@ core/timeline.c \
 main.c
 
 
-twc_LDADD = @libcurl_LIBS@ @gtk2_LIBS@ @oauth_LIBS@ @libxml2_LIBS@ @libnotify_LIBS@
+twc_LDADD = $(GTK_FOOBAR_LIBS) @libnotify_LIBS@
 
-AM_CPPFLAGS = -Wall\
-	-pthread \
+AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@"\" \
-	@gtk2_CFLAGS@ \
-	@libcurl_CFLAGS@\
-	@oauth_CFLAGS@ \
-	@libxml2_CFLAGS@ \
+	$(GTK_FOOBAR_CFLAGS) \
 	@libnotify_CFLAGS@

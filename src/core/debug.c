@@ -57,7 +57,7 @@ char* timestamp(){
 	struct timeval tv;
 
 	gettimeofday(&tv,NULL);
-	asprintf(&out,"[\t%i.%i]",(int)tv.tv_sec,(int)tv.tv_usec);
+	int error=asprintf(&out,"[\t%i.%i]",(int)tv.tv_sec,(int)tv.tv_usec);
 	return out;
 }
 

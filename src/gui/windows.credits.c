@@ -24,7 +24,7 @@
  * 		E-mail: teamtwc@twitcrusader.org
  * 
  */
- 
+
 /* Headers */ 
 #include "inc/windows.credits.h"
 #include "inc/icons.h"
@@ -50,8 +50,10 @@ void gtk_credits_dialog(){
 	//gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC); //deprecated gtk+-2.0
 	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
 	char* msg;
-	asprintf(&msg,"%s%s\n%s: %s", COPYRIGHT_SIMBOL, TWC_TEAM, VERSION_MSG, read_raw_text_file(PROG_DIR"/VERSION"));
-	gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), msg);
+	int error2=asprintf(&msg,"%s%s\n%s: %s", COPYRIGHT_SIMBOL, TWC_TEAM, VERSION_MSG, read_raw_text_file(PROG_DIR"/VERSION"));
+	if(!error){
+		gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), msg);
+	}
 	gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), ABOUT_COMMENT);
 	gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), TWC_URL);
 

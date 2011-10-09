@@ -39,6 +39,20 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
     $ su
     # make uninstall
 
+
+##Debug
+
+After installation run:
+
+    $ twc --debug
+
+To have more details run:
+
+    $ gdb twc
+
+( make sure you have gdb installed )
+
+
 ## Support
 
 You can find us on this web source:

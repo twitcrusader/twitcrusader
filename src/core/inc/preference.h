@@ -40,8 +40,6 @@
 #define OAUTH_API_URL_DEFAULT "https://api.twitter.com/oauth/"
 #define HTTPS_API_URL_DEFAULT "https://api.twitter.com/1/"
 
-#define DEFAULT_PREFERENCE PROG_DIR"/"CONFIG_PREFERENCE_FILENAME
-
 struct preference{
 	char* aouth_api_url;
 	char* https_api_url;

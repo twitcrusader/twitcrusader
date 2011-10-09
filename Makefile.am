@@ -5,7 +5,6 @@ progdir = $(datadir)/@PACKAGE@
 prog_DATA= \
 	AUTHORS \
 	COPYING \
-	share/preference/preference.xml \
 	GPL \
 	VERSION
 
