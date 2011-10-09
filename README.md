@@ -42,7 +42,7 @@ NOTE the source file may be writed with lower case and may have only one  "-".
    libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev
 
     $ sudo apt-get install libcurl-ocaml intltool intltool-debian libcurl-ocaml-dev \
-    libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev
+    libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev libnss3-dev
 
 4) From the source tree run:
 
