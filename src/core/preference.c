@@ -48,6 +48,8 @@ int read_preference_file(){
 
 			xmlFreeDoc(doc);
 
+			prog_preference.aouth_api_url=OAUTH_API_URL_DEFAULT;
+			prog_preference.https_api_url=HTTPS_API_URL_DEFAULT;
 			write_default_preference_file();
 			return 1;
 
