@@ -93,40 +93,40 @@ void create_dir(){
 	/* User-Directory Path */
 
 	//Avatar Dir
-	asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+	int error=asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
 	debug_var_char("progPath.avatarDir",progPath.avatarDir);
 
-	asprintf(&cmd, "%s %s", "rm -rf ", progPath.avatarDir);
+	error=asprintf(&cmd, "%s %s", "rm -rf ", progPath.avatarDir);
 	debug_var_char("cmd",cmd);
-	system(cmd);
+	error=system(cmd);
 
 
 
 	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
 	debug_var_char("cmd",cmd);
-	system(cmd);
+	error=system(cmd);
 
 	//Configuration File
-	asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	error=asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
 	debug_var_char("progPath.configDir",progPath.configDir);
 
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
 	debug_var_char("cmd",cmd);
-	system(cmd);
+	error=system(cmd);
 
 	// Timeline File
-	asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
+	error=asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
 	debug_var_char("progPath.timelineDir",progPath.timelineDir);
 
-	asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
+	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
 	debug_var_char("cmd",cmd);
-	system(cmd);
+	error=system(cmd);
 
-	asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
+	error=asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
 	debug_var_char("progPath.configFile",progPath.configFile);
 
-	asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
+	error=asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
 	debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
 
 }
@@ -144,7 +144,7 @@ char* download_version(){
 
 	/* Check version with downloaded file */
 	checkLatesVersion = fopen (FILE_VERSION, "r");
-	fgets(bufferLatesVersion, 15, checkLatesVersion);
+	char* pointer=fgets(bufferLatesVersion, 15, checkLatesVersion);
 	/* Remove tmp file */
 	remove(FILE_VERSION);
 
@@ -160,8 +160,11 @@ char* read_raw_text_file(char* fileName){
 
 	FILE *fp;
 	char ch,
-			*b1="",
-			*b2="" ;
+			*b1=malloc(sizeof(char)),
+			*b2=malloc(sizeof(char));
+
+	strcpy(b1,"");
+	strcpy(b2,"");
 
 	debug_var_char("fileName", fileName);
 	fp = fopen ( fileName, "r" ) ;
@@ -177,7 +180,7 @@ char* read_raw_text_file(char* fileName){
 			b2=malloc(sizeof(b1));
 			strcpy(b2,b1);
 			b1=malloc(sizeof(b2)+sizeof(char));
-			asprintf(&b1,"%s%c",b2,ch);
+			int error=asprintf(&b1,"%s%c",b2,ch);
 
 			debug_var_char("b1",b1);
 		}

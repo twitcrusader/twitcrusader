@@ -178,41 +178,43 @@ void init_URLS(){
 
 	check_URLS();
 
-	asprintf(&tw_URLS.authorize_url,"%s%s",prog_preference.aouth_api_url,"authorize");
+	int error;
+
+	error=asprintf(&tw_URLS.authorize_url,"%s%s",prog_preference.aouth_api_url,"authorize");
 	debug_var_char("tw_URLS.authorize_url", tw_URLS.authorize_url);
 
-	asprintf(&tw_URLS.request_url,"%s%s",prog_preference.aouth_api_url,"request_token");
+	error=asprintf(&tw_URLS.request_url,"%s%s",prog_preference.aouth_api_url,"request_token");
 	debug_var_char("tw_URLS.request_url", tw_URLS.request_url);
 
-	asprintf(&tw_URLS.tokenaccess_url,"%s%s",prog_preference.aouth_api_url, "access_token");
+	error=asprintf(&tw_URLS.tokenaccess_url,"%s%s",prog_preference.aouth_api_url, "access_token");
 	debug_var_char("tw_URLS.tokenaccess_url", tw_URLS.tokenaccess_url);
 
 
-	asprintf(&tw_URLS.status_url,"%s%s",prog_preference.https_api_url,"statuses/update.xml?status=");
+	error=asprintf(&tw_URLS.status_url,"%s%s",prog_preference.https_api_url,"statuses/update.xml?status=");
 	debug_var_char("tw_URLS.status_url", tw_URLS.status_url);
 
-	asprintf(&tw_URLS.home_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/home_timeline.xml");
+	error=asprintf(&tw_URLS.home_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/home_timeline.xml");
 	debug_var_char("tw_URLS.home_timeline_url", tw_URLS.home_timeline_url);
 
-	asprintf(&tw_URLS.public_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/public_timeline.xml");
+	error=asprintf(&tw_URLS.public_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/public_timeline.xml");
 	debug_var_char("tw_URLS.public_timeline_url", tw_URLS.public_timeline_url);
 
-	asprintf(&tw_URLS.mentions_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/mentions.xml");
+	error=asprintf(&tw_URLS.mentions_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/mentions.xml");
 	debug_var_char("tw_URLS.mentions_timeline_url", tw_URLS.mentions_timeline_url);
 
-	asprintf(&tw_URLS.friends_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/friends_timeline.xml");
+	error=asprintf(&tw_URLS.friends_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/friends_timeline.xml");
 	debug_var_char("tw_URLS.friends_timeline_url", tw_URLS.friends_timeline_url);
 
-	asprintf(&tw_URLS.user_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/user_timeline.xml");
+	error=asprintf(&tw_URLS.user_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/user_timeline.xml");
 	debug_var_char("tw_URLS.user_timeline_url", tw_URLS.user_timeline_url);
 
-	asprintf(&tw_URLS.rt_by_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_by_me.xml");
+	error=asprintf(&tw_URLS.rt_by_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_by_me.xml");
 	debug_var_char("tw_URLS.rt_by_me_timeline_url", tw_URLS.rt_by_me_timeline_url);
 
-	asprintf(&tw_URLS.rt_to_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_to_me.xml");
+	error=asprintf(&tw_URLS.rt_to_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_to_me.xml");
 	debug_var_char("tw_URLS.rt_to_me_timeline_url", tw_URLS.rt_to_me_timeline_url);
 
-	asprintf(&tw_URLS.rt_of_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_of_me.xml");
+	error=asprintf(&tw_URLS.rt_of_me_timeline_url,"%s%s",prog_preference.https_api_url,"statuses/retweeted_of_me.xml");
 	debug_var_char("tw_URLS.rt_of_me_timeline_url", tw_URLS.rt_of_me_timeline_url);
 
 }
