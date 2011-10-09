@@ -21,9 +21,9 @@ makedepends=('git' 'intltool' 'pkg-config' 'gcc' 'autoconf')
 provides=('twitcrusader')
 conflicts=('twitcrusader')
 
-_gitroot="git://github.com/RoxShannon/ClientTwitter-TwitCrusader.git"
+_gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
 _gitname="twitcrusader"
-_gitcommit="246312dbb8f47c1444fb12ee192c07bf425dde0e"
+_gitcommit="aed129027d675f6c0f9811fefa7258e01006d4a6"
 _gitbranch="nightly"
 
 build() {
