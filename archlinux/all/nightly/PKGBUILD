@@ -1,5 +1,4 @@
 # Maintainer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
-# Developer:  Orazio Briante(@RoxShannon) <orazio.1985@hotmail.com>
 # Contributor: Alessio Sergi (@al3hex) <asergi@archlinux.us>
 # Contributor: Alessio Biancalana (@dottorblaster) <dottorblaster@archlinux.us>
 # Contributor: Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
@@ -11,50 +10,40 @@
 
 
 pkgname=twitcrusader-git
-pkgver=20111006
-pkgrel=2
+pkgver=20111009
+pkgrel=1
 pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
-depends=('intltool' 'pkg-config' 'gcc' 'gtk2' 'curl' 'liboauth' 'libxml2' 'libnotify')
-makedepends=('git')
+depends=('gtk2' 'curl' 'liboauth' 'libxml2' 'libnotify')
+makedepends=('git' 'intltool' 'pkg-config' 'gcc' 'autoconf')
 provides=('twitcrusader')
 conflicts=('twitcrusader')
 
 _gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
 _gitname="twitcrusader"
+_gitcommit="56893b29b24728e4671f238acae4acb396956315"
 _gitbranch="nightly"
 
 build() {
   cd "${srcdir}"
-
-  msg "Connecting to GIT server...."
-
-  if [ -d ${_gitname} ] ; then
-    cd ${_gitname} && git pull origin
+  
+  if [ -d $_gitname ] ; then
+    cd $_gitname && git checkout $_gitbranch && git pull
     msg "The local files are updated."
   else
-    git clone ${_gitroot} ${_gitname}
+    git clone $_gitroot $_gitname && cd $_gitname
   fi
-
-  cd "${srcdir}/${_gitname}"
-  git checkout 9d61748c16
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting make..."
-
-  rm -rf "${srcdir}/${_gitname}-build"
-  git clone "${srcdir}/${_gitname}" "${srcdir}/${_gitname}-build"
-  cd "${srcdir}/${_gitname}-build"
-
-  ./autogen.sh
-  ./configure --prefix=/usr
+  
+  git checkout $_gitcommit
+  
+  sh autogen.sh
+  ./configure
   make
 }
-
+ 
 package() {
-  cd "${srcdir}/${_gitname}-build"
-
+  cd "${srcdir}/${_gitname}"
   make DESTDIR="${pkgdir}" install
 }
