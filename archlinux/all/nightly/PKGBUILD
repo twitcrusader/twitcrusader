@@ -17,13 +17,13 @@ arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
 depends=('gtk2' 'curl' 'liboauth' 'libxml2' 'libnotify')
-makedepends=('git' 'intltool' 'autoconf' 'pkg-config' 'gcc')
+makedepends=('git' 'intltool' 'pkg-config' 'gcc' 'autoconf')
 provides=('twitcrusader')
 conflicts=('twitcrusader')
 
-_gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
+_gitroot="git://github.com/RoxShannon/ClientTwitter-TwitCrusader.git"
 _gitname="twitcrusader"
-_gitcommit="5cfd11ba54209ec2b02f75c3ed730c5a198682a8"
+_gitcommit="246312dbb8f47c1444fb12ee192c07bf425dde0e"
 _gitbranch="nightly"
 
 build() {
@@ -39,7 +39,7 @@ build() {
   git checkout $_gitcommit
   
   sh autogen.sh
-  ./configure --prefix=/usr
+  ./configure
   make
 }
  
