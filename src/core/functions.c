@@ -136,7 +136,7 @@ char* download_version(){
 	debug_f_start("download_version");
 
 	FILE* checkLatesVersion;
-	char *bufferLatesVersion=malloc(sizeof(char)*10);
+	char *bufferLatesVersion=malloc(sizeof(char)*20);
 
 
 	/* Check Online Version From WebSite and Download File To /tmp/ directory */
@@ -159,36 +159,17 @@ char* read_raw_text_file(char* fileName){
 	debug_f_start("read_raw_text_file");
 
 	FILE *fp;
-	char ch,
-			*b1=malloc(sizeof(char)),
-			*b2=malloc(sizeof(char));
+	char *buffer=malloc(sizeof(char)*20);
 
-	strcpy(b1,"");
-	strcpy(b2,"");
+	strcpy(buffer,"");
 
 	debug_var_char("fileName", fileName);
 	fp = fopen ( fileName, "r" ) ;
 	if(fp==NULL) return NULL;
+	char* pointer=fgets(buffer, 20, fp);
 
-	while(1){
-
-		ch=fgetc(fp);
-
-		if (ch==EOF)
-			break ;
-		else{
-			b2=malloc(sizeof(b1));
-			strcpy(b2,b1);
-			b1=malloc(sizeof(b2)+sizeof(char));
-			int error=asprintf(&b1,"%s%c",b2,ch);
-
-			debug_var_char("b1",b1);
-		}
-	}
-
-	free(b2);
 	fclose (fp) ;
-	return b1;
+	return buffer;
 }
 
 char* get_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword){

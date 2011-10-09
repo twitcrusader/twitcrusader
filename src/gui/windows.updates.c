@@ -37,14 +37,24 @@ void gtk_window_update()
 {
 
 	GtkWidget *dialog;
-	char* msg;
-	int error=asprintf(&msg,"%s: %s\n%s: %s", LAST_VERSION, download_version(), CURRENT_VERSION, read_raw_text_file(PROG_DIR"/VERSION"));
+	char* msg,
+	*last_version,
+	*current_version;
 
-	if(!error){
-	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,msg);
-	}else{
-		dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,"");
+	last_version=download_version();
+	current_version=read_raw_text_file(PROG_DIR"/VERSION");
+
+	if(last_version==NULL){
+		last_version="";
 	}
+	if(current_version==NULL){
+		current_version="";
+	}
+
+	int error=asprintf(&msg,"%s: %s\n%s: %s", LAST_VERSION, last_version, CURRENT_VERSION, current_version);
+
+
+	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,msg);
 
 	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
