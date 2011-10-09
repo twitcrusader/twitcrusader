@@ -46,27 +46,11 @@ int read_preference_file(){
 
 	}else{
 
-		doc=xmlParseFile(DEFAULT_PREFERENCE);
-
-		if(doc!=NULL){
-			if(get_preference(doc)==1){
-
-				xmlFreeDoc(doc);
-				return 1;
-			}
-
-			xmlFreeDoc(doc);
-
-			write_preference_file();
-
-
-		}else{
-
 			xmlFreeDoc(doc);
 
 			write_default_preference_file();
 			return 1;
-		}
+
 	}
 
 	debug_var_char("prog_preference.aouth_api_url", prog_preference.aouth_api_url);
@@ -109,7 +93,7 @@ int get_preference(xmlDocPtr doc){
 
 			node = node->xmlChildrenNode;
 
-			keys=get_element(doc, node, "oauth_api_url");
+			keys=get_element(doc, node, "aouth_api_url");
 			debug_var_char("keys", keys);
 			prog_preference.aouth_api_url=keys;
 			node = node->next;
