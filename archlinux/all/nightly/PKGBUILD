@@ -1,5 +1,4 @@
-# Maintainer & Developer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
-# Developer:  Orazio Briante(@RoxShannon) <orazio.1985@hotmail.com>
+# Maintainer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
 # Contributor: Alessio Sergi (@al3hex) <asergi@archlinux.us>
 # Contributor: Alessio Biancalana (@dottorblaster) <dottorblaster@archlinux.us>
 # Contributor: Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
@@ -17,14 +16,14 @@ pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
-depends=('intltool' 'pkg-config' 'gcc' 'gtk2' 'curl' 'liboauth' 'libxml2' 'libnotify')
-makedepends=('git')
+depends=('gtk2' 'curl' 'liboauth' 'libxml2' 'libnotify')
+makedepends=('git' 'intltool' 'autoconf' 'pkg-config' 'gcc')
 provides=('twitcrusader')
 conflicts=('twitcrusader')
 
 _gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
 _gitname="twitcrusader"
-_gitcommit="79045794d0d8a1dabcd507941b2f18441b6c927d"
+_gitcommit="5cfd11ba54209ec2b02f75c3ed730c5a198682a8"
 _gitbranch="nightly"
 
 build() {
