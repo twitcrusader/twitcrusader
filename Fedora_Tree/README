@@ -1,20 +1,26 @@
+##Fedora
+
+### Make the rpm package
+
 To make a new "rpmbuild" into your home directory run:
 
-	$ rpmdev-setuptree
-
-Or move into your home directory the rpmbuild located into "Fedora_Tree" 
+    $ rpmdev-setuptree
 
 1) Copy compressed source file into rpmbuild/SOURCE
-	( The source may be call "twitcrusader-<version>.tar.gz" )
+	( The source may be call `twitcrusader-<version>.tar.gz` )
 
-2) Create or modify the file "twitcrusader.spec" into rpmbuild/SPECS
+2) Copy the file "twitcrusader.spec" located into "Fedora_Tree" (or create a new copy) "into rpmbuild/SPECS"
 
 3) From the folder "rpmbuild" run:
 
-	$ rpmbuild -v -bb --clean SPECS/twitcrusader.spec
+    $ rpmbuild -v -bb --clean SPECS/twitcrusader.spec
 
 4) The rpm package are located into "rpmbuild/RPMS"
 
-Try to install it with:
 
-	$ rpm -i <package name>.rpm
+### Install from package
+
+Download the right TwitCrusader package for your arch and run:
+
+    $ rpm -i <package name>.rpm
+

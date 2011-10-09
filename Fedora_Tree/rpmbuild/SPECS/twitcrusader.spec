@@ -32,7 +32,7 @@ TwitCrusader is Twitter Client For Linux Desktop
 
 %build
 sh autogen.sh
-%configure
+%configure --prefix=/usr
 make
 
 %install
@@ -45,11 +45,14 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc
-/usr/bin/twc
-/usr/share/%{name}/*
+/usr/share/locale/it/LC_MESSAGES/*
 /usr/share/applications/*
-/usr/share/locale/*
 /usr/share/icons/*
+/usr/share/*
+/usr/bin/twc
+
+
+
 
 
 %changelog
