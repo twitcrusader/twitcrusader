@@ -30,7 +30,7 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
 ### Make the deb package
 
-1) uncompress the source file `twitcrusader-<version>.tar.gz` (or `twitcrusader-<version>.tar.bz2` )
+1) uncompress the source file `twitcrusader-<version>.tar.gz` ( or `twitcrusader-<version>.tar.bz2` )
 
 NOTE the source file may be writed with lower case and may have only one  "-". 
 
@@ -99,9 +99,8 @@ if "configure" aren't present into the package try:
     $ su
     # make uninstall
     
-
-
-#Debug
+    
+##Debug
 
 After installation run:
 
@@ -111,4 +110,4 @@ To have more details run:
 
     $ gdb twc
 
-after install gdb!
+( make sure you have gdb installed )
