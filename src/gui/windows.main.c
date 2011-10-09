@@ -311,9 +311,9 @@ void gtk_init_scrolled_window(){
 			gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW(mainWindow.tweet), FALSE);
 
 			GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
-			if(!error){
+
 				gtk_text_buffer_set_text (tweetBuf, tweet, -1);
-			}
+
 			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		}
 	}
