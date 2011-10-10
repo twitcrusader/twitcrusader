@@ -31,6 +31,7 @@ void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
+	gtk_init_tray_icon();
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -77,6 +78,11 @@ void* gtk_window_main(void* arg){
 	gtk_main();
 
 	return NULL;
+}
+
+void gtk_init_tray_icon(){
+	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
+	gtk_status_icon_set_visible(tray_icon, TRUE);
 }
 
 void gtk_init_window(){
@@ -312,7 +318,7 @@ void gtk_init_scrolled_window(){
 
 			GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (mainWindow.tweet));
 
-				gtk_text_buffer_set_text (tweetBuf, tweet, -1);
+			gtk_text_buffer_set_text (tweetBuf, tweet, -1);
 
 			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 		}
@@ -408,7 +414,7 @@ void loadAboutDialog(){
 
 	debug_f_start("loadAboutDialog");
 
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	gtk_credits_dialog();
 }
@@ -416,7 +422,7 @@ void loadVersionDialog(){
 
 	debug_f_start("loadVersionDialog");
 
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	gtk_window_update();
 
@@ -425,7 +431,7 @@ void loadWindowProperties(){
 
 	debug_f_start("loadWindowProperties");
 
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	gtk_window_properties();
 }
@@ -433,7 +439,7 @@ void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
 
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	gtk_window_register();
 
@@ -523,14 +529,17 @@ void gtk_connect(){
 void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	mainWindow.statusLabel=LOADING;
 	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
 
-	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, NULL);
+	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twc_threads.err_action)) == NULL){
 
-	pthread_join(twc.tid_action, NULL);
+		g_error_free ( twc_threads.err_action ) ;
+	}
+
+	g_thread_join(twc_threads.action);
 }
 
 void gtk_disconnect(){
@@ -550,7 +559,7 @@ void on_quit(){
 
 	debug_f_start("on_quit");
 
-	pthread_cancel(twc.tid_action);
+	//pthread_cancel(twc.tid_action);
 
 	notify_system(QUIT);
 	gtk_main_quit();

@@ -124,6 +124,7 @@ typedef struct configuration {
 void* gtk_window_main(void *);
 
 /* Init */
+void gtk_init_tray_icon();
 void gtk_init_window();
 void gtk_init_menu();
 void gtk_refresh_menu();
