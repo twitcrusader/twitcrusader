@@ -27,11 +27,7 @@
 #ifndef FUNCTION_H_
 #define FUNCTION_H_
 
-#define _GNU_SOURCE
-#include <stdio.h>
-
-#include <stdlib.h>
-#include <string.h>
+#include "externlibs.h"
 
 #include "config.h"
 #include "debug.h"

@@ -28,7 +28,7 @@
 #ifndef THREADS_H_
 #define THREADS_H_
 
-#include <pthread.h>
+#include "externlibs.h"
 
 struct twitcrusader{
 	GThread *window,

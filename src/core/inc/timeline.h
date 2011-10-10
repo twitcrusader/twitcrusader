@@ -27,11 +27,8 @@
 #ifndef TIMELINE_H_
 #define TIMELINE_H_
 
-#define _GNU_SOURCE
-#include <stdio.h>
 
-#include <libxml/xmlreader.h>
-#include <pthread.h>
+#include "externlibs.h"
 
 #include "debug.h"
 #include "config.h"

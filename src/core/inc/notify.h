@@ -27,8 +27,7 @@
 #ifndef NOTIFY_H_
 #define NOTIFY_H_
 
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
+#include "externlibs.h"
 
 #include "lang.h"
 #include "debug.h"

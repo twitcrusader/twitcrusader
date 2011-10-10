@@ -18,22 +18,52 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
+ *
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
- * 
+ *
  */
-#ifndef GETHTTP_H_
-#define GETHTTP_H_
 
-#include "externlibs.h"
+#ifndef EXTERNLIBS_H_
+#define EXTERNLIBS_H_
 
-#include "debug.h"
-#include "functions.h"
-#include "timeline.h"
+/* CharSet */
+#define MY_ENCODING "ISO-8859-1"
 
-size_t write_function( void *ptr, size_t size, size_t nmemb, void *stream);
-void get_single_CURL(char *url, char *file);
-void *pull_one_url(void *argv);
+/* Fix: GCC Linux Compiler */
+#define _GNU_SOURCE
 
-#endif /* GETHTTP_H_ */
+/* Headers */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sys/time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+
+#include <pthread.h>
+
+#include <oauth.h>
+#include <curl/curl.h>
+
+#include <glib.h>
+#include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <gdk/gdkkeysyms.h>
+
+#include <libnotify/notify.h>
+
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+
+
+
+
+
+
+
+#endif /* EXTERNLIBS_H_ */

@@ -86,6 +86,7 @@ void* gtk_window_main(void* arg){
 void gtk_init_tray_icon(){
 	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
 	gtk_status_icon_set_visible(tray_icon, TRUE);
+	//gtk_status_icon_position_menu (GTK_MENU(mainWindow.file_menu_root),0,0,NULL,NULL);
 }
 
 void gtk_init_window(){
