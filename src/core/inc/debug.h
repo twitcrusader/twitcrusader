@@ -27,12 +27,7 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
-/* Fix: GCC Linux Compiler */
-#define _GNU_SOURCE
-
-#include <stdio.h>
-#include <sys/time.h>
-
+#include "externlibs.h"
 
 /* Initialize Debugger */
 int debug;

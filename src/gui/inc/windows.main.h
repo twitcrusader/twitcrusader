@@ -29,30 +29,24 @@
 #ifndef WINDOWMAIN_H
 #define WINDOWMAIN_H
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
-
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
-
-/* Headers */
-#include <gtk/gtk.h>
-#include <pthread.h>
-#include <gdk/gdkkeysyms.h>
-
-#include "windows.properties.h"
-#include "windows.credits.h"
-#include "windows.updates.h"
-#include "windows.register.h"
 #include "icons.h"
 
+#include "threads.h"
+
+#include "../../core/inc/externlibs.h"
+
 #include "../../core/inc/debug.h"
-#include "../../core/inc/threads.h"
 #include "../../core/inc/lang.h"
 #include "../../core/inc/functions.h"
 #include "../../core/inc/twitter.h"
 #include "../../core/inc/gethttp.h"
 #include "../../core/inc/twitter.h"
+
+#include "windows.properties.h"
+#include "windows.credits.h"
+#include "windows.updates.h"
+#include "windows.register.h"
+
 
 
 #define AVATAR_SIZE 70

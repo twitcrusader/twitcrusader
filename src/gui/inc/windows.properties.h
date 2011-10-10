@@ -27,20 +27,16 @@
 #ifndef WINDOWS_PROPERTIES_H_
 #define WINDOWS_PROPERTIES_H_
 
-/* CharSet */
-#define MY_ENCODING "ISO-8859-1"
 
-/* Fix: GCC Linux Compiler */
-#define _GNU_SOURCE
-
-/* Headers */
-#include <gtk/gtk.h>
 
 #include "icons.h"
-#include "windows.register.h"
-#include "windows.main.h"
+
+#include "../../core/inc/externlibs.h"
 #include "../../core/inc/lang.h"
 #include "../../core/inc/debug.h"
+
+#include "windows.register.h"
+#include "windows.main.h"
 
 
 GtkWidget *dialog,

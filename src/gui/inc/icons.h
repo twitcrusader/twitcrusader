@@ -25,16 +25,9 @@
  * 
  */
  
-/* Define */
+
 #ifndef ICONS_H
-
-/* Default Define */ 
 #define ICONS_H
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
-
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
 
 /* Path Images */
 #define ICON_SIGNIN ICONS_DIR"/twitter.sign-in.png"
@@ -56,6 +49,4 @@
 #define ICON_LINK ICONS_DIR"/timeline.link.png"
 #define ICON_PHOTO ICONS_DIR"/timeline.photo.png"
 
-
-/* Default End of ICONS_H */ 
 #endif

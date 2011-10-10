@@ -28,15 +28,8 @@
 /* Define */
 #ifndef WINDOWCREDITS_H
 #define WINDOWCREDITS_H
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
 
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
-
-/* Headers */
-#include <gtk/gtk.h>
-#include <pthread.h>
+#include "../../core/inc/externlibs.h"
 
 #include "../../core/inc/debug.h"
 #include "../../core/inc/functions.h"
