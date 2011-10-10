@@ -74,8 +74,11 @@ void* gtk_window_main(void* arg){
 
 	}
 
-
+	gdk_threads_enter();
 	gtk_main();
+	gdk_flush();
+	gdk_threads_leave();
+
 
 	return NULL;
 }
@@ -221,7 +224,7 @@ void gtk_init_toolbar_items(){
 	tool_button[2].function=GTK_SIGNAL_FUNC(mentions_timeline);
 
 	tool_button[3].icon=ICON_DM;
-	tool_button[3].function=GTK_SIGNAL_FUNC(foo);
+	tool_button[3].function=GTK_SIGNAL_FUNC(show_private_message);
 
 	tool_button[4].icon=ICON_FAVORITES;
 	tool_button[4].function=GTK_SIGNAL_FUNC(foo);
@@ -481,7 +484,7 @@ void show_private_message(){
 }
 
 void* gtk_refresh_timeline(void* arg){
-
+gdk_threads_enter();
 	debug_f_start("gtk_refresh_timeline");
 
 	int error=switch_timeline(mainWindow.selected_timeline);
@@ -493,6 +496,7 @@ void* gtk_refresh_timeline(void* arg){
 	gtk_refresh();
 
 	notify_system(TL_DOWNLOADED);
+	gdk_threads_leave();
 	return NULL;
 }
 
@@ -529,10 +533,11 @@ void gtk_connect(){
 void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
-	//pthread_cancel(twc.tid_action);
 
-	mainWindow.statusLabel=LOADING;
-	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
+	if(twc_threads.err_action!=NULL){
+		g_error_free ( twc_threads.err_action );
+
+	}
 
 	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twc_threads.err_action)) == NULL){
 
