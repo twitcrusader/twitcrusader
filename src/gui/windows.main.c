@@ -31,7 +31,6 @@ void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
-	gtk_init_tray_icon();
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -79,14 +78,13 @@ void* gtk_window_main(void* arg){
 	gdk_flush();
 	gdk_threads_leave();
 
-
 	return NULL;
 }
 
 void gtk_init_tray_icon(){
 	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
 	gtk_status_icon_set_visible(tray_icon, TRUE);
-	//gtk_status_icon_position_menu (GTK_MENU(mainWindow.file_menu_root),0,0,NULL,NULL);
+
 }
 
 void gtk_init_window(){
@@ -485,7 +483,6 @@ void show_private_message(){
 }
 
 void* gtk_refresh_timeline(void* arg){
-gdk_threads_enter();
 	debug_f_start("gtk_refresh_timeline");
 
 	int error=switch_timeline(mainWindow.selected_timeline);
@@ -497,7 +494,7 @@ gdk_threads_enter();
 	gtk_refresh();
 
 	notify_system(TL_DOWNLOADED);
-	gdk_threads_leave();
+
 	return NULL;
 }
 
@@ -535,17 +532,17 @@ void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
 
-	if(twc_threads.err_action!=NULL){
-		g_error_free ( twc_threads.err_action );
+	if(twcThread.err_action!=NULL){
+		g_error_free ( twcThread.err_action );
 
 	}
 
-	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twc_threads.err_action)) == NULL){
+	if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twcThread.err_action)) == NULL){
 
-		g_error_free ( twc_threads.err_action ) ;
+		g_error_free ( twcThread.err_action ) ;
 	}
 
-	g_thread_join(twc_threads.action);
+	g_thread_join(twcThread.action);
 }
 
 void gtk_disconnect(){

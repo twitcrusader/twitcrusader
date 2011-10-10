@@ -33,7 +33,7 @@
 
 #include "core/inc/externlibs.h"
 #include "core/inc/debug.h"
-#include "core/inc/threads.h"
+#include "gui/inc/threads.h"
 
 
 #include "gui/inc/windows.main.h"

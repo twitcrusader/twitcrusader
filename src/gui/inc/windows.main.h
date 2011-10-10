@@ -29,11 +29,13 @@
 #ifndef WINDOWMAIN_H
 #define WINDOWMAIN_H
 
+#include "icons.h"
+
+#include "threads.h"
 
 #include "../../core/inc/externlibs.h"
 
 #include "../../core/inc/debug.h"
-#include "../../core/inc/threads.h"
 #include "../../core/inc/lang.h"
 #include "../../core/inc/functions.h"
 #include "../../core/inc/twitter.h"
@@ -44,7 +46,7 @@
 #include "windows.credits.h"
 #include "windows.updates.h"
 #include "windows.register.h"
-#include "icons.h"
+
 
 
 #define AVATAR_SIZE 70

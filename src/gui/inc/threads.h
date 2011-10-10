@@ -28,15 +28,23 @@
 #ifndef THREADS_H_
 #define THREADS_H_
 
-#include "externlibs.h"
+#include "../../core/inc/externlibs.h"
 
-struct twitcrusader{
+struct twcThreads{
 	GThread *window,
 	*action;
 	GError *err_window;
 	GError *err_action;
 
-}twc_threads;
+}twcThread;
+
+
+struct trayIconThreads{
+
+	GThread *trayIcon;
+	GError *err_trayIcon;
+
+}trayIconThread;
 
 
 #endif /* THREADS_H_ */
