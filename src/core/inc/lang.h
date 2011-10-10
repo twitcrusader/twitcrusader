@@ -34,13 +34,7 @@
 #ifndef SYS_H
 #define SYS_H
 
-#include <glib/gi18n.h>
-
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
-
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
+#include "externlibs.h"
 
 /* System Variables */
 #define COPYRIGHT_SIMBOL " (c) "
