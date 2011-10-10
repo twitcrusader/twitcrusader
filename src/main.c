@@ -53,7 +53,16 @@ int main(int argc, char *argv[]){
 	notify_init(TWC);
 
 	g_type_init();
-	gdk_threads_init();
+
+	if(!g_thread_supported() ){
+		g_thread_init(NULL);
+		gdk_threads_init(); // Called to initialize internal mutex "gdk_threads_mutex".
+
+		debug_var_char("g_thread:","supported");
+	}else{
+		debug_var_char("g_thread:","not supported");
+	}
+
 	gtk_init (&argc, &argv);
 	notify_system(START);
 
@@ -64,11 +73,18 @@ int main(int argc, char *argv[]){
 
 	read_preference_file();
 
-	twc.thread_error=pthread_create(&twc.tid_action, NULL, gtk_refresh_timeline, NULL);
-	twc.thread_error=pthread_create(&twc.tid_window, NULL, 	gtk_window_main, NULL);
+	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twc_threads.err_action)) == NULL){
 
-	pthread_join(twc.tid_window, NULL);
-	pthread_join(twc.tid_action, NULL);
+		g_error_free ( twc_threads.err_action ) ;
+	}
+
+	if( (twc_threads.window = g_thread_create((GThreadFunc)gtk_window_main, (void *)argv, TRUE, &twc_threads.err_window)) == NULL){
+
+		g_error_free ( twc_threads.err_window ) ;
+	}
+
+	g_thread_join(twc_threads.action);
+	g_thread_join(twc_threads.window);
 
 	free_size_preference();
 	free_size_users();
