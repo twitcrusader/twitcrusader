@@ -27,28 +27,19 @@
 
 /* Define */
 #ifndef _TWITCRUSADER_H
-
-/* Default Define */ 
 #define _TWITCRUSADER_H
 
-/* CharSet */ 
-#define MY_ENCODING "ISO-8859-1"
-
-/* Fix: GCC Linux Compiler */ 
-#define _GNU_SOURCE	
-
-/* Headers */
-#include <gtk/gtk.h>
-#include <libnotify/notify.h>
-
 #include "config.h" //from the making process!
+
+#include "core/inc/externlibs.h"
+#include "core/inc/debug.h"
+#include "gui/inc/threads.h"
+
 
 #include "gui/inc/windows.main.h"
 #include "core/inc/lang.h"
 #include "core/inc/notify.h"
 
-#include "core/inc/debug.h"
-#include "core/inc/threads.h"
 
 /* Default End of _TWITCRUSADER_H */ 
 #endif

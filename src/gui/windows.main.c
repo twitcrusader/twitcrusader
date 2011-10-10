@@ -31,7 +31,6 @@ void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
-	gtk_init_tray_icon();
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -74,8 +73,10 @@ void* gtk_window_main(void* arg){
 
 	}
 
-
+	gdk_threads_enter();
 	gtk_main();
+	gdk_flush();
+	gdk_threads_leave();
 
 	return NULL;
 }
@@ -83,6 +84,7 @@ void* gtk_window_main(void* arg){
 void gtk_init_tray_icon(){
 	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
 	gtk_status_icon_set_visible(tray_icon, TRUE);
+
 }
 
 void gtk_init_window(){
@@ -221,7 +223,7 @@ void gtk_init_toolbar_items(){
 	tool_button[2].function=GTK_SIGNAL_FUNC(mentions_timeline);
 
 	tool_button[3].icon=ICON_DM;
-	tool_button[3].function=GTK_SIGNAL_FUNC(foo);
+	tool_button[3].function=GTK_SIGNAL_FUNC(show_private_message);
 
 	tool_button[4].icon=ICON_FAVORITES;
 	tool_button[4].function=GTK_SIGNAL_FUNC(foo);
@@ -481,7 +483,6 @@ void show_private_message(){
 }
 
 void* gtk_refresh_timeline(void* arg){
-
 	debug_f_start("gtk_refresh_timeline");
 
 	int error=switch_timeline(mainWindow.selected_timeline);
@@ -493,6 +494,7 @@ void* gtk_refresh_timeline(void* arg){
 	gtk_refresh();
 
 	notify_system(TL_DOWNLOADED);
+
 	return NULL;
 }
 
@@ -529,17 +531,18 @@ void gtk_connect(){
 void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
-	//pthread_cancel(twc.tid_action);
 
-	mainWindow.statusLabel=LOADING;
-	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
+	if(twcThread.err_action!=NULL){
+		g_error_free ( twcThread.err_action );
 
-	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twc_threads.err_action)) == NULL){
-
-		g_error_free ( twc_threads.err_action ) ;
 	}
 
-	g_thread_join(twc_threads.action);
+	if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twcThread.err_action)) == NULL){
+
+		g_error_free ( twcThread.err_action ) ;
+	}
+
+	g_thread_join(twcThread.action);
 }
 
 void gtk_disconnect(){
