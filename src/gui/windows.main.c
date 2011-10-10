@@ -31,6 +31,7 @@ void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
+	gtk_init_tray_icon();
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -77,6 +78,11 @@ void* gtk_window_main(void* arg){
 	gtk_main();
 
 	return NULL;
+}
+
+void gtk_init_tray_icon(){
+	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
+	gtk_status_icon_set_visible(tray_icon, TRUE);
 }
 
 void gtk_init_window(){

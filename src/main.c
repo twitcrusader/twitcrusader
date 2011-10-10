@@ -52,6 +52,7 @@ int main(int argc, char *argv[]){
 
 	notify_init(TWC);
 
+	g_type_init();
 	gdk_threads_init();
 	gtk_init (&argc, &argv);
 	notify_system(START);
@@ -68,9 +69,6 @@ int main(int argc, char *argv[]){
 
 	pthread_join(twc.tid_window, NULL);
 	pthread_join(twc.tid_action, NULL);
-
-
-
 
 	free_size_preference();
 	free_size_users();
