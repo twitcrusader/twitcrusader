@@ -25,18 +25,45 @@
  *
  */
 
-#ifndef THREADS_H_
-#define THREADS_H_
+#ifndef EXTERNLIBS_H_
+#define EXTERNLIBS_H_
+
+/* CharSet */
+#define MY_ENCODING "ISO-8859-1"
+
+/* Fix: GCC Linux Compiler */
+#define _GNU_SOURCE
+
+/* Headers */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sys/time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 
 #include <pthread.h>
 
-struct twitcrusader{
-	GThread *window,
-	*action;
-	GError *err_window;
-	GError *err_action;
+#include <oauth.h>
+#include <curl/curl.h>
 
-}twc_threads;
+#include <glib.h>
+#include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <gdk/gdkkeysyms.h>
+
+#include <libnotify/notify.h>
+
+#include <libxml/xmlreader.h>
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
 
 
-#endif /* THREADS_H_ */
+
+
+
+
+
+#endif /* EXTERNLIBS_H_ */

@@ -27,17 +27,7 @@
 #ifndef TWITTER_H_
 #define TWITTER_H_
 
-#define _GNU_SOURCE
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <oauth.h>
-#include <glib.h>
-#include <curl/curl.h>
-
-#include<sys/stat.h>
-#include<sys/types.h>
+#include "externlibs.h"
 
 #include "debug.h"
 #include "functions.h"

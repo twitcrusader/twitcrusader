@@ -73,18 +73,23 @@ int main(int argc, char *argv[]){
 
 	read_preference_file();
 
-	if( (twc_threads.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twc_threads.err_action)) == NULL){
+	if( (trayIconThread.trayIcon = g_thread_create((GThreadFunc)gtk_init_tray_icon, (void *)argv, TRUE, &trayIconThread.err_trayIcon)) == NULL){
 
-		g_error_free ( twc_threads.err_action ) ;
+			g_error_free ( trayIconThread.err_trayIcon ) ;
+		}
+
+	if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twcThread.err_action)) == NULL){
+
+		g_error_free ( twcThread.err_action ) ;
 	}
 
-	if( (twc_threads.window = g_thread_create((GThreadFunc)gtk_window_main, (void *)argv, TRUE, &twc_threads.err_window)) == NULL){
+	if( (twcThread.window = g_thread_create((GThreadFunc)gtk_window_main, (void *)argv, TRUE, &twcThread.err_window)) == NULL){
 
-		g_error_free ( twc_threads.err_window ) ;
+		g_error_free ( twcThread.err_window ) ;
 	}
-
-	g_thread_join(twc_threads.action);
-	g_thread_join(twc_threads.window);
+	g_thread_join(trayIconThread.trayIcon);
+	g_thread_join(twcThread.action);
+	g_thread_join(twcThread.window);
 
 	free_size_preference();
 	free_size_users();
