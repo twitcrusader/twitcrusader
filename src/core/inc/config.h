@@ -27,23 +27,9 @@
 #ifndef USER_H_
 #define USER_H_
 
-/* Fix: GCC Linux Compiler */
-#define _GNU_SOURCE
-
-#include <stdio.h>
-
-#include <string.h>
-
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-
+#include "externlibs.h"
 #include "debug.h"
 #include "../../main.h"
-
-#define _GNU_SOURCE
-
-#define MY_ENCODING "ISO-8859-1"
 
 #define CONFIG_FILENAME "config.xml"
 #define CONFIG_PREFERENCE_FILENAME "preference.xml"

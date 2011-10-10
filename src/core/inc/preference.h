@@ -27,12 +27,7 @@
 #ifndef PREFERENCE_H_
 #define PREFERENCE_H_
 
-/* Fix: GCC Linux Compiler */
-#define _GNU_SOURCE
-
-#include <libxml/xmlreader.h>
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
+#include "externlibs.h"
 
 #include "debug.h"
 #include "config.h"
