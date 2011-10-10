@@ -34,12 +34,11 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
 NOTE the source file may be writed with lower case and may have only one  "-". 
 
-2) Install package:  devscripts dh-make make build-essential dpkg apt
+2) Install package:
 
     $ sudo apt-get install devscripts dh-make make build-essential dpkg apt
 
-3) Install program dependences: libcurl-ocaml intltool intltool-debian libcurl-ocaml-dev 
-   libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev
+3) Install program dependences:
 
     $ sudo apt-get install libcurl-ocaml intltool intltool-debian libcurl-ocaml-dev libgtk2.0-dev libnotify-dev liboauth-dev libxml2-dev libnss3-dev
 
@@ -60,20 +59,29 @@ NOTE the source file may be writed with lower case and may have only one  "-".
 
 ### Make the rpm package
 
-To make a new "rpmbuild" into your home directory run:
+
+1) Install package:  
+
+    $ yum install intltool rpmdevtools gcc gettext glib automake autoconf
+    
+2) Install program dependences: 
+
+    $ yum install libcurl-devel gtk2-devel liboauth-devel libxml2-devel libnotify-devel
+
+2) To make a new "rpmbuild" into your home directory run:
 
     $ rpmdev-setuptree
 
-1) Copy compressed source file into rpmbuild/SOURCE
+3) Copy compressed source file into rpmbuild/SOURCE
 	( The source may be call `twitcrusader-<version>.tar.gz` )
 
-2) Copy the file "twitcrusader.spec" located into "Fedora_Tree" (or create a new copy) "into rpmbuild/SPECS"
+4) Copy the file "twitcrusader.spec" located into "Fedora_Tree" (or create a new copy) "into rpmbuild/SPECS"
 
-3) From the folder "rpmbuild" run:
+5) From the folder "rpmbuild" run:
 
     $ rpmbuild -v -bb --clean SPECS/twitcrusader.spec
 
-4) The rpm package are located into "rpmbuild/RPMS"
+6) The rpm package are located into "rpmbuild/RPMS"
 
 
 ### Install from package

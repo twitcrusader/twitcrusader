@@ -10,7 +10,7 @@
 
 
 pkgname=twitcrusader-git
-pkgver=20111009
+pkgver=20111010
 pkgrel=1
 pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
