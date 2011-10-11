@@ -57,6 +57,18 @@ struct main_window{
 	char *statusLabel;
 
 	GError *error;
+
+
+	//Tray Icon
+	GtkStatusIcon *trayIcon;
+	GtkWidget *trayMenu,
+	*trayMainMenu,
+	*trayMenuItems[2],
+	*trayIconMenu[2];
+
+	gboolean iconified;
+
+	//Window
 	GtkWidget *window,
 	*table,
 	*scroll,
@@ -104,7 +116,8 @@ struct StatusBars
 
 
 /* VARIABLES*/
-struct menu menu1[4];
+struct menu menuTrayIcon[2];
+struct menu menuFile[4];
 struct menu menuAiuto[3];
 struct menu tool_button[7];
 
@@ -115,7 +128,7 @@ typedef struct configuration {
 /* Define Function */
 
 /* Main Window */
-void* gtk_window_main(void *);
+void* gtk_window_main(void* );
 
 /* Init */
 void gtk_init_tray_icon();
@@ -152,8 +165,12 @@ void show_home_timeline();
 void mentions_timeline();
 void show_private_message();
 
-void updateStatusBar(GtkTextBuffer *buffer,GtkStatusbar *statusbar);
-gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *tweetBuffer);
+void window_state_event (GtkWidget* , GdkEventWindowState* , gpointer);
+void gtk_tray_icon_popup_menu(GtkStatusIcon*, guint , guint32 , gpointer );
+void gtk_tray_icon_activated();
+
+void updateStatusBar(GtkTextBuffer* ,GtkStatusbar* );
+gboolean gtkSendTweet(GtkWidget* , GdkEventKey* , GtkTextBuffer* );
 
 /* Quit */
 void on_quit();
