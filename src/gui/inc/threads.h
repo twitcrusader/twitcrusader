@@ -38,13 +38,4 @@ struct twcThreads{
 
 }twcThread;
 
-
-struct trayIconThreads{
-
-	GThread *trayIcon;
-	GError *err_trayIcon;
-
-}trayIconThread;
-
-
 #endif /* THREADS_H_ */

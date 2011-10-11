@@ -54,7 +54,7 @@ int main(int argc, char *argv[]){
 
 	g_type_init();
 
-	if(!g_thread_supported() ){
+	if(g_thread_supported() ){
 		g_thread_init(NULL);
 		gdk_threads_init(); // Called to initialize internal mutex "gdk_threads_mutex".
 
@@ -73,12 +73,10 @@ int main(int argc, char *argv[]){
 
 	read_preference_file();
 
-	if( (trayIconThread.trayIcon = g_thread_create((GThreadFunc)gtk_init_tray_icon, (void *)argv, TRUE, &trayIconThread.err_trayIcon)) == NULL){
 
-			g_error_free ( trayIconThread.err_trayIcon ) ;
-		}
+	gtk_window_main(NULL);
 
-	if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twcThread.err_action)) == NULL){
+	/*if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twcThread.err_action)) == NULL){
 
 		g_error_free ( twcThread.err_action ) ;
 	}
@@ -87,9 +85,9 @@ int main(int argc, char *argv[]){
 
 		g_error_free ( twcThread.err_window ) ;
 	}
-	g_thread_join(trayIconThread.trayIcon);
 	g_thread_join(twcThread.action);
 	g_thread_join(twcThread.window);
+	 */
 
 	free_size_preference();
 	free_size_users();
