@@ -150,6 +150,9 @@ void window_state_event (GtkWidget *widget, GdkEventWindowState *event, gpointer
 			(event->new_window_state == GDK_WINDOW_STATE_ICONIFIED || event->new_window_state == (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_MAXIMIZED))
 	){
 		gtk_widget_hide (GTK_WIDGET(widget));
+
+		mainWindow.iconified=TRUE;
+
 		gtk_status_icon_set_visible(GTK_STATUS_ICON(trayIcon), TRUE);
 
 	}else if(event->changed_mask == GDK_WINDOW_STATE_WITHDRAWN &&
