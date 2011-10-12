@@ -150,6 +150,9 @@ void window_state_event (GtkWidget *widget, GdkEventWindowState *event, gpointer
 			(event->new_window_state == GDK_WINDOW_STATE_ICONIFIED || event->new_window_state == (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_MAXIMIZED))
 	){
 		gtk_widget_hide (GTK_WIDGET(widget));
+
+		mainWindow.iconified=TRUE;
+
 		gtk_status_icon_set_visible(GTK_STATUS_ICON(trayIcon), TRUE);
 
 	}else if(event->changed_mask == GDK_WINDOW_STATE_WITHDRAWN &&
@@ -496,6 +499,13 @@ void loadVersionDialog(){
 
 	debug_f_start("loadVersionDialog");
 
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
 	//pthread_cancel(twc.tid_action);
 
 	gtk_window_update();
@@ -505,6 +515,13 @@ void loadWindowProperties(){
 
 	debug_f_start("loadWindowProperties");
 
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
+
 	//pthread_cancel(twc.tid_action);
 
 	gtk_window_properties();
@@ -512,6 +529,13 @@ void loadWindowProperties(){
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
 
 	//pthread_cancel(twc.tid_action);
 
@@ -573,6 +597,14 @@ void* gtk_refresh_timeline(void* arg){
 void gtk_refresh(){
 
 	debug_f_start("gtk_refresh");
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
+
 
 	gtk_refresh_menu();
 	gtk_init_statusbar();
