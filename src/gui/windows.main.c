@@ -31,6 +31,7 @@ void* gtk_window_main(void* arg){
 
 	debug_f_start("gtk_window_main");
 
+	gtk_init_tray_icon();
 	gtk_init_window();
 	gtk_init_menu();
 	gtk_init_menu_bar();
@@ -60,7 +61,7 @@ void* gtk_window_main(void* arg){
 	/* CALLBACK: exit event */
 	g_signal_connect (mainWindow.window, "delete_event", G_CALLBACK (on_quit), NULL);
 	g_signal_connect (mainWindow.window, "destroy", G_CALLBACK (on_quit), NULL);
-
+	g_signal_connect (G_OBJECT (mainWindow.window), "window-state-event", G_CALLBACK (window_state_event), mainWindow.trayIcon);
 
 	// Widget Show
 	gtk_widget_show_all (mainWindow.window);
@@ -82,9 +83,83 @@ void* gtk_window_main(void* arg){
 }
 
 void gtk_init_tray_icon(){
-	GtkStatusIcon *tray_icon=gtk_status_icon_new_from_file(ICON_FAVICON);
-	gtk_status_icon_set_visible(tray_icon, TRUE);
 
+	debug_f_start("gtk_init_tray_icon");
+	int i;
+
+	menuTrayIcon[0].name=OPTIONS;
+	menuTrayIcon[0].icon=ICON_SETTINGS;
+	menuTrayIcon[0].function=G_CALLBACK (loadWindowProperties);
+
+	menuTrayIcon[1].name=QUIT;
+	menuTrayIcon[1].icon=ICON_CLOSE;
+	menuTrayIcon[1].function=G_CALLBACK (on_quit);
+
+	mainWindow.trayMenu=gtk_menu_new();
+
+	for(i=0;i<2;i++){
+		mainWindow.trayMenuItems[i] = gtk_image_menu_item_new_with_label(menuTrayIcon[i].name);
+		mainWindow.trayIconMenu[i] = gtk_image_new_from_file(menuTrayIcon[i].icon);
+		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.trayMenuItems[i]), mainWindow.trayIconMenu[i]);
+		g_signal_connect (G_OBJECT (mainWindow.trayMenuItems[i]), "activate", menuTrayIcon[i].function, NULL);
+		gtk_menu_shell_append (GTK_MENU_SHELL (mainWindow.trayMenu), mainWindow.trayMenuItems[i]);
+	}
+
+	gtk_widget_show_all (mainWindow.trayMenu);
+
+	mainWindow.trayIcon=gtk_status_icon_new_from_file(ICON_FAVICON);
+	gtk_status_icon_set_visible(mainWindow.trayIcon, TRUE);
+	gtk_status_icon_set_tooltip (mainWindow.trayIcon, TWC);
+	g_signal_connect(GTK_STATUS_ICON (mainWindow.trayIcon), "activate", GTK_SIGNAL_FUNC (gtk_tray_icon_activated), NULL);
+	g_signal_connect(GTK_STATUS_ICON (mainWindow.trayIcon), "popup-menu", GTK_SIGNAL_FUNC (gtk_tray_icon_popup_menu), mainWindow.trayMenu);
+
+}
+
+void gtk_tray_icon_activated(){
+
+	debug_f_start("gtk_tray_icon_activated");
+
+
+	if(mainWindow.iconified==FALSE){
+		gtk_window_iconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=TRUE;
+
+	}else{
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
+
+}
+
+void gtk_tray_icon_popup_menu(GtkStatusIcon *status_icon, guint button, guint32 activate_time, gpointer popUpMenu){
+
+	debug_f_start("gtk_tray_icon_popup_menu");
+
+	gtk_menu_popup(GTK_MENU(popUpMenu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
+
+}
+
+void window_state_event (GtkWidget *widget, GdkEventWindowState *event, gpointer trayIcon){
+
+	debug_f_start("window_state_event");
+
+	if(event->changed_mask == GDK_WINDOW_STATE_ICONIFIED&&
+			(event->new_window_state == GDK_WINDOW_STATE_ICONIFIED || event->new_window_state == (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_MAXIMIZED))
+	){
+		gtk_widget_hide (GTK_WIDGET(widget));
+
+		mainWindow.iconified=TRUE;
+
+		gtk_status_icon_set_visible(GTK_STATUS_ICON(trayIcon), TRUE);
+
+	}else if(event->changed_mask == GDK_WINDOW_STATE_WITHDRAWN &&
+			(event->new_window_state == GDK_WINDOW_STATE_ICONIFIED || event->new_window_state == (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_MAXIMIZED))
+	){
+		gtk_status_icon_set_visible(GTK_STATUS_ICON(trayIcon), TRUE);
+	}
 }
 
 void gtk_init_window(){
@@ -115,21 +190,21 @@ void gtk_init_menu(){
 
 	debug_f_start("gtk_init_menu");
 
-	menu1[0].name=CONNECT;
-	menu1[0].icon=ICON_ADDUSER;
-	menu1[0].function=G_CALLBACK (gtk_connect);
+	menuFile[0].name=CONNECT;
+	menuFile[0].icon=ICON_ADDUSER;
+	menuFile[0].function=G_CALLBACK (gtk_connect);
 
-	menu1[1].name=DISCONNECT;
-	menu1[1].icon=ICON_ADDUSER;
-	menu1[1].function=G_CALLBACK (gtk_disconnect);
+	menuFile[1].name=DISCONNECT;
+	menuFile[1].icon=ICON_ADDUSER;
+	menuFile[1].function=G_CALLBACK (gtk_disconnect);
 
-	menu1[2].name=OPTIONS;
-	menu1[2].icon=ICON_SETTINGS;
-	menu1[2].function=G_CALLBACK (loadWindowProperties);
+	menuFile[2].name=OPTIONS;
+	menuFile[2].icon=ICON_SETTINGS;
+	menuFile[2].function=G_CALLBACK (loadWindowProperties);
 
-	menu1[3].name=QUIT;
-	menu1[3].icon=ICON_CLOSE;
-	menu1[3].function=G_CALLBACK (on_quit);
+	menuFile[3].name=QUIT;
+	menuFile[3].icon=ICON_CLOSE;
+	menuFile[3].function=G_CALLBACK (on_quit);
 
 
 	menuAiuto[0].name=UPDATES;
@@ -148,10 +223,10 @@ void gtk_init_menu(){
 	int i;
 
 	for(i=0;i<4;i++){
-		mainWindow.file_menu_items[i] = gtk_image_menu_item_new_with_label(menu1[i].name);
-		mainWindow.file_icon_menu[i] = gtk_image_new_from_file(menu1[i].icon);
+		mainWindow.file_menu_items[i] = gtk_image_menu_item_new_with_label(menuFile[i].name);
+		mainWindow.file_icon_menu[i] = gtk_image_new_from_file(menuFile[i].icon);
 		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.file_menu_items[i]), mainWindow.file_icon_menu[i]);
-		g_signal_connect (G_OBJECT (mainWindow.file_menu_items[i]), "activate", menu1[i].function, NULL);
+		g_signal_connect (G_OBJECT (mainWindow.file_menu_items[i]), "activate", menuFile[i].function, NULL);
 		gtk_menu_shell_append(GTK_MENU_SHELL(mainWindow.file_menu_obj), mainWindow.file_menu_items[i]);
 	}
 
@@ -424,6 +499,13 @@ void loadVersionDialog(){
 
 	debug_f_start("loadVersionDialog");
 
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
 	//pthread_cancel(twc.tid_action);
 
 	gtk_window_update();
@@ -433,6 +515,13 @@ void loadWindowProperties(){
 
 	debug_f_start("loadWindowProperties");
 
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
+
 	//pthread_cancel(twc.tid_action);
 
 	gtk_window_properties();
@@ -440,6 +529,13 @@ void loadWindowProperties(){
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
 
 	//pthread_cancel(twc.tid_action);
 
@@ -501,6 +597,14 @@ void* gtk_refresh_timeline(void* arg){
 void gtk_refresh(){
 
 	debug_f_start("gtk_refresh");
+
+	if(mainWindow.iconified==TRUE){
+		gtk_widget_show_all(mainWindow.window);
+		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
+
+		mainWindow.iconified=FALSE;
+	}
+
 
 	gtk_refresh_menu();
 	gtk_init_statusbar();
@@ -567,4 +671,3 @@ void on_quit(){
 	notify_system(QUIT);
 	gtk_main_quit();
 }
-
