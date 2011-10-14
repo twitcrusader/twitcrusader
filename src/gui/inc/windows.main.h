@@ -63,8 +63,8 @@ struct main_window{
 	GtkStatusIcon *trayIcon;
 	GtkWidget *trayMenu,
 	*trayMainMenu,
-	*trayMenuItems[2],
-	*trayIconMenu[2];
+	*trayMenuItems[3],
+	*trayIconMenu[3];
 
 	gboolean iconified;
 

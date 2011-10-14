@@ -37,6 +37,7 @@
 #define ICON_ADDUSER ICONS_DIR"/menu.add.png"
 #define ICON_CLOSE ICONS_DIR"/menu.close.png"
 #define ICON_UPGRADE ICONS_DIR"/menu.upgrade.png"
+#define ICON_UPDATE_TRAYICON ICONS_DIR"/menu.update.png"
 
 #define ICON_ABOUT ICONS_DIR"/twc.about.png"
 #define ICON_FAVICON ICONS_DIR"/twc.favicon.png"
