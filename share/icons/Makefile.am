@@ -8,6 +8,7 @@ img_DATA= \
 	menu.close.png \
 	menu.setting.png \
 	menu.upgrade.png \
+	menu.update.png \
 	timeline.dm.png \
 	timeline.favorites.png \
 	timeline.home.png \
