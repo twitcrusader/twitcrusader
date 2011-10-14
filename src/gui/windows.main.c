@@ -74,8 +74,15 @@ void* gtk_window_main(void* arg){
 
 	}
 
+
+	if( (twcThread.window = g_thread_create((GThreadFunc)gtk_main, NULL, TRUE, &twcThread.err_window)) == NULL){
+
+			g_error_free ( twcThread.err_window ) ;
+		}
+
+
 	gdk_threads_enter();
-	gtk_main();
+	g_thread_join(twcThread.window);
 	gdk_flush();
 	gdk_threads_leave();
 
@@ -87,17 +94,21 @@ void gtk_init_tray_icon(){
 	debug_f_start("gtk_init_tray_icon");
 	int i;
 
-	menuTrayIcon[0].name=OPTIONS;
-	menuTrayIcon[0].icon=ICON_SETTINGS;
-	menuTrayIcon[0].function=G_CALLBACK (loadWindowProperties);
+	menuTrayIcon[0].name=UPDATES;
+	menuTrayIcon[0].icon=ICON_UPDATE_TRAYICON;
+	menuTrayIcon[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline_thread);
 
-	menuTrayIcon[1].name=QUIT;
-	menuTrayIcon[1].icon=ICON_CLOSE;
-	menuTrayIcon[1].function=G_CALLBACK (on_quit);
+	menuTrayIcon[1].name=OPTIONS;
+	menuTrayIcon[1].icon=ICON_SETTINGS;
+	menuTrayIcon[1].function=G_CALLBACK (loadWindowProperties);
+
+	menuTrayIcon[2].name=QUIT;
+	menuTrayIcon[2].icon=ICON_CLOSE;
+	menuTrayIcon[2].function=G_CALLBACK (on_quit);
 
 	mainWindow.trayMenu=gtk_menu_new();
 
-	for(i=0;i<2;i++){
+	for(i=0;i<3;i++){
 		mainWindow.trayMenuItems[i] = gtk_image_menu_item_new_with_label(menuTrayIcon[i].name);
 		mainWindow.trayIconMenu[i] = gtk_image_new_from_file(menuTrayIcon[i].icon);
 		gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (mainWindow.trayMenuItems[i]), mainWindow.trayIconMenu[i]);
