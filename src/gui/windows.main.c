@@ -298,25 +298,31 @@ void gtk_init_toolbar_items(){
 
 	/* Twitter Menu: Buttons */
 
-
+	tool_button[0].name=UPDATE_TL;
 	tool_button[0].icon=ICON_UPDATE;
 	tool_button[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline_thread);
 
+	tool_button[1].name=HOME_TL;
 	tool_button[1].icon=ICON_HOME;
 	tool_button[1].function=GTK_SIGNAL_FUNC(show_home_timeline);
 
+	tool_button[2].name=MENTION_TL;
 	tool_button[2].icon=ICON_MENTION;
 	tool_button[2].function=GTK_SIGNAL_FUNC(mentions_timeline);
 
+	tool_button[3].name=DM_TL;
 	tool_button[3].icon=ICON_DM;
 	tool_button[3].function=GTK_SIGNAL_FUNC(show_private_message);
 
+	tool_button[4].name=FAVORITES_TL;
 	tool_button[4].icon=ICON_FAVORITES;
 	tool_button[4].function=GTK_SIGNAL_FUNC(foo);
 
+	tool_button[5].name=LINK_TL;
 	tool_button[5].icon=ICON_LINK;
 	tool_button[5].function=GTK_SIGNAL_FUNC(foo);
 
+	tool_button[6].name=PHOTO;
 	tool_button[6].icon=ICON_PHOTO;
 	tool_button[6].function=GTK_SIGNAL_FUNC(foo);
 
@@ -325,6 +331,8 @@ void gtk_init_toolbar_items(){
 		mainWindow.tool_bar[i] = gtk_button_new();
 		mainWindow.tool_icon_menu[i] = gtk_image_new_from_file(tool_button[i].icon);
 		gtk_button_set_image(GTK_BUTTON(mainWindow.tool_bar[i]),mainWindow.tool_icon_menu[i]);
+		GtkTooltips *button_label=gtk_tooltips_new();
+		gtk_tooltips_set_tip (button_label, mainWindow.tool_bar[i], tool_button[i].name, NULL);
 		gtk_container_add (GTK_CONTAINER (mainWindow.toolbar), mainWindow.tool_bar[i]);
 		gtk_signal_connect_object (GTK_OBJECT (mainWindow.tool_bar[i]), "clicked", tool_button[i].function, NULL);
 	}
