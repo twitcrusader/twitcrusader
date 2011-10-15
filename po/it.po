@@ -26,134 +26,158 @@
 #
 
 #: src/core/inc/lang.h:40
-msgid "ISO-8859-1"
-msgstr ""
-
-#: src/core/inc/lang.h:46
 msgid " (c) "
 msgstr ""
 
-#: src/core/inc/lang.h:47
+#: src/core/inc/lang.h:41
 msgid "TwitCrusader"
 msgstr ""
 
-#: src/core/inc/lang.h:49
+#: src/core/inc/lang.h:43
 msgid "TwitCrusader Team"
 msgstr ""
 
-#: src/core/inc/lang.h:50
+#: src/core/inc/lang.h:44
 msgid "http://www.twitcrusader.org/"
 msgstr ""
 
-#: src/core/inc/lang.h:52
+#: src/core/inc/lang.h:46
 msgid "Version"
 msgstr "Versione"
 
-#: src/core/inc/lang.h:53
+#: src/core/inc/lang.h:47
 msgid "Twitter Client For Linux Desktop"
-msgstr ""
+msgstr "Client Twitter per Desktop Linux"
 
-#: src/core/inc/lang.h:54
+#: src/core/inc/lang.h:48
 msgid "Start"
-msgstr "Avvio"
+msgstr "Avvia"
 
-#: src/core/inc/lang.h:55
+#: src/core/inc/lang.h:49
 msgid "Connect"
 msgstr "Connetti"
 
-#: src/core/inc/lang.h:56
+#: src/core/inc/lang.h:50
 msgid "Disconnect"
 msgstr "Disconnetti"
 
-#: src/core/inc/lang.h:57
+#: src/core/inc/lang.h:51
 msgid "Options"
 msgstr "Opzioni"
 
-#: src/core/inc/lang.h:58
+#: src/core/inc/lang.h:52
 msgid "Exit"
 msgstr "Uscita"
 
-#: src/core/inc/lang.h:59
+#: src/core/inc/lang.h:53
 msgid "Updates"
 msgstr "Aggiornamenti"
 
-#: src/core/inc/lang.h:60
+#: src/core/inc/lang.h:54
 msgid "About"
 msgstr "Info"
 
-#: src/core/inc/lang.h:61
+#: src/core/inc/lang.h:55
 msgid "Account"
 msgstr "Profilo"
 
-#: src/core/inc/lang.h:62
+#: src/core/inc/lang.h:56
 msgid "Twitter's Account:"
 msgstr "Profilo Twitter:"
 
-#: src/core/inc/lang.h:63
+#: src/core/inc/lang.h:57
 msgid "Delete"
 msgstr "Cancella"
 
-#: src/core/inc/lang.h:64
+#: src/core/inc/lang.h:58
 msgid "New"
 msgstr "Nuovo"
 
-#: src/core/inc/lang.h:65
+#: src/core/inc/lang.h:59
 msgid "New User"
 msgstr "Nuovo Utente"
 
-#: src/core/inc/lang.h:66
+#: src/core/inc/lang.h:60
 msgid "Insert PIN"
 msgstr "Inserisci PIN"
 
-#: src/core/inc/lang.h:67
+#: src/core/inc/lang.h:61
 msgid "Create Account"
-msgstr "Crea Profilo"
+msgstr "Crea Account"
 
-#: src/core/inc/lang.h:68
+#: src/core/inc/lang.h:62
 msgid "ERROR: Bad Input"
-msgstr "ERRORE: Input Errato"
+msgstr "ERRORE: Inserimento Errato"
 
-#: src/core/inc/lang.h:69
+#: src/core/inc/lang.h:63
 msgid "Last Version"
 msgstr "Ultima Versione"
 
-#: src/core/inc/lang.h:70
+#: src/core/inc/lang.h:64
 msgid "Current Version"
 msgstr "Versione Corrente"
 
-#: src/core/inc/lang.h:71
+#: src/core/inc/lang.h:65
 msgid "File"
 msgstr ""
 
-#: src/core/inc/lang.h:72
+#: src/core/inc/lang.h:66
 msgid "Help"
 msgstr "Aiuto"
 
-#: src/core/inc/lang.h:73
+#: src/core/inc/lang.h:67
 msgid "Sending..."
 msgstr "Invio.."
 
-#: src/core/inc/lang.h:74
+#: src/core/inc/lang.h:68
 msgid "Tweet Not Sent"
-msgstr "Tweet Non Inviato"
+msgstr "Tweet non inviato"
 
-#: src/core/inc/lang.h:75
+#: src/core/inc/lang.h:69
 msgid "Tweet Sent"
-msgstr "Tweet Inviato"
+msgstr "Tweet inviato"
 
-#: src/core/inc/lang.h:76
+#: src/core/inc/lang.h:70
 msgid "Disconnected"
 msgstr "Disconnesso"
 
-#: src/core/inc/lang.h:77
+#: src/core/inc/lang.h:71
 msgid "Connected"
 msgstr "Connesso"
 
-#: src/core/inc/lang.h:78
+#: src/core/inc/lang.h:72
 msgid "Timeline Downloaded!"
-msgstr "Timeline Scaricata!"
+msgstr "Timeline Scaricata"
 
-#: src/core/inc/lang.h:79
+#: src/core/inc/lang.h:73
 msgid "Loading.."
 msgstr "Caricamento.."
+
+#: src/core/inc/lang.h:75
+msgid "Update"
+msgstr "Aggiorna"
+
+#: src/core/inc/lang.h:76
+msgid "Home"
+msgstr ""
+
+#: src/core/inc/lang.h:77
+msgid "Mentions"
+msgstr "Menzoni"
+
+#: src/core/inc/lang.h:78
+msgid "Direct Messages"
+msgstr "Messaggi Privati"
+
+#: src/core/inc/lang.h:79
+msgid "Favorites"
+msgstr "Favoriti"
+
+#: src/core/inc/lang.h:80
+msgid "Link"
+msgstr ""
+
+#: src/core/inc/lang.h:81
+msgid "Photo"
+msgstr "Foto"
 
