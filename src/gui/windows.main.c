@@ -59,8 +59,7 @@ void* gtk_window_main(void* arg){
 	gtk_container_add(GTK_CONTAINER(mainWindow.window), mainWindow.layout);
 
 	/* CALLBACK: exit event */
-	g_signal_connect (mainWindow.window, "delete_event", G_CALLBACK (on_quit), NULL);
-	g_signal_connect (mainWindow.window, "destroy", G_CALLBACK (on_quit), NULL);
+	g_signal_connect_swapped (G_OBJECT (mainWindow.window), "destroy", G_CALLBACK (on_quit), NULL);
 	g_signal_connect (G_OBJECT (mainWindow.window), "window-state-event", G_CALLBACK (window_state_event), mainWindow.trayIcon);
 
 	// Widget Show
