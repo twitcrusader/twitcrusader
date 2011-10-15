@@ -32,5 +32,8 @@ void gtk_window_error(char* error_msg){
 	GtkWidget *dialog;
 	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, error_msg);
 	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
+	
+	gtk_widget_show_all (dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
+	
 }
