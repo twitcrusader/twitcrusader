@@ -72,4 +72,12 @@
 #define TL_DOWNLOADED "Timeline Downloaded!"
 #define LOADING _("Loading..")
 
+#define UPDATE_TL _("Update")
+#define HOME_TL _("Home")
+#define MENTION_TL _("Mentions")
+#define DM_TL _("Direct Messages")
+#define FAVORITES_TL _("Favorites")
+#define LINK_TL _("Link")
+#define PHOTO _("Photo")
+
 #endif
