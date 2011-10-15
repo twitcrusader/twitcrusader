@@ -74,7 +74,9 @@ void gtk_window_register(){
 	/* Exit event and Widget Show */
 	g_signal_connect (G_OBJECT (DataInput->window), "delete_event", G_CALLBACK (gtk_widget_destroy), DataInput->window);
 	gtk_widget_show_all (DataInput->window);
-	gtk_dialog_run(GTK_DIALOG(DataInput->window));
+	
+	//Bug: this code freeze twc at loading....
+	//gtk_dialog_run(GTK_DIALOG(DataInput->window));
 
 }
 

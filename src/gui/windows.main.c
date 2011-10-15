@@ -65,21 +65,13 @@ void* gtk_window_main(void* arg){
 
 	// Widget Show
 	gtk_widget_show_all (mainWindow.window);
-
-
-	//Exist Config File?
-	if(fopen(progPath.configFile, "r")==NULL){
-
-		loadRegDialog();
-
-	}
-
+	
+	loadRegDialog();
 
 	if( (twcThread.window = g_thread_create((GThreadFunc)gtk_main, NULL, TRUE, &twcThread.err_window)) == NULL){
 
 			g_error_free ( twcThread.err_window ) ;
 		}
-
 
 	gdk_threads_enter();
 	g_thread_join(twcThread.window);
@@ -545,20 +537,24 @@ void loadWindowProperties(){
 
 	gtk_window_properties();
 }
+
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
-
+	
+	
 	if(mainWindow.iconified==TRUE){
 		gtk_widget_show_all(mainWindow.window);
 		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
 
 		mainWindow.iconified=FALSE;
 	}
-
-	//pthread_cancel(twc.tid_action);
-
+	
+	//Exist Config File?
+	if(fopen(progPath.configFile, "r")==NULL)
 	gtk_window_register();
+	
+	//pthread_cancel(twc.tid_action);
 
 }
 
