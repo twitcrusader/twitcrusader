@@ -86,7 +86,7 @@ void gtk_init_tray_icon(){
 	debug_f_start("gtk_init_tray_icon");
 	int i;
 
-	menuTrayIcon[0].name=UPDATES;
+	menuTrayIcon[0].name=UPDATE_TL;
 	menuTrayIcon[0].icon=ICON_UPDATE_TRAYICON;
 	menuTrayIcon[0].function=GTK_SIGNAL_FUNC(gtk_refresh_timeline_thread);
 
