@@ -69,7 +69,7 @@ void gtk_window_register(){
 	button = gtk_button_new_with_label (MAKE_ACCOUNT);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
 	gtk_dialog_add_action_widget (GTK_DIALOG (DataInput->window), table, GTK_RESPONSE_CLOSE);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), NULL);
+	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtk_oauth_access_token), NULL);
 
 	/* Exit event and Widget Show */
 	//g_signal_connect (G_OBJECT (DataInput->window), "delete_event", G_CALLBACK (gtk_widget_destroy), DataInput->window);
@@ -87,9 +87,9 @@ void gtk_window_register(){
  *
  */
 
-void gtkAccessToken(){
+void gtk_oauth_access_token(){
 
-	debug_f_start("gtkAccessToken");
+	debug_f_start("gtk_oauth_access_token");
 
 	int correctVerify=1;
 
