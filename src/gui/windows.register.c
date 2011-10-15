@@ -72,11 +72,12 @@ void gtk_window_register(){
 	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtkAccessToken), NULL);
 
 	/* Exit event and Widget Show */
-	g_signal_connect (G_OBJECT (DataInput->window), "delete_event", G_CALLBACK (gtk_widget_destroy), DataInput->window);
-	gtk_widget_show_all (DataInput->window);
+	//g_signal_connect (G_OBJECT (DataInput->window), "delete_event", G_CALLBACK (gtk_widget_destroy), DataInput->window);
+	g_signal_connect_swapped (GTK_DIALOG(DataInput->window), "response",G_CALLBACK (gtk_widget_destroy),DataInput->window);
 	
-	//Bug: this code freeze twc at loading....
+	gtk_widget_show_all (DataInput->window);
 	//gtk_dialog_run(GTK_DIALOG(DataInput->window));
+	
 
 }
 
@@ -107,10 +108,9 @@ void gtkAccessToken(){
 
 
 	if(correctVerify == 0){
-
-		gtk_widget_destroy(DataInput->window);
 		read_user_file();
 		gtk_refresh_timeline(NULL);
+		//gtk_widget_destroy(DataInput->window);
 	}
 
 }

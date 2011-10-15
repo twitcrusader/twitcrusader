@@ -42,7 +42,7 @@ void gtk_window_update()
 	*current_version;
 
 	last_version=download_version();
-	current_version=read_raw_text_file(PROG_DIR"VERSION");
+	current_version=read_raw_text_file(PROG_DIR"/VERSION");
 
 	if(last_version==NULL){
 		last_version="";
@@ -55,9 +55,13 @@ void gtk_window_update()
 
 
 	dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,msg);
-
+	gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
+	
+	gtk_widget_show_all (dialog);
 	gtk_dialog_run(GTK_DIALOG(dialog));
+	
+	
 
 
 }
