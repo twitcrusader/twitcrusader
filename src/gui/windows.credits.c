@@ -49,8 +49,9 @@ void gtk_credits_dialog(){
 
 	//gtk_about_dialog_set_name (GTK_ABOUT_DIALOG (dialog), TWC); //deprecated gtk+-2.0
 	gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), "");
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 	char* msg;
-	int error2=asprintf(&msg,"%s%s\n%s: %s", COPYRIGHT_SIMBOL, TWC_TEAM, VERSION_MSG, read_raw_text_file(PROG_DIR"/VERSION"));
+	int error2=asprintf(&msg,"%s%s\n%s: %s", COPYRIGHT_SIMBOL, TWC_TEAM, VERSION_MSG, read_raw_text_file(PROG_DIR"VERSION"));
 	if(!error){
 		gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), msg);
 	}
@@ -59,7 +60,12 @@ void gtk_credits_dialog(){
 
 	gtk_about_dialog_set_logo (GTK_ABOUT_DIALOG (dialog), pixbuf);
 	g_object_unref (pixbuf), pixbuf = NULL;
-
-	gtk_dialog_run (GTK_DIALOG (dialog));
+	
+	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
+	
+	gtk_widget_show_all (dialog);
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	
 	gtk_widget_destroy (dialog);
+	
 }
