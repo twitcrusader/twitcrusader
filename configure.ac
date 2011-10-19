@@ -1,5 +1,5 @@
 AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com])
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([no])])
 
 AM_INIT_AUTOMAKE([-Wall -pthread], AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS([config.h])
