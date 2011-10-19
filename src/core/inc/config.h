@@ -35,22 +35,25 @@
 #define CONFIG_PREFERENCE_FILENAME "preference.xml"
 
 
-struct users{
+typedef struct user{
 	char* id;
 	char* screenName;
 	char* token;
 	char* secretToken;
 	char* consumerKey;
 	char* consumerSecretKey;
-} user;
+} user_t;
 
-struct programPath{
+typedef struct program_path{
 	char *avatarDir;
 	char *configDir;
 	char *configFile;
 	char *preferenceFile;
 	char *timelineDir;
-} progPath;
+} prog_path_t;
+
+user_t user;
+prog_path_t prog_path;
 
 int write_user_file();
 int read_user_file();
