@@ -67,14 +67,19 @@ void* gtk_window_main(void* arg){
 
 	loadRegDialog();
 
-	if( (main_thread.thread = g_thread_create((GThreadFunc)gtk_window_main, (void *)NULL, TRUE, &main_thread.err_thread)) == NULL){
+	if( (main_thread.thread = g_thread_create((GThreadFunc)gtk_main, (void *)NULL, TRUE, &main_thread.err_thread)) == NULL){
 
 		g_error_free ( main_thread.err_thread ) ;
 	}
 
-	g_thread_join(main_thread.thread);
+	if( (action_thread.thread = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &action_thread.err_thread)) == NULL){
 
-	gtk_refresh_timeline_thread();
+		g_error_free ( action_thread.err_thread ) ;
+	}
+
+
+	g_thread_join(main_thread.thread);
+	g_thread_join(action_thread.thread);
 
 	return NULL;
 }
