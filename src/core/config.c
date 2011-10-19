@@ -92,7 +92,7 @@ int write_user_file(){
 
 	xmlFreeTextWriter(writer);
 
-	xmlSaveFileEnc(progPath.configFile, doc, MY_ENCODING);
+	xmlSaveFileEnc(prog_path.configFile, doc, MY_ENCODING);
 
 	xmlFreeDoc(doc);
 
@@ -107,9 +107,9 @@ int read_user_file(){
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 
-	debug_var_char("progPath.configFile", progPath.configFile);
+	debug_var_char("prog_path.configFile", prog_path.configFile);
 
-	doc=xmlParseFile(progPath.configFile);
+	doc=xmlParseFile(prog_path.configFile);
 
 	if (doc == NULL ){
 
@@ -204,7 +204,7 @@ int delete_account(){
 	char *cmd;
 
 	debug_var_char("cmd",cmd);
-	asprintf(&cmd, "%s %s", "rm -f ", progPath.configFile);
+	asprintf(&cmd, "%s %s", "rm -f ", prog_path.configFile);
 
 	if(system(cmd)==0){
 		disconnect();

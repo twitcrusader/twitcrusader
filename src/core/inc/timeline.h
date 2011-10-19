@@ -38,7 +38,7 @@
 
 #define MAX_NUM_TWEETS 20
 
-struct user_timeline{
+typedef struct timeline_user{
 	char *id,
 	*name,
 	*screen_name,
@@ -75,10 +75,10 @@ struct user_timeline{
 	*favourites_count,
 	*statuses_count,
 	*listed_count;
-};
+}timeline_user_t;
 
-struct timeLine{
-	struct user_timeline user;
+typedef struct time_line{
+	timeline_user_t user;
 	char *created_at,
 	*id,
 	*text,
@@ -94,9 +94,9 @@ struct timeLine{
 	*coordinates,
 	*place,
 	*contributors;
-};
+}time_line_t;
 
-struct timeLine timeline[MAX_NUM_TWEETS];
+time_line_t timeline[MAX_NUM_TWEETS];
 char* get_time_line_element(xmlDocPtr doc, xmlNodePtr cur, char *keyword);
 void get_status (xmlDocPtr doc, xmlNodePtr cur, int i);
 int read_time_line(char *docname);
