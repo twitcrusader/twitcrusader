@@ -164,7 +164,7 @@ void get_status (xmlDocPtr doc, xmlNodePtr cur, int i) {
 		cur2 = cur2->next;
 
 		// *profile_image,
-		asprintf(&timeline[i].user.profile_image, "%s%s", progPath.avatarDir, timeline[i].user.screen_name);
+		asprintf(&timeline[i].user.profile_image, "%s%s", prog_path.avatarDir, timeline[i].user.screen_name);
 
 		// *url,
 		keys=get_time_line_element(doc, cur2, "url");

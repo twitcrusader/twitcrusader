@@ -73,21 +73,12 @@ int main(int argc, char *argv[]){
 
 	read_preference_file();
 
+	if( (window_thread.thread = g_thread_create((GThreadFunc)gtk_window_main, (void *)argv, TRUE, &window_thread.err_thread)) == NULL){
 
-	gtk_window_main(NULL);
-
-	/*if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)argv, TRUE, &twcThread.err_action)) == NULL){
-
-		g_error_free ( twcThread.err_action ) ;
+		g_error_free ( window_thread.err_thread ) ;
 	}
 
-	if( (twcThread.window = g_thread_create((GThreadFunc)gtk_window_main, (void *)argv, TRUE, &twcThread.err_window)) == NULL){
-
-		g_error_free ( twcThread.err_window ) ;
-	}
-	g_thread_join(twcThread.action);
-	g_thread_join(twcThread.window);
-	 */
+	g_thread_join(window_thread.thread);
 
 	free_size_preference();
 	free_size_users();
