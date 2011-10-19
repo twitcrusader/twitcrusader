@@ -30,12 +30,13 @@
 
 #include "../../core/inc/externlibs.h"
 
-struct twcThreads{
-	GThread *window,
-	*action;
-	GError *err_window;
-	GError *err_action;
+typedef struct twc_thread{
+	GThread *thread;
+	GError *err_thread;
 
-}twcThread;
+}twc_thread_t;
+
+twc_thread_t window_thread;
+twc_thread_t action_thread;
 
 #endif /* THREADS_H_ */

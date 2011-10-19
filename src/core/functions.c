@@ -87,47 +87,47 @@ void create_dir(){
 
 	char *cmd;
 
-	progPath.configDir =  (char*) malloc(sizeof(char) * 80);
-	progPath.configFile =  (char*) malloc(sizeof(char) * 80);
-	progPath.preferenceFile= (char*) malloc(sizeof(char)* 80);
+	prog_path.configDir =  (char*) malloc(sizeof(char) * 80);
+	prog_path.configFile =  (char*) malloc(sizeof(char) * 80);
+	prog_path.preferenceFile= (char*) malloc(sizeof(char)* 80);
 	/* User-Directory Path */
 
 	//Avatar Dir
-	int error=asprintf(&progPath.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
-	debug_var_char("progPath.avatarDir",progPath.avatarDir);
+	int error=asprintf(&prog_path.avatarDir , "%s%s", g_get_home_dir(), "/.twc/avatar/");
+	debug_var_char("prog_path.avatarDir",prog_path.avatarDir);
 
-	error=asprintf(&cmd, "%s %s", "rm -rf ", progPath.avatarDir);
+	error=asprintf(&cmd, "%s %s", "rm -rf ", prog_path.avatarDir);
 	debug_var_char("cmd",cmd);
 	error=system(cmd);
 
 
 
-	//mkdir(progPath.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
-	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.avatarDir);
+	//mkdir(prog_path.avatarDir, 0777);  //not work with «user», work with sudo/su WTF???
+	error=asprintf(&cmd, "%s %s", "mkdir -p", prog_path.avatarDir);
 	debug_var_char("cmd",cmd);
 	error=system(cmd);
 
 	//Configuration File
-	error=asprintf(&progPath.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
-	debug_var_char("progPath.configDir",progPath.configDir);
+	error=asprintf(&prog_path.configDir , "%s%s", g_get_home_dir(), "/.twc/config/");
+	debug_var_char("prog_path.configDir",prog_path.configDir);
 
-	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.configDir);
+	error=asprintf(&cmd, "%s %s", "mkdir -p", prog_path.configDir);
 	debug_var_char("cmd",cmd);
 	error=system(cmd);
 
 	// Timeline File
-	error=asprintf(&progPath.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
-	debug_var_char("progPath.timelineDir",progPath.timelineDir);
+	error=asprintf(&prog_path.timelineDir , "%s%s", g_get_home_dir(), "/.twc/timeline/");
+	debug_var_char("prog_path.timelineDir",prog_path.timelineDir);
 
-	error=asprintf(&cmd, "%s %s", "mkdir -p", progPath.timelineDir);
+	error=asprintf(&cmd, "%s %s", "mkdir -p", prog_path.timelineDir);
 	debug_var_char("cmd",cmd);
 	error=system(cmd);
 
-	error=asprintf(&progPath.configFile , "%s%s", progPath.configDir, CONFIG_FILENAME);
-	debug_var_char("progPath.configFile",progPath.configFile);
+	error=asprintf(&prog_path.configFile , "%s%s", prog_path.configDir, CONFIG_FILENAME);
+	debug_var_char("prog_path.configFile",prog_path.configFile);
 
-	error=asprintf(&progPath.preferenceFile , "%s%s", progPath.configDir, CONFIG_PREFERENCE_FILENAME);
-	debug_var_char("progPath.preferenceFile",progPath.preferenceFile);
+	error=asprintf(&prog_path.preferenceFile , "%s%s", prog_path.configDir, CONFIG_PREFERENCE_FILENAME);
+	debug_var_char("prog_path.preferenceFile",prog_path.preferenceFile);
 
 }
 

@@ -550,7 +550,7 @@ void loadRegDialog(){
 	}
 	
 	//Exist Config File?
-	if(fopen(progPath.configFile, "r")==NULL)
+	if(fopen(prog_path.configFile, "r")==NULL)
 	gtk_window_register();
 	
 	//pthread_cancel(twc.tid_action);
