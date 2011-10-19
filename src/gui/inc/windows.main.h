@@ -101,25 +101,27 @@ struct main_window{
 
 }mainWindow;
 
-struct menu{
+typedef struct menu{
 	char *name;
 	char *icon;
 	void *function;
 
-};
+}menu_t;
 
-struct StatusBars
+typedef struct Status_bars
 {
 	GtkStatusbar *message;
 
-} StatusBar;
+} status_bar_t;
+
+status_bar_t status_bar;
 
 
 /* VARIABLES*/
-struct menu menuTrayIcon[2];
-struct menu menuFile[4];
-struct menu menuAiuto[3];
-struct menu tool_button[7];
+menu_t menuTrayIcon[2];
+menu_t menuFile[4];
+menu_t menuAiuto[3];
+menu_t tool_button[7];
 
 typedef struct configuration {
 	char* default_user;
@@ -143,6 +145,8 @@ void gtk_init_text_area();
 void gtk_init_menu_bar();
 void gtk_init_scrolled_window();
 void gtk_init_timer();
+
+void gtk_main_run(void*);
 
 /* Refresh */
 void gtk_refresh_toolbar_items();
