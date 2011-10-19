@@ -67,25 +67,19 @@ void* gtk_window_main(void* arg){
 
 	loadRegDialog();
 
-	if( (main_thread.thread = g_thread_create((GThreadFunc)gtk_main, (void *)NULL, TRUE, &main_thread.err_thread)) == NULL){
+	if( (main_thread.thread = g_thread_create((GThreadFunc)gtk_window_main, (void *)NULL, TRUE, &main_thread.err_thread)) == NULL){
 
 		g_error_free ( main_thread.err_thread ) ;
 	}
 
-
-	if( (action_thread.thread = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)NULL, TRUE, &action_thread.err_thread)) == NULL){
-
-		g_error_free ( action_thread.err_thread ) ;
-	}
-
 	g_thread_join(main_thread.thread);
-	g_thread_join(action_thread.thread);
+
+	gtk_refresh_timeline_thread();
 
 	return NULL;
 }
 
 void gtk_main_run(void* argv){
-
 	gdk_threads_enter();
 	gtk_main();
 	gdk_flush();
@@ -272,8 +266,8 @@ void gtk_init_statusbar(){
 
 	/* Status Bar */
 
-	StatusBar.message = GTK_STATUSBAR(mainWindow.statusbar);
-	gtk_statusbar_set_has_resize_grip (StatusBar.message, TRUE);
+	status_bar.message = GTK_STATUSBAR(mainWindow.statusbar);
+	gtk_statusbar_set_has_resize_grip (status_bar.message, TRUE);
 
 	if(strcmp(user.screenName, " ") == 0 && strcmp(user.id, " ") == 0 ){
 		mainWindow.statusLabel=PROFILE_DISCONNECTED;
@@ -281,7 +275,7 @@ void gtk_init_statusbar(){
 		mainWindow.statusLabel=PROFILE_CONNECTED;
 	}
 
-	gtk_statusbar_push (StatusBar.message, 0, mainWindow.statusLabel);
+	gtk_statusbar_push (status_bar.message, 0, mainWindow.statusLabel);
 
 }
 
@@ -454,15 +448,15 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *twe
 	/* If user press ENTER on keyboard Send Tweet and clean TextArea*/
 	if(pKey->keyval == GDK_Return){
 
-		gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, STBR_MSG);
+		gtk_statusbar_push (GTK_STATUSBAR(status_bar.message), 0, STBR_MSG);
 
 		//SendTweet
 		send = send_tweet(msg);
 
 		if(send == 0 || send == 1){
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, NOT_SENT);
+			gtk_statusbar_push (GTK_STATUSBAR(status_bar.message), 0, NOT_SENT);
 		} else {
-			gtk_statusbar_push (GTK_STATUSBAR(StatusBar.message), 0, SENT);
+			gtk_statusbar_push (GTK_STATUSBAR(status_bar.message), 0, SENT);
 			gtk_text_buffer_delete(tweetBuffer, &start, &end);
 		}
 
