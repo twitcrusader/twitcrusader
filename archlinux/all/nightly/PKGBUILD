@@ -23,7 +23,7 @@ conflicts=('twitcrusader')
 
 _gitroot="git://github.com/PTKDev/ClientTwitter-TwitCrusader.git"
 _gitname="twitcrusader"
-_gitcommit="6300bc5e545ac405c64a0d7a0fbbfcd941cada1f"
+_gitcommit="06f063bafd80c41898a3da9db6e3e296fd8cbefb"
 _gitbranch="nightly"
 
 build() {
