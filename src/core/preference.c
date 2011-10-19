@@ -32,9 +32,9 @@ int read_preference_file(){
 	xmlDocPtr doc;
 
 
-	debug_var_char("progPath.preferenceFile", progPath.preferenceFile);
+	debug_var_char("prog_path.preferenceFile", prog_path.preferenceFile);
 
-	doc=xmlParseFile(progPath.preferenceFile);
+	doc=xmlParseFile(prog_path.preferenceFile);
 
 	if (doc != NULL ){
 		if(get_preference(doc)==1){
@@ -140,8 +140,8 @@ void write_preference_file(){
 
 	xmlFreeTextWriter(writer);
 
-	debug_var_char("progPath.preferenceFile", progPath.preferenceFile);
-	xmlSaveFileEnc(progPath.preferenceFile, doc, MY_ENCODING);
+	debug_var_char("prog_path.preferenceFile", prog_path.preferenceFile);
+	xmlSaveFileEnc(prog_path.preferenceFile, doc, MY_ENCODING);
 
 	xmlFreeDoc(doc);
 }
