@@ -144,6 +144,8 @@ void gtk_init_menu_bar();
 void gtk_init_scrolled_window();
 void gtk_init_timer();
 
+void gtk_main_run(void*);
+
 /* Refresh */
 void gtk_refresh_toolbar_items();
 void* gtk_refresh_timeline(void*);

@@ -38,5 +38,6 @@ typedef struct twc_thread{
 
 twc_thread_t window_thread;
 twc_thread_t action_thread;
+twc_thread_t main_thread;
 
 #endif /* THREADS_H_ */

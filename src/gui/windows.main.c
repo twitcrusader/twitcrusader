@@ -64,20 +64,32 @@ void* gtk_window_main(void* arg){
 
 	// Widget Show
 	gtk_widget_show_all (mainWindow.window);
-	
+
 	loadRegDialog();
 
-	if( (twcThread.window = g_thread_create((GThreadFunc)gtk_main, NULL, TRUE, &twcThread.err_window)) == NULL){
+	if( (main_thread.thread = g_thread_create((GThreadFunc)gtk_main, (void *)NULL, TRUE, &main_thread.err_thread)) == NULL){
 
-			g_error_free ( twcThread.err_window ) ;
-		}
+		g_error_free ( main_thread.err_thread ) ;
+	}
 
-	gdk_threads_enter();
-	g_thread_join(twcThread.window);
-	gdk_flush();
-	gdk_threads_leave();
+
+	if( (action_thread.thread = g_thread_create((GThreadFunc)gtk_refresh_timeline, (void *)NULL, TRUE, &action_thread.err_thread)) == NULL){
+
+		g_error_free ( action_thread.err_thread ) ;
+	}
+
+	g_thread_join(main_thread.thread);
+	g_thread_join(action_thread.thread);
 
 	return NULL;
+}
+
+void gtk_main_run(void* argv){
+
+	gdk_threads_enter();
+	gtk_main();
+	gdk_flush();
+	gdk_threads_leave();
 }
 
 void gtk_init_tray_icon(){
@@ -540,19 +552,19 @@ void loadWindowProperties(){
 void loadRegDialog(){
 
 	debug_f_start("loadRegDialog");
-	
-	
+
+
 	if(mainWindow.iconified==TRUE){
 		gtk_widget_show_all(mainWindow.window);
 		gtk_window_deiconify(GTK_WINDOW(mainWindow.window));
 
 		mainWindow.iconified=FALSE;
 	}
-	
+
 	//Exist Config File?
 	if(fopen(prog_path.configFile, "r")==NULL)
-	gtk_window_register();
-	
+		gtk_window_register();
+
 	//pthread_cancel(twc.tid_action);
 
 }
@@ -650,17 +662,17 @@ void gtk_refresh_timeline_thread(){
 
 	debug_f_start("gtk_refresh_timeline_thread");
 
-	if(twcThread.err_action!=NULL){
-		g_error_free ( twcThread.err_action );
+	if(action_thread.err_thread!=NULL){
+		g_error_free ( action_thread.err_thread );
 
 	}
 
-	if( (twcThread.action = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &twcThread.err_action)) == NULL){
+	if( (action_thread.thread = g_thread_create((GThreadFunc)gtk_refresh_timeline, NULL, TRUE, &action_thread.err_thread)) == NULL){
 
-		g_error_free ( twcThread.err_action ) ;
+		g_error_free ( action_thread.err_thread ) ;
 	}
 
-	g_thread_join(twcThread.action);
+	g_thread_join(action_thread.thread);
 }
 
 void gtk_disconnect(){
