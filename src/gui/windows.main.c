@@ -388,15 +388,17 @@ void gtk_init_menu_bar(){
 void gtk_init_scrolled_window(){
 
 	debug_f_start("gtk_init_scrolled_window");
-
-
+	
 	int cols=0, rows=0;
-	mainWindow.table_into = gtk_table_new (1, 2, FALSE);
 	mainWindow.scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
+	gtk_container_set_border_width (GTK_CONTAINER (mainWindow.scrolled_window), 0);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window),GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
+	
+	mainWindow.table_into = gtk_table_new (1, 2, FALSE);
+	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);	
 
 
-	/* Scrolled */
 	for (cols=0; cols < 20; rows = rows + 4, cols++) {
 		if(timeline[cols].user.profile_image){
 			GdkPixbuf *image=gdk_pixbuf_new_from_file_at_scale(timeline[cols].user.profile_image,AVATAR_SIZE,AVATAR_SIZE,TRUE,NULL);
@@ -422,9 +424,6 @@ void gtk_init_scrolled_window(){
 		}
 	}
 
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);
-
-	gtk_table_attach (GTK_TABLE (mainWindow.table), mainWindow.scrolled_window, 0, 3, 0, 8, GTK_FILL,GTK_FILL, 0, 0);
 
 
 }
