@@ -41,7 +41,6 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
     $ su
     # make uninstall
 
-
 ##Debug
 
 After installation run:
