@@ -110,7 +110,7 @@ void gtk_oauth_access_token(){
 	if(correctVerify == 0){
 		read_user_file();
 		gtk_refresh_timeline(NULL);
-		//gtk_widget_destroy(DataInput->window);
+		gtk_widget_destroy(DataInput->window);
 	}
 
 }
