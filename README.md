@@ -1,6 +1,6 @@
-#TwitCrusader
-
 [![TwitCrusader](http://www.twitcrusader.org/logo.png)](http://www.twitcrusader.org/)
+
+#TwitCrusader
 
 TwitCrusader is Twitter Client For Linux Desktop
 
