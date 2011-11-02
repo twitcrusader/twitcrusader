@@ -1,4 +1,6 @@
-AC_INIT([TwitCrusader], [1.0], [BUG: ptkdev@gmail.com])
+TWC_VERSION=1.0
+
+AC_INIT([TwitCrusader], [$TWC_VERSION], [BUG: ptkdev@gmail.com])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([no])])
 
 AM_INIT_AUTOMAKE([-Wall -pthread], AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
@@ -36,11 +38,16 @@ You must have libnotify >= 0.7.3
 AC_SUBST(libnotify_CFLAGS)
 AC_SUBST(libnotify_LIBS)
 
+dnl # check for doxygen
+AC_PATH_PROG(DOXYGEN,doxygen,false)
+AM_CONDITIONAL(HAVE_DOXYGEN, test $DOXYGEN != false)
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
 po/Makefile.in
 share/icons/Makefile
 share/applications/Makefile
+txc.doxygen
 ])
 AC_OUTPUT
