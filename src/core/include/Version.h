@@ -15,7 +15,7 @@
  *		You should have received a copy of the GNU General Public License
  *		along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- *		Source: https://github.com/RoxShannon/TwitCrusaderpp
+ *		Source: https://github.com/KernelMonkey/TwitCrusaderpp
  *		email: orazio.1985@hotmail.com
  *
  */
@@ -26,10 +26,10 @@
 #define PROG_NAME "TwitCrusader++"
 #define COPYRIGHT_CHAR "\u00A9"
 #define COPYRIGHT COPYRIGHT_CHAR" TwitCrusader++"
-#define WEBSITE "https://github.com/RoxShannon/TwitCrusaderpp/"
+#define WEBSITE "https://github.com/KernelMonkey/TwitCrusaderpp/"
 
 #define TWC_VERSION_PATH PROG_DIR"/VERSION"
-#define TWC_UPDATES_URL "https://raw.github.com/RoxShannon/TwitCrusaderpp/master/VERSION"
+#define TWC_UPDATES_URL "https://raw.github.com/KernelMonkey/TwitCrusaderpp/master/VERSION"
 
 #define FILE_VERSION "/tmp/version"
 
