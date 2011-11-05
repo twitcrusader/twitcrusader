@@ -11,7 +11,7 @@ TwitCrusader is Twitter Client For Linux Desktop
 		
 * [nightly] TwitCrusader unstable code, testing and other. Please commit here.
 	
-* [nightly-cpp]	TwitCrusader++ is fork of TwitCrusader, More information on github.com/RoxShannon/TwitCrusaderpp
+* [nightly-cpp]	TwitCrusader++ is fork of TwitCrusader, More information on github.com/KernelMonkey/TwitCrusaderpp
 
 ## Are You A Developer?
 
