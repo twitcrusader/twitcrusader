@@ -399,12 +399,12 @@ void gtk_init_scrolled_window(){
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (mainWindow.scrolled_window), mainWindow.table_into);	
 
 
-	/*for (cols=0; cols < 20; rows = rows + 4, cols++) {
+	for (cols=0; cols < 20; rows = rows + 4, cols++) {
 		if(timeline[cols].user.profile_image){
 			GdkPixbuf *image=gdk_pixbuf_new_from_file_at_scale(timeline[cols].user.profile_image,AVATAR_SIZE,AVATAR_SIZE,TRUE,NULL);
 			mainWindow.avatar =  gtk_image_new_from_pixbuf(image);
 
-			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			gtk_table_attach_defaults (GTK_TABLE (mainWindow.table_into), mainWindow.avatar, 0, 1,rows, rows + 2);
 		}
 
 
@@ -420,25 +420,9 @@ void gtk_init_scrolled_window(){
 
 			gtk_text_buffer_set_text (tweetBuf, tweet, -1);
 
-			gtk_table_attach (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+			gtk_table_attach_defaults (GTK_TABLE (mainWindow.table_into), mainWindow.tweet, 1, 10,rows, rows + 2);
 		}
-	}*/
-	
-    GtkWidget *button;
-    char buffer[32];
-    int i, j;
-    
-    for (i = 0; i < 10; i++)
-       for (j = 0; j < 10; j++) {
-          sprintf (buffer, "button (%d,%d)\n", i, j);
-          button = gtk_toggle_button_new_with_label (buffer);
-          gtk_table_attach_defaults (GTK_TABLE (mainWindow.table_into), button,
-                                     i, i+1, j, j+1);
-          gtk_widget_show (button);
-       }
-   
-
-
+	} 
 
 }
 
