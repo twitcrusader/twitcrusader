@@ -36,11 +36,18 @@ You must have libnotify >= 0.7.3
 AC_SUBST(libnotify_CFLAGS)
 AC_SUBST(libnotify_LIBS)
 
+
+TWC_VERSION=1.0
+dnl # check for doxygen
+AC_PATH_PROG(DOXYGEN,doxygen,false)
+AM_CONDITIONAL(HAVE_DOXYGEN, test $DOXYGEN != false)
+
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
 po/Makefile.in
 share/icons/Makefile
 share/applications/Makefile
+twc.doxygen
 ])
 AC_OUTPUT
