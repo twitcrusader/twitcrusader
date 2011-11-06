@@ -1,17 +1,18 @@
 # Maintainer: Patryk Rzucidlo (@PTKDev) <ptkdev@gmail.com>
+# Contributor: Orazio Briante (@KernelMonkey) <orazio.1985@hotmail.com>
 # Contributor: Alessio Sergi (@al3hex) <asergi@archlinux.us>
 # Contributor: Alessio Biancalana (@dottorblaster) <dottorblaster@archlinux.us>
 # Contributor: Andrea Scarpino (@bashlnx) <andrea@archlinux.org>
 
 # SUPPORT:
-# Follow on Twitter: @teamtwc / @PTKDev / @RoxShannon / @dottorblaster / @bashlnx / @al3hex
+# Follow on Twitter: @teamtwc / @PTKDev / @KernelMonkey / @dottorblaster / @bashlnx / @al3hex
 # IRC: chat.freenode.net at #teamtwc
 # E-mail: teamtwc@twitcrusader.org
 
 
 pkgname=twitcrusader-git
-pkgver=20111014
-pkgrel=4
+pkgver=20111019
+pkgrel=2
 pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
