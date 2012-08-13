@@ -30,13 +30,18 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 * gcc or cc
 * pkg-config
 * intltool
-* libcurl 
 * gtk+-3.0
-* oauth
-* libxml-2.0
 * libnotify >= 0.7.3
 
+libtwitc Required:
+
+* libcurl 
+* oauth
+* libxml-2.0
+ 
+
 ### Compile - Makefile
+
     $ ./autogen.sh
     $ ./configure
     $ make
@@ -44,12 +49,14 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
     # make install
 
 #### Unistalling - Makefile
+
     $ su
     # make uninstall
 
 ##Debug
 
 On compiling process run:
+
     $ ./configure --enable-debug
 
 To have more details run:
