@@ -1,0 +1,3 @@
+[submodule "libtwitc"]
+	path = libtwitc
+	url = git://github.com/KernelMonkey/libtwitc.git

@@ -5,6 +5,12 @@
 TwitCrusader is Twitter Client For Linux Desktop
 
 ##Branchs
+
+How to download this repository:
+
+	$ git clone <project url>  --recursive
+
+
 * [builds] TwitCrusader Linux-PackageBuild (deb, pkgbuild, rpm, and other) 
 
 * [experimental] TwitCrusader unstable code, testing and other. PTKDev test only.
@@ -24,10 +30,10 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 * gcc or cc
 * pkg-config
 * intltool
-* libcurl >= 7.21.0
-* gtk+-2.4 >= 2.24.4
-* oauth >= 0.9.1
-* libxml-2.0 >= 2.6.32
+* libcurl 
+* gtk+-3.0
+* oauth
+* libxml-2.0
 * libnotify >= 0.7.3
 
 ### Compile - Makefile
@@ -43,9 +49,8 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 
 ##Debug
 
-After installation run:
-
-    $ twc --debug
+On compiling process run:
+    $ ./configure --enable-debug
 
 To have more details run:
 

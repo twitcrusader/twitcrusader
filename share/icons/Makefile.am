@@ -3,6 +3,7 @@ icon_DATA= TwitCrusader.png
 
 imgdir = $(datadir)/@PACKAGE@/icons
 img_DATA= \
+	default_profile.png \
 	menu.about.png \
 	menu.add.png \
 	menu.close.png \
