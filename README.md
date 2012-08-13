@@ -4,12 +4,12 @@
 
 TwitCrusader is Twitter Client For Linux Desktop
 
-##Branchs
 
-How to download this repository:
+## How to download this repository:
 
 	$ git clone <project url>  --recursive
 
+##Branchs
 
 * [builds] TwitCrusader Linux-PackageBuild (deb, pkgbuild, rpm, and other) 
 
