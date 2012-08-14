@@ -1,27 +1,42 @@
 bin_PROGRAMS = twc
 twc_SOURCES = \
-gui/windows.error.c \
-gui/windows.properties.c \
-gui/windows.main.c \
-gui/windows.register.c \
-gui/windows.updates.c \
-gui/windows.credits.c \
-core/preference.c\
-core/debug.c \
-core/notify.c \
-core/functions.c \
-core/twitter.c \
-core/gethttp.c \
-core/config.c \
-core/timeline.c \
-main.c
+preference.c \
+notify.c \
+Property.c \
+ErrorWidget.c \
+Registration.c \
+Credits.c \
+Version.c \
+MainWindow.c \
+twc.c
 
+twc_LDADD = \
+	$(EXTERN_LIB_DEP_LIBS) \
+	@libnotify_LIBS@ \
+	@libtwitc_LIBS@	
 
-twc_LDADD = $(GTK_FOOBAR_LIBS) @libnotify_LIBS@
+if DEBUG
 
 AM_CPPFLAGS = \
-	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DDEBUG \
+	-D_GNU_SOURCE \
+	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
-	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@"\" \
-	$(GTK_FOOBAR_CFLAGS) \
-	@libnotify_CFLAGS@
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
+	$(EXTERN_LIB_DEP_CFLAGS) \
+	@libnotify_CFLAGS@ \
+	@libtwitc_CFLAGS@ \
+	@libtwcgui_CFLAGS@
+else
+
+AM_CPPFLAGS = \
+	-D_GNU_SOURCE \
+	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
+	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
+	$(EXTERN_LIB_DEP_CFLAGS) \
+	@libnotify_CFLAGS@ \
+	@libtwitc_CFLAGS@ \
+	@libtwcgui_CFLAGS@
+
+endif
