@@ -25,7 +25,19 @@
 							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen.1201201832" name="autogen.sh" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.autogen"/>
 							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc.1338742597" name="GCC C Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gcc">
 								<option id="gnu.c.compiler.option.misc.other.223092781" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
-								<option id="gnu.c.compiler.option.include.paths.1709255656" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.c.compiler.option.include.paths.1709255656" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/gtk-3.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/pango-1.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/gio-unix-2.0/"/>
+									<listOptionValue builtIn="false" value="/usr/include/atk-1.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/cairo"/>
+									<listOptionValue builtIn="false" value="/usr/include/gdk-pixbuf-2.0"/>
+									<listOptionValue builtIn="false" value="/usr/include/freetype2"/>
+									<listOptionValue builtIn="false" value="/usr/include/glib-2.0"/>
+									<listOptionValue builtIn="false" value="/usr/lib/glib-2.0/include"/>
+									<listOptionValue builtIn="false" value="/usr/include/pixman-1"/>
+									<listOptionValue builtIn="false" value="/usr/include/libpng15"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.605289496" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp.1855579465" name="GCC C++ Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp"/>
@@ -39,7 +51,35 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
-				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory"/>
+				<externalSettings containerId="org.eclipse.cdt.managedbuilder.pkgconfig.extSettings" factoryId="org.eclipse.cdt.core.extension.container.factory">
+					<externalSetting contentTypes="org.eclipse.cdt.core.cSource:org.eclipse.cdt.core.cxxSource">
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gtk-3.0"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/pango-1.0"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gio-unix-2.0/"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/atk-1.0"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/cairo"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/gdk-pixbuf-2.0"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/freetype2"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/glib-2.0"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/lib/glib-2.0/include"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/pixman-1"/>
+						<entry flags="BUILTIN" kind="includePath" name="/usr/include/libpng15"/>
+					</externalSetting>
+					<externalSetting contentTypes="org.eclipse.cdt.managedbuilder.core.compiledObjectFile">
+						<entry flags="UNDEFINED" kind="libraryFile" name="gtk-3" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="gdk-3" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="atk-1.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="gio-2.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="pangocairo-1.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="gdk_pixbuf-2.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="cairo-gobject" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="pango-1.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="cairo" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="gobject-2.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="glib-2.0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="UNDEFINED" kind="libraryFile" name="notify" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
 			</storageModule>
 			<storageModule atk="false" bash-completion="false" bigreqsproto="false" cairo="false" cairo-fc="false" cairo-ft="false" cairo-gobject="false" cairo-pdf="false" cairo-png="false" cairo-ps="false" cairo-svg="false" cairo-tee="false" cairo-xlib="false" cairo-xlib-xrender="false" cecil="false" com_err="false" compositeproto="false" damageproto="false" dbus-1="false" dbus-glib-1="false" dmxproto="false" dotnet="false" dotnet35="false" dri2proto="false" evieproto="false" fixesproto="false" fontconfig="false" fontsproto="false" fontutil="false" form="false" formw="false" freehdl="false" freetype2="false" gail="false" gail-3.0="false" gdk="false" gdk-2.0="false" gdk-3.0="false" gdk-pixbuf-2.0="false" gdk-pixbuf-xlib-2.0="false" gdk-x11-2.0="false" gdk-x11-3.0="false" geoclue="false" gio-2.0="false" gio-unix-2.0="false" glib="false" glib-2.0="false" glproto="false" gmodule="false" gmodule-2.0="false" gmodule-export-2.0="false" gmodule-no-export-2.0="false" gnome-icon-theme="false" gnome-keybindings="false" gnome-python-desktop-2.0="false" gnome-video-effects="false" gnutls="false" gnutls-extra="false" gobject-2.0="false" gssdp-1.0="false" gthread="false" gthread-2.0="false" gtkextra-2.0="false" gtkplus="false" gtkplus-2.0="false" gtkplus-3.0="true" gtkplus-unix-print-2.0="false" gtkplus-unix-print-3.0="false" gtkplus-x11-2.0="false" gtkplus-x11-3.0="false" gupnp-1.0="false" gypsy="false" ibus-hunspell-table="false" ice="false" inputproto="false" kbproto="false" libckyapplet="false" libcrypto="false" libcurl="false" libffi="false" libnewt="false" libnotify="true" libpci="false" libpcsclite="false" libpng="false" libpng15="false" libquvi-scripts="false" libselinux="false" libsepol="false" libsoup-2.4="false" libsoup-gnome-2.4="false" libssl="false" libtasn1="false" libuser="false" libxml-2.0="false" lockdev="false" menu="false" menuw="false" moduleId="packages" mono="false" mono-2="false" mono-cairo="false" mono-lineeditor="false" mono-options="false" ncurses="false" ncursesw="false" notify-python="false" nspr="false" nss="false" nss-softokn="false" nss-util="false" oauth="false" ogg="false" openssl="false" p11-kit-1="false" panel="false" panelw="false" pango="false" pangocairo="false" pangoft2="false" pangox="false" pangoxft="false" pixman-1="false" pthread-stubs="false" python="false" python-2.7="false" python2="false" randrproto="false" recordproto="false" renderproto="false" resourceproto="false" rpm="false" scrnsaverproto="false" shared-mime-info="false" slang="false" sm="false" systemd="false" tic="false" tinfo="false" udev="false" usbutils="false" uuid="false" valgrind="false" videoproto="false" vorbis="false" vorbisenc="false" vorbisfile="false" wcf="false" x11="false" x11-xcb="false" xau="false" xcb="false" xcb-composite="false" xcb-damage="false" xcb-dpms="false" xcb-dri2="false" xcb-glx="false" xcb-randr="false" xcb-record="false" xcb-render="false" xcb-res="false" xcb-screensaver="false" xcb-shape="false" xcb-shm="false" xcb-sync="false" xcb-xevie="false" xcb-xf86dri="false" xcb-xfixes="false" xcb-xinerama="false" xcb-xprint="false" xcb-xselinux="false" xcb-xtest="false" xcb-xv="false" xcb-xvmc="false" xcmiscproto="false" xcomposite="false" xcursor="false" xdamage="false" xext="false" xextproto="false" xf86bigfontproto="false" xf86dgaproto="false" xf86driproto="false" xf86miscproto="false" xf86vidmodeproto="false" xfixes="false" xft="false" xi="false" xinerama="false" xineramaproto="false" xproto="false" xproxymngproto="false" xrandr="false" xrender="false" xt="false" zlib="false"/>
 		</cconfiguration>
