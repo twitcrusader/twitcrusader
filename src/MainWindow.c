@@ -88,7 +88,7 @@ void StartGUI()
 		progPath=initProgPath( PROG_PATH, AVATAR_DIR, CONFIG_DIR, CONFIG_FILE, PREFERENCE_FILE);
 
 	if(!twitterURLS)
-		twitterURLS=initURLS(OAUTH_API_URL_DEFAULT, HTTPS_API_URL_DEFAULT);
+		twitterURLS=initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT, SEARCH_URL_DEFAULT);
 
 	Connect();
 
@@ -177,7 +177,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *buf
 		{
 
 			//SendTweet
-			if(!sendTweet(twitterURLS, user, msg))
+			if(updateStatus(twitterURLS, user, msg))
 			{
 				gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "Tweet correctly sent..");
 				gtk_text_buffer_delete(buffer, &start, &end);
@@ -341,7 +341,7 @@ void init_timeline(timeline_t timeline)
 
 	for (cols=0; cols < MAX_NUM_TWEETS; rows = rows + 4, cols++)
 	{
-		if(timeline.timeline[cols].user.profile_image || timeline.timeline[cols].user.screen_name || timeline.timeline[cols].text || timeline.timeline[cols].created_at)
+		if(timeline.statuses[cols].user.profile_image || timeline.statuses[cols].user.screen_name || timeline.statuses[cols].text || timeline.statuses[cols].created_at)
 		{
 			// timeline[cols].timeline.user.profile_image
 			GdkPixbuf *image=gdk_pixbuf_new_from_file_at_scale(ICONS_DIR""ICON_DEFAULT_PROFILE, AVATAR_SIZE, AVATAR_SIZE, TRUE,NULL);
@@ -349,7 +349,7 @@ void init_timeline(timeline_t timeline)
 			gtk_table_attach (GTK_TABLE (tableTW), avatar, 0, 1,rows, rows + 3, GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
 
 			string_t tweet=NULL;
-			asprintf(&tweet,"@%s:\n%s\n[%s]\n", timeline.timeline[cols].user.screen_name, timeline.timeline[cols].text, timeline.timeline[cols].created_at);
+			asprintf(&tweet,"@%s:\n%s\n[%s]\n", timeline.statuses[cols].user.screen_name, timeline.statuses[cols].text, timeline.statuses[cols].created_at);
 			debug("TIMELINE: %s",tweet);
 
 			GtkWidget *gtweet = gtk_text_view_new();
@@ -467,58 +467,39 @@ void startTrayIcon()
 
 void switchTimeline()
 {
-	timeline_t timeline;
-	string_t rawTimeline=NULL;
+	timelineType_t timelineType;
+
 
 	switch(swTimeline)
 	{
 
 	case 0:
-		rawTimeline=getTimeline(twitterURLS->public_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=public_timeline;
 		break;
 
 	case 1:
-		rawTimeline=getTimeline(twitterURLS->home_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=home_timeline;
 		break;
 
 	case 2:
-		rawTimeline=getTimeline(twitterURLS->mentions_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
-
+		timelineType=mentions;
 		break;
 
 	case 3:
-		rawTimeline=getTimeline(twitterURLS->friends_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=friends_timeline;
 		break;
 
 	case 4:
-		rawTimeline=getTimeline(twitterURLS->user_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
-		break;
-
-	case 5:
-		rawTimeline=getTimeline(twitterURLS->rt_by_me_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
-		break;
-
-	case 6:
-		rawTimeline=getTimeline(twitterURLS->rt_to_me_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
-		break;
-
-	case 7:
-		rawTimeline=getTimeline(twitterURLS->rt_of_me_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=user_timeline;
 		break;
 
 	default:
-		rawTimeline=getTimeline(twitterURLS->public_timeline_url, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=public_timeline;
 		break;
 	}
+
+	string_t rawTimeline=getRawTimeline(twitterURLS, timelineType , user );
+	timeline_t timeline=readTimeLine(rawTimeline);
 
 	init_timeline(timeline);
 	refreshWindow();

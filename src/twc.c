@@ -74,7 +74,7 @@ byte_t main(int argc, char *argv[])
 
 		uninitProgPath(pp);
 
-		initLog(fileName, high, 1024);
+		initLog(fileName, (1024*1000));
 
 		notifyInit();
 
@@ -99,7 +99,6 @@ byte_t main(int argc, char *argv[])
 		notifyUninit();
 
 	}
-
 
 
 	return EXIT_SUCCESS;
