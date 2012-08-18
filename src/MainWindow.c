@@ -177,7 +177,7 @@ gboolean gtkSendTweet(GtkWidget *TextArea, GdkEventKey *pKey, GtkTextBuffer *buf
 		{
 
 			//SendTweet
-			if(!updateStatus(twitterURLS, user, msg))
+			if(updateStatus(twitterURLS, user, msg))
 			{
 				gtk_statusbar_push (GTK_STATUSBAR(statusbar), 0, "Tweet correctly sent..");
 				gtk_text_buffer_delete(buffer, &start, &end);
