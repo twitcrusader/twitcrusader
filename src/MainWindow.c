@@ -467,43 +467,39 @@ void startTrayIcon()
 
 void switchTimeline()
 {
-	timeline_t timeline;
-	string_t rawTimeline=NULL;
+	timelineType_t timelineType;
+
 
 	switch(swTimeline)
 	{
 
 	case 0:
-		rawTimeline=getRawTimeline(twitterURLS, public_timeline , user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=public_timeline;
 		break;
 
 	case 1:
-		rawTimeline=getRawTimeline(twitterURLS, home_timeline, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=home_timeline;
 		break;
 
 	case 2:
-		rawTimeline=getRawTimeline(twitterURLS, mentions, user );
-		timeline=readTimeLine(rawTimeline);
-
+		timelineType=mentions;
 		break;
 
 	case 3:
-		rawTimeline=getRawTimeline(twitterURLS, friends_timeline, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=friends_timeline;
 		break;
 
 	case 4:
-		rawTimeline=getRawTimeline(twitterURLS, user_timeline, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=user_timeline;
 		break;
 
 	default:
-		rawTimeline=getRawTimeline(twitterURLS, public_timeline, user );
-		timeline=readTimeLine(rawTimeline);
+		timelineType=public_timeline;
 		break;
 	}
+
+	string_t rawTimeline=getRawTimeline(twitterURLS, timelineType , user );
+	timeline_t timeline=readTimeLine(rawTimeline);
 
 	init_timeline(timeline);
 	refreshWindow();
