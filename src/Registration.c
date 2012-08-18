@@ -43,7 +43,6 @@ static string_t tmpToken=NULL;
 static twitterURLS_t *twURLS=NULL;
 GtkWidget	*dialog=NULL;
 
-
 void gtk_tokenTempBrowser()
 {
 	tmpToken=tokenTempBrowser(twURLS, TWITTER_KEY, TWITTER_KEY_SECRET);
@@ -100,7 +99,7 @@ void startRegistrationWindow(GtkWidget *window)
 
 	gtk_widget_destroy(dialog);
 
-	twURLS=initURLS(OAUTH_API_URL_DEFAULT, HTTPS_API_URL_DEFAULT);
+	twURLS=initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT, SEARCH_URL_DEFAULT);
 
 	/* Set all dialog options (color, size, position, logo, icon, etc) */
 	dialog = gtk_dialog_new();

@@ -37,10 +37,6 @@
 #define		TWITTER_KEY					"0xdBqXjFX4LBTLyoc5Dg"
 #define		TWITTER_KEY_SECRET			"VIr57NPcgxxpJ2esI7brKGhth06EslbH0UDD3ImFB8"
 
-#define		OAUTH_API_URL_DEFAULT		"https://api.twitter.com/oauth/"
-#define		HTTPS_API_URL_DEFAULT		"https://api.twitter.com/1/"
-
-
 #define		PROG_NAME					"TwitCrusader"
 #define		TWC_URL						"http://www.twitcrusader.org"
 #define		TWC_LATEST_VERSION_URL		"https://raw.github.com/KernelMonkey/ClientTwitter-TwitCrusader/nightly/VERSION"
