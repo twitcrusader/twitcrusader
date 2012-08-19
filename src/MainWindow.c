@@ -252,17 +252,17 @@ init_toolbar()
       toolbar = gtk_toolbar_new();
 
       const string_t titles[] =
-        { "Update", "Home", "Mentions", "Direct Messages", "Favorites", "Link",
-            "Photo" };
+          { "Update", "Home", "Mentions", "Direct Messages", "Favorites", "Link",
+              "Photo" };
 
       const string_t icons[] =
-        { ICONS_DIR "" ICON_UPDATE, ICONS_DIR "" ICON_HOME,
-            ICONS_DIR "" ICON_MENTION, ICONS_DIR "" ICON_DM,
-            ICONS_DIR "" ICON_FAVORITES, ICONS_DIR "" ICON_LINK,
-            ICONS_DIR "" ICON_PHOTO };
+          { ICONS_DIR "" ICON_UPDATE, ICONS_DIR "" ICON_HOME,
+              ICONS_DIR "" ICON_MENTION, ICONS_DIR "" ICON_DM,
+              ICONS_DIR "" ICON_FAVORITES, ICONS_DIR "" ICON_LINK,
+              ICONS_DIR "" ICON_PHOTO };
 
       const voidPtr_t functions[] =
-        { updateTimeline, homeTimeline, mentionsTimeline, foo, foo, foo, foo };
+          { updateTimeline, homeTimeline, mentionsTimeline, foo, foo, foo, foo };
 
       int i;
       for (i = 0; i < 5; i++)
@@ -350,7 +350,7 @@ init_scrolled_window()
     {
       tableTW = gtk_table_new(1, 3, TRUE);
       gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW
-      (scrolled_window), tableTW);
+          (scrolled_window), tableTW);
     }
 
 }
@@ -470,14 +470,14 @@ rightClick(GtkStatusIcon * icon, guint button, guint activate_time,
   GtkWidget *menu;
 
   const string_t titles[] =
-    { "Update", "Settings", "Version", "About", "Quit" };
+      { "Update", "Settings", "Version", "About", "Quit" };
   const string_t icons[] =
-    { ICONS_DIR "" ICON_UPDATE_TRAYICON, ICONS_DIR "" ICON_SETTINGS,
-        ICONS_DIR "" ICON_UPGRADE, ICONS_DIR "" ICON_STAR,
-        ICONS_DIR "" ICON_CLOSE };
+      { ICONS_DIR "" ICON_UPDATE_TRAYICON, ICONS_DIR "" ICON_SETTINGS,
+          ICONS_DIR "" ICON_UPGRADE, ICONS_DIR "" ICON_STAR,
+          ICONS_DIR "" ICON_CLOSE };
   const voidPtr_t functions[] =
-    { updateTimeline, loadWindowProperty, startVersionWindow,
-        startCreditsDialog, onQuit };
+      { updateTimeline, loadWindowProperty, startVersionWindow,
+          startCreditsDialog, onQuit };
 
   menu = gtk_menu_new();
 
@@ -517,7 +517,7 @@ switchTimeline()
   timelineType_t timelineType;
 
   switch (swTimeline)
-    {
+  {
 
   case 0:
     timelineType = public_timeline;
@@ -542,13 +542,20 @@ switchTimeline()
   default:
     timelineType = public_timeline;
     break;
-    }
+  }
 
   string_t rawTimeline = getRawTimeline(twitterURLS, timelineType, user);
   timeline_t timeline = readTimeLine(rawTimeline);
 
   init_timeline(timeline);
   refreshWindow();
+
+  int i = 0;
+  for (i = 0; i < MAX_NUM_TWEETS; i++)
+    {
+      uninitStatus(timeline.statuses[i]);
+    }
+
 }
 
 void
