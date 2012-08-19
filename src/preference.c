@@ -44,74 +44,74 @@
 #include <libxml/xmlwriter.h>
 
 #ifdef __cplusplus
-extern "C"{
+extern "C"
+  {
 #endif
 
-ProgramPath_t *initProgPath(const string_t programDir, const string_t avatarDir, const string_t configDir, const string_t configFile, const string_t preferenceFile)
+ProgramPath_t *
+initProgPath(const string_t programDir, const string_t avatarDir,
+    const string_t configDir, const string_t configFile,
+    const string_t preferenceFile)
 {
 
-	ProgramPath_t *pp=(ProgramPath_t*)malloc(sizeof(ProgramPath_t));
+  ProgramPath_t *pp = (ProgramPath_t *) malloc(sizeof(ProgramPath_t));
 
-	if(pp)
-	{
+  if (pp)
+    {
 
-		uid_t uid = geteuid();
-		passwd_t *p= getpwuid(uid);
+      uid_t uid = geteuid();
+      passwd_t *p = getpwuid(uid);
 
-		if(p!=NULL)
-		{
-			asprintf(&pp->progDir, "%s/%s", p->pw_dir,programDir);
-			asprintf(&pp->avatarDir, "%s/%s", pp->progDir,avatarDir);
-			asprintf(&pp->configDir, "%s/%s", pp->progDir,configDir);
-			asprintf(&pp->configFile, "%s/%s",pp->configDir,configFile);
-			asprintf(&pp->preferenceFile, "%s/%s", pp->configDir,preferenceFile);
+      if (p != NULL )
+        {
+          asprintf(&pp->progDir, "%s/%s", p->pw_dir, programDir);
+          asprintf(&pp->avatarDir, "%s/%s", pp->progDir, avatarDir);
+          asprintf(&pp->configDir, "%s/%s", pp->progDir, configDir);
+          asprintf(&pp->configFile, "%s/%s", pp->configDir, configFile);
+          asprintf(&pp->preferenceFile, "%s/%s", pp->configDir, preferenceFile);
 
+          debug ("avatarDir:\t%s", pp->avatarDir);debug ("configDir:\t%s", pp->configDir);debug ("configFile:\t%s", pp->configFile);debug ("preferenceFile:\t%s", pp->preferenceFile);debug ("progDir:\t%s", pp->progDir);
 
-			debug("avatarDir:\t%s",pp->avatarDir);
-			debug("configDir:\t%s",pp->configDir);
-			debug("configFile:\t%s",pp->configFile);
-			debug("preferenceFile:\t%s",pp->preferenceFile);
-			debug("progDir:\t%s",pp->progDir);
+          return pp;
+        }
+    }
 
-			return pp;
-		}
-	}
-
-	warning("Returned value: (NULL)");
-	return NULL;
+  warning("Returned value: (NULL)");
+  return NULL ;
 }
 
-void uninitProgPath(ProgramPath_t *pp)
+void
+uninitProgPath(ProgramPath_t * pp)
 {
-	if(pp)
-	{
-		if(pp->avatarDir)
-			free(pp->avatarDir);
+  if (pp)
+    {
+      if (pp->avatarDir)
+        free(pp->avatarDir);
 
-		if(pp->configDir)
-			free(pp->configDir);
+      if (pp->configDir)
+        free(pp->configDir);
 
-		if(pp->configFile)
-			free(pp->configFile);
+      if (pp->configFile)
+        free(pp->configFile);
 
-		if(pp->preferenceFile)
-			free(pp->preferenceFile);
+      if (pp->preferenceFile)
+        free(pp->preferenceFile);
 
-		if(pp->progDir)
-			free(pp->progDir);
+      if (pp->progDir)
+        free(pp->progDir);
 
-		pp->avatarDir=NULL;
-		pp->configDir=NULL;
-		pp->configFile=NULL;
-		pp->preferenceFile=NULL;
-		pp->progDir=NULL;
+      pp->avatarDir = NULL;
+      pp->configDir = NULL;
+      pp->configFile = NULL;
+      pp->preferenceFile = NULL;
+      pp->progDir = NULL;
 
-		free(pp);
+      free(pp);
 
-	}
+    }
 
-	warning("ProgramPath_t uninitialized");
-	pp=NULL;
+  warning("ProgramPath_t uninitialized");
+  pp = NULL;
 
 }
 

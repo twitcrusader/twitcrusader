@@ -36,6 +36,7 @@
 #define	notifyInit()	notify_init(PROG_NAME)
 #define	notifyUninit()	notify_uninit()
 
-extern	gboolean	notifyMsg	(string_t, int);
+extern gboolean
+notifyMsg(string_t, int);
 
 #endif /* NOTIFY_H_ */

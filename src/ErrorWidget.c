@@ -32,11 +32,13 @@
 
 #include <stdio.h>
 
-void startWindowError(const string_t msg)
+void
+startWindowError(const string_t msg)
 {
-	GtkWidget *dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE, msg);
-	g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
-	gtk_dialog_run(GTK_DIALOG(dialog));
+  GtkWidget *dialog = gtk_message_dialog_new(NULL,
+      GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+      msg);
+  g_signal_connect_swapped(dialog, "response", G_CALLBACK (gtk_widget_destroy),
+      dialog);
+  gtk_dialog_run(GTK_DIALOG (dialog) );
 }
-
-

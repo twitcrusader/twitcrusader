@@ -29,6 +29,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-extern	void	startVersionWindow	(	);
+extern void
+startVersionWindow();
 
 #endif
