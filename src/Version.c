@@ -40,28 +40,34 @@
  * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_updates_window_create-function/
  * 
  */
-void startVersionWindow()
+void
+startVersionWindow()
 {
 
-	string_t last_version=getPageCURL(TWC_LATEST_VERSION_URL);
-	string_t current_version=readRawTextFile(PROG_DIR"VERSION");
+  string_t last_version = getPageCURL(TWC_LATEST_VERSION_URL);
+  string_t current_version = readRawTextFile(PROG_DIR "VERSION");
 
-	if(!last_version)
-		last_version=" ";
+  if (!last_version)
+    last_version = " ";
 
-	if(!current_version)
-		current_version=" ";
+  if (!current_version)
+    current_version = " ";
 
-	string_t msg=NULL;
-	asprintf(&msg,"%s:\t%s\n%s:\t%s", "Latest Version", last_version, "Current Version", current_version);
+  string_t msg = NULL;
+  asprintf(&msg, "%s:\t%s\n%s:\t%s", "Latest Version", last_version,
+      "Current Version", current_version);
 
-	if(msg){
-		GtkWidget	*dialog=gtk_message_dialog_new(NULL,GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,msg);
+  if (msg)
+    {
+      GtkWidget *dialog = gtk_message_dialog_new(NULL,
+          GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,
+          msg);
 
-		gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-		g_signal_connect_swapped (dialog, "response",G_CALLBACK (gtk_widget_destroy),dialog);
+      gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+      g_signal_connect_swapped(dialog, "response",
+          G_CALLBACK (gtk_widget_destroy), dialog);
 
-		gtk_widget_show_all (dialog);
-		gtk_dialog_run(GTK_DIALOG(dialog));
-	}
+      gtk_widget_show_all(dialog);
+      gtk_dialog_run(GTK_DIALOG (dialog) );
+    }
 }
