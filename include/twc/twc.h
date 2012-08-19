@@ -41,5 +41,4 @@
 #define		TWC_URL						"http://www.twitcrusader.org"
 #define		TWC_LATEST_VERSION_URL		"https://raw.github.com/KernelMonkey/ClientTwitter-TwitCrusader/nightly/VERSION"
 
-
 #endif /* TWC_H_ */

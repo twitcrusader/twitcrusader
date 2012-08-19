@@ -31,7 +31,7 @@
 
 #include <gtk/gtk.h>
 
-extern	void	startWindowProperties	(user_t *, GtkWidget*);
-
+extern void
+startWindowProperties(user_t *, GtkWidget *);
 
 #endif /* PROPERTY_H_ */
