@@ -37,6 +37,11 @@
 
 #include <gtk/gtk.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /* gtk_credits_dialog_create() Function 
  *
  * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_credits_dialog_create-function/
@@ -88,3 +93,7 @@ startCreditsDialog()
   gtk_dialog_run(GTK_DIALOG (dialog) );
   gtk_widget_destroy(dialog);
 }
+
+#ifdef __cplusplus
+}
+#endif

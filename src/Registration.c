@@ -38,6 +38,11 @@
 
 #include <gtk/gtk.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 static GtkWidget *gpin = NULL;
 static string_t tmpToken = NULL;
 static twitterURLS_t *twURLS = NULL;
@@ -162,3 +167,7 @@ startRegistrationWindow(GtkWidget * window)
   gtk_dialog_run(GTK_DIALOG (dialog) );
 
 }
+
+#ifdef __cplusplus
+}
+#endif

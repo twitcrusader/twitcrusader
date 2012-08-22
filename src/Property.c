@@ -37,6 +37,11 @@
 
 #include <gtk/gtk.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 static GtkWidget *dialog = NULL;
 
 void
@@ -115,3 +120,7 @@ startWindowProperties(user_t * user, GtkWidget * window)
   gtk_dialog_run(GTK_DIALOG (dialog) );
 
 }
+
+#ifdef __cplusplus
+}
+#endif

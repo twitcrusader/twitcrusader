@@ -42,6 +42,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 byte_t
 main(int argc, char *argv[])
 {
@@ -98,3 +103,7 @@ main(int argc, char *argv[])
 
   return EXIT_SUCCESS;
 }
+
+#ifdef __cplusplus
+}
+#endif
