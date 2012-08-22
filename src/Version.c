@@ -35,6 +35,11 @@
 
 #include <gtk/gtk.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /* GtkUpdatesDialogCreate() Function 
  *
  * Developer Guide (Italian): http://dev.it.twitcrusader.org/sourcecode-guide-gtk_updates_window_create-function/
@@ -71,3 +76,7 @@ startVersionWindow()
       gtk_dialog_run(GTK_DIALOG (dialog) );
     }
 }
+
+#ifdef __cplusplus
+}
+#endif

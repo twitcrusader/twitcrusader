@@ -39,6 +39,11 @@
 
 #include <libnotify/notify.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 gboolean
 notifyMsg(string_t message, int timeout)
 {
@@ -61,3 +66,7 @@ notifyMsg(string_t message, int timeout)
 
   return out;
 }
+
+#ifdef __cplusplus
+}
+#endif
