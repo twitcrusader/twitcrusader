@@ -386,12 +386,10 @@ extern "C"
   void
   init_timeline(timeline_t timeline)
   {
-
+    gtk_container_remove(GTK_CONTAINER(table),scrolled_window);
     scrolled_window = gtk_scrolled_window_new(NULL, NULL );
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (scrolled_window),
         GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
-
-
 
     tableTW = gtk_table_new(1, 3, TRUE);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW
