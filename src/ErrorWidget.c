@@ -32,6 +32,11 @@
 
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 void
 startWindowError(const string_t msg)
 {
@@ -42,3 +47,7 @@ startWindowError(const string_t msg)
       dialog);
   gtk_dialog_run(GTK_DIALOG (dialog) );
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -41,6 +41,11 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 static GtkWidget *window = NULL;
 static GtkWidget *toolbar = NULL;
 static GtkWidget *charBar = NULL;
@@ -591,3 +596,7 @@ loadWindowProperty()
 
   uninitUser(old);
 }
+
+#ifdef __cplusplus
+}
+#endif
