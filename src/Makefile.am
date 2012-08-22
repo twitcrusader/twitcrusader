@@ -17,7 +17,7 @@ twc_LDADD = \
 
 if DEBUG
 
-AM_CPPFLAGS = \
+AM_CFLAGS = -g3 -O0 \
 	-DDEBUG \
 	-D_GNU_SOURCE \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
@@ -29,7 +29,7 @@ AM_CPPFLAGS = \
 	@libtwcgui_CFLAGS@
 else
 
-AM_CPPFLAGS = \
+AM_CFLAGS = -O2 \
 	-D_GNU_SOURCE \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
