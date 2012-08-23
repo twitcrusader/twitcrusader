@@ -126,6 +126,7 @@ extern "C"
           {
             startMainWindow();
             updateTimeline();
+
           }
         else
           {
@@ -382,11 +383,8 @@ extern "C"
     return avatarName;
   }
 
-
-  void
-  init_timeline(timeline_t timeline)
+  void init_scrolledWindow()
   {
-    gtk_container_remove(GTK_CONTAINER(table),scrolled_window);
     scrolled_window = gtk_scrolled_window_new(NULL, NULL );
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (scrolled_window),
         GTK_POLICY_ALWAYS, GTK_POLICY_ALWAYS);
@@ -395,7 +393,15 @@ extern "C"
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW
         (scrolled_window), tableTW);
 
+  }
 
+
+  void
+  init_timeline(timeline_t timeline)
+  {
+    gtk_container_remove(GTK_CONTAINER(table),scrolled_window);
+
+    init_scrolledWindow();
 
     int cols = 0, rows = 0;
 
@@ -425,6 +431,7 @@ extern "C"
             g_object_unref (image);
           }
 
+
         if (timeline.statuses[cols].user.profile_image
             || timeline.statuses[cols].user.screen_name
             || timeline.statuses[cols].text || timeline.statuses[cols].created_at)
@@ -435,17 +442,19 @@ extern "C"
                 timeline.statuses[cols].text, timeline.statuses[cols].created_at);
             debug ("TIMELINE: %s", tweet);
 
+
             GtkWidget *gtweet = gtk_text_view_new();
             gtk_text_view_set_editable(GTK_TEXT_VIEW (gtweet), FALSE);
             gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (gtweet), FALSE);
-            GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer(
-                GTK_TEXT_VIEW (gtweet) );
+            GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW (gtweet) );
             gtk_text_buffer_set_text(tweetBuf, tweet, -1);
             gtk_table_attach(GTK_TABLE (tableTW), gtweet, 1, 10, rows, rows + 3,
                 GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+
           }
         else
           rows = rows - 4;
+
       }
 
     gtk_table_attach(GTK_TABLE (table), scrolled_window, 0, 3, 0, 7,
@@ -472,6 +481,7 @@ extern "C"
 
         init_main_window();
         init_table();
+        init_scrolledWindow();
         init_statusbar(PROG_NAME);
         init_toolbar();
         init_charbar("140");
@@ -603,7 +613,9 @@ extern "C"
     string_t rawTimeline = getRawTimeline(twitterURLS, timelineType, user);
     timeline_t timeline = readTimeLine(rawTimeline);
 
+    gdk_threads_enter();
     init_timeline(timeline);
+    gdk_threads_leave();
 
     int i = 0;
     for (i = 0; i < MAX_NUM_TWEETS; i++)

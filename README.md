@@ -27,10 +27,11 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 
 ##Required
 
-* gcc or cc
+* C compiler
 * pkg-config
 * intltool
 * gtk+-3.0
+* gthreads
 * libnotify >= 0.7.3
 
 libtwitc Required:

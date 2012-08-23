@@ -24,17 +24,18 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 
 Required
 
-*    gcc or cc
-*    pkg-config
-*    intltool
-*    gtk+-3.0
-*    libnotify >= 0.7.3
+* C compiler
+* pkg-config
+* intltool
+* gtk+-3.0
+* gthreads
+* libnotify >= 0.7.3
 
 libtwitc Required:
 
-*   libcurl
-*    oauth
-*    libxml-2.0
+* libcurl
+* oauth
+* libxml-2.0
 
 
 
