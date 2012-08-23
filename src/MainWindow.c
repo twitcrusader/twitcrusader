@@ -65,6 +65,9 @@ extern "C"
   static twitterURLS_t *twitterURLS = NULL;
   static byte_t swTimeline = 1;
 
+
+  pthread_t thread, thread_r;
+
   extern void
   init_charbar(string_t);
 
@@ -85,6 +88,10 @@ extern "C"
 
   extern void
   loadWindowProperty();
+
+
+  extern void
+  updateTimeline();
 
   static void
   foo()
@@ -613,9 +620,7 @@ extern "C"
     string_t rawTimeline = getRawTimeline(twitterURLS, timelineType, user);
     timeline_t timeline = readTimeLine(rawTimeline);
 
-    gdk_threads_enter();
     init_timeline(timeline);
-    gdk_threads_leave();
 
     int i = 0;
     for (i = 0; i < MAX_NUM_TWEETS; i++)
