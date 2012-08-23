@@ -39,6 +39,7 @@
 #include <twitc/twitc.h>
 
 #include <gtk/gtk.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -50,6 +51,7 @@ extern "C"
   byte_t
   main(int argc, char *argv[])
   {
+pthread_t thread;
 
     debug ("PROG_DIR:\t%s", PROG_DIR);debug ("ICONS_DIR:\t%s", ICONS_DIR);debug ("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
 
@@ -81,18 +83,6 @@ extern "C"
 
         notifyMsg("\tStarted", 100);
 
-        if( !g_thread_supported() )
-          {
-            g_thread_init(NULL);
-            gdk_threads_init();
-
-            info("g_thread supported");
-          }
-        else
-          {
-            info("g_thread NOT supported");
-          }
-
         if (gtk_init_check(&argc, &argv))
           {
             debug ("GTK initialized");
@@ -101,9 +91,9 @@ extern "C"
 
             StartGUI();
 
-            gdk_threads_enter();
             gtk_main();
-            gdk_threads_leave();
+
+
           }
         else
           error("GTK can't be initialized");
