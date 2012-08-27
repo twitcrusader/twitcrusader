@@ -56,7 +56,7 @@ extern "C"
   static GtkWidget *scrolled_window = NULL;
   static GtkWidget *tableTW = NULL;
 
-  static gboolean iconified = FALSE;
+  gboolean iconified = FALSE;
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -92,6 +92,10 @@ extern "C"
 
   extern void
   updateTimeline();
+
+
+  extern void
+  receivedDMlist();
 
   static void
   foo()
@@ -281,7 +285,7 @@ extern "C"
                 ICONS_DIR "" ICON_PHOTO };
 
         const voidPtr_t functions[] =
-            { updateTimeline, homeTimeline, mentionsTimeline, foo, foo, foo, foo };
+            { updateTimeline, homeTimeline, mentionsTimeline, receivedDMlist, foo, foo, foo };
 
         int i;
         for (i = 0; i < 5; i++)
@@ -439,9 +443,8 @@ extern "C"
           }
 
 
-        if (timeline.statuses[cols].user.profile_image
-            || timeline.statuses[cols].user.screen_name
-            || timeline.statuses[cols].text || timeline.statuses[cols].created_at)
+        if (timeline.statuses[cols].user.screen_name &&
+            timeline.statuses[cols].text && timeline.statuses[cols].created_at)
           {
             string_t tweet = NULL;
             asprintf(&tweet, "@%s:\n%s\n[%s]\n",
@@ -470,6 +473,73 @@ extern "C"
     refreshWindow();
 
   }
+
+
+  void
+  init_DMscrolled(direct_messages_t direct_messages)
+  {
+    gtk_container_remove(GTK_CONTAINER(table),scrolled_window);
+
+    init_scrolledWindow();
+
+    int cols = 0, rows = 0;
+
+    for (cols = 0; cols < MAX_NUM_TWEETS; rows = rows + 4, cols++)
+      {
+
+        if(direct_messages.directMessage[cols].sender.profile_image_url_https)
+          {
+            GdkPixbuf *image=NULL;
+
+            string_t avatarName=downloadAvatar(direct_messages.directMessage[cols].sender.profile_image_url_https);
+
+            if(avatarName)
+              image = gdk_pixbuf_new_from_file_at_scale(
+                  avatarName, AVATAR_SIZE, AVATAR_SIZE, TRUE,
+                  NULL );
+
+            else
+              image = gdk_pixbuf_new_from_file_at_scale(
+                  ICONS_DIR "" ICON_DEFAULT_PROFILE, AVATAR_SIZE, AVATAR_SIZE, TRUE,
+                  NULL );
+
+            GtkWidget *avatar = gtk_image_new_from_pixbuf(image);
+            gtk_table_attach(GTK_TABLE (tableTW), avatar, 0, 1, rows, rows + 3,
+                GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+
+            g_object_unref (image);
+          }
+
+
+        if (direct_messages.directMessage[cols].created_at && direct_messages.directMessage[cols].sender.screen_name && direct_messages.directMessage[cols].recipient.screen_name && direct_messages.directMessage[cols].text)
+          {
+            string_t tweet = NULL;
+            asprintf(&tweet, "@%s:\n%s\n[%s]\n", direct_messages.directMessage[cols].sender.screen_name,  direct_messages.directMessage[cols].text, direct_messages.directMessage[cols].created_at);
+            debug ("TIMELINE: %s", tweet);
+
+
+            GtkWidget *gtweet = gtk_text_view_new();
+            gtk_text_view_set_editable(GTK_TEXT_VIEW (gtweet), FALSE);
+            gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (gtweet), FALSE);
+            GtkTextBuffer *tweetBuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW (gtweet) );
+            gtk_text_buffer_set_text(tweetBuf, tweet, -1);
+            gtk_table_attach(GTK_TABLE (tableTW), gtweet, 1, 10, rows, rows + 3,
+                GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 0, 0);
+
+          }
+        else
+          rows = rows - 4;
+
+      }
+
+    gtk_table_attach(GTK_TABLE (table), scrolled_window, 0, 3, 0, 7,
+        GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+
+    refreshWindow();
+
+  }
+
+
 
   void
   init_table()
@@ -513,6 +583,7 @@ extern "C"
       }
 
     gtk_widget_show_all(window);
+
   }
 
   static void
@@ -628,6 +699,24 @@ extern "C"
         uninitStatus(timeline.statuses[i]);
       }
 
+  }
+
+
+  void
+  receivedDMlist()
+  {
+    string_t rawDM=getRawDM(twitterURLS, user);
+
+    direct_messages_t DMs=readDMs(rawDM);
+
+    init_DMscrolled(DMs);
+
+    int i = 0;
+    for (i = 0; i < MAX_NUM_DM; i++)
+      {
+        if(DMs.directMessage[i].text)
+          uninitDM(DMs.directMessage[i]);
+      }
   }
 
   void
