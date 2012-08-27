@@ -37,7 +37,4 @@
 extern void
 StartGUI();
 
-extern void onTimeout();
-
-
 #endif
