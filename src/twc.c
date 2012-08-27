@@ -51,7 +51,6 @@ extern "C"
   byte_t
   main(int argc, char *argv[])
   {
-pthread_t thread;
 
     debug ("PROG_DIR:\t%s", PROG_DIR);debug ("ICONS_DIR:\t%s", ICONS_DIR);debug ("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
 
@@ -92,7 +91,6 @@ pthread_t thread;
             StartGUI();
 
             gtk_main();
-
 
           }
         else
