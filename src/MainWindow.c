@@ -97,6 +97,9 @@ extern "C"
   extern void
   receivedDMlist();
 
+  extern  void
+  receivedFavoriteslist();
+
   static void
   foo()
   {
@@ -285,7 +288,7 @@ extern "C"
                 ICONS_DIR "" ICON_PHOTO };
 
         const voidPtr_t functions[] =
-            { updateTimeline, homeTimeline, mentionsTimeline, receivedDMlist, foo, foo, foo };
+            { updateTimeline, homeTimeline, mentionsTimeline, receivedDMlist, receivedFavoriteslist, foo, foo };
 
         int i;
         for (i = 0; i < 5; i++)
@@ -359,7 +362,7 @@ extern "C"
       box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
   }
 
-  string_t downloadAvatar(string_t url)
+  string_t downloadAvatar(string_t url, string_t screen_name)
   {
 
     string_t avatarName=NULL;
@@ -372,7 +375,7 @@ extern "C"
 
         if(filename)
           {
-            asprintf(&avatarName, "%s/%s",progPath->avatarDir, filename);
+            asprintf(&avatarName, "%s/%s_%s",progPath->avatarDir, filename, screen_name);
 
             if(avatarName){
                 debug("avatarName %s",avatarName);
@@ -423,7 +426,7 @@ extern "C"
           {
             GdkPixbuf *image=NULL;
 
-            string_t avatarName=downloadAvatar(timeline.statuses[cols].user.profile_image_url);
+            string_t avatarName=downloadAvatar(timeline.statuses[cols].user.profile_image_url, timeline.statuses[cols].user.screen_name);
 
             if(avatarName)
               image = gdk_pixbuf_new_from_file_at_scale(
@@ -491,7 +494,7 @@ extern "C"
           {
             GdkPixbuf *image=NULL;
 
-            string_t avatarName=downloadAvatar(direct_messages.directMessage[cols].sender.profile_image_url_https);
+            string_t avatarName=downloadAvatar(direct_messages.directMessage[cols].sender.profile_image_url_https, direct_messages.directMessage[cols].sender.screen_name);
 
             if(avatarName)
               image = gdk_pixbuf_new_from_file_at_scale(
@@ -718,6 +721,24 @@ extern "C"
           uninitDM(DMs.directMessage[i]);
       }
   }
+
+
+  void
+  receivedFavoriteslist()
+  {
+    timeline_t favorites = readTimeLine(
+        getRawFavorites(twitterURLS, user));
+
+    init_timeline(favorites);
+
+    int i = 0;
+    for (i = 0; i < MAX_NUM_TWEETS; i++)
+      {
+        if(favorites.statuses[i].text)
+          uninitStatus(favorites.statuses[i]);
+      }
+  }
+
 
   void
   updateTimeline()
