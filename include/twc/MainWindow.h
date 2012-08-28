@@ -30,11 +30,17 @@
 #ifndef WINDOWMAIN_H
 #define WINDOWMAIN_H
 
+#include <twc/preference.h>
+
 #include <gtk/gtk.h>
 
 #define		AVATAR_SIZE		70
 
 extern void
-StartGUI();
+StartGUI(progData_t *);
+
+extern void
+ updateTimeline();
+
 
 #endif

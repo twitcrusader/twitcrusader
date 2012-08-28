@@ -29,9 +29,11 @@
 #ifndef PROPERTY_H_
 #define PROPERTY_H_
 
+#include <twc/preference.h>
+
 #include <gtk/gtk.h>
 
 extern void
-startWindowProperties(user_t *, GtkWidget *);
+startWindowProperties(progData_t *, GtkWidget *);
 
 #endif /* PROPERTY_H_ */
