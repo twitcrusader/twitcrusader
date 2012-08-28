@@ -42,11 +42,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
+
+static progData_t twc;
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
 
   byte_t
   main(int argc, char *argv[])
@@ -57,24 +61,21 @@ extern "C"
     fprintf(stdout, "\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
     fprintf(stdout, "Copyright (C) 2012  TwitCrusader Team\n\n");
 
-    ProgramPath_t *pp = initProgPath(PROG_PATH, AVATAR_DIR, CONFIG_DIR,
-        CONFIG_FILE, PREFERENCE_FILE);
+    initProgData(&twc);
 
-    if (pp)
+    if (twc.pp)
       {
 
-        if (createDirectory(pp->progDir))
+        if (createDirectory(twc.pp->progDir))
           {
-            createDirectory(pp->avatarDir);
+            createDirectory(twc.pp->avatarDir);
           }
 
         string_t fileLock = NULL;
-        asprintf(&fileLock, "%s/%s.lock", pp->progDir, PROG_NAME);
+        asprintf(&fileLock, "%s/%s.lock", twc.pp->progDir, PROG_NAME);
 
         string_t fileName = NULL;
-        asprintf(&fileName, "%s/%s.log", pp->progDir, PROG_NAME);
-
-        uninitProgPath(pp);
+        asprintf(&fileName, "%s/%s.log", twc.pp->progDir, PROG_NAME);
 
         initLog(fileName, (1024 * 1000));
 
@@ -82,19 +83,31 @@ extern "C"
 
         notifyMsg("\tStarted", 100);
 
-        if (gtk_init_check(&argc, &argv))
+
+        /* Init thread */
+        g_thread_init(NULL);
+        gdk_threads_init ();
+
+
+        if (gtk_init_check(NULL, NULL))
           {
+
             debug ("GTK initialized");
 
-            startTrayIcon();
 
-            StartGUI();
+            gdk_threads_enter ();
+
+            StartGUI(&twc);
 
             gtk_main();
+
+            gdk_threads_leave();
+
 
           }
         else
           error("GTK can't be initialized");
+
 
         notifyMsg("\tStopped", 100);
 

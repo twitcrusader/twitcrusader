@@ -30,7 +30,6 @@
 
 #include <twitc/twitc.h>
 
-#include <twc/preference.h>
 
 #include <twc/icons.h>
 #include <twc/MainWindow.h>
@@ -40,6 +39,8 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+
+#include <pthread.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -58,15 +59,16 @@ extern "C"
 
   gboolean iconified = FALSE;
 
+  static progData_t *twc=NULL;
+
+  static GThread   *thread;
+
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  static ProgramPath_t *progPath = NULL;
-  static user_t *user = NULL;
-  static twitterURLS_t *twitterURLS = NULL;
-  static byte_t swTimeline = 1;
+  static byte_t swTimeline = 0;
 
-
-  pthread_t thread, thread_r;
+  extern void
+  LoadGUI();
 
   extern void
   init_charbar(string_t);
@@ -76,9 +78,6 @@ extern "C"
 
   extern void
   refreshWindow();
-
-  extern void
-  updateTimeline();
 
   extern void
   homeTimeline();
@@ -95,10 +94,10 @@ extern "C"
 
 
   extern void
-  receivedDMlist();
+  dmList();
 
   extern  void
-  receivedFavoriteslist();
+  favoritesTimeline();
 
   static void
   foo()
@@ -109,58 +108,10 @@ extern "C"
   void
   Connect()
   {
-    if (!user)
+    if (!twc->user)
 
-      user = readUserFile(progPath->configFile);
+      twc->user = readUserFile(twc->pp->configFile);
 
-  }
-
-  void
-  StartGUI()
-  {
-    if (!progPath)
-      progPath = initProgPath(PROG_PATH, AVATAR_DIR, CONFIG_DIR, CONFIG_FILE,
-          PREFERENCE_FILE);
-
-    if (!twitterURLS)
-      twitterURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT,
-          SEARCH_URL_DEFAULT);
-
-    Connect();
-
-    if (!user)
-      {
-        startRegistrationWindow(window);
-        Connect();
-      }
-
-    if (user)
-      {
-        if (!window)
-          {
-            startMainWindow();
-            updateTimeline();
-
-          }
-        else
-          {
-            if (iconified)
-              {
-                gtk_window_deiconify(GTK_WINDOW (window) );
-                refreshWindow();
-
-                iconified = FALSE;
-              }
-            else
-              {
-                gtk_widget_hide(window);
-
-                iconified = TRUE;
-
-              }
-
-          }
-      }
   }
 
   void
@@ -215,7 +166,7 @@ extern "C"
           {
 
             //SendTweet
-            if (updateStatus(twitterURLS, user, msg))
+            if (updateStatus(twc->twURLS, twc->user, msg))
               {
                 gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0,
                     "Tweet correctly sent..");
@@ -288,7 +239,7 @@ extern "C"
                 ICONS_DIR "" ICON_PHOTO };
 
         const voidPtr_t functions[] =
-            { updateTimeline, homeTimeline, mentionsTimeline, receivedDMlist, receivedFavoriteslist, foo, foo };
+            { updateTimeline, homeTimeline, mentionsTimeline, dmList, favoritesTimeline, foo, foo };
 
         int i;
         for (i = 0; i < 5; i++)
@@ -297,8 +248,7 @@ extern "C"
             GtkToolItem *item = gtk_tool_button_new(icon, titles[i]);
 
             gtk_toolbar_insert(GTK_TOOLBAR (toolbar), item, i);
-            g_signal_connect(G_OBJECT (item), "clicked",
-                G_CALLBACK (functions[i]), NULL);
+            g_signal_connect(G_OBJECT (item), "clicked", G_CALLBACK (functions[i]), NULL);
 
           }
         gtk_toolbar_set_style(GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
@@ -312,7 +262,6 @@ extern "C"
     if (!statusbar)
       {
         statusbar = gtk_statusbar_new();
-        gtk_toolbar_set_style(GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 
         gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0, msg);
       }
@@ -362,41 +311,6 @@ extern "C"
       box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
   }
 
-  string_t downloadAvatar(string_t url, string_t screen_name)
-  {
-
-    string_t avatarName=NULL;
-
-    if(url)
-      {
-
-        debug("url: %s", url);
-        string_t filename = fileNameFromUrl(url);
-
-        if(filename)
-          {
-            asprintf(&avatarName, "%s/%s_%s",progPath->avatarDir, filename, screen_name);
-
-            if(avatarName){
-                debug("avatarName %s",avatarName);
-
-                FILE *fp=fopen(avatarName,"r");
-                if(!fp)
-                  getFileCURL(url, avatarName);
-
-
-                if(fp)
-                  fclose(fp);
-
-            }
-          }
-
-      }
-
-
-    return avatarName;
-  }
-
   void init_scrolledWindow()
   {
     scrolled_window = gtk_scrolled_window_new(NULL, NULL );
@@ -413,6 +327,7 @@ extern "C"
   void
   init_timeline(timeline_t timeline)
   {
+
     gtk_container_remove(GTK_CONTAINER(table),scrolled_window);
 
     init_scrolledWindow();
@@ -426,7 +341,7 @@ extern "C"
           {
             GdkPixbuf *image=NULL;
 
-            string_t avatarName=downloadAvatar(timeline.statuses[cols].user.profile_image_url, timeline.statuses[cols].user.screen_name);
+            string_t avatarName=MakeAvatarName(timeline.statuses[cols].user.profile_image_url, timeline.statuses[cols].user.screen_name, twc->pp->avatarDir);
 
             if(avatarName)
               image = gdk_pixbuf_new_from_file_at_scale(
@@ -494,7 +409,7 @@ extern "C"
           {
             GdkPixbuf *image=NULL;
 
-            string_t avatarName=downloadAvatar(direct_messages.directMessage[cols].sender.profile_image_url_https, direct_messages.directMessage[cols].sender.screen_name);
+            string_t avatarName=MakeAvatarName(direct_messages.directMessage[cols].sender.profile_image_url_https, direct_messages.directMessage[cols].sender.screen_name, twc->pp->avatarDir);
 
             if(avatarName)
               image = gdk_pixbuf_new_from_file_at_scale(
@@ -562,6 +477,9 @@ extern "C"
         init_main_window();
         init_table();
         init_scrolledWindow();
+        timeline_t timeline;
+        memset(&timeline, 0x00, sizeof(timeline_t));
+        init_timeline(timeline);
         init_statusbar(PROG_NAME);
         init_toolbar();
         init_charbar("140");
@@ -593,18 +511,14 @@ extern "C"
   leftClick(GtkStatusIcon * icon, gpointer data)
   {
 
-    StartGUI();
+    LoadGUI();
   }
 
   void
   onQuit()
   {
 
-    if (user)
-      uninitUser(user);
-
-    if (progPath)
-      uninitProgPath(progPath);
+    uninitProgData(twc);
 
     gtk_main_quit();
   }
@@ -661,96 +575,57 @@ extern "C"
   void
   switchTimeline()
   {
-    timelineType_t timelineType;
-
     switch (swTimeline)
     {
 
     case 0:
-      timelineType = public_timeline;
+      init_timeline(twc->home_tl);
       break;
 
     case 1:
-      timelineType = home_timeline;
+      init_timeline(twc->mentions_tl);
       break;
 
     case 2:
-      timelineType = mentions;
+      init_timeline(twc->favorites_tl);
       break;
 
     case 3:
-      timelineType = friends_timeline;
-      break;
-
-    case 4:
-      timelineType = user_timeline;
+      init_DMscrolled(twc->dm_rx);
       break;
 
     default:
-      timelineType = public_timeline;
+      init_timeline(twc->home_tl);
       break;
     }
 
-    string_t rawTimeline = getRawTimeline(twitterURLS, timelineType, user);
-    timeline_t timeline = readTimeLine(rawTimeline);
-
-    init_timeline(timeline);
-
-    int i = 0;
-    for (i = 0; i < MAX_NUM_TWEETS; i++)
-      {
-        uninitStatus(timeline.statuses[i]);
-      }
-
   }
 
-
   void
-  receivedDMlist()
+  _updateTimeline()
   {
-    string_t rawDM=getRawDM(twitterURLS, user);
+    updateProgData(twc);
 
-    direct_messages_t DMs=readDMs(rawDM);
-
-    init_DMscrolled(DMs);
-
-    int i = 0;
-    for (i = 0; i < MAX_NUM_DM; i++)
-      {
-        if(DMs.directMessage[i].text)
-          uninitDM(DMs.directMessage[i]);
-      }
-  }
-
-
-  void
-  receivedFavoriteslist()
-  {
-    timeline_t favorites = readTimeLine(
-        getRawFavorites(twitterURLS, user));
-
-    init_timeline(favorites);
-
-    int i = 0;
-    for (i = 0; i < MAX_NUM_TWEETS; i++)
-      {
-        if(favorites.statuses[i].text)
-          uninitStatus(favorites.statuses[i]);
-      }
-  }
-
-
-  void
-  updateTimeline()
-  {
+    gdk_threads_enter();
     switchTimeline();
+    gdk_threads_leave();
   }
+
+  void
+    updateTimeline()
+    {
+
+    GError *error=NULL;
+        thread=g_thread_create((GThreadFunc)_updateTimeline, NULL, FALSE, &error );
+
+    }
+
+
 
   void
   homeTimeline()
   {
-
-    swTimeline = 1;
+    swTimeline = 0;
     switchTimeline();
   }
 
@@ -758,21 +633,88 @@ extern "C"
   mentionsTimeline()
   {
 
+    swTimeline = 1;
+    switchTimeline();
+  }
+
+  void
+  favoritesTimeline()
+  {
     swTimeline = 2;
+    switchTimeline();
+  }
+
+  void
+  dmList()
+  {
+    swTimeline = 3;
     switchTimeline();
   }
 
   void
   loadWindowProperty()
   {
-    startWindowProperties(user, window);
+    startWindowProperties(twc, window);
 
-    user_t *old = user;
-    user = NULL;
+    user_t *old = twc->user;
+    twc->user = NULL;
     Connect();
 
     uninitUser(old);
   }
+
+
+  void
+  LoadGUI()
+  {
+    Connect();
+
+    if (!twc->user)
+      {
+        startRegistrationWindow(window);
+        Connect();
+      }
+
+    if (twc->user)
+      {
+        if (!window)
+          {
+            startMainWindow();
+          }
+        else
+          {
+            if (iconified)
+              {
+                gtk_window_deiconify(GTK_WINDOW (window) );
+                refreshWindow();
+
+                iconified = FALSE;
+              }
+            else
+              {
+                gtk_widget_hide(window);
+
+                iconified = TRUE;
+
+              }
+
+          }
+      }
+  }
+
+
+  void StartGUI(progData_t *progData)
+  {
+
+    twc=progData;
+
+    startTrayIcon();
+
+    LoadGUI();
+
+    updateTimeline();
+  }
+
 
 #ifdef __cplusplus
 }

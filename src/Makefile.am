@@ -20,6 +20,7 @@ if DEBUG
 AM_CFLAGS = -g3 -O0 \
 	-DDEBUG \
 	-D_GNU_SOURCE \
+	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
@@ -32,6 +33,7 @@ AM_CFLAGS = -g3 -O0 \
 AM_CXXFLAGS = -g3 -O0 \
 	-DDEBUG \
 	-D_GNU_SOURCE \
+	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
@@ -44,6 +46,7 @@ else
 
 AM_CFLAGS = -O2 \
 	-D_GNU_SOURCE \
+	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
@@ -54,6 +57,7 @@ AM_CFLAGS = -O2 \
 	
 AM_CXXFLAGS = -O2 \
 	-D_GNU_SOURCE \
+	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
 	-DICONS_DIR=\""$(prefix)/share/@PACKAGE@/icons/"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
