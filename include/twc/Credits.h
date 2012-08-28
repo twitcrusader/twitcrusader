@@ -25,11 +25,11 @@
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  */
- 
+
 #ifndef WINDOWCREDITS_H
 #define WINDOWCREDITS_H
 
-extern void startCreditsDialog();
-
+extern void
+startCreditsDialog();
 
 #endif

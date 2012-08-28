@@ -34,6 +34,7 @@
 
 #define		AVATAR_SIZE		70
 
-extern	void	StartGUI		(	);
+extern void
+StartGUI();
 
 #endif

@@ -38,116 +38,136 @@
 
 #include <gtk/gtk.h>
 
-static GtkWidget *gpin=NULL;
-static string_t tmpToken=NULL;
-static twitterURLS_t *twURLS=NULL;
-GtkWidget	*dialog=NULL;
-
-
-void gtk_tokenTempBrowser()
+#ifdef __cplusplus
+extern "C"
 {
-	tmpToken=tokenTempBrowser(twURLS, TWITTER_KEY, TWITTER_KEY_SECRET);
+#endif
+
+static GtkWidget *gpin = NULL;
+static string_t tmpToken = NULL;
+static twitterURLS_t *twURLS = NULL;
+GtkWidget *dialog = NULL;
+
+void
+gtk_tokenTempBrowser()
+{
+  tmpToken = tokenTempBrowser(twURLS, TWITTER_KEY, TWITTER_KEY_SECRET);
 }
 
-gboolean gtk_oauth_access_token()
+gboolean
+gtk_oauth_access_token()
 {
 
-	/* Get text from GTK_Entry*/
-	const gchar *pin = gtk_entry_get_text (GTK_ENTRY(gpin));
+  /* Get text from GTK_Entry */
+  const gchar *pin = gtk_entry_get_text(GTK_ENTRY (gpin) );
 
-	if(pin)
-	{
+  if (pin)
+    {
 
-		//Validate PIN
-		user_t *user=tokenAccess(twURLS, (string_t)pin, tmpToken);
+      //Validate PIN
+      user_t *user = tokenAccess(twURLS, (string_t) pin, tmpToken);
 
-		if(user)
-		{
-			ProgramPath_t *pp=initProgPath( PROG_PATH, AVATAR_DIR, CONFIG_DIR, CONFIG_FILE, PREFERENCE_FILE);
+      if (user)
+        {
+          ProgramPath_t *pp = initProgPath(PROG_PATH, AVATAR_DIR, CONFIG_DIR,
+              CONFIG_FILE, PREFERENCE_FILE);
 
-			if(pp)
-			{
+          if (pp)
+            {
 
-				createDirectory(pp->configDir);
+              createDirectory(pp->configDir);
 
-				writeUserFile(user,pp->configFile);
+              writeUserFile(user, pp->configFile);
 
-				if(user)
-					uninitUser(user);
+              if (user)
+                uninitUser(user);
 
-				if(pp)
-					uninitProgPath(pp);
+              if (pp)
+                uninitProgPath(pp);
 
-				gtk_entry_set_text (GTK_ENTRY(gpin), "\0");
+              gtk_entry_set_text(GTK_ENTRY (gpin), "\0");
 
-				gtk_widget_destroy(dialog);
+              gtk_widget_destroy(dialog);
 
-			}
-		}
-		else{
-			gtk_widget_show_all(dialog);
-			startWindowError("You have insert a Bad PIN");
-		}
+            }
+        }
+      else
+        {
+          gtk_widget_show_all(dialog);
+          startWindowError("You have insert a Bad PIN");
+        }
 
+    }
 
-	}
-
-	return TRUE;
+  return TRUE;
 }
 
-void startRegistrationWindow(GtkWidget *window)
+void
+startRegistrationWindow(GtkWidget * window)
 {
 
-	gtk_widget_destroy(dialog);
+  gtk_widget_destroy(dialog);
 
-	twURLS=initURLS(OAUTH_API_URL_DEFAULT, HTTPS_API_URL_DEFAULT);
+  twURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT, SEARCH_URL_DEFAULT);
 
-	/* Set all dialog options (color, size, position, logo, icon, etc) */
-	dialog = gtk_dialog_new();
-	gtk_window_set_title (GTK_WINDOW(dialog), "New User");
-	gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+  /* Set all dialog options (color, size, position, logo, icon, etc) */
+  dialog = gtk_dialog_new();
+  gtk_window_set_title(GTK_WINDOW (dialog), "New User");
+  gtk_container_set_border_width(GTK_CONTAINER (dialog), 0);
+  gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 
-	 gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (window));
+  gtk_window_set_transient_for(GTK_WINDOW (dialog), GTK_WINDOW (window) );
 
-	GError *error = NULL;
-	gtk_window_set_icon_from_file (GTK_WINDOW(dialog), ICONS_DIR""ICON_ADDUSER, &error);
+  GError *error = NULL;
+  gtk_window_set_icon_from_file(GTK_WINDOW (dialog), ICONS_DIR "" ICON_ADDUSER,
+      &error);
 
-	if(error)
-	{
-		error((string_t)error->message);
-		g_error_free(error);
-		error=NULL;
-	}
+  if (error)
+    {
+      error((string_t) error->message);
+      g_error_free(error);
+      error = NULL;
+    }
 
-	/* Attach twitter-login image */
-	GtkWidget *twitterLogin = gtk_image_new_from_file (ICONS_DIR""ICON_SIGNIN);
-	GtkWidget* tw_login_imgevent = gtk_event_box_new ();
-	GtkWidget *table = gtk_table_new (10, 10, TRUE);
-	gtk_container_add (GTK_CONTAINER (tw_login_imgevent), twitterLogin);
-	gtk_table_attach (GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+  /* Attach twitter-login image */
+  GtkWidget *twitterLogin = gtk_image_new_from_file(ICONS_DIR "" ICON_SIGNIN);
+  GtkWidget *tw_login_imgevent = gtk_event_box_new();
+  GtkWidget *table = gtk_table_new(10, 10, TRUE);
+  gtk_container_add(GTK_CONTAINER (tw_login_imgevent), twitterLogin);
+  gtk_table_attach(GTK_TABLE (table), tw_login_imgevent, 0, 10, 1, 3,
+      GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 
-	/* Call oAuth function */
-	g_signal_connect (G_OBJECT (tw_login_imgevent), "button_press_event", G_CALLBACK(gtk_tokenTempBrowser), NULL);
+  /* Call oAuth function */
+  g_signal_connect(G_OBJECT (tw_login_imgevent), "button_press_event",
+      G_CALLBACK (gtk_tokenTempBrowser), NULL);
 
-	/* Attach Box for PIN */
-	GtkWidget *label = gtk_label_new ("Insert PIN");
-	gpin = gtk_entry_new ();
-	gtk_label_set_justify(GTK_LABEL (label),GTK_JUSTIFY_LEFT);
-	gtk_entry_set_text (GTK_ENTRY(gpin), "\0");
-	gtk_table_attach (GTK_TABLE (table), label, 1, 9, 3, 5, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_table_attach (GTK_TABLE (table), gpin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
+  /* Attach Box for PIN */
+  GtkWidget *label = gtk_label_new("Insert PIN");
+  gpin = gtk_entry_new();
+  gtk_label_set_justify(GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+  gtk_entry_set_text(GTK_ENTRY (gpin), "\0");
+  gtk_table_attach(GTK_TABLE (table), label, 1, 9, 3, 5, GTK_FILL | GTK_EXPAND,
+      GTK_FILL | GTK_EXPAND, 0, 0);
+  gtk_table_attach(GTK_TABLE (table), gpin, 1, 9, 5, 6, GTK_FILL | GTK_EXPAND,
+      GTK_FILL | GTK_EXPAND, 0, 0);
 
-	/* Press Button and call function for verify PIN */
-	GtkWidget *button = gtk_button_new_with_label ("Create Accont");
-	gtk_table_attach (GTK_TABLE (table), button, 1, 9,7, 9, GTK_FILL | GTK_EXPAND,GTK_FILL | GTK_EXPAND, 0, 0);
-	gtk_dialog_add_action_widget (GTK_DIALOG (dialog), table, GTK_RESPONSE_CLOSE);
-	g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gtk_oauth_access_token), NULL);
+  /* Press Button and call function for verify PIN */
+  GtkWidget *button = gtk_button_new_with_label("Create Accont");
+  gtk_table_attach(GTK_TABLE (table), button, 1, 9, 7, 9, GTK_FILL | GTK_EXPAND,
+      GTK_FILL | GTK_EXPAND, 0, 0);
+  gtk_dialog_add_action_widget(GTK_DIALOG (dialog), table, GTK_RESPONSE_CLOSE);
+  g_signal_connect(G_OBJECT (button), "clicked",
+      G_CALLBACK (gtk_oauth_access_token), NULL);
 
-	/* Exit event and Widget Show */
-	g_signal_connect (G_OBJECT (dialog), "delete_event", G_CALLBACK (gtk_widget_destroy), dialog);
+  /* Exit event and Widget Show */
+  g_signal_connect(G_OBJECT (dialog), "delete_event",
+      G_CALLBACK (gtk_widget_destroy), dialog);
 
-	gtk_widget_show_all (dialog);
-	gtk_dialog_run(GTK_DIALOG(dialog));
+  gtk_widget_show_all(dialog);
+  gtk_dialog_run(GTK_DIALOG (dialog) );
 
 }
+
+#ifdef __cplusplus
+}
+#endif

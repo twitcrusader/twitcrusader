@@ -1,6 +1,16 @@
 AC_PREREQ(2.59)
 AC_INIT(TwitCrusader, 1.0)
+
+# prevent setting xFLAGS to default of -g -O2
+if test x"$CFLAGS" = x""; then
+  AC_SUBST(CFLAGS, [ ])
+fi
+if test x"$CXXFLAGS" = x""; then
+  AC_SUBST(CXXFLAGS, [ ])
+fi
+
 AC_PROG_CC
+AC_PROG_CXX
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([no])])
 
 AC_CANONICAL_SYSTEM

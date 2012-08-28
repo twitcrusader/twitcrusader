@@ -28,7 +28,7 @@
 #ifndef ERRORWIDGET_H_
 #define ERRORWIDGET_H_
 
-extern void startWindowError(const string_t);
-
+extern void
+startWindowError(const string_t);
 
 #endif /* ERRORWIDGET_H_ */

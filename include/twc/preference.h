@@ -35,15 +35,17 @@
 
 typedef struct
 {
-	string_t progDir;
-	string_t avatarDir;
-	string_t configDir;
-	string_t configFile;
-	string_t preferenceFile;
+  string_t progDir;
+  string_t avatarDir;
+  string_t configDir;
+  string_t configFile;
+  string_t preferenceFile;
 } ProgramPath_t;
 
-
-extern	ProgramPath_t	*initProgPath	( const string_t, const string_t, const string_t, const string_t, const string_t);
-extern	void			uninitProgPath	(ProgramPath_t *);
+extern ProgramPath_t *
+initProgPath(const string_t, const string_t, const string_t, const string_t,
+    const string_t);
+extern void
+uninitProgPath(ProgramPath_t *);
 
 #endif /* PREFERENCE_H_ */

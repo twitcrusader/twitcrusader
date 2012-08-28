@@ -33,74 +33,78 @@
 #include <twc/Registration.h>
 #include <twc/MainWindow.h>
 
-
 #include <twc/icons.h>
 #include <twc/notify.h>
 
 #include <twitc/twitc.h>
 
 #include <gtk/gtk.h>
+
 #include <stdlib.h>
 #include <stdio.h>
 
-
-byte_t main(int argc, char *argv[])
+#ifdef __cplusplus
+extern "C"
 {
+#endif
 
-	debug("PROG_DIR:\t%s", PROG_DIR);
-	debug("ICONS_DIR:\t%s", ICONS_DIR);
-	debug("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
+  byte_t
+  main(int argc, char *argv[])
+  {
 
+    debug ("PROG_DIR:\t%s", PROG_DIR);debug ("ICONS_DIR:\t%s", ICONS_DIR);debug ("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
 
+    fprintf(stdout, "\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
+    fprintf(stdout, "Copyright (C) 2012  TwitCrusader Team\n\n");
 
-	fprintf(stdout, "\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
-	fprintf(stdout, "Copyright (C) 2012  TwitCrusader Team\n\n");
+    ProgramPath_t *pp = initProgPath(PROG_PATH, AVATAR_DIR, CONFIG_DIR,
+        CONFIG_FILE, PREFERENCE_FILE);
 
-	ProgramPath_t *pp=initProgPath( PROG_PATH, AVATAR_DIR, CONFIG_DIR, CONFIG_FILE, PREFERENCE_FILE);
+    if (pp)
+      {
 
-	if(pp)
-	{
+        if (createDirectory(pp->progDir))
+          {
+            createDirectory(pp->avatarDir);
+          }
 
-		if(createDirectory(pp->progDir))
-		{
-			createDirectory(pp->avatarDir);
-		}
+        string_t fileLock = NULL;
+        asprintf(&fileLock, "%s/%s.lock", pp->progDir, PROG_NAME);
 
-		string_t fileLock=NULL;
-		asprintf(&fileLock,"%s/%s.lock", pp->progDir, PROG_NAME);
+        string_t fileName = NULL;
+        asprintf(&fileName, "%s/%s.log", pp->progDir, PROG_NAME);
 
-		string_t fileName=NULL;
-		asprintf(&fileName, "%s/%s.log",pp->progDir,PROG_NAME);
+        uninitProgPath(pp);
 
-		uninitProgPath(pp);
+        initLog(fileName, (1024 * 1000));
 
-		initLog(fileName, high, 1024);
+        notifyInit ();
 
-		notifyInit();
+        notifyMsg("\tStarted", 100);
 
-		notifyMsg("\tStarted", 100);
+        if (gtk_init_check(&argc, &argv))
+          {
+            debug ("GTK initialized");
 
-		//	init gtk
-		if(gtk_init_check(&argc, &argv))
-		{
-			debug("GTK initialized");
+            startTrayIcon();
 
-			startTrayIcon();
+            StartGUI();
 
-			StartGUI();
+            gtk_main();
 
-			gtk_main();
-		}
-		else
-			error("GTK can't be initialized");
+          }
+        else
+          error("GTK can't be initialized");
 
-		notifyMsg("\tStopped", 100);
+        notifyMsg("\tStopped", 100);
 
-		notifyUninit();
+        notifyUninit ();
 
-	}
+      }
 
+    return EXIT_SUCCESS;
+  }
 
-
-	return EXIT_SUCCESS;
+#ifdef __cplusplus
 }
+#endif

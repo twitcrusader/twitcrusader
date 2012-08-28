@@ -30,6 +30,7 @@
 
 #include <gtk/gtk.h>
 
-extern	void	startRegistrationWindow	(GtkWidget *window);
+extern void
+startRegistrationWindow(GtkWidget * window);
 
 #endif /* REGISTRATION_H_ */
