@@ -29,7 +29,6 @@
 #include <twitc/twitc.h>
 
 #include <twc/twc.h>
-#include <twc/preference.h>
 #include <twc/Property.h>
 #include <twc/Registration.h>
 #include <twc/MainWindow.h>
@@ -45,7 +44,7 @@ extern "C"
 static GtkWidget *dialog = NULL;
 
 void
-deleteAccount()
+deleteAccount(progData_t * progData)
 {
   ProgramPath_t *pp = initProgPath(PROG_PATH, AVATAR_DIR, CONFIG_DIR,
       CONFIG_FILE, PREFERENCE_FILE);
@@ -54,11 +53,11 @@ deleteAccount()
   uninitProgPath(pp);
 
   gtk_widget_destroy(dialog);
-  StartGUI();
+  LoadGUI(progData);
 }
 
 void
-startWindowProperties(user_t * user, GtkWidget * window)
+startWindowProperties(progData_t * progData, GtkWidget * window)
 {
 
   GtkWidget *table = gtk_table_new(7, 10, TRUE);
@@ -90,15 +89,15 @@ startWindowProperties(user_t * user, GtkWidget * window)
   gtk_table_attach(GTK_TABLE (table), label, 1, 11, 0, 1, GTK_FILL | GTK_EXPAND,
       GTK_FILL | GTK_EXPAND, 0, 0);
 
-  if (user)
+  if (progData->user)
     {
       gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT (combo),
-          user->screenName);
+          progData->user->screenName);
       GtkWidget *button = gtk_button_new_with_label("Delete");
       gtk_table_attach(GTK_TABLE (table), button, 4, 8, 5, 6,
           GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
       g_signal_connect(G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount),
-          NULL);
+          progData);
 
     }
 

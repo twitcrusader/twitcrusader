@@ -29,7 +29,7 @@
 #ifndef PREFERENCE_H_
 #define PREFERENCE_H_
 
-#include <twitc/stdredef.h>
+#include <twitc/twitc.h>
 
 #define		MY_ENCODING						"ISO-8859-1"
 
@@ -42,10 +42,33 @@ typedef struct
   string_t preferenceFile;
 } ProgramPath_t;
 
+typedef struct
+{
+  ProgramPath_t *pp;
+  twitterURLS_t *twURLS;
+  user_t *user;
+
+  timeline_t home_tl;
+  timeline_t mentions_tl;
+  timeline_t favorites_tl;
+  direct_messages_t dm_rx;
+  direct_messages_t dm_tx;
+}progData_t;
+
+
 extern ProgramPath_t *
 initProgPath(const string_t, const string_t, const string_t, const string_t,
     const string_t);
 extern void
 uninitProgPath(ProgramPath_t *);
+
+
+extern string_t MakeAvatarName(string_t, string_t, string_t);
+extern void downloadAvatar(progData_t *);
+extern void initProgData(progData_t *);
+extern void updateProgData(progData_t *);
+extern void uninitProgData(progData_t *);
+
+
 
 #endif /* PREFERENCE_H_ */
