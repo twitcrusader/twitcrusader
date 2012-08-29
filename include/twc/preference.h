@@ -53,8 +53,7 @@ typedef struct
   timeline_t favorites_tl;
   direct_messages_t dm_rx;
   direct_messages_t dm_tx;
-}progData_t;
-
+} progData_t;
 
 extern ProgramPath_t *
 initProgPath(const string_t, const string_t, const string_t, const string_t,
@@ -62,13 +61,15 @@ initProgPath(const string_t, const string_t, const string_t, const string_t,
 extern void
 uninitProgPath(ProgramPath_t *);
 
-
-extern string_t MakeAvatarName(string_t, string_t, string_t);
-extern void downloadAvatar(progData_t *);
-extern void initProgData(progData_t *);
-extern void updateProgData(progData_t *);
-extern void uninitProgData(progData_t *);
-
-
+extern string_t
+MakeAvatarName(string_t, string_t, string_t);
+extern void
+downloadAvatar(progData_t *);
+extern void
+initProgData(progData_t *);
+extern void
+updateProgData(progData_t *);
+extern void
+uninitProgData(progData_t *);
 
 #endif /* PREFERENCE_H_ */

@@ -39,7 +39,7 @@
 
 #ifdef __cplusplus
 extern "C"
-{
+  {
 #endif
 
 /* gtk_credits_dialog_create() Function 
