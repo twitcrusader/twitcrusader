@@ -38,7 +38,7 @@
 
 #ifdef __cplusplus
 extern "C"
-{
+  {
 #endif
 
 static GtkWidget *dialog = NULL;
