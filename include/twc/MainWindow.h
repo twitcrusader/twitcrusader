@@ -40,7 +40,6 @@ extern void
 StartGUI(progData_t *);
 
 extern void
- updateTimeline();
-
+updateTimeline();
 
 #endif

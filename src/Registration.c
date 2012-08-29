@@ -40,7 +40,7 @@
 
 #ifdef __cplusplus
 extern "C"
-{
+  {
 #endif
 
 static GtkWidget *gpin = NULL;

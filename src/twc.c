@@ -48,75 +48,69 @@ static progData_t twc;
 
 #ifdef __cplusplus
 extern "C"
-{
+  {
 #endif
 
+byte_t
+main(int argc, char *argv[])
+{
 
-  byte_t
-  main(int argc, char *argv[])
-  {
+  debug ("PROG_DIR:\t%s", PROG_DIR);debug ("ICONS_DIR:\t%s", ICONS_DIR);debug ("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
 
-    debug ("PROG_DIR:\t%s", PROG_DIR);debug ("ICONS_DIR:\t%s", ICONS_DIR);debug ("PACKAGE_LOCALE_DIR:\t%s", PACKAGE_LOCALE_DIR);
+  fprintf(stdout, "\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
+  fprintf(stdout, "Copyright (C) 2012  TwitCrusader Team\n\n");
 
-    fprintf(stdout, "\n\nTwitCrusader - Twitter Client For Linux Desktop\n");
-    fprintf(stdout, "Copyright (C) 2012  TwitCrusader Team\n\n");
+  initProgData(&twc);
 
-    initProgData(&twc);
+  if (twc.pp)
+    {
 
-    if (twc.pp)
-      {
+      if (createDirectory(twc.pp->progDir))
+        {
+          createDirectory(twc.pp->avatarDir);
+        }
 
-        if (createDirectory(twc.pp->progDir))
-          {
-            createDirectory(twc.pp->avatarDir);
-          }
+      string_t fileLock = NULL;
+      asprintf(&fileLock, "%s/%s.lock", twc.pp->progDir, PROG_NAME);
 
-        string_t fileLock = NULL;
-        asprintf(&fileLock, "%s/%s.lock", twc.pp->progDir, PROG_NAME);
+      string_t fileName = NULL;
+      asprintf(&fileName, "%s/%s.log", twc.pp->progDir, PROG_NAME);
 
-        string_t fileName = NULL;
-        asprintf(&fileName, "%s/%s.log", twc.pp->progDir, PROG_NAME);
+      initLog(fileName, (1024 * 1000));
 
-        initLog(fileName, (1024 * 1000));
+      notifyInit ();
 
-        notifyInit ();
+      notifyMsg("\tStarted", 100);
 
-        notifyMsg("\tStarted", 100);
+      /* Init thread */
+      g_thread_init(NULL );
+      gdk_threads_init();
 
+      if (gtk_init_check(NULL, NULL ))
+        {
 
-        /* Init thread */
-        g_thread_init(NULL);
-        gdk_threads_init ();
+          debug ("GTK initialized");
 
+          gdk_threads_enter();
 
-        if (gtk_init_check(NULL, NULL))
-          {
+          StartGUI(&twc);
 
-            debug ("GTK initialized");
+          gtk_main();
 
+          gdk_threads_leave();
 
-            gdk_threads_enter ();
+        }
+      else
+        error("GTK can't be initialized");
 
-            StartGUI(&twc);
+      notifyMsg("\tStopped", 100);
 
-            gtk_main();
+      notifyUninit ();
 
-            gdk_threads_leave();
+    }
 
-
-          }
-        else
-          error("GTK can't be initialized");
-
-
-        notifyMsg("\tStopped", 100);
-
-        notifyUninit ();
-
-      }
-
-    return EXIT_SUCCESS;
-  }
+  return EXIT_SUCCESS;
+}
 
 #ifdef __cplusplus
 }
