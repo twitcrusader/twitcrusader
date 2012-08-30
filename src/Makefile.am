@@ -11,9 +11,10 @@ MainWindow.c \
 twc.c
 
 twc_LDADD = \
-	$(EXTERN_LIB_DEP_LIBS) \
+	@libtwitc_LIBS@	 \
 	@libnotify_LIBS@ \
-	@libtwitc_LIBS@	
+	$(EXTERN_LIB_DEP_LIBS)
+	
 
 if DEBUG
 
