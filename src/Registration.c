@@ -37,6 +37,7 @@
 #include <twc/ErrorWidget.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -94,7 +95,7 @@ gtk_oauth_access_token()
       else
         {
           gtk_widget_show_all(dialog);
-          startWindowError("You have insert a Bad PIN");
+          startWindowError(_("You have insert a Bad PIN"));
         }
 
     }
@@ -112,7 +113,7 @@ startRegistrationWindow(GtkWidget * window)
 
   /* Set all dialog options (color, size, position, logo, icon, etc) */
   dialog = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW (dialog), "New User");
+  gtk_window_set_title(GTK_WINDOW (dialog), _("New User"));
   gtk_container_set_border_width(GTK_CONTAINER (dialog), 0);
   gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 
@@ -142,7 +143,7 @@ startRegistrationWindow(GtkWidget * window)
       G_CALLBACK (gtk_tokenTempBrowser), NULL);
 
   /* Attach Box for PIN */
-  GtkWidget *label = gtk_label_new("Insert PIN");
+  GtkWidget *label = gtk_label_new(_("Insert PIN"));
   gpin = gtk_entry_new();
   gtk_label_set_justify(GTK_LABEL (label), GTK_JUSTIFY_LEFT);
   gtk_entry_set_text(GTK_ENTRY (gpin), "\0");
@@ -152,7 +153,7 @@ startRegistrationWindow(GtkWidget * window)
       GTK_FILL | GTK_EXPAND, 0, 0);
 
   /* Press Button and call function for verify PIN */
-  GtkWidget *button = gtk_button_new_with_label("Create Accont");
+  GtkWidget *button = gtk_button_new_with_label(_("Create Accont"));
   gtk_table_attach(GTK_TABLE (table), button, 1, 9, 7, 9, GTK_FILL | GTK_EXPAND,
       GTK_FILL | GTK_EXPAND, 0, 0);
   gtk_dialog_add_action_widget(GTK_DIALOG (dialog), table, GTK_RESPONSE_CLOSE);

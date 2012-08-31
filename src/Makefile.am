@@ -15,7 +15,6 @@ twc_LDADD = \
 	@libnotify_LIBS@ \
 	$(EXTERN_LIB_DEP_LIBS)
 	
-
 if DEBUG
 
 AM_CFLAGS = -g3 -O0 \
