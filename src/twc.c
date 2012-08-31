@@ -39,6 +39,7 @@
 #include <twitc/twitc.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -89,7 +90,7 @@ main(int argc, char *argv[])
       if (gtk_init_check(NULL, NULL ))
         {
 
-          debug ("GTK initialized");
+          debug (_("GTK initialized"));
 
           gdk_threads_enter();
 
@@ -101,7 +102,7 @@ main(int argc, char *argv[])
 
         }
       else
-        error("GTK can't be initialized");
+        error(_("GTK can't be initialized"));
 
       notifyMsg("\tStopped", 100);
 

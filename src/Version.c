@@ -34,6 +34,7 @@
 #include <twc/icons.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -59,7 +60,7 @@ startVersionWindow()
     current_version = " ";
 
   string_t msg = NULL;
-  asprintf(&msg, "%s:\t%s\n%s:\t%s", "Latest Version", last_version,
+  asprintf(&msg, "%s:\t%s\n%s:\t%s", _("Latest Version"), last_version,
       "Current Version", current_version);
 
   if (msg)

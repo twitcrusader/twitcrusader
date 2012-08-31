@@ -1,0 +1,119 @@
+#: src/Credits.c:55
+msgid "Credits"
+msgstr ""
+
+#: src/Credits.c:86
+msgid "Twitter Client For Linux Desktop"
+msgstr ""
+
+#: src/MainWindow.c:169
+msgid "Tweet correctly sent.."
+msgstr ""
+
+#: src/MainWindow.c:176
+msgid "Tweet was not sent.."
+msgstr ""
+
+#: src/MainWindow.c:229 src/MainWindow.c:536
+msgid "Update"
+msgstr ""
+
+#: src/MainWindow.c:229
+msgid "Home"
+msgstr ""
+
+#: src/MainWindow.c:229
+msgid "Mentions"
+msgstr ""
+
+#: src/MainWindow.c:229
+msgid "Direct Messages"
+msgstr ""
+
+#: src/MainWindow.c:229
+msgid "Favorites"
+msgstr ""
+
+#: src/MainWindow.c:229
+msgid "Link"
+msgstr ""
+
+#: src/MainWindow.c:230
+msgid "Photo"
+msgstr ""
+
+#: src/MainWindow.c:487
+msgid "140"
+msgstr ""
+
+#: src/MainWindow.c:536
+msgid "Settings"
+msgstr ""
+
+#: src/MainWindow.c:536
+msgid "Version"
+msgstr ""
+
+#: src/MainWindow.c:536
+msgid "About"
+msgstr ""
+
+#: src/MainWindow.c:536
+msgid "Quit"
+msgstr ""
+
+#: src/MainWindow.c:613
+msgid "Updating.."
+msgstr ""
+
+#: src/MainWindow.c:622
+msgid "Updated."
+msgstr ""
+
+#: src/Property.c:68
+msgid "Property"
+msgstr ""
+
+#: src/Property.c:85
+msgid "Account"
+msgstr ""
+
+#: src/Property.c:87
+msgid "Twitter's Account:"
+msgstr ""
+
+#: src/Property.c:96
+msgid "Delete"
+msgstr ""
+
+#: src/Registration.c:97
+msgid "You have insert a Bad PIN"
+msgstr ""
+
+#: src/Registration.c:115
+msgid "New User"
+msgstr ""
+
+#: src/Registration.c:145
+msgid "Insert PIN"
+msgstr ""
+
+#: src/Registration.c:155
+msgid "Create Accont"
+msgstr ""
+
+#: src/twc.c:92
+msgid "GTK initialized"
+msgstr ""
+
+#: src/twc.c:104
+msgid "GTK can't be initialized"
+msgstr ""
+
+#: src/Version.c:62
+msgid "Latest Version"
+msgstr ""
+
+#: src/Version.c:63
+msgid "Current Version"
+msgstr ""

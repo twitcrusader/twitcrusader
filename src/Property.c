@@ -35,6 +35,7 @@
 #include <twc/icons.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -65,7 +66,7 @@ startWindowProperties(progData_t * progData, GtkWidget * window)
 
   dialog = gtk_dialog_new();
   gtk_window_set_transient_for(GTK_WINDOW (dialog), GTK_WINDOW (window) );
-  gtk_window_set_title(GTK_WINDOW (dialog), "Property");
+  gtk_window_set_title(GTK_WINDOW (dialog), _("Property"));
   gtk_container_set_border_width(GTK_CONTAINER (dialog), 0);
   gtk_window_set_position(GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   GError *error = NULL;
@@ -82,9 +83,9 @@ startWindowProperties(progData_t * progData, GtkWidget * window)
   /* Set all functions of Account TAB */
   table = gtk_table_new(6, 12, TRUE);
   GtkWidget *combo = gtk_combo_box_text_new();
-  GtkWidget *settingMenu = gtk_label_new("Account");
+  GtkWidget *settingMenu = gtk_label_new(_("Account"));
 
-  GtkWidget *label = gtk_label_new("Twitter's Account:");
+  GtkWidget *label = gtk_label_new(_("Twitter's Account:"));
   gtk_label_set_justify(GTK_LABEL (label), GTK_JUSTIFY_LEFT);
   gtk_table_attach(GTK_TABLE (table), label, 1, 11, 0, 1, GTK_FILL | GTK_EXPAND,
       GTK_FILL | GTK_EXPAND, 0, 0);
@@ -93,7 +94,7 @@ startWindowProperties(progData_t * progData, GtkWidget * window)
     {
       gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT (combo),
           progData->user->screenName);
-      GtkWidget *button = gtk_button_new_with_label("Delete");
+      GtkWidget *button = gtk_button_new_with_label(_("Delete"));
       gtk_table_attach(GTK_TABLE (table), button, 4, 8, 5, 6,
           GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
       g_signal_connect(G_OBJECT (button), "clicked", G_CALLBACK (deleteAccount),
