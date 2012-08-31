@@ -39,6 +39,7 @@ libtwitc Required:
 * libcurl 
 * oauth
 * libxml-2.0
+* liblogc
  
 
 ### Compile - Makefile

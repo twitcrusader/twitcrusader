@@ -28,6 +28,8 @@
 
 #include <twc/twc.h>
 
+#include <logc/logc.h>
+
 #include <twc/preference.h>
 #include <twc/ErrorWidget.h>
 #include <twc/Registration.h>
