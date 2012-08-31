@@ -36,6 +36,7 @@
 #include <twc/Credits.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -52,7 +53,7 @@ startCreditsDialog()
 {
 
   GtkWidget *dialog = gtk_about_dialog_new();
-  gtk_window_set_title(GTK_WINDOW (dialog), "Credits");
+  gtk_window_set_title(GTK_WINDOW (dialog), _("Credits"));
   gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG (dialog), PROG_NAME);
   gtk_about_dialog_set_version(GTK_ABOUT_DIALOG (dialog), "\0");
 
@@ -83,7 +84,7 @@ startCreditsDialog()
     gtk_about_dialog_set_license(GTK_ABOUT_DIALOG (dialog), license);
 
   gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG (dialog),
-      "Twitter Client For Linux Desktop");
+      _("Twitter Client For Linux Desktop"));
   gtk_about_dialog_set_website(GTK_ABOUT_DIALOG (dialog), TWC_URL);
 
   GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(ICONS_DIR "" ICON_ABOUT, NULL );

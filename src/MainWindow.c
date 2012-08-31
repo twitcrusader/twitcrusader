@@ -37,6 +37,7 @@
 #include <twc/Property.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
 
 #include <pthread.h>
@@ -166,14 +167,14 @@ gtkSendTweet(GtkWidget * TextArea, GdkEventKey * pKey, GtkTextBuffer * buffer)
           if (updateStatus(twc->twURLS, twc->user, msg))
             {
               gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0,
-                  "Tweet correctly sent..");
+                  _("Tweet correctly sent.."));
               gtk_text_buffer_delete(buffer, &start, &end);
 
               return TRUE;
             }
 
           gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0,
-              "Tweet was not sent..");
+              _("Tweet was not sent.."));
           gtk_text_buffer_delete(buffer, &start, &end);
 
         }
@@ -226,8 +227,8 @@ init_toolbar()
       toolbar = gtk_toolbar_new();
 
       const string_t titles[] =
-        { "Update", "Home", "Mentions", "Direct Messages", "Favorites", "Link",
-            "Photo" };
+        { _("Update"), _("Home"), _("Mentions"), _("Direct Messages"), _("Favorites"), _("Link"),
+            _("Photo") };
 
       const string_t icons[] =
         { ICONS_DIR "" ICON_UPDATE, ICONS_DIR "" ICON_HOME,
@@ -484,7 +485,7 @@ startMainWindow()
       init_timeline(timeline);
       init_statusbar(PROG_NAME);
       init_toolbar();
-      init_charbar("140");
+      init_charbar(_("140"));
       init_text_area();
       init_box();
 
@@ -533,7 +534,7 @@ rightClick(GtkStatusIcon * icon, guint button, guint activate_time,
   GtkWidget *menu;
 
   const string_t titles[] =
-    { "Update", "Settings", "Version", "About", "Quit" };
+    { _("Update"), _("Settings"), _("Version"), _("About"), _("Quit") };
   const string_t icons[] =
     { ICONS_DIR "" ICON_UPDATE_TRAYICON, ICONS_DIR "" ICON_SETTINGS,
         ICONS_DIR "" ICON_UPGRADE, ICONS_DIR "" ICON_STAR,

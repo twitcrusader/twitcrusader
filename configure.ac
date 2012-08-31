@@ -30,6 +30,17 @@ DX_PDF_FEATURE(ON)
 DX_PS_FEATURE(OFF)
 DX_INIT_DOXYGEN([$PACKAGE_NAME],[twc.doxyfile],[doc])
 
+dnl ***************************************************************************
+dnl Internationalization
+dnl ***************************************************************************
+IT_PROG_INTLTOOL([0.35.0])
+
+GETTEXT_PACKAGE=twc
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+
+AM_GLIB_GNU_GETTEXT
+
 PKG_CHECK_MODULES(EXTERN_LIB_DEP, [libcurl libxml-2.0 oauth gtk+-3.0 gthread-2.0])
 
 PKG_CHECK_MODULES(libnotify, [libnotify >= 0.7.3], , [
@@ -70,6 +81,7 @@ AC_PROG_RANLIB
 AC_CONFIG_FILES([
 share/icons/Makefile
 share/applications/Makefile
+po/Makefile.in
 libtwitc/Makefile
 src/Makefile
 Makefile
