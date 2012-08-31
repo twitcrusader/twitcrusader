@@ -26,11 +26,13 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
+
 #include <twitc/stdredef.h>
-#include <twitc/debug.h>
 #include <twitc/functions.h>
 
 #include <twc/twc.h>
+
+#include <logc/logc.h>
 
 #include <twc/icons.h>
 #include <twc/Credits.h>

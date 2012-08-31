@@ -11,6 +11,7 @@ MainWindow.c \
 twc.c
 
 twc_LDADD = \
+	@liblogc_LIBS@	 \
 	@libtwitc_LIBS@	 \
 	@libnotify_LIBS@ \
 	$(EXTERN_LIB_DEP_LIBS)
@@ -26,6 +27,7 @@ AM_CFLAGS = -g3 -O0 \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
 	$(EXTERN_LIB_DEP_CFLAGS) \
 	@libnotify_CFLAGS@ \
+	@liblogc_CFLAGS@ \
 	@libtwitc_CFLAGS@ \
 	@libtwcgui_CFLAGS@
 
@@ -39,6 +41,7 @@ AM_CXXFLAGS = -g3 -O0 \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
 	$(EXTERN_LIB_DEP_CFLAGS) \
 	@libnotify_CFLAGS@ \
+	@liblogc_CFLAGS@ \
 	@libtwitc_CFLAGS@ \
 	@libtwcgui_CFLAGS@
 
@@ -52,6 +55,7 @@ AM_CFLAGS = -O2 \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
 	$(EXTERN_LIB_DEP_CFLAGS) \
 	@libnotify_CFLAGS@ \
+	@liblogc_CFLAGS@ \
 	@libtwitc_CFLAGS@ \
 	@libtwcgui_CFLAGS@
 	
@@ -63,6 +67,7 @@ AM_CXXFLAGS = -O2 \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)locale/"\" \
 	$(EXTERN_LIB_DEP_CFLAGS) \
 	@libnotify_CFLAGS@ \
+	@liblogc_CFLAGS@ \
 	@libtwitc_CFLAGS@ \
 	@libtwcgui_CFLAGS@
 
