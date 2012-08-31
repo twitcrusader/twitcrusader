@@ -28,6 +28,8 @@
 
 #include <twc/twc.h>
 
+#include <logc/logc.h>
+
 #include <twitc/twitc.h>
 
 #include <twc/icons.h>

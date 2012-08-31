@@ -53,6 +53,12 @@ You must have libnotify >= 0.7.3
 AC_SUBST(libnotify_CFLAGS)
 AC_SUBST(libnotify_LIBS)
 
+AC_CONFIG_SUBDIRS( liblogc )
+	liblogc_CFLAGS="-I\$(top_srcdir)/libtwitc/liblogc/include"
+	liblogc_LIBS="\$(top_builddir)/libtwitc/liblogc/src/liblogc.a"
+AC_SUBST(liblogc_CFLAGS)
+AC_SUBST(liblogc_LIBS)
+
 
 AC_CONFIG_SUBDIRS( libtwitc )
 	libtwitc_CFLAGS="-I\$(top_srcdir)/libtwitc/include"
@@ -82,6 +88,7 @@ AC_CONFIG_FILES([
 share/icons/Makefile
 share/applications/Makefile
 po/Makefile.in
+libtwitc/liblogc/Makefile
 libtwitc/Makefile
 src/Makefile
 Makefile

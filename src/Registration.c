@@ -26,6 +26,8 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
+#include <logc/logc.h>
+
 #include <twitc/twitc.h>
 
 #include <twc/twc.h>
