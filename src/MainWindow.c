@@ -212,7 +212,7 @@ init_main_window()
 
       if (error)
         {
-          error((string_t) error->message);
+          log(ERROR,(string_t) error->message);
           g_error_free(error);
           error = NULL;
         }
@@ -613,6 +613,7 @@ switchTimeline()
 void
 _updateTimeline()
 {
+
   gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0, "Updating..");
 
   updateProgData(twc);
