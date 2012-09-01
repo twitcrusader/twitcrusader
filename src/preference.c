@@ -76,7 +76,7 @@ initProgPath(const string_t programDir, const string_t avatarDir,
         }
     }
 
-  warning("Returned value: (NULL)");
+  log(WARNING,"Returned value: (NULL)");
   return NULL ;
 }
 
@@ -110,7 +110,7 @@ uninitProgPath(ProgramPath_t * pp)
 
     }
 
-  warning("ProgramPath_t uninitialized");
+  log(WARNING,"ProgramPath_t uninitialized");
   pp = NULL;
 
 }

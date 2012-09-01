@@ -34,13 +34,16 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 * gthread
 * libnotify >= 0.7.3
 
+* Contain: libtwitc, liblogc
+
 libtwitc Required:
 
 * libcurl 
 * oauth
 * libxml-2.0
-* liblogc
- 
+
+liblogc Required: //
+
 
 ### Compile - Makefile
 

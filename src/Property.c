@@ -77,7 +77,7 @@ startWindowProperties(progData_t * progData, GtkWidget * window)
       &error);
   if (error)
     {
-      error((string_t) error->message);
+      log(ERROR,(string_t) error->message);
       g_error_free(error);
       error = NULL;
     }

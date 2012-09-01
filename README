@@ -31,12 +31,15 @@ Required
 * gthread
 * libnotify >= 0.7.3
 
+* Contain: libtwitc, liblogc
+
 libtwitc Required:
 
-* libcurl
+* libcurl 
 * oauth
 * libxml-2.0
-* liblogc
+
+liblogc Required: //
 
 
 Compile - Makefile
