@@ -79,7 +79,8 @@ main(int argc, char *argv[])
       string_t fileName = NULL;
       asprintf(&fileName, "%s/%s.log", twc.pp->progDir, PROG_NAME);
 
-      initLog(fileName, (1024 * 1000));
+      initLog(LOG_FILE_VIDEO,LOG_FILE_VIDEO);
+      initLogFile(fileName, (1024 * 1000));
 
       notifyInit ();
 
@@ -104,7 +105,7 @@ main(int argc, char *argv[])
 
         }
       else
-        error(_("GTK can't be initialized"));
+        log(ERROR,_("GTK can't be initialized"));
 
       notifyMsg("\tStopped", 100);
 
