@@ -1,7 +1,9 @@
-* Avatar Download and Maching
-
-* Direct Message
-
-* More functions
-
-* Bug Fix
+* Pannellino per i DM, la funzione d'invio già funziona in libtwitc.
+        
+* Completamento automatico dei nomi quando si scrive la @
+        
+* qualche segnale luminoso che indichi quando vengono aggiornate le info da internet.
+        
+* Switch grafico (o interlacciamento) dei DM ricevuti con quelli inviati.
+        
+* Se ci sono tweet scritti su più righe, alla visualizzazione si allargano anche tutti gli altri tweet.
