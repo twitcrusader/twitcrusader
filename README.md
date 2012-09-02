@@ -60,16 +60,13 @@ liblogc Required: //
 
 ##Debug
 
-On compiling process run:
+To see more informations run:
+
+    $ twc --debug
+
+To debug the code, on compiling process, run:
 
     $ ./configure --enable-debug
-
-To have more details run:
-
-    $ gdb twc
-
-( make sure you have gdb installed )
-
 
 ## Support
 

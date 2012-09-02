@@ -1,5 +1,6 @@
 bin_PROGRAMS = twc
 twc_SOURCES = \
+console.c \
 preference.c \
 notify.c \
 Property.c \
@@ -19,7 +20,6 @@ twc_LDADD = \
 if DEBUG
 
 AM_CFLAGS = -g3 -O0 \
-	-DDEBUG \
 	-D_GNU_SOURCE \
 	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
@@ -33,7 +33,6 @@ AM_CFLAGS = -g3 -O0 \
 
 
 AM_CXXFLAGS = -g3 -O0 \
-	-DDEBUG \
 	-D_GNU_SOURCE \
 	-lpthread \
 	-DPROG_DIR=\""$(prefix)/share/@PACKAGE@/"\" \
