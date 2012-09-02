@@ -42,6 +42,10 @@
 #define DEBUG_ARG "--debug"
 #define VERSION_ARG "--version"
 
+#ifdef __cplusplus
+extern "C"
+  {
+#endif
 
 void
 printHelp(string_t  argv[])
@@ -118,3 +122,7 @@ shellParam(int argc, string_t  argv[])
 
   return EXIT_SUCCESS;
 }
+
+#ifdef __cplusplus
+}
+#endif
