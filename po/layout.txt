@@ -1,119 +1,195 @@
-#: src/Credits.c:55
-msgid "Credits"
+#: src/console.c:49
+msgid "Usage"
 msgstr ""
 
-#: src/Credits.c:86
+#: src/console.c:49 src/console.c:50
+msgid "options"
+msgstr ""
+
+#: src/console.c:51
+msgid "Enable debug output"
+msgstr ""
+
+#: src/console.c:52
+msgid "Show Program Version"
+msgstr ""
+
+#: src/console.c:53
+msgid "Show this message"
+msgstr ""
+
+#: src/console.c:64 src/console.c:68 src/Credits.c:89
 msgid "Twitter Client For Linux Desktop"
 msgstr ""
 
-#: src/MainWindow.c:169
+#: src/console.c:65 src/console.c:69
+msgid "Copyright (C)"
+msgstr ""
+
+#: src/console.c:65 src/console.c:69
+msgid "2012"
+msgstr ""
+
+#: src/console.c:65 src/console.c:69
+msgid "TwitCrusader Team"
+msgstr ""
+
+#: src/Credits.c:58
+msgid "Credits"
+msgstr ""
+
+#: src/Credits.c:78
+msgid "(c) 2012 "
+msgstr ""
+
+#: src/Credits.c:78
+msgid " Team"
+msgstr ""
+
+#: src/MainWindow.c:172
 msgid "Tweet correctly sent.."
 msgstr ""
 
-#: src/MainWindow.c:176
+#: src/MainWindow.c:179
 msgid "Tweet was not sent.."
 msgstr ""
 
-#: src/MainWindow.c:229 src/MainWindow.c:536
+#: src/MainWindow.c:232 src/MainWindow.c:539
 msgid "Update"
 msgstr ""
 
-#: src/MainWindow.c:229
+#: src/MainWindow.c:232
 msgid "Home"
 msgstr ""
 
-#: src/MainWindow.c:229
+#: src/MainWindow.c:232
 msgid "Mentions"
 msgstr ""
 
-#: src/MainWindow.c:229
+#: src/MainWindow.c:232
 msgid "Direct Messages"
 msgstr ""
 
-#: src/MainWindow.c:229
+#: src/MainWindow.c:232
 msgid "Favorites"
 msgstr ""
 
-#: src/MainWindow.c:229
+#: src/MainWindow.c:232
 msgid "Link"
 msgstr ""
 
-#: src/MainWindow.c:230
+#: src/MainWindow.c:233
 msgid "Photo"
 msgstr ""
 
-#: src/MainWindow.c:487
+#: src/MainWindow.c:252 src/Property.c:103 src/Registration.c:162
+msgid "clicked"
+msgstr ""
+
+#: src/MainWindow.c:299
+msgid "changed"
+msgstr ""
+
+#: src/MainWindow.c:300
+msgid "key-press-event"
+msgstr ""
+
+#: src/MainWindow.c:490
 msgid "140"
 msgstr ""
 
-#: src/MainWindow.c:536
+#: src/MainWindow.c:506
+msgid "delete-event"
+msgstr ""
+
+#: src/MainWindow.c:539
 msgid "Settings"
 msgstr ""
 
-#: src/MainWindow.c:536
+#: src/MainWindow.c:539
 msgid "Version"
 msgstr ""
 
-#: src/MainWindow.c:536
+#: src/MainWindow.c:539
 msgid "About"
 msgstr ""
 
-#: src/MainWindow.c:536
+#: src/MainWindow.c:539
 msgid "Quit"
 msgstr ""
 
-#: src/MainWindow.c:613
+#: src/MainWindow.c:617
 msgid "Updating.."
 msgstr ""
 
-#: src/MainWindow.c:622
+#: src/MainWindow.c:626
 msgid "Updated."
 msgstr ""
 
-#: src/Property.c:68
+#: src/preference.c:79
+msgid "Returned value: (NULL)"
+msgstr ""
+
+#: src/preference.c:113
+msgid "ProgramPath_t uninitialized"
+msgstr ""
+
+#: src/Property.c:72
 msgid "Property"
 msgstr ""
 
-#: src/Property.c:85
+#: src/Property.c:89
 msgid "Account"
 msgstr ""
 
-#: src/Property.c:87
+#: src/Property.c:91
 msgid "Twitter's Account:"
 msgstr ""
 
-#: src/Property.c:96
+#: src/Property.c:100
 msgid "Delete"
 msgstr ""
 
-#: src/Registration.c:97
+#: src/Registration.c:100
 msgid "You have insert a Bad PIN"
 msgstr ""
 
-#: src/Registration.c:115
+#: src/Registration.c:118
 msgid "New User"
 msgstr ""
 
-#: src/Registration.c:145
+#: src/Registration.c:144
+msgid "button_press_event"
+msgstr ""
+
+#: src/Registration.c:148
 msgid "Insert PIN"
 msgstr ""
 
-#: src/Registration.c:155
+#: src/Registration.c:158
 msgid "Create Accont"
 msgstr ""
 
-#: src/twc.c:92
+#: src/twc.c:94
+msgid "\tStarted"
+msgstr ""
+
+#: src/twc.c:103
 msgid "GTK initialized"
 msgstr ""
 
-#: src/twc.c:104
+#: src/twc.c:115
 msgid "GTK can't be initialized"
 msgstr ""
 
-#: src/Version.c:62
-msgid "Latest Version"
+#: src/twc.c:117
+msgid "\tStopped"
 msgstr ""
 
 #: src/Version.c:63
+msgid "Latest Version"
+msgstr ""
+
+#: src/Version.c:64
 msgid "Current Version"
 msgstr ""
