@@ -26,12 +26,12 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include <twc/twc.h>
+#include "../include/twc.h"
 
-#include <twitc/twitc.h>
+#include "../dependences/libtwitc/twitc.h"
 
-#include <twc/Version.h>
-#include <twc/icons.h>
+#include "../include/Version.h"
+#include "../include/icons.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>

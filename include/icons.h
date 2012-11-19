@@ -20,53 +20,36 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- *
+ * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include "../dependences/liblogc/logc.h"
+#ifndef ICONS_H
+#define ICONS_H
 
-#include "../include/twc.h"
+/* Path Images */
+#define ICON_SIGNIN				"twitter.sign-in.png"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#define ICON_SETTINGS			"menu.setting.png"
+#define ICON_STAR				"menu.about.png"
+#define ICON_ADDUSER			"menu.add.png"
+#define ICON_CLOSE				"menu.close.png"
+#define ICON_UPGRADE			"menu.upgrade.png"
+#define ICON_UPDATE_TRAYICON	"menu.update.png"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#define ICON_ABOUT				"twc.about.png"
+#define ICON_FAVICON			"twc.favicon.png"
 
-#include <libnotify/notify.h>
+#define ICON_HOME				"timeline.home.png"
+#define ICON_UPDATE				"timeline.update.png"
+#define ICON_MENTION			"timeline.mention.png"
+#define ICON_DM					"timeline.dm.png"
+#define ICON_FAVORITES			"timeline.favorites.png"
+#define ICON_LINK				"timeline.link.png"
+#define ICON_PHOTO				"timeline.photo.png"
 
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
+#define ICON_DEFAULT_PROFILE	"default_profile.png"
 
-gboolean
-notifyMsg(string_t message, int timeout)
-{
-
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
-
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
-
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
-
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
-
-  return out;
-}
-
-#ifdef __cplusplus
-}
 #endif

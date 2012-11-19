@@ -26,7 +26,7 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include <twitc/stdredef.h>
+#include "../dependences/libtwitc/stdredef.h"
 
 #include <gtk/gtk.h>
 

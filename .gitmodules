@@ -1,3 +1,6 @@
-[submodule "libtwitc"]
-	path = libtwitc
-	url = git://github.com/KernelMonkey/libtwitc.git
+[submodule "dependences/liblogc"]
+	path = dependences/liblogc
+	url = /home/michele/Downloads/liblogc
+[submodule "dependences/libtwitc"]
+	path = dependences/libtwitc
+	url = /home/michele/Downloads/TwitterAPI-TwitCrusader/

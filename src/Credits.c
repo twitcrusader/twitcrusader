@@ -27,15 +27,15 @@
  */
 
 
-#include <twitc/stdredef.h>
-#include <twitc/functions.h>
+#include "../dependences/libtwitc/stdredef.h"
+#include "../dependences/libtwitc/functions.h"
 
-#include <twc/twc.h>
+#include "../include/twc.h"
 
-#include <logc/logc.h>
+#include "../dependences/liblogc/logc.h"
 
-#include <twc/icons.h>
-#include <twc/Credits.h>
+#include "../include/icons.h"
+#include "../include/Credits.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>

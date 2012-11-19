@@ -26,10 +26,10 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include <logc/logc.h>
+#include "../dependences/liblogc/logc.h"
 
-#include <twc/twc.h>
-#include <twc/preference.h>
+#include "../include/twc.h"
+#include "../include/preference.h"
 
 #include <stdio.h>
 #include <stdlib.h>

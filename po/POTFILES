@@ -1,0 +1,19 @@
+	../src/Credits.c \
+	../src/ErrorWidget.c \
+	../src/MainWindow.c \
+	../src/notify.c \
+	../src/preference.c \
+	../src/Property.c \
+	../src/Registration.c \
+	../src/twc.c \
+	../src/Version.c \
+	../include/twc/Credits.h \
+	../include/twc/ErrorWidget.h \
+	../include/twc/icons.h \
+	../include/twc/MainWindow.h \
+	../include/twc/notify.h \
+	../include/twc/preference.h \
+	../include/twc/Property.h \
+	../include/twc/Registration.h \
+	../include/twc/twc.h \
+	../include/twc/Version.h

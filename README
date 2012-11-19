@@ -5,6 +5,8 @@ TwitCrusader is Twitter Client For Linux Desktop
 How to download this repository:
 
 	$ git clone <project url>  --recursive
+	$ git submodule init
+	$ git submodule update
 
 Branchs
 
@@ -23,7 +25,7 @@ Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 
 
 Required
-
+* CMake
 * C compiler
 * pkg-config
 * intltool
@@ -44,8 +46,8 @@ liblogc Required: //
 
 Compile - Makefile
 
-    $ ./autogen.sh
-    $ ./configure
+    $ mkdir build && cd build
+    $ cmake ..
     $ make
     $ su
     # make install

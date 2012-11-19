@@ -25,48 +25,23 @@
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  */
+#ifndef TWC_H_
+#define TWC_H_
 
-#include "../dependences/liblogc/logc.h"
+#define		PROG_PATH					".TwitCrusader"
+#define		PROG_DIR					"."
+#define		ICONS_DIR					"../share/twitcrusader/icons/"
+#define		PACKAGE_LOCALE_DIR			"../po/"
+#define		CONFIG_DIR					"config"
+#define		AVATAR_DIR					"avatar"
+#define		CONFIG_FILE					"Config"
+#define		PREFERENCE_FILE				"Preference"
 
-#include "../include/twc.h"
+#define		TWITTER_KEY					"0xdBqXjFX4LBTLyoc5Dg"
+#define		TWITTER_KEY_SECRET			"VIr57NPcgxxpJ2esI7brKGhth06EslbH0UDD3ImFB8"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#define		PROG_NAME					"TwitCrusader"
+#define		TWC_URL						"http://www.twitcrusader.org"
+#define		TWC_LATEST_VERSION_URL		"https://raw.github.com/KernelMonkey/ClientTwitter-TwitCrusader/nightly/VERSION"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <libnotify/notify.h>
-
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
-
-gboolean
-notifyMsg(string_t message, int timeout)
-{
-
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
-
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
-
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
-
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
-
-  return out;
-}
-
-#ifdef __cplusplus
-}
-#endif
+#endif /* TWC_H_ */

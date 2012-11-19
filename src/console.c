@@ -26,10 +26,10 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include <logc/logc.h>
+#include "../dependences/liblogc/logc.h"
 
-#include <twc/console.h>
-#include <twitc/functions.h>
+#include "../include/console.h"
+#include "../dependences/libtwitc/functions.h"
 
 
 #include <stdio.h>
@@ -41,6 +41,8 @@
 #define HELP_ARG "--help"
 #define DEBUG_ARG "--debug"
 #define VERSION_ARG "--version"
+#define		PROG_DIR	"."
+
 
 #ifdef __cplusplus
 extern "C"
