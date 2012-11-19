@@ -26,47 +26,17 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include "../dependences/liblogc/logc.h"
+#ifndef NOTIFY_H_
+#define NOTIFY_H_
 
-#include "../include/twc.h"
+#include "../dependences/libtwitc/stdredef.h"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#include <glib.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#define	notifyInit()	notify_init(PROG_NAME)
+#define	notifyUninit()	notify_uninit()
 
-#include <libnotify/notify.h>
+extern gboolean
+notifyMsg(string_t, int);
 
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
-
-gboolean
-notifyMsg(string_t message, int timeout)
-{
-
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
-
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
-
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
-
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
-
-  return out;
-}
-
-#ifdef __cplusplus
-}
-#endif
+#endif /* NOTIFY_H_ */

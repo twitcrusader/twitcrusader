@@ -27,15 +27,15 @@
  */
 
 
-#include <logc/logc.h>
+#include "../dependences/liblogc/logc.h"
 
-#include <twitc/twitc.h>
+#include "../dependences/libtwitc/twitc.h"
 
-#include <twc/twc.h>
-#include <twc/Property.h>
-#include <twc/Registration.h>
-#include <twc/MainWindow.h>
-#include <twc/icons.h>
+#include "../include/twc.h"
+#include "../include/Property.h"
+#include "../include/Registration.h"
+#include "../include/MainWindow.h"
+#include "../include/icons.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>

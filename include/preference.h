@@ -26,47 +26,50 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include "../dependences/liblogc/logc.h"
+#ifndef PREFERENCE_H_
+#define PREFERENCE_H_
 
-#include "../include/twc.h"
+#include "../dependences/libtwitc/twitc.h"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#define		MY_ENCODING						"ISO-8859-1"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <libnotify/notify.h>
-
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
-
-gboolean
-notifyMsg(string_t message, int timeout)
+typedef struct
 {
+  string_t progDir;
+  string_t avatarDir;
+  string_t configDir;
+  string_t configFile;
+  string_t preferenceFile;
+} ProgramPath_t;
 
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
+typedef struct
+{
+  ProgramPath_t *pp;
+  twitterURLS_t *twURLS;
+  user_t *user;
 
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
+  timeline_t home_tl;
+  timeline_t mentions_tl;
+  timeline_t favorites_tl;
+  direct_messages_t dm_rx;
+  direct_messages_t dm_tx;
+} progData_t;
 
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
+extern ProgramPath_t *
+initProgPath(const string_t, const string_t, const string_t, const string_t,
+    const string_t);
+extern void
+uninitProgPath(ProgramPath_t *);
 
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
+extern string_t
+MakeAvatarName(string_t, string_t, string_t);
+extern void
+downloadAvatar(progData_t *);
+extern void
+initProgData(progData_t *);
+extern void
+updateProgData(progData_t *);
+extern void
+uninitProgData(progData_t *);
 
-  return out;
-}
-
-#ifdef __cplusplus
-}
-#endif
+#endif /* PREFERENCE_H_ */

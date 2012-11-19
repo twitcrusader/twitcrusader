@@ -26,47 +26,14 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include "../dependences/liblogc/logc.h"
+#ifndef PROPERTY_H_
+#define PROPERTY_H_
 
-#include "../include/twc.h"
+#include "preference.h"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#include <gtk/gtk.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+extern void
+startWindowProperties(progData_t *, GtkWidget *);
 
-#include <libnotify/notify.h>
-
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
-
-gboolean
-notifyMsg(string_t message, int timeout)
-{
-
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
-
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
-
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
-
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
-
-  return out;
-}
-
-#ifdef __cplusplus
-}
-#endif
+#endif /* PROPERTY_H_ */

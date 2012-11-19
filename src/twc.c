@@ -26,20 +26,19 @@
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include <twc/twc.h>
+#include "../include/twc.h"
 
-#include <logc/logc.h>
+#include "../dependences/liblogc/logc.h"
 
-#include <twc/preference.h>
-#include <twc/ErrorWidget.h>
-#include <twc/Registration.h>
-#include <twc/MainWindow.h>
-
-#include <twc/icons.h>
-#include <twc/notify.h>
-#include <twc/console.h>
-
-#include <twitc/twitc.h>
+#include "../include/preference.h"
+#include "../include/ErrorWidget.h"
+#include "../include/Registration.h"
+#include "../include/MainWindow.h"
+         
+#include "../include/icons.h"
+#include "../include/notify.h"
+#include "../include/console.h"
+#include "../dependences/libtwitc/twitc.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>

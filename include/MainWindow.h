@@ -20,53 +20,26 @@
  *
  *		WebSite: http://www.twitcrusader.org/
  * 		Development Guidelines: http://dev.twitcrusader.org/
- *
+ * 
  *		Follow on Twitter: @teamtwc
  * 		IRC: chat.freenode.net at #teamtwc
  * 		E-mail: teamtwc@twitcrusader.org
  */
 
-#include "../dependences/liblogc/logc.h"
+/* Define */
+#ifndef WINDOWMAIN_H
+#define WINDOWMAIN_H
 
-#include "../include/twc.h"
+#include "preference.h"
 
-#include "../include/icons.h"
-#include "../include/notify.h"
+#include <gtk/gtk.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#define		AVATAR_SIZE		70
 
-#include <libnotify/notify.h>
+extern void
+StartGUI(progData_t *);
 
-#ifdef __cplusplus
-extern "C"
-  {
-#endif
+extern void
+updateTimeline();
 
-gboolean
-notifyMsg(string_t message, int timeout)
-{
-
-  NotifyNotification *notify = notify_notification_new(PROG_NAME, message,
-      ICONS_DIR "" ICON_FAVICON);
-
-  notify_notification_set_timeout(notify, timeout);
-  notify_notification_set_urgency(notify, NOTIFY_URGENCY_CRITICAL);
-
-  GError *error = NULL;
-  gboolean out = notify_notification_show(notify, &error);
-
-  if (error)
-    {
-      log(ERROR,(string_t) error->message);
-      g_error_free(error);
-      error = NULL;
-    }
-
-  return out;
-}
-
-#ifdef __cplusplus
-}
 #endif
