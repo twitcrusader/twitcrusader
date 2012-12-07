@@ -41,7 +41,7 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 
 AM_GLIB_GNU_GETTEXT
 
-PKG_CHECK_MODULES(EXTERN_LIB_DEP, [libcurl libxml-2.0 oauth gtk+-3.0 gthread-2.0])
+PKG_CHECK_MODULES(EXTERN_LIB_DEP, [libcurl libxml-2.0 json oauth gtk+-3.0 gthread-2.0])
 
 PKG_CHECK_MODULES(libnotify, [libnotify >= 0.7.3], , [
 		AC_MSG_RESULT(no)

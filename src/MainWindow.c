@@ -166,7 +166,7 @@ gtkSendTweet(GtkWidget * TextArea, GdkEventKey * pKey, GtkTextBuffer * buffer)
         {
 
           //SendTweet
-          if (updateStatus(twc->twURLS, twc->user, msg))
+          if (updateStatus(twc->twURLS, twc->user, msg, twc->twURLS->apiFormatType))
             {
               gtk_statusbar_push(GTK_STATUSBAR (statusbar), 0,
                   _("Tweet correctly sent.."));

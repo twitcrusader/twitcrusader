@@ -214,7 +214,7 @@ initProgData(progData_t *progData)
       PREFERENCE_FILE);
 
   progData->twURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT,
-      SEARCH_URL_DEFAULT);
+      SEARCH_URL_DEFAULT, DEFAULT_API_FORMAT);
 
   progData->user = readUserFile(progData->pp->configFile);
 
@@ -230,7 +230,7 @@ updateProgData(progData_t *progData)
 
   if (!progData->pp)
     progData->twURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT,
-        SEARCH_URL_DEFAULT);
+        SEARCH_URL_DEFAULT, DEFAULT_API_FORMAT);
 
   if (!progData->user)
     progData->user = readUserFile(progData->pp->configFile);
@@ -245,28 +245,28 @@ updateProgData(progData_t *progData)
       uninitDirectMessages(&progData->dm_tx);
 
       string_t raw = getRawTimeline(progData->twURLS, home_timeline,
-          progData->user);
+          progData->user, progData->twURLS->apiFormatType);
       progData->home_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawFavorites(progData->twURLS, progData->user);
+      raw = getRawFavorites(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
       progData->favorites_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawTimeline(progData->twURLS, mentions, progData->user);
+      raw = getRawTimeline(progData->twURLS, mentions, progData->user, progData->twURLS->apiFormatType);
       progData->mentions_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawDM(progData->twURLS, progData->user);
-      progData->dm_rx = readDMs(raw);
+      raw = getRawDM(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
+      progData->dm_rx = getDMs(raw);
       if (raw)
         free(raw);
 
-      raw = getRawSentDM(progData->twURLS, progData->user);
-      progData->dm_tx = readDMs(raw);
+      raw = getRawSentDM(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
+      progData->dm_tx = getDMs(raw);
       if (raw)
         free(raw);
 
