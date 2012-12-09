@@ -38,7 +38,7 @@ libtwitc Required:
 * libcurl 
 * oauth
 * libxml-2.0
-* jsonc
+* json
 
 liblogc Required: //
 
