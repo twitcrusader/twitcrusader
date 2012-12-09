@@ -245,27 +245,27 @@ updateProgData(progData_t *progData)
       uninitDirectMessages(&progData->dm_tx);
 
       string_t raw = getRawTimeline(progData->twURLS, home_timeline,
-          progData->user, progData->twURLS->apiFormatType);
+          progData->user);
       progData->home_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawFavorites(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
+      raw = getRawFavorites(progData->twURLS, progData->user);
       progData->favorites_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawTimeline(progData->twURLS, mentions, progData->user, progData->twURLS->apiFormatType);
+      raw = getRawTimeline(progData->twURLS, mentions, progData->user);
       progData->mentions_tl = readTimeLine(raw);
       if (raw)
         free(raw);
 
-      raw = getRawDM(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
+      raw = getRawDM(progData->twURLS, progData->user);
       progData->dm_rx = getDMs(raw);
       if (raw)
         free(raw);
 
-      raw = getRawSentDM(progData->twURLS, progData->user, progData->twURLS->apiFormatType);
+      raw = getRawSentDM(progData->twURLS, progData->user);
       progData->dm_tx = getDMs(raw);
       if (raw)
         free(raw);
