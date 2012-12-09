@@ -214,7 +214,7 @@ initProgData(progData_t *progData)
       PREFERENCE_FILE);
 
   progData->twURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT,
-      SEARCH_URL_DEFAULT);
+      SEARCH_URL_DEFAULT, DEFAULT_API_FORMAT);
 
   progData->user = readUserFile(progData->pp->configFile);
 
@@ -230,7 +230,7 @@ updateProgData(progData_t *progData)
 
   if (!progData->pp)
     progData->twURLS = initURLS(OAUTH_URL_DEFAULT, API_URL_DEFAULT,
-        SEARCH_URL_DEFAULT);
+        SEARCH_URL_DEFAULT, DEFAULT_API_FORMAT);
 
   if (!progData->user)
     progData->user = readUserFile(progData->pp->configFile);
@@ -261,12 +261,12 @@ updateProgData(progData_t *progData)
         free(raw);
 
       raw = getRawDM(progData->twURLS, progData->user);
-      progData->dm_rx = readDMs(raw);
+      progData->dm_rx = getDMs(raw);
       if (raw)
         free(raw);
 
       raw = getRawSentDM(progData->twURLS, progData->user);
-      progData->dm_tx = readDMs(raw);
+      progData->dm_tx = getDMs(raw);
       if (raw)
         free(raw);
 
