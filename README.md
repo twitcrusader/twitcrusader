@@ -4,14 +4,23 @@ Archlinux (pkgbuild), Debian/Ubuntu (deb), Fedora (rpm) and other packages
 
 ##Required
 
-* gcc or cc
+* C compiler
 * pkg-config
 * intltool
-* libcurl >= 7.21.0
-* gtk+-2.4 >= 2.24.4
-* oauth >= 0.9.1
-* libxml-2.0 >= 2.6.32
-* libnotify >= 0.7.3`
+* gtk+-3.0
+* gthread
+* libnotify >= 0.7.3
+
+* Contain: libtwitc, liblogc
+
+libtwitc Required:
+
+* libcurl 
+* oauth
+* libxml-2.0
+* json
+
+liblogc Required: //
 
 
 ##ArchLinux - Install or Compile Package
@@ -109,12 +118,10 @@ if "configure" aren't present into the package try:
     
 ##Debug
 
-After installation run:
+To see more informations run:
 
     $ twc --debug
 
-To have more details run:
+To debug the code, on compiling process, run:
 
-    $ gdb twc
-
-( make sure you have gdb installed )
+    $ ./configure --enable-debug
