@@ -15,8 +15,8 @@ pkgdesc="A Twitter client for Linux (Nightly Release)"
 arch=('i686' 'x86_64')
 url="http://www.twitcrusader.org"
 license=('GPL')
-depends=('gtk3' 'curl' 'liboauth' 'libxml2' 'libnotify' 'json-c')
-makedepends=('git' 'intltool' 'pkg-config' 'gcc' 'autoconf' 'xdg-utils')
+depends=('gtk3' 'curl' 'liboauth' 'libxml2' 'libnotify' 'json-c' 'xdg-utils')
+makedepends=('git' 'intltool' 'pkg-config' 'gcc' 'autoconf')
 provides=('twitcrusader')
 conflicts=('twitcrusader')
 
