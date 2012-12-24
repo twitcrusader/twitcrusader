@@ -246,27 +246,27 @@ updateProgData(progData_t *progData)
 
       string_t raw = getRawTimeline(progData->twURLS, home_timeline,
           progData->user);
-      progData->home_tl = readTimeLine(raw);
+      progData->home_tl = readXmlTimeLine(raw);
       if (raw)
         free(raw);
 
       raw = getRawFavorites(progData->twURLS, progData->user);
-      progData->favorites_tl = readTimeLine(raw);
+      progData->favorites_tl = readXmlTimeLine(raw);
       if (raw)
         free(raw);
 
       raw = getRawTimeline(progData->twURLS, mentions, progData->user);
-      progData->mentions_tl = readTimeLine(raw);
+      progData->mentions_tl = readXmlTimeLine(raw);
       if (raw)
         free(raw);
 
       raw = getRawDM(progData->twURLS, progData->user);
-      progData->dm_rx = getDMs(raw);
+      progData->dm_rx = getXmlDMs(raw);
       if (raw)
         free(raw);
 
       raw = getRawSentDM(progData->twURLS, progData->user);
-      progData->dm_tx = getDMs(raw);
+      progData->dm_tx = getXmlDMs(raw);
       if (raw)
         free(raw);
 
