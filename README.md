@@ -1,4 +1,4 @@
-#TwitCrusader
+# TwitCrusader
 
 [![TwitCrusader](http://www.twitcrusader.org/logo.png)](http://www.twitcrusader.org/)
 
@@ -9,7 +9,7 @@ TwitCrusader is Twitter Client For Linux Desktop
 
 	$ git clone <project url>  --recursive
 
-##Branchs
+## Branchs
 
 * [builds] TwitCrusader Linux-PackageBuild (deb, pkgbuild, rpm, and other) 
 
@@ -25,7 +25,7 @@ Development Guidelines (Italian): http://dev.it.twitcrusader.org/
 
 Developers Of TwitCrusader (Italian): http://it.twitcrusader.org/about/
 
-##Required
+## Required
 
 * C compiler
 * pkg-config
@@ -59,7 +59,7 @@ liblogc Required: //
     $ su
     # make uninstall
 
-##Debug
+## Debug
 
 To see more informations run:
 
